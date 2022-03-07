@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jm Acessórios de Luxo</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</head>
+
+<body>
+    <script src="/jquery.mask.js"></script>
+
+    <header>
+        <div class="headerContent">
+
+            <div class="logoImg">
+                <a href="/">
+                    <img src="/img/logoRosa.png">
+                </a>
+            </div>
+
+            <div class="menu">
+                <span class="menuItem"><a href="/">Home</a></span>
+                <span class="menuItem"><a href="/about">Sobre</a></span>
+                <span class="menuItem"><a href="/products">Produtos</a></span>
+                <span class="menuItem"><a href="#contactDiv">Contato</a></span>
+            </div>
+
+            <div class="social">
+                <a href="https://www.instagram.com/jomartelloacessorios/" target="blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="https://api.whatsapp.com/send?phone=5549999604384" target="blank">
+                    <i class="fab fa-whatsapp"></i></a>
+            </div>
+
+            <div class="search">
+                <input type="text" id="searchText" placeholder="Pesquise por produtos">
+                <i class="fas fa-search"></i>
+            </div>
+
+            <div class="cart">
+                <a href="/cart">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <span class="itemCart" id="ItemCart">0</span>
+            </div>
+        </div>
+    </header>
+        <div class="login">
+            <span>Status de Compra</span>
+            <input type="text" placeholder="CPF" name="cpf" id="ConsultaCPF">
+            <input type="text" placeholder="Código do pedido" name="idPedido" id="ConsultaIdPedido">
+            <button>Acessar</button>
+            <p>Acesse o status do seu pedido</p>
+        </div>
+    <footer>
+        <div class="footerContent">
+            <div class="footerMenu">
+                <a>Menu</a>
+                <a>Sobre</a>
+                <a>Termos de Compra</a>
+                <a>Contato</a>
+            </div>
+
+            <div class="footerLogo">
+                <img src="/img/logoRosa.png">
+            </div>
+
+            <div class="scudero">
+                <img src="/img/scudero.png">
+            </div>
+        </div>
+    </footer>
+    <script>
+        $('#ConsultaCPF').mask('000.000.000-00');
+        $('#ConsultaIdPedido').mask('000-000-000-000');
+        
+        $(document).ready(()=>{
+        })
+    </script>
+
+</body>
+
+</html>

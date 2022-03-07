@@ -1,0 +1,189 @@
+header {
+    height: 100px;
+    width: 100%;
+    border-bottom: 2px solid $mainColor;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .headerContent {
+        height: 100%;
+        width: $deskWidth;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        //background-color: #f0f;
+    }
+
+    .logoImg {
+        width: 130px;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        cursor: pointer;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .menu {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .menuItem {
+            margin: 0 20px;
+            a {
+                text-decoration: none;
+                letter-spacing: 1.5px;
+                font-size: 15pt;
+                color: $mainColor;
+                transition: 0.5s;
+                cursor: pointer;
+                &:hover {
+                    color: $hoverColor;
+                }
+            }
+        }
+    }
+    .social {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        i {
+            font-size: 21pt;
+            padding: 0 10px;
+            color: $mainColor;
+            transition: 0.5s;
+            cursor: pointer;
+
+            &:hover {
+                color: $hoverColor;
+            }
+        }
+    }
+
+    .search {
+        width: 300px;
+        height: 30px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border: 1px solid $mainColor;
+        border-radius: 20px;
+
+        input {
+            border: none;
+            width: 90%;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            outline: none;
+            padding: 6px 10px;
+            font-size: 11pt;
+        }
+        i {
+            padding-right: 10px;
+            padding-left: 5px;
+            color: $mainColor;
+            cursor: pointer;
+
+            &:hover {
+                color: $hoverColor;
+            }
+        }
+    }
+
+    .orders {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+
+        i {
+            font-size: 18pt;
+            color: #999;
+            transition: 0.5s;
+            cursor: pointer;
+            &:hover {
+                color: $mainColor;
+            }
+        }
+
+        .info{
+            filter: opacity(0);
+            z-index: 10;
+            bottom: -35px;
+            left: 50%;
+            position: absolute;
+            width: 120px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            border: 1px solid $mainColor;
+            text-align: center;
+            padding: 5px;
+            font-size: 10.5pt;
+            letter-spacing: 0.3px;
+            border-top-left-radius: 0;
+            transition: 0.6s;
+            pointer-events: none;
+        }
+        &:hover > .info{
+            filter: opacity(1);
+        }
+    }
+    .cart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        i {
+            font-size: 16pt;
+            color: #999;
+            transition: 0.5s;
+            cursor: pointer;
+            &:hover {
+                color: $mainColor;
+            }
+        }
+
+
+        &:hover > .itemCart{
+
+            width: 60%;
+            height: 60%;
+            background-color: #fff;
+            color: $mainColor;
+            font-size: 9;
+            top: -15px;
+            right: -0px;
+        }
+
+        .itemCart{
+            transition: 0.5s;
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            top: -8px;
+            right:-5px;
+            border-radius: 50%;
+            background-color: rgba($mainColor, 1);
+            border: 1px solid $mainColor;
+            text-align: center;
+            color: #fff;
+            padding: 1px;
+            font-size: 8pt;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
+}

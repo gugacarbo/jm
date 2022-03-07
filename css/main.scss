@@ -1,0 +1,37 @@
+$deskWidth: 1100px;
+$mainColor: #b66d76;
+$hoverColor: #666;
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Myriad Pro";
+}
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.glider-dot.active {
+    background-color: $mainColor !important;
+    border: 1px solid #ffffff88;
+    transition: 1s;
+}
+
+@import "fonts";
+@import "header";
+@import "footer";
+@import "about";
+@import "product";
+@import "products";
+@import "cart";
+@import "form";
+@import "chechkout";
+@import "login";
+@import "home/home";
+
