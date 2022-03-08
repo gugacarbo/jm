@@ -35,3 +35,81 @@ body {
 @import "login";
 @import "home/home";
 
+.status {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 30px 0;
+    width: $deskWidth;
+    .progress {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 40px;
+        .pass {
+            display: flex;
+            position: relative;
+            i {
+                width: 55px;
+                height: 55px;
+                border-radius: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 17pt;
+                background-color: #fff;
+                border: 1px solid #ddd;
+                color: $mainColor;
+                margin: 0 10px;
+                position: relative;
+                .passName {
+                    position: absolute;
+                    bottom: -25px;
+                    color: $mainColor;
+                    font-size: 13px;
+                    width: 150px;
+                    display: flex;
+                    justify-content: center;
+                    //background-color: #f0f;
+                }
+            }
+            .arrows {
+                display: flex;
+                i {
+                    font-size: 13pt;
+                    width: 11.5px;
+                    background-color: transparent;
+                    color: #ddd;
+                    margin: 0;
+                    border: none;
+                }
+            }
+        }
+        .doing {
+            i {
+                background-color: $mainColor;
+                color: #fff;
+                border: 1px solid $mainColor;
+            }
+            .arrows:nth-child(2) {
+                i {
+                    color: $mainColor;
+                }
+            }
+        }
+        .done {
+            i {
+                background-color: $mainColor;
+                border: 1px solid $mainColor;
+
+                color: #fff;
+            }
+            .arrows {
+                i {
+                    color: $mainColor;
+                }
+            }
+        }
+    }
+}
