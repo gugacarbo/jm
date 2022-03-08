@@ -1,0 +1,186 @@
+
+.status {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 30px 0;
+    width: $deskWidth;
+    gap: 20px;
+
+    .progress {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 40px;
+        .pass {
+            display: flex;
+            position: relative;
+            i {
+                width: 55px;
+                height: 55px;
+                border-radius: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 17pt;
+                background-color: #fff;
+                border: 1px solid #ddd;
+                color: $mainColor;
+                margin: 0 10px;
+                position: relative;
+                .passName {
+                    position: absolute;
+                    bottom: -25px;
+                    color: $mainColor;
+                    font-size: 14px;
+                    width: 150px;
+                    display: flex;
+                    justify-content: center;
+                    //background-color: #f0f;
+                }
+            }
+            .arrows {
+                display: flex;
+                i {
+                    font-size: 13pt;
+                    width: 11.5px;
+                    background-color: transparent;
+                    color: #ddd;
+                    margin: 0;
+                    border: none;
+                }
+            }
+        }
+        .doing {
+            i {
+                background-color: $mainColor;
+                color: #fff;
+                border: 1px solid $mainColor;
+            }
+            .arrows:nth-child(2) {
+                i {
+                    color: $mainColor;
+                }
+            }
+        }
+        .done {
+            i {
+                background-color: $mainColor;
+                border: 1px solid $mainColor;
+
+                color: #fff;
+            }
+            .arrows {
+                i {
+                    color: $mainColor;
+                }
+            }
+        }
+    }
+    .prodShow {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 20px;
+        .prod {
+            display: flex;
+            justify-content: space-between;
+            height: 65px;
+            width: 100%;
+
+            border-bottom: 2px solid $mainColor;
+            .image {
+                width: 65px;
+                height: 65px;
+                aspect-ratio: 1/1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .info {
+                display: flex;
+                flex-direction: column;
+                width: 72%;
+                gap: 0px;
+                span {
+                    position: relative;
+                    display: flex;
+                }
+                .prodName {
+                    font-size: 14pt;
+                    letter-spacing: 1px;
+                }
+                .prodQuantity {
+                    font-size: 9pt;
+                }
+                .prodTotalPrice {
+                    font-size: 11pt;
+                    font-weight: bold;
+                }
+            }
+        }
+        .pay {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: flex-end;
+            span {
+                gap: 2px;
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+                font-weight: bold;
+                font-size: 11pt;
+            }
+            .paymentMethod{
+                color: $mainColor;
+            }    
+        }
+    }
+    .buyer{
+        width: 68%;
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        height: 100%;
+        gap: 10px;
+        .date{
+            width: 100%;
+            text-align: right;
+            font-size: 10pt;
+        }
+        div{
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid $mainColor;
+            padding: 15px 25px;
+            border-radius: 30px;
+            span{
+                width: 100%;
+                font-size: 11pt;
+            }
+        }
+        position: relative;
+        button{
+            border: none;
+            background-color: $mainColor;
+            color: #fff;
+            padding: 6px 40px;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+        }
+    }
+}
