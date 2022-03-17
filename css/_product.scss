@@ -28,7 +28,8 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 10px;
             align-items: center;
             padding: 0 2px;
             .sImage {
@@ -67,7 +68,7 @@
             .promo {
                 text-decoration: line-through;
                 color: #aaa;
-                font-size: 18pt;
+                font-size: 13pt;
                 letter-spacing: 1px;
             }
             .price {
@@ -233,6 +234,14 @@
             margin: 10px;
             padding: 10px;
             margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            p{
+               margin-bottom: 10px;
+            }
+            label{
+                margin: 5px 0;
+            }
         }
     }
 }

@@ -542,9 +542,10 @@ footer .footerContent .scudero b {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 10px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -599,7 +600,7 @@ footer .footerContent .scudero b {
 .productPage .info .productPrice .promo {
   text-decoration: line-through;
   color: #aaa;
-  font-size: 18pt;
+  font-size: 13pt;
   letter-spacing: 1px;
 }
 
@@ -872,6 +873,21 @@ footer .footerContent .scudero b {
   margin: 10px;
   padding: 10px;
   margin-top: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.productPage .info .description p {
+  margin-bottom: 10px;
+}
+
+.productPage .info .description label {
+  margin: 5px 0;
 }
 
 .prodBanner {

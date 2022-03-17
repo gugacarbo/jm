@@ -87,7 +87,7 @@ function getGliders() {
 
           var ProdCarousel =
             "<div class='carouselItem'>"
-            + "<a class='carouselImg' href='/product?id=" + prod['id'] + "'>"
+            + "<a class='carouselImg' href='/product/?id=" + prod['id'] + "'>"
             + "<img src='" + prod['imgs'][1] + "'>"
             + "<span class='carouselPromo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
             + "</a>"
