@@ -245,3 +245,14 @@
         }
     }
 }
+.sizeTable{
+    width: $deskWidth;
+    display: flex;
+    justify-content: center;
+    p{
+        
+    }
+    img{
+        width: 60%;
+    }
+}
