@@ -36,7 +36,7 @@
                 <span class="menuItem"><a href="/">Home</a></span>
                 <span class="menuItem"><a href="/about">Sobre</a></span>
                 <span class="menuItem"><a href="/products">Produtos</a></span>
-                <span class="menuItem"><a href="#contactDiv">Contato</a></span>
+                <span class="menuItem"><a href="/#contactDiv">Contato</a></span>
             </div>
 
             <div class="social">
@@ -71,7 +71,7 @@
     </header>
 
     <div class="mainBanner">
-        <div id="BannerSlider">
+        <div id="BannerSlider" class="bannerShow">
         </div>
         <div role="tablist" class="dotsBanner"></div>
     </div>
@@ -128,6 +128,7 @@
                 <input id="NewsletterName" type="text" placeholder="Digite seu nome" required>
                 <input id="NewsletterEmail" type="email" placeholder="Digite seu email" required>
                 <button id="SendNewsletter">Enviar</button>
+                <small id="NewsletterErrorDisplay">Cadastrado com sucesso!</small>
             </form>
         </div>
     </div>
@@ -150,24 +151,24 @@
     <footer>
         <div class="footerContent">
             <div class="footerMenu">
-                <a>Menu</a>
-                <a>Sobre</a>
+                <a href="/">Home</a>
+                <a href="/about">Sobre</a>
                 <a>Termos de Compra</a>
-                <a>Contato</a>
+                <a href="#contactDiv">Contato</a>
             </div>
 
             <div class="footerLogo">
-                <img src="img/logoRosa.png">
+                <img src="/img/logoRosa.png">
             </div>
 
             <div class="scudero">
-                <img src="img/scudero.png">
+                <img src="/img/scudero.png">
             </div>
         </div>
     </footer>
 
 
-    <script src="main.js"></script>
+    <script src="/main.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
     <script src="jquery.mask.js"></script>
 </body>

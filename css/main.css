@@ -1913,7 +1913,7 @@ footer .footerContent .scudero img {
   position: relative;
 }
 
-.mainBanner #BannerSlider {
+.mainBanner .bannerShow {
   width: 1100px;
   height: 100%;
   position: absolute;
@@ -2287,6 +2287,7 @@ footer .footerContent .scudero img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  position: relative;
 }
 
 .newsletter .newsletterContent form input {
@@ -2318,5 +2319,14 @@ footer .footerContent .scudero img {
   background-color: #b66d76;
   color: #fff;
   border: 1px solid #fff;
+}
+
+.newsletter .newsletterContent form small {
+  display: none;
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+  color: #00e900;
+  letter-spacing: 0.5px;
 }
 /*# sourceMappingURL=main.css.map */
