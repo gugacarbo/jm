@@ -1,66 +1,46 @@
-function getProductById(id) {
-  var p = {
-    'id' : id,
-    'name': "ProdP"+id,
-    'price': 99.90,
-    'promo': 150.90,
-    'desc': "None",
-    imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Unico_Anello.jpg/360px-Unico_Anello.jpg', 'https://images.tcdn.com.br/img/img_prod/693313/colar_cordao_preto_amarrar_pedra_ametista_bruta_257_1_20190801173259.jpg'],
-  }
-  return p;
-}
-
-var cart = [
-  //{"id" : "qtd"},
-  {"1" : "1"},
-  {"2" : "2"},
-  {"3" : "2"},
-];
-
-
-
 $(document).ready(() => {
-  
+  $("header").load("includes/header.html");
+  $("footer").load("includes/footer.html");
+
   $('form').submit(false);
 
-  $("#SendNewsletter").on('click', ()=>{
+  $("#SendNewsletter").on('click', () => {
     var nome = $("#NewsletterNome").val();
     var email = $("#NewsletterEmail").val();
     var data = {
-      'nome' : nome,
-      "email" : email
+      'nome': nome,
+      "email": email
     }
-
-    alert("Email Cadastrado Com Sucesso!")
-    console.log(data)
-   /* $.get("cadastraNewsLetter.php", data, (data)=>{
-      alert(data)
-    })*/
   })
 
-  var imgs = ["https://img.elo7.com.br/product/zoom/1C340F5/quadro-tela-paisagens-natureza-praia-coqueiro-mar-areia-004-quadro-tela.jpg",
-    "https://img.elo7.com.br/product/zoom/1C340F5/quadro-tela-paisagens-natureza-praia-coqueiro-mar-areia-004-quadro-tela.jpg",
-    "https://img.elo7.com.br/product/zoom/1C340F5/quadro-tela-paisagens-natureza-praia-coqueiro-mar-areia-004-quadro-tela.jpg"
-  ]
-  setBannerSlider("#BannerSlider", imgs);
+
+  setBanner("#BannerSlider", "MAIN");
+
+  getGliders();
 
 
 
-  setProdSlider("#Carousel1", [1, 2, 3, 4, 5, 6]);
-  setProdSlider("#Carousel3", [1, 2, 3, 4, 5, 6]);
-  setProdSlider("#Carousel2", [1, 2, 3, 4, 5, 6]);
-  callSliders()
 
+
+  setTimeout(callBanner, 100);
 })
 
 
 
 
+function getGliders(){
+  $.get("/api/getGlider.json", (data)=>{
+    $.each(data, function (i, img) {
+      
+    });
+  })
+}
 
 
 
 
-function setProdSlider(id_el, prods_id) {
+
+  function setProdSlider(id_el, prods_id) {
   prods_id.forEach(prod_id => {
     var prod = getProductById(prod_id);
     var ProdCarousel =
@@ -78,57 +58,24 @@ function setProdSlider(id_el, prods_id) {
   })
 }
 
-//Sliders ------------------------------------------------------------
 
-function setBannerSlider(el_id, imgs) {
-  imgs.forEach(img => {
-    $(el_id).append("<img src='" + img + "'>")
-  })
-}
+/**
+ * ! Banner
+ * 
+ * 
+ * 
+ * 
+ */
+  function setBanner(el_id, banner_name) {
+    //"/api/getBanner.php"
+    $.get("/api/getBanner.json", { 'name': banner_name }, function (data) {
+      $.each(data, function (i, img) {
+        $(el_id).append("<img src='" + img + "'>");
+      });
+    })
+  }
 
-
-
-function callSliders() {
-  var carousel1 = new Glider(document.querySelector('#Carousel1'), {
-    slidesToShow: 4.5,
-    slidesToScroll: 2,
-    draggable: true,
-    dragVelocity: 1,
-    dots: '.dots',
-    duration: 3,
-    arrows: {
-      prev: '.prev1',
-      next: '.next1',
-    },
-  });
-
-  var carousel2 = new Glider(document.querySelector('#Carousel2'), {
-    slidesToShow: 4.5,
-    slidesToScroll: 2,
-    draggable: true,
-    dragVelocity: 1,
-    dots: '.dots2',
-    duration: 3,
-    arrows: {
-      prev: '.prev2',
-      next: '.next2',
-    },
-  });
-
-  var carousel3 = new Glider(document.querySelector('#Carousel3'), {
-    slidesToShow: 4.5,
-    slidesToScroll: 2,
-    draggable: true,
-    dragVelocity: 1,
-    dots: '.dots3',
-    duration: 3,
-    arrows: {
-      prev: '.prev3',
-      next: '.next3',
-    },
-  });
-
-
+function callBanner() {
   var bannerSlider = new Glider(document.querySelector('#BannerSlider'), {
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -142,12 +89,9 @@ function callSliders() {
       next: '.nextBanner',
     },
   });
-  sliderAuto(bannerSlider, 1000)
-
-
-initListStorage();
-
+  sliderAuto(bannerSlider, 1500)
 }
+
 
 
 function sliderAuto(slider, miliseconds) {
@@ -175,25 +119,4 @@ function sliderAuto(slider, miliseconds) {
   });
 
   slide();
-}
-
-
-
-function addCart(id){
-
-}
-
-//salvando em storage
-function saveListStorage(list){
-	var jsonStr = JSON.stringify(list);
-	localStorage.setItem("list",jsonStr);
-}
-
-//verifica se já tem algo salvo
-function initListStorage(){
-	var testList = localStorage.getItem("list");
-	if(testList){
-		list = JSON.parse(testList);
-	}
-
 }
