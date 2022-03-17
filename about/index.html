@@ -9,64 +9,25 @@
     <link rel="stylesheet" href="../css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
 </head>
 
 <body>
-    <header>
-        <div class="headerContent">
 
-            <div class="logoImg">
-                <a href="/">
-                    <img src="/img/logoRosa.png">
-                </a>
-            </div>
+    <header></header>
 
-            <div class="menu">
-                <span class="menuItem"><a href="/">Home</a></span>
-                <span class="menuItem"><a href="/about">Sobre</a></span>
-                <span class="menuItem"><a href="/products">Produtos</a></span>
-                <span class="menuItem"><a href="/#contactDiv">Contato</a></span>
-            </div>
 
-            <div class="social">
-                <a href="https://www.instagram.com/jomartelloacessorios/" target="blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
 
-                <a href="https://api.whatsapp.com/send?phone=5549999604384" target="blank">
-                    <i class="fab fa-whatsapp"></i></a>
-            </div>
+    
+    <div class="aboutSlider">
 
-            <div class="search">
-                <input type="text" id="searchText" placeholder="Pesquise por produtos">
-                <i class="fas fa-search"></i>
-            </div>
-            <div class="cart">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="itemCart" id="ItemCart">0</span>
-            </div>
+        <div id="AboutSlider">
         </div>
-    </header>
-
-
-
-    <div class="mainBanner">
-
-        <div id="BannerSlider">
-            <img
-                src="https://img.elo7.com.br/product/zoom/1C340F5/quadro-tela-paisagens-natureza-praia-coqueiro-mar-areia-004-quadro-tela.jpg">
-            <img
-                src="https://img.elo7.com.br/product/zoom/1C340F5/quadro-tela-paisagens-natureza-praia-coqueiro-mar-areia-004-quadro-tela.jpg">
-            <img src="https://46781.cdn.simplo7.net/static/46781/sku/quadros-por-tema-paisagens-e-natureza-quadro-retangular-paisagem-litoranea-ao-anoitecer--p-1633033574294.jpg"
-                alt="" srcset="">
-        </div>
-        <div role="tablist" class="dotsBanner"></div>
+        <div role="tablist" class="AboutDotsBanner"></div>
 
     </div>
-
     <div class="about">
         <span>Sobre</span>
         <p>
@@ -95,51 +56,51 @@
 
         </div>
     </div>
-        <footer>
-            <div class="footerContent">
-                <div class="footerMenu">
-                    <a>Menu</a>
-                    <a>Sobre</a>
-                    <a>Termos de Compra</a>
-                    <a>Contato</a>
-                </div>
+    <footer>
 
-                <div class="footerLogo">
-                    <img src="../img/logoRosa.png">
-                </div>
-
-                <div class="scudero">
-                    <img src="../img/scudero.png">
-                </div>
-            </div>
-        </footer>
+    </footer>
 
 
 
     <script>
         $(document).ready(() => {
-            var banner = new Glider(document.querySelector('#BannerSlider'), {
+            $("header").load("/includes/header.html");
+            $("footer").load("/includes/footer.html");
+            setBanner("#AboutSlider", "ABOUT");
+
+        })
+
+        /**
+ * ! Banner
+ * 
+ * 
+ * 
+ * 
+ */
+        function setBanner(el_id, banner_name) {
+            //"/api/getBanner.php"
+            $.get("/api/getBanner.json", { 'name': banner_name }, function (data) {
+                $.each(data, function (i, img) {
+                    $(el_id).append("<img src='" + img + "'>");
+                });
+            })
+            setTimeout(()=>{
+                callBanner(banner_name)
+            }, 100);
+        }
+
+        function callBanner(el_id) {
+            var about = new Glider(document.querySelector("#AboutSlider"), {
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 draggable: false,
                 dragVelocity: 2,
-                dots: '.dotsBanner',
+                dots: '.AboutDotsBanner',
                 duration: 3,
                 rewind: true,
-                arrows: {
-                    prev: '.prevBanner',
-                    next: '.nextBanner',
-                },
             });
-
-
-
-            sliderAuto(banner, 1000)
-
-            glider2.ele.addEventListener('glider-slide-hidden', function () {
-            })
-        })
-
+            sliderAuto(about, 1500)
+        }
 
 
 
@@ -169,8 +130,6 @@
 
             slide();
         }
-
-
     </script>
 </body>
 

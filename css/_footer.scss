@@ -1,4 +1,4 @@
-footer{
+footer {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -6,54 +6,67 @@ footer{
     border-top: 2px solid $mainColor;
     padding-top: 30px;
     margin-top: 30px;
-    .footerContent{
+    .footerContent {
         padding: 10px 0;
         width: $deskWidth;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
 
-        .footerMenu{
+        .footerMenu {
             width: 300px;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
-            a{
+            a {
                 width: 60%;
                 text-align: left;
                 color: #666;
+                text-decoration: none;
                 cursor: pointer;
                 margin: 5px 0;
-                &:hover{
+                &:hover {
                     color: $mainColor;
                 }
             }
         }
 
-        .footerLogo{
+        .footerLogo {
             width: 180px;
             overflow: hidden;
-                        display: flex;
+            display: flex;
             justify-content: center;
-            align-items: center;            
-            img{
+            align-items: center;
+            a img {
                 cursor: pointer;
                 width: 100%;
             }
         }
 
-        .scudero{
+        .scudero {
             height: 40px;
             overflow: hidden;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             padding: 80px 0 20px 0px;
-            img{
-                cursor: pointer;
-                height: 100%;
+            a {
+                width: 50px;
+                height: 50px;
+                img {
+                    cursor: pointer;
+                    height: 100%;
+                }
+            }
+
+            b{
+                margin-top: 10px;
+                font-size: 9pt;
+                color: #656565;
+                font-weight: 500;
             }
         }
     }

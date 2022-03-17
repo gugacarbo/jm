@@ -343,6 +343,7 @@ footer .footerContent .footerMenu a {
   width: 60%;
   text-align: left;
   color: #666;
+  text-decoration: none;
   cursor: pointer;
   margin: 5px 0;
 }
@@ -365,7 +366,7 @@ footer .footerContent .footerLogo {
           align-items: center;
 }
 
-footer .footerContent .footerLogo img {
+footer .footerContent .footerLogo a img {
   cursor: pointer;
   width: 100%;
 }
@@ -383,12 +384,66 @@ footer .footerContent .scudero {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 80px 0 20px 0px;
 }
 
-footer .footerContent .scudero img {
+footer .footerContent .scudero a {
+  width: 50px;
+  height: 50px;
+}
+
+footer .footerContent .scudero a img {
   cursor: pointer;
   height: 100%;
+}
+
+footer .footerContent .scudero b {
+  margin-top: 10px;
+  font-size: 9pt;
+  color: #656565;
+  font-weight: 500;
+}
+
+.aboutSlider {
+  width: 1100px;
+  height: 450px;
+  background-color: #b66d76;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.aboutSlider #AboutSlider {
+  width: 1100px;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.aboutSlider .AboutDotsBanner {
+  position: absolute;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.aboutSlider::before {
+  content: "";
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  background-color: #b66d76;
+  overflow: hidden;
 }
 
 .about {
@@ -2185,7 +2240,7 @@ footer .footerContent .scudero img {
   margin: 5px 0;
 }
 
-.contact form input[type="submit"] {
+.contact form button {
   width: 40%;
   -ms-flex-item-align: end;
       align-self: flex-end;
@@ -2204,7 +2259,7 @@ footer .footerContent .scudero img {
   transition: 0.4s;
 }
 
-.contact form input[type="submit"]:hover {
+.contact form button:hover {
   background-color: #fff;
   color: #b66d76;
   border: 1px solid #b66d76;

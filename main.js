@@ -7,15 +7,45 @@ $(document).ready(() => {
   $("#SendNewsletter").on('click', () => {
     var nome = $("#NewsletterNome").val();
     var email = $("#NewsletterEmail").val();
-    var data = {
-      'nome': nome,
-      "email": email
+    if (nome && email) {
+      var data = {
+        'nome': nome,
+        "email": email
+      }
+
+      $.get("cadNewsLetter.php", data, function (data) {
+        console.log(data["message"]);
+      })
     }
   })
 
+
+  $('#contactPhone').mask('(00) 0.0000-0000');
+
+  $("#contactSend").on('click', () => {
+    var nome = $("#contactName").val();
+    var phone = $("#contactPhone").val();
+    var message = "Nome: " + nome + "\n"
+      + "Telefone: " + phone + "\n"
+      + $("#contactMessage").val();
+
+    if (nome && phone && $("#contactMessage").val()) {
+
+      let url = "https://wa.me/+5549999604384?text=";
+      console.log(url + encodeURI(message))
+
+      window.open(
+        url + encodeURI(message),
+        '_blank'
+      )
+    }
+  })
+
+
+
   setBanner("#BannerSlider", "MAIN");
   getGliders();
-  
+
 })
 
 
