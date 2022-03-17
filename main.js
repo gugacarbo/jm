@@ -13,50 +13,91 @@ $(document).ready(() => {
     }
   })
 
-
   setBanner("#BannerSlider", "MAIN");
-
   getGliders();
-
-
-
-
-
-  setTimeout(callBanner, 100);
+  
 })
 
 
 
 
-function getGliders(){
-  $.get("/api/getGlider.json", (data)=>{
-    $.each(data, function (i, img) {
-      
+
+/**
+ * * Gliders
+ * 
+ * 
+ * 
+ * 
+ */
+
+
+var Gliders = [];
+function getGliders() {
+
+  $.get("/api/getGlider.json", (data) => {
+    $.each(data, function (i, prods) {
+
+      var category = "<div class='categoryCarousel'>" +
+        "<div class='carouselTitle'>" + i + "</div>" +
+        "<div class='showCarousel' id='Carousel" + i + "'>" +
+        "<div class='carouselItem moreItens'>" +
+        "<span>Exibir Mais Produtos</span>" +
+        "</div>" +
+        "</div>" +
+        "<div class='carouselBtn prev" + i + "'><i class=' fas fa-chevron-left'></i></div>" +
+        "<div class='carouselBtn next" + i + "'><i class='fas fa-chevron-right'></i></div>" +
+        "<div role='tablist' class='dots" + i + "'></div>" +
+        "</div>";
+      $("#Carousel").append(category)
+
+
+
+      $.each(prods, function (k, id) {
+        $.get("api/getProdById.json", { "id": id }, function (prod) {
+
+          var ProdCarousel =
+            "<div class='carouselItem'>"
+            + "<a class='carouselImg' href='/product?id=" + prod['id'] + "'>"
+            + "<img src='" + prod['imgs'][1] + "'>"
+            + "<span class='carouselPromo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
+            + "</a>"
+            + "<span class='carouselItemName'>" + prod['name'] + "</span>"
+            + "<span class='carouselItemPrice'>R$" + prod['price'] + "</span>"
+            + "<span class='carouselItemPay'>ou em 4x de " + Math.round(prod['price'] / 4) + "</span>"
+            + "<i class='fas fa-shopping-cart' onclick='addCart(" + prod['id'] + ")'></i>"
+            + "</div>";
+
+          $("#Carousel" + i).append(ProdCarousel)
+        })
+
+      })
+
+      Gliders.push(i)
+    });
+  })
+
+  setTimeout(callGliders, 300);
+}
+
+
+
+function callGliders() {
+  Gliders.forEach(i => {
+    new Glider(document.querySelector('#Carousel' + i), {
+      slidesToShow: 4.5,
+      slidesToScroll: 2,
+      draggable: true,
+      dragVelocity: 1,
+      dots: '.dots' + i,
+      duration: 3,
+      arrows: {
+        prev: '.prev' + i,
+        next: '.next' + i,
+      },
     });
   })
 }
 
-
-
-
-
-  function setProdSlider(id_el, prods_id) {
-  prods_id.forEach(prod_id => {
-    var prod = getProductById(prod_id);
-    var ProdCarousel =
-    "<div class='carouselItem'>"
-    + "<a class='carouselImg' href='/product?id="+prod['id']+"'>"
-    + "<img src='" + prod['imgs'][0] + "'>"
-    + "<span class='carouselPromo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
-    + "</a>"
-    + "<span class='carouselItemName'>" + prod['name'] + "</span>"
-    + "<span class='carouselItemPrice'>R$" + prod['price'] + "</span>"
-    + "<span class='carouselItemPay'>ou em 4x de " + Math.round(prod['price'] / 4) + "</span>"
-    + "<i class='fas fa-shopping-cart' onclick='addCart("+prod['id']+")'></i>"
-    + "</div>";
-    $(id_el).append(ProdCarousel)
-  })
-}
 
 
 /**
@@ -66,14 +107,15 @@ function getGliders(){
  * 
  * 
  */
-  function setBanner(el_id, banner_name) {
-    //"/api/getBanner.php"
-    $.get("/api/getBanner.json", { 'name': banner_name }, function (data) {
-      $.each(data, function (i, img) {
-        $(el_id).append("<img src='" + img + "'>");
-      });
-    })
-  }
+function setBanner(el_id, banner_name) {
+  //"/api/getBanner.php"
+  $.get("/api/getBanner.json", { 'name': banner_name }, function (data) {
+    $.each(data, function (i, img) {
+      $(el_id).append("<img src='" + img + "'>");
+    });
+  })
+  setTimeout(callBanner, 100);
+}
 
 function callBanner() {
   var bannerSlider = new Glider(document.querySelector('#BannerSlider'), {

@@ -1948,7 +1948,6 @@ footer .footerContent .scudero img {
       -ms-flex-align: center;
           align-items: center;
   position: relative;
-  overflow: hidden;
 }
 
 .carousel .categoryCarousel {

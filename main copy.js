@@ -1,3 +1,14 @@
+function getProductById(id) {
+  var p = {
+    'id' : id,
+    'name': "ProdP"+id,
+    'price': 99.90,
+    'promo': 150.90,
+    'desc': "None",
+    imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Unico_Anello.jpg/360px-Unico_Anello.jpg', 'https://images.tcdn.com.br/img/img_prod/693313/colar_cordao_preto_amarrar_pedra_ametista_bruta_257_1_20190801173259.jpg'],
+  }
+  return p;
+}
 
 var cart = [
   //{"id" : "qtd"},
@@ -54,7 +65,7 @@ function setProdSlider(id_el, prods_id) {
     var prod = getProductById(prod_id);
     var ProdCarousel =
     "<div class='carouselItem'>"
-    + "<a class='carouselImg' href='/product?id="+prod['id']+"'>"
+    + "<a class='carouselImg' href='#'>"
     + "<img src='" + prod['imgs'][0] + "'>"
     + "<span class='carouselPromo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
     + "</a>"
