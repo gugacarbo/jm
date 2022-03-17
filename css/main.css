@@ -1720,7 +1720,7 @@ footer .footerContent .scudero b {
   border-radius: 20px;
   border: 1px solid #b66d76;
   margin: 10px 0;
-  font-size: 14pt;
+  font-size: 12pt;
 }
 
 .login input:focus {
@@ -1734,9 +1734,9 @@ footer .footerContent .scudero b {
   background-color: #b66d76;
   color: #fff;
   text-align: center;
-  padding: 10px 0;
+  padding: 6px 0;
   border-radius: 20px;
-  margin: 10px auto;
+  margin: 20px auto;
   font-size: 14pt;
   letter-spacing: 1px;
   -webkit-transition: 0.3s;

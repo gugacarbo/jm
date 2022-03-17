@@ -1,5 +1,6 @@
 {
       "id" : "001",
+      "error": "",
       "name": "ProdP",
       "price": "123.00",
       "promo": 150.90,

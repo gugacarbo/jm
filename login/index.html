@@ -23,73 +23,52 @@
     <script src="/jquery.mask.js"></script>
 
     <header>
-        <div class="headerContent">
 
-            <div class="logoImg">
-                <a href="/">
-                    <img src="/img/logoRosa.png">
-                </a>
-            </div>
-
-            <div class="menu">
-                <span class="menuItem"><a href="/">Home</a></span>
-                <span class="menuItem"><a href="/about">Sobre</a></span>
-                <span class="menuItem"><a href="/products">Produtos</a></span>
-                <span class="menuItem"><a href="#contactDiv">Contato</a></span>
-            </div>
-
-            <div class="social">
-                <a href="https://www.instagram.com/jomartelloacessorios/" target="blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-
-                <a href="https://api.whatsapp.com/send?phone=5549999604384" target="blank">
-                    <i class="fab fa-whatsapp"></i></a>
-            </div>
-
-            <div class="search">
-                <input type="text" id="searchText" placeholder="Pesquise por produtos">
-                <i class="fas fa-search"></i>
-            </div>
-
-            <div class="cart">
-                <a href="/cart">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <span class="itemCart" id="ItemCart">0</span>
-            </div>
-        </div>
     </header>
-        <div class="login">
-            <span>Status de Compra</span>
-            <input type="text" placeholder="CPF" name="cpf" id="ConsultaCPF">
-            <input type="text" placeholder="Código do pedido" name="idPedido" id="ConsultaIdPedido">
-            <button>Acessar</button>
-            <p>Acesse o status do seu pedido</p>
-        </div>
+
+    <div class="login">
+        <span>Status de Compra</span>
+        <input type="text" placeholder="CPF" name="cpf" id="ConsultaCPF">
+        <input type="text" placeholder="Código do pedido" name="idPedido" id="ConsultaIdPedido">
+        <button id="acessarPedido">Acessar</button>
+        <p id="error">Acesse o status do seu pedido</p>
+    </div>
     <footer>
-        <div class="footerContent">
-            <div class="footerMenu">
-                <a>Menu</a>
-                <a>Sobre</a>
-                <a>Termos de Compra</a>
-                <a>Contato</a>
-            </div>
 
-            <div class="footerLogo">
-                <img src="/img/logoRosa.png">
-            </div>
-
-            <div class="scudero">
-                <img src="/img/scudero.png">
-            </div>
-        </div>
     </footer>
+
     <script>
-        $('#ConsultaCPF').mask('000.000.000-00');
-        $('#ConsultaIdPedido').mask('000-000-000-000');
-        
-        $(document).ready(()=>{
+
+        $(document).ready(() => {
+            $("header").load("/includes/header.html");
+            $("footer").load("/includes/footer.html");
+            $('#ConsultaCPF').mask('000.000.000-00');
+            $('#ConsultaIdPedido').mask('000-000-000-000');
+
+            $("#acessarPedido").on("click", () => {
+                if ($("#ConsultaCPF").val().length < 14 || $("#ConsultaIdPedido").val().length < 15) {
+
+                    if ($("#ConsultaIdPedido").val().length < 15)
+                        $("#error").html("Código Inválido");
+                    if ($("#ConsultaCPF").val().length < 14)
+                        $("#error").html("CPF Inválido");
+                
+                    } else {
+                    var cpf = $("#ConsultaCPF").val().replace(".", "").replace(".", "").replace("-", "");
+                    var code = $("#ConsultaIdPedido").val().replace("-", "").replace("-", "").replace("-", "");
+                    var data = {
+                        "cpf": cpf,
+                        "code": code
+                    }
+                    $.get("/api/login.json", data, (code) => {
+                        if (code["error"]) {
+                            $("#error").html(code["error"])
+                        } else if (code["code"]) {
+                            window.location.replace("/status/?code=" + code["code"])
+                        }
+                    })
+                }
+            })
         })
     </script>
 

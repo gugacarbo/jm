@@ -22,7 +22,7 @@
         border-radius: 20px;
         border: 1px solid $mainColor;
         margin: 10px 0;
-        font-size: 14pt;
+        font-size: 12pt;
 
         &:focus{
             box-shadow: 0 0 6px -1px lighten($mainColor, 5);
@@ -34,9 +34,9 @@
         background-color: $mainColor;
         color: #fff;
         text-align: center;
-        padding: 10px 0;
+        padding: 6px 0;
         border-radius: 20px;
-        margin: 10px auto;
+        margin: 20px auto;
         font-size: 14pt;
         letter-spacing: 1px;
         transition: 0.3s;
