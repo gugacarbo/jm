@@ -467,7 +467,7 @@ footer .footerContent .scudero b {
 }
 
 .about p {
-  margin-left: 30px;
+  margin-left: 20px;
   width: 90%;
   margin-top: 20px;
   text-align: justify;
@@ -874,6 +874,44 @@ footer .footerContent .scudero b {
   margin-top: 30px;
 }
 
+.prodBanner {
+  width: 1100px;
+  height: 450px;
+  background-color: #b66d76;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.prodBanner #ProdsSlider {
+  width: 1100px;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.prodBanner .dotsProdBanner {
+  position: absolute;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.prodBanner::before {
+  content: "";
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  background-color: #b66d76;
+  overflow: hidden;
+}
+
 .filterBox {
   height: 80px;
   width: 100%;
@@ -920,7 +958,7 @@ footer .footerContent .scudero b {
   margin: 0 3px;
   width: 100px;
   text-align: center;
-  font-size: 13pt;
+  font-size: 11pt;
   color: #b66d76;
 }
 
@@ -954,7 +992,7 @@ footer .footerContent .scudero b {
   padding: 2px 0;
   text-align: center;
   color: #888;
-  font-size: 13pt;
+  font-size: 11pt;
 }
 
 .filterBox .filter div select option {
@@ -987,7 +1025,7 @@ footer .footerContent .scudero b {
   border-bottom-left-radius: 20px;
   outline: none;
   padding: 3px 10px;
-  font-size: 11pt;
+  font-size: 10pt;
   text-align: left;
 }
 

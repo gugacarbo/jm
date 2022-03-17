@@ -1,3 +1,35 @@
+.prodBanner {
+    width: $deskWidth;
+    height: 450px;
+    background-color: $mainColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    
+    #ProdsSlider{
+        width: $deskWidth;
+        height: 100%;
+        position: absolute;
+
+        overflow: hidden;
+
+    }
+    .dotsProdBanner{
+        position: absolute;
+        bottom: 0;
+        pointer-events: none;
+    }
+    &::before{
+        content: "";
+        width: 100vw;
+        height: 100%;
+        position: absolute;
+        background-color: $mainColor;
+        overflow: hidden;
+    }
+}
+
 .filterBox {
     height: 80px;
     width: 100%;
@@ -30,7 +62,7 @@
                 margin: 0 3px;
                 width: 100px;
                 text-align: center;
-                font-size: 13pt;
+                font-size: 11pt;
                 color: $mainColor;
 
 
@@ -52,7 +84,7 @@
                 padding: 2px 0;
                 text-align: center;
                 color: #888;
-                font-size: 13pt;
+                font-size: 11pt;
                 
 
 
@@ -82,7 +114,7 @@
                 border-bottom-left-radius: 20px;
                 outline: none;
                 padding: 3px 10px;
-                font-size: 11pt;
+                font-size: 10pt;
                 text-align: left;
                 &:focus{
                     box-shadow: none;
