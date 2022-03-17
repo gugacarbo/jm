@@ -704,7 +704,6 @@ footer .footerContent .scudero b {
   border-right: inset 2px #b66d76;
   margin-left: 1%;
   position: relative;
-  overflow: hidden;
 }
 
 .productPage .info .shipping .shipCalc {
@@ -713,6 +712,7 @@ footer .footerContent .scudero b {
   display: -ms-flexbox;
   display: flex;
   height: 30px;
+  position: relative;
 }
 
 .productPage .info .shipping .shipCalc input {
@@ -741,6 +741,19 @@ footer .footerContent .scudero b {
       -ms-flex-align: center;
           align-items: center;
   cursor: pointer;
+}
+
+.productPage .info .shipping .shipCalc small {
+  position: absolute;
+  top: -7px;
+  font-size: 8pt;
+  left: 25px;
+  background-color: #fff;
+  padding: 0 2px;
+  color: #b66d76;
+  display: none;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
 }
 
 .productPage .info .shipping .shipCost {

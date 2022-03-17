@@ -18,44 +18,58 @@ $(document).ready(() => {
         window.location.replace("/")
     } else {
         getProd(id);
-        
+
         $('#cep').mask('00.000-000');
 
         $("#calcShippingBtn").on("click", () => {
-            $(".animatedIconShipping").addClass("animateShipping");
-            $(".preco").css("display", "none");
+            if ($("#cep").val().length < 10) {
+                $(".preco").css("display", "none");
+                $("#ShipError").css("display", "block")
+                $("#ShipError").text("Cep Inválido")
+            } else {
+                $("#ShipError").css("display", "none")
+                $(".animatedIconShipping").addClass("animateShipping");
+                $(".preco").css("display", "none");
 
-            setTimeout(() => {
+                setTimeout(() => {
 
-                var config = {
-                    "nCdEmpresa": "08082650",
-                    "sDsSenha": "564321",
-                    "sCepOrigem": "70002900",
-                    "sCepDestino": "04547000",
-                    "nVlPeso": "1",
-                    "nCdFormato": "1",
-                    "nVlComprimento": "20",
-                    "nVlAltura": "20",
-                    "nVlLargura": "20",
-                    "sCdMaoPropria": "n",
-                    "nVlValorDeclarado": "0",
-                    "sCdAvisoRecebimento": "n",
-                    "nCdServico": "04510",
-                    "nVlDiametro": "0",
-                    "StrRetorno": "xml",
-                    "nIndicaCalculo": "3",
-                }
+                    var config = {
+                        "nCdEmpresa": "08082650",
+                        "sDsSenha": "564321",
+                        "sCepOrigem": "70002900",
+                        "sCepDestino": "04547000",
+                        "nVlPeso": "1",
+                        "nCdFormato": "1",
+                        "nVlComprimento": "20",
+                        "nVlAltura": "20",
+                        "nVlLargura": "20",
+                        "sCdMaoPropria": "n",
+                        "nVlValorDeclarado": "0",
+                        "sCdAvisoRecebimento": "n",
+                        "nCdServico": "04510",
+                        "nVlDiametro": "0",
+                        "StrRetorno": "xml",
+                        "nIndicaCalculo": "3",
+                    }
 
-                $.get("/api/frete.json", (data) => {       //PAC
-                    $("#PrecoPac").html("R$ " + data['vPac'].toFixed(2).replace('.', ','))
-                    $("#PrazoPac").html(data['pPac'] + " Dias")
-                    $("#PrecoSedex").html("R$ " + data['vSedex'].toFixed(2).replace('.', ','))
-                    $("#PrazoSedex").html(data['pSedex'] + " Dias")
-                    $("#SLocal").html(data['cidade'])
-                    $(".preco").css("display", "flex");
-                    $(".animatedIconShipping").removeClass("animateShipping");
-                })
-            }, 1000)
+                    $.get("/api/frete.json", (data) => {//PAC
+                        if (data["error"]) {
+                            $(".preco").css("display", "none");
+                            $("#ShipError").css("display", "block")
+                            $("#ShipError").text(data["error"])
+                            $(".animatedIconShipping").removeClass("animateShipping");
+                        } else {
+                            $("#PrecoPac").html("R$ " + data['vPac'].toFixed(2).replace('.', ','))
+                            $("#PrazoPac").html(data['pPac'] + " Dias")
+                            $("#PrecoSedex").html("R$ " + data['vSedex'].toFixed(2).replace('.', ','))
+                            $("#PrazoSedex").html(data['pSedex'] + " Dias")
+                            $("#SLocal").html(data['cidade'])
+                            $(".preco").css("display", "flex");
+                            $(".animatedIconShipping").removeClass("animateShipping");
+                        }
+                    })
+                }, 1000)
+            }
 
         })
     }
@@ -87,10 +101,10 @@ function getProd(id) {
         $("#prodDesc").text(prod['desc'])
         $("#material").text(prod['material'])
         $("#size").text(prod['size'])
-        $(".cartBtn").on('click', ()=>{
+        $(".cartBtn").on('click', () => {
             alert("Cart" + prod['id'])
         })
-        $(".buyBtn").on('click', ()=>{
+        $(".buyBtn").on('click', () => {
             alert("buy" + prod['id'])
         })
     })
