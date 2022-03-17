@@ -1,6 +1,6 @@
 $(document).ready(() => {
-  $("header").load("includes/header.html");
-  $("footer").load("includes/footer.html");
+  $("header").load("/includes/header.html");
+  $("footer").load("/includes/footer.html");
 
   $('form').submit(false);
 
