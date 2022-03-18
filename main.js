@@ -1,6 +1,9 @@
+var cart = [];
 $(document).ready(() => {
   $("header").load("/includes/header.html");
   $("footer").load("/includes/footer.html");
+
+
 
   $('form').submit(false);
 
@@ -45,6 +48,9 @@ $(document).ready(() => {
 
   setBanner("#BannerSlider", "MAIN");
   getGliders();
+
+
+
 
 })
 
@@ -94,7 +100,7 @@ function getGliders() {
             + "<span class='carouselItemName'>" + prod['name'] + "</span>"
             + "<span class='carouselItemPrice'>R$" + prod['price'] + "</span>"
             + "<span class='carouselItemPay'>ou em 4x de " + Math.round(prod['price'] / 4) + "</span>"
-            + "<i class='fas fa-shopping-cart' onclick='addCart(" + prod['id'] + ")'></i>"
+            + "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod['id'] + k) + ", 1)'></i>"
             + "</div>";
 
           $("#Carousel" + i).append(ProdCarousel)
@@ -192,3 +198,6 @@ function sliderAuto(slider, miliseconds) {
 
   slide();
 }
+
+
+

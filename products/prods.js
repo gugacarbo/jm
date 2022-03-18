@@ -60,7 +60,7 @@ function callProds(query) {
                     + "<span class='prodName'>" + prod['name'] + "</span>"
                     + "<span class='prodPrice'>R$" + prod['price'] + "</span>"
                     + "<span class='prodPay'>ou em 4x de " + Math.round(prod['price'] / 4) + "</span>"
-                    + "<i class='fas fa-shopping-cart' onclick='addCart(" + prod['id'] + ")'></i>"
+                    + "<i class='fas fa-shopping-cart' onclick='addCart(" + prod['id'] + ", 1)'></i>"
                     + "</div>";
 
                 $("#ShowProducts").append(prodApend)
