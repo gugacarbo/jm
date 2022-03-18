@@ -880,6 +880,82 @@ footer .footerContent .scudero b {
   }
 }
 
+.productPage .info .prodOptions {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 10px;
+  position: relative;
+  margin-top: 25px;
+}
+
+.productPage .info .prodOptions label {
+  width: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  aspect-ratio: 1/1;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.productPage .info .prodOptions label input {
+  visibility: hidden;
+  display: none;
+  accent-color: #f00;
+}
+
+.productPage .info .prodOptions label span {
+  width: 100%;
+  height: 100%;
+  background-color: #dfdfdf;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #888;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.productPage .info .prodOptions label input:checked ~ span {
+  background-color: #e2e2e2;
+  color: #666;
+  border: 1px solid #b8b8b8;
+  -webkit-box-shadow: 0 0 12px -2px #cfcfcf;
+          box-shadow: 0 0 12px -2px #cfcfcf;
+}
+
+.productPage .info .prodOptions label input:checked ~ small {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.productPage .info .prodOptions small {
+  position: absolute;
+  top: -20px;
+  width: 100%;
+  left: 0;
+  display: none;
+  color: #999;
+}
+
 .productPage .info .description {
   width: 100%;
   border: 1px solid #b66d76;

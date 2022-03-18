@@ -8,8 +8,8 @@ $(document).ready(() => {
 
 function delProd(id){
     addCart(id);
-    $("#CartProds").html("");
     setTimeout(() => {
+        $("#CartProds").html("");
         callCart();
     }, 200);
 }

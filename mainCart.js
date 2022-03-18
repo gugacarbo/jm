@@ -44,8 +44,6 @@
   
   
   function addCart(id, qtd = 0) {
-    console.log(id)
-    console.log(qtd)
     var cart_ = cart.filter((item) => item.id !== id);
     cart = cart_;
     if(qtd>0){

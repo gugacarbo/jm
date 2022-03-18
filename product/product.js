@@ -101,16 +101,26 @@ function getProd(id) {
         $("#prodDesc").text(prod['desc'])
         $("#material").text(prod['material'])
         $("#size").text(prod['size'])
+        
+
         $(".cartBtn").on('click', () => {
-            alert("Cart" + prod['id'])
+            addCart(prod['id'], 1)
         })
         $(".buyBtn").on('click', () => {
-            alert("buy" + prod['id'])
+            addCart(prod['id'], 1)
+            window.location.replace("/cart")
+
         })
+        for(opt in prod['options']){
+            console.log(opt)
+            console.log(prod['options'][opt])
+            var o ='<label><input type="radio" name="prodVar" value="'+opt+'"><span>'+opt+'</span><small>'+prod['options'][opt]+' Unidades Disponíveis</small></label>';
+            $("#ProdOptions").append(o);
+           
+        }
     })
 }
 
 function changeMain(src) {
-    console.log(src)
     $("#MainImage").attr('src', src)
 }

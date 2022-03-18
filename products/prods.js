@@ -52,7 +52,7 @@ function callProds(query) {
             $.get("/api/getProdById.json", { "id": id }, function (prod) {
                 var prodApend =
                     "<div class='product'>"
-                    + "<a class='prodImage' href='/product?id=" + prod['id'] + "'>"
+                    + "<a class='prodImage' href='/product/?id=" + prod['id'] + "'>"
                     + "<img src='" + prod['imgs'][1] + "'>"
                     + "<img class='sImage' src='" + prod['imgs'][2] + "'>"
                     + "<span class='promo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
