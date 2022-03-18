@@ -104,20 +104,19 @@ function getProd(id) {
         
 
         $(".cartBtn").on('click', () => {
-            addCart(prod['id'], 1)
+            addCart(parseInt(prod['id']), 1, $("input[name='prodVar']:checked").val())
         })
         $(".buyBtn").on('click', () => {
-            addCart(prod['id'], 1)
+            addCart(parseInt(prod['id']), 1, $("input[name='prodVar']:checked").val())
             window.location.replace("/cart")
 
         })
         for(opt in prod['options']){
-            console.log(opt)
-            console.log(prod['options'][opt])
             var o ='<label><input type="radio" name="prodVar" value="'+opt+'"><span>'+opt+'</span><small>'+prod['options'][opt]+' Unidades Disponíveis</small></label>';
             $("#ProdOptions").append(o);
            
         }
+        $("input[name='prodVar']:first-child").attr('checked', true);
     })
 }
 

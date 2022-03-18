@@ -935,7 +935,8 @@ footer .footerContent .scudero b {
 
 .productPage .info .prodOptions label input:checked ~ span {
   background-color: #e2e2e2;
-  color: #666;
+  color: #f3f3f3;
+  text-shadow: 0 0 9px #999;
   border: 1px solid #b8b8b8;
   -webkit-box-shadow: 0 0 12px -2px #cfcfcf;
           box-shadow: 0 0 12px -2px #cfcfcf;
