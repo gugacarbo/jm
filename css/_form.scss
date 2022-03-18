@@ -12,7 +12,7 @@
     border: 2px solid $mainColor;
     border-radius: 30px;
     .formHeader{
-        font-size: 20pt;
+        font-size: 16pt;
         margin-bottom: 10px;
         width: 100%;
     }
@@ -22,8 +22,8 @@
         box-shadow: 0 0 4px -1px $mainColor;
         border-radius: 30px ;
         margin: 10px 0;
-        padding: 8px 15px;
-        font-size: 13pt;
+        padding: 6px 12px;
+        font-size: 12pt;
         width: 100%;
         &:focus{
         box-shadow: 0 0 4px 1px lighten($mainColor, 1);

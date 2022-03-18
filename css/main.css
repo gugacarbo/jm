@@ -1368,12 +1368,13 @@ footer .footerContent .scudero b {
   margin-left: 8px;
 }
 
-.cartPage .cartP .pInfo .pQuantity a {
+.cartPage .cartP .pInfo .pQuantity .delProd {
+  cursor: pointer;
   text-decoration: none;
   color: #bd2121;
 }
 
-.cartPage .cartP .pInfo .pQuantity a:hover {
+.cartPage .cartP .pInfo .pQuantity .delProd:hover {
   color: #6204a1;
 }
 
@@ -1459,6 +1460,11 @@ footer .footerContent .scudero b {
   overflow: hidden;
 }
 
+.cartPage .chechoutBtns .cartButtons .cBtn a {
+  text-decoration: none;
+  color: #fff;
+}
+
 .cartPage .chechoutBtns .cartButtons .cBtn:last-child {
   background-color: forestgreen;
 }
@@ -1486,7 +1492,7 @@ footer .footerContent .scudero b {
 }
 
 .form .formHeader {
-  font-size: 20pt;
+  font-size: 16pt;
   margin-bottom: 10px;
   width: 100%;
 }
@@ -1498,8 +1504,8 @@ footer .footerContent .scudero b {
           box-shadow: 0 0 4px -1px #b66d76;
   border-radius: 30px;
   margin: 10px 0;
-  padding: 8px 15px;
-  font-size: 13pt;
+  padding: 6px 12px;
+  font-size: 12pt;
   width: 100%;
 }
 

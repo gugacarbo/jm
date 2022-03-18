@@ -91,7 +91,8 @@
                 }
                 font-weight: bold;
                 color: #333;
-                a {
+                .delProd {
+                    cursor: pointer;
                     text-decoration: none;
                     color: rgb(189, 33, 33);
 
@@ -151,6 +152,10 @@
                 
                 position: relative;
                 overflow: hidden;
+                a{
+                    text-decoration: none;
+                    color: #fff;
+                }
                 &:last-child{
                     background-color: rgb(34, 139, 34);
                 }
