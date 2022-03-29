@@ -45,7 +45,7 @@ function callCart() {
 
             console.log(cart_[p])
             cartProd += '</select>' +
-                '<span class="delProd" onclick="delProd(\'' + (prod['id']+"\',"+ [cart_[p].opt]) + ')">Excluir</span>' +
+                '<span class="delProd" onclick="delProd(' + (prod['id']+",\'"+ [cart_[p].opt]) + '\')">Excluir</span>' +
                 '</div>' +
                 '<span class="vari">Variação ' + cart_[p].opt + '</span>' +
                 '</div>' +
