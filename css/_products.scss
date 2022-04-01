@@ -39,7 +39,7 @@
     align-items: center;
     //position: inherit;
     background-color: #fff;
-    z-index: 9999;
+    z-index: 5;
     transition: 1s;
     .filter {
         height: 100%;
@@ -174,7 +174,7 @@
 
                 .sImage{
                     position: absolute;
-                    z-index: 999;
+                    z-index: 4;
                     width: 100%;
                     background-color: #0f0;
                     filter: opacity(0);

@@ -106,7 +106,6 @@ header {
         align-items: center;
         position: relative;
 
-
         i {
             font-size: 18pt;
             color: #999;
@@ -117,7 +116,7 @@ header {
             }
         }
 
-        .info{
+        .info {
             filter: opacity(0);
             z-index: 10;
             bottom: -35px;
@@ -135,7 +134,7 @@ header {
             transition: 0.6s;
             pointer-events: none;
         }
-        &:hover > .info{
+        &:hover > .info {
             filter: opacity(1);
         }
     }
@@ -154,9 +153,7 @@ header {
             }
         }
 
-
-        &:hover > .itemCart{
-
+        &:hover > .itemCart {
             width: 60%;
             height: 60%;
             background-color: #fff;
@@ -166,13 +163,13 @@ header {
             right: -0px;
         }
 
-        .itemCart{
+        .itemCart {
             transition: 0.5s;
             position: absolute;
             width: 50%;
             height: 50%;
             top: -8px;
-            right:-5px;
+            right: -5px;
             border-radius: 50%;
             background-color: rgba($mainColor, 1);
             border: 1px solid $mainColor;
@@ -184,6 +181,165 @@ header {
             justify-content: center;
             align-items: center;
         }
+    }
+    .menuToggle {
+        display: none;
+    }
+}
+.mobileMenu {
+    display: none;
+}
 
+@media (max-width: $deskWidth) {
+    header {
+        .headerContent {
+            width: 100%;
+            padding: 0 20px;
+            .menu {
+                gap: 20px;
+                .menuItem {
+                    margin: 0 0px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 1000px) {
+    header {
+        .headerContent {
+            padding: 0 20px;
+            .menu {
+                gap: 15px;
+                .menuItem {
+                    margin: 0 0px;
+                }
+            }
+            .search {
+                width: 200px;
+            }
+        }
+    }
+}
+
+@media (max-width: 850px) {
+    header {
+        .headerContent {
+            .logoImg {
+                order: -2;
+            }
+            .menu {
+                display: none;
+            }
+            .search {
+                width: 300px;
+            }
+            .social {
+                order: 0;
+            }
+            .orders {
+                i {
+                    font-size: 22pt;
+                }
+            }
+
+            .cart {
+                i {
+                    font-size: 20pt;
+                }
+                .itemCart {
+                    font-size: 10pt;
+                }
+            }
+            .menuToggle {
+                display: flex;
+                z-index: 10;
+                i {
+                    font-size: 22pt;
+                    color: $mainColor;
+
+                    transition: 0.5s;
+                    &:hover {
+                        cursor: pointer;
+                        color: #999;
+                    }
+                }
+            }
+            .toggleOn{
+                i{
+                    color: #fff;
+                    &:hover{
+                        color: #ddd;
+                    }
+                }
+            }
+        }
+    }
+    .mobileMenu {
+        z-index: 8;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba($mainColor, 0.8);
+        overflow: hidden;
+        .orders{
+            position: absolute;
+            top:  35px;
+            left: 35px;
+            i{
+                color: #fff;
+                font-size: 25pt;
+                &:hover{
+                    color: #ddd;
+                }
+            }
+        }
+        .menu{
+            flex-direction: column;
+            gap: 30px;
+            .menuItem a{
+                color: #fff;
+            }
+    
+        }
+    }
+    .menuOpen{
+        display: flex;
+
+    }
+}
+
+// ? Tablet
+@media (max-width: 660px) {
+    header {
+        .headerContent {
+            .logoImg {
+                width: 110px;
+            }
+            .search {
+                width: 230px;
+            }
+            .social {
+                padding: 0;
+                margin: 0;
+            }
+            .cart {
+                i {
+                    font-size: 18pt;
+                }
+                .itemCart {
+                    font-size: 9pt;
+                }
+            }
+
+            .orders {
+                i {
+                    font-size: 20pt;
+                }
+            }
+        }
     }
 }

@@ -6,21 +6,20 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    
-    .bannerShow{
+
+    .bannerShow {
         width: $deskWidth;
         height: 100%;
         position: absolute;
 
         overflow: hidden;
-
     }
-    .dotsBanner{
+    .dotsBanner {
         position: absolute;
         bottom: 0;
         pointer-events: none;
     }
-    &::before{
+    &::before {
         content: "";
         width: 100vw;
         height: 100%;
@@ -29,3 +28,39 @@
         overflow: hidden;
     }
 }
+
+@media (max-width: $deskWidth) {
+    .mainBanner {
+        .bannerShow {
+            width: 100%;
+        }
+    }
+}
+@media (max-width: 1000px) {
+    .mainBanner {
+        width: 100%;
+        height: 400px;
+        .bannerShow {
+            width: 100%;
+        }
+    }
+}
+@media (max-width: 900px) {
+    .mainBanner {
+        width: 100%;
+        height: 350px;
+        .bannerShow {
+            width: 100%;
+        }
+    }
+}
+@media (max-width: 800px) {
+    .mainBanner {
+        width: 100%;
+        height: 300px;
+        .bannerShow {
+            width: 100%;
+        }
+    }
+}
+

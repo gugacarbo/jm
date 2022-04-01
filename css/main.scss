@@ -23,6 +23,10 @@ body {
     transition: 1s;
 }
 
+.blockBody{
+    overflow: hidden;
+}
+
 @import "fonts";
 @import "header";
 @import "footer";

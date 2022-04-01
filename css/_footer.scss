@@ -62,11 +62,23 @@ footer {
                 }
             }
 
-            b{
+            b {
                 margin-top: 10px;
                 font-size: 9pt;
                 color: #656565;
                 font-weight: 500;
+            }
+        }
+    }
+}
+
+@media (max-width: 660px) {
+    footer {
+        .footerContent {
+            width: 100%;
+            .footerLogo {
+                width: 140px;
+                margin-right: 60px;
             }
         }
     }

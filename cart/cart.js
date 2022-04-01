@@ -6,6 +6,8 @@ $(document).ready(() => {
 
 })
 
+
+
 function delProd(id, opt) {
     addCart(id, 0, opt);
     setTimeout(() => {

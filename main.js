@@ -121,7 +121,7 @@ function callGliders() {
   Gliders.forEach(i => {
     new Glider(document.querySelector('#Carousel' + i), {
       slidesToShow: 4.5,
-      slidesToScroll: 2,
+      slidesToScroll: 3,
       draggable: true,
       dragVelocity: 1,
       dots: '.dots' + i,
@@ -130,6 +130,29 @@ function callGliders() {
         prev: '.prev' + i,
         next: '.next' + i,
       },
+      responsive: [
+        {
+          breakpoint: 500,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+          },
+        },
+        {
+          breakpoint: 900,
+          settings: {
+            slidesToShow: 4.5,
+            slidesToScroll: 3,
+          },
+        },
+      ],
     });
   })
 }

@@ -45,7 +45,7 @@
             align-items: center;
 
             .carouselItem {
-                height: 250px;
+                height: 220px;
                 width: 200px;
                 border: 1px solid $mainColor;
 
@@ -143,7 +143,7 @@
             span {
                 position: absolute;
                 bottom: 20%;
-                
+
                 color: #fff;
                 font-size: 13pt;
                 font-weight: lighter;
@@ -151,6 +151,48 @@
 
             &:hover {
                 filter: brightness(1.2) hue-rotate(-20deg);
+            }
+        }
+    }
+}
+
+@media (max-width: $deskWidth) {
+    .carousel {
+        max-width: 100vw;
+
+        .categoryCarousel {
+            width: 90%;
+            margin-top: 60px;
+            .carouselBtn {
+                top: inherit;
+                bottom: -20px;
+                left: 10px;
+                &:nth-child(4) {
+                    left: inherit;
+                    right: 10px;
+                }
+            }
+            .showCarousel {
+                width: 100%;
+                .carouselItem {
+                    height: 250px;
+                    width: 200px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 530px) {
+    .carousel {
+     
+
+        .categoryCarousel {
+          
+            .showCarousel {
+                .carouselItem {
+                    height: 100px;
+                    width: 150px;
+                }
             }
         }
     }
