@@ -1,7 +1,7 @@
 
 .form{
     width: $deskWidth - 60px;
-    padding: 30px;
+    padding: 30px 20px;
 
     margin-top: 30px;
     display: flex;
@@ -69,5 +69,11 @@
 .animateButton{
     &::before{
         left: 0;
+    }
+}
+
+@media (max-width: $deskWidth){
+    .form{
+        width: 90%;
     }
 }

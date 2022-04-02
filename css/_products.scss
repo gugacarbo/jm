@@ -6,21 +6,20 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    
-    #ProdsSlider{
+
+    #ProdsSlider {
         width: $deskWidth;
         height: 100%;
         position: absolute;
 
         overflow: hidden;
-
     }
-    .dotsProdBanner{
+    .dotsProdBanner {
         position: absolute;
         bottom: 0;
         pointer-events: none;
     }
-    &::before{
+    &::before {
         content: "";
         width: 100vw;
         height: 100%;
@@ -30,7 +29,12 @@
     }
 }
 
+.toggleFilter {
+    display: none;
+}
 .filterBox {
+    transition: 0.5s;
+
     height: 80px;
     width: 100%;
     border-bottom: 2px solid $mainColor;
@@ -41,18 +45,21 @@
     background-color: #fff;
     z-index: 5;
     transition: 1s;
+    position: sticky;
+    top: 0;
     .filter {
         height: 100%;
         width: $deskWidth;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 5px 10px;
 
         div {
+            display: flex;
             span {
                 font-size: 12pt;
                 color: #888;
-
             }
             input {
                 padding: 2px 0;
@@ -65,18 +72,16 @@
                 font-size: 11pt;
                 color: $mainColor;
 
-
-                &:focus{
+                &:focus {
                     box-shadow: 0 0 5px 0px darken($mainColor, 1);
                     outline: none;
                 }
-                &::placeholder{
+                &::placeholder {
                     color: rgba(lighten($mainColor, 14), 0.8);
                 }
             }
 
             select {
-                
                 width: 110px;
                 border: 1px solid $mainColor;
                 border-radius: 20px;
@@ -85,8 +90,6 @@
                 text-align: center;
                 color: #888;
                 font-size: 11pt;
-                
-
 
                 option {
                     width: 100%;
@@ -99,8 +102,8 @@
         .search {
             width: 200px;
             height: 24px;
-
             display: flex;
+            flex-direction: row;
             justify-content: center;
             align-items: center;
 
@@ -116,10 +119,9 @@
                 padding: 3px 10px;
                 font-size: 10pt;
                 text-align: left;
-                &:focus{
+                &:focus {
                     box-shadow: none;
                 }
- 
             }
             i {
                 padding-right: 5px;
@@ -142,24 +144,23 @@
     align-items: center;
     flex-direction: column;
 
-    .showProducts{
+    .showProducts {
         width: $deskWidth;
         padding: 10px 0;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        display:  grid;
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
         .product {
             height: 250px;
             width: 200px;
             border: 1px solid $mainColor;
-        
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-        
+
             cursor: pointer;
-        
+
             margin: 10px 5px;
             .prodImage {
                 height: 60%;
@@ -172,20 +173,19 @@
                     width: 80%;
                 }
 
-                .sImage{
+                .sImage {
                     position: absolute;
                     z-index: 4;
                     width: 100%;
                     background-color: #0f0;
                     filter: opacity(0);
                     transition: 0.7s;
-                    img{
+                    img {
                         width: 60%;
                         height: 10px;
-
                     }
-                    
-                    &:hover{
+
+                    &:hover {
                         filter: opacity(1);
                     }
                 }
@@ -225,9 +225,9 @@
                 color: $mainColor;
                 margin-bottom: 10px;
                 font-size: 14pt;
-        
+
                 cursor: pointer;
-        
+
                 &:hover {
                     color: $hoverColor;
                 }
@@ -236,4 +236,142 @@
     }
 }
 
+@media (max-width: $deskWidth) {
+    .prodBanner {
+        width: 100%;
+    }
+    .filterBox {
+        .filter {
+            width: 100%;
+        }
+    }
+    .products {
+        .showProducts {
+            width: 100%;
+        }
+    }
 
+    .aboutSlider {
+        #AboutSlider {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .filterBox {
+        padding: 10px 0;
+        align-items: baseline;
+        .filter {
+            margin: 0 20px;
+        }
+    }
+    .prodBanner {
+        width: 100%;
+        height: 400px;
+        #ProdsSlider {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .prodBanner {
+        width: 100%;
+        height: 350px;
+        #ProdsSlider {
+            width: 100%;
+        }
+    }
+    .filterBox {
+        .filter {
+            div {
+                flex-direction: column;
+            }
+        }
+    }
+}
+@media (max-width: 800px) {
+    .prodBanner {
+        display: none;
+    }
+    .toggleFilter {
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+        color: $mainColor;
+        padding: 5px 0;
+        border-bottom: 1px solid $mainColor;
+        align-items: center;
+        span {
+            justify-self: flex-start;
+            margin-left: 20px;
+            font-size: 20pt;
+            color: #666;
+        }
+        label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 14pt;
+        }
+        i {
+            cursor: pointer;
+            font-size: 18pt;
+            margin-left: 10px;
+            margin-right: 25px;
+        }
+    }
+    .filterBox {
+        overflow: hidden;
+        border-bottom: 1px solid rgba($mainColor, 1);
+        padding: 15px 0;
+
+        .filter {
+            flex-wrap: wrap;
+            justify-content: space-around;
+
+            .search {
+                padding: 2px 5px;
+                width: 30%;
+                margin-top: 5px;
+            }
+        }
+    }
+    .off {
+        height: 0;
+        border-bottom: 1px solid rgba($mainColor, 0);
+
+        padding: 0;
+    }
+}
+
+@media (max-width: 750px) {
+    .filterBox {
+        .filter {
+            .search {
+                width: 40%;
+            }
+        }
+    }
+    .products{
+        .showProducts{
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            align-items: center;
+            .product{
+                width: 250px;
+                height: 280px;
+                margin: inherit auto;
+            }
+        }
+    }
+}
+@media (max-width: 600px) {
+    .filterBox {
+        .filter {
+            .search {
+                width: 50%;
+            }
+        }
+    }
+}

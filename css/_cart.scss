@@ -171,3 +171,9 @@
         }
     }
 }
+
+@media (max-width: $deskWidth){
+    .cartPage {
+        width: 100%;
+    }
+}

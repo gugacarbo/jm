@@ -4,9 +4,9 @@
       "name": "ProdP",
       "price": "123.00",
       "promo": 150.90,
-      "size": "M",
-      "availableQuantity" : "4",
+      "availableQuantity" : "15",
       "material": "OURO",
+      "wheight" : "0.05",
       "desc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem distinctio quod, culpa qui explicabo iusto doloribus aliquam tempora enim, ex rerum repellat quasi veniam fugit, quisquam in sequi numquam doloremque?",
       "options" : 
         {

@@ -99,3 +99,17 @@
         }
     }
 }
+
+@media (max-width: $deskWidth){
+    .checkout{
+        width: 90%;
+    }
+}
+@media (max-width: 700px){
+    .checkout{
+    .data {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+    }
+}

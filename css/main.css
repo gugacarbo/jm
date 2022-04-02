@@ -1279,6 +1279,7 @@ footer .footerContent .scudero b {
     margin: 20px;
   }
   .sizeTable * {
+    margin: 10px 0;
     width: 90%;
   }
 }
@@ -1326,7 +1327,7 @@ footer .footerContent .scudero b {
     height: 420px;
   }
   .productPage .info {
-    width: 80%;
+    width: 90%;
     margin-top: 10px;
   }
   .productPage .info .productName {
@@ -1404,7 +1405,13 @@ footer .footerContent .scudero b {
   overflow: hidden;
 }
 
+.toggleFilter {
+  display: none;
+}
+
 .filterBox {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
   height: 80px;
   width: 100%;
   border-bottom: 2px solid #b66d76;
@@ -1421,6 +1428,9 @@ footer .footerContent .scudero b {
   z-index: 5;
   -webkit-transition: 1s;
   transition: 1s;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 .filterBox .filter {
@@ -1435,6 +1445,13 @@ footer .footerContent .scudero b {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  gap: 5px 10px;
+}
+
+.filterBox .filter div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .filterBox .filter div span {
@@ -1500,6 +1517,10 @@ footer .footerContent .scudero b {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -1555,20 +1576,17 @@ footer .footerContent .scudero b {
 .products .showProducts {
   width: 1100px;
   padding: 10px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(210px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
 }
 
 .products .showProducts .product {
   height: 250px;
   width: 200px;
   border: 1px solid #b66d76;
+  margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1675,6 +1693,144 @@ footer .footerContent .scudero b {
 
 .products .showProducts .product i:hover {
   color: #666;
+}
+
+@media (max-width: 1100px) {
+  .prodBanner {
+    width: 100%;
+  }
+  .filterBox .filter {
+    width: 100%;
+  }
+  .products .showProducts {
+    width: 100%;
+  }
+  .aboutSlider #AboutSlider {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .filterBox {
+    padding: 10px 0;
+    -webkit-box-align: baseline;
+        -ms-flex-align: baseline;
+            align-items: baseline;
+  }
+  .filterBox .filter {
+    margin: 0 20px;
+  }
+  .prodBanner {
+    width: 100%;
+    height: 400px;
+  }
+  .prodBanner #ProdsSlider {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .prodBanner {
+    width: 100%;
+    height: 350px;
+  }
+  .prodBanner #ProdsSlider {
+    width: 100%;
+  }
+  .filterBox .filter div {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+@media (max-width: 800px) {
+  .prodBanner {
+    display: none;
+  }
+  .toggleFilter {
+    width: 100%;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    color: #b66d76;
+    padding: 5px 0;
+    border-bottom: 1px solid #b66d76;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .toggleFilter span {
+    justify-self: flex-start;
+    margin-left: 20px;
+    font-size: 20pt;
+    color: #666;
+  }
+  .toggleFilter label {
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 14pt;
+  }
+  .toggleFilter i {
+    cursor: pointer;
+    font-size: 18pt;
+    margin-left: 10px;
+    margin-right: 25px;
+  }
+  .filterBox {
+    overflow: hidden;
+    border-bottom: 1px solid #b66d76;
+    padding: 15px 0;
+  }
+  .filterBox .filter {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .filterBox .filter .search {
+    padding: 2px 5px;
+    width: 30%;
+    margin-top: 5px;
+  }
+  .off {
+    height: 0;
+    border-bottom: 1px solid rgba(182, 109, 118, 0);
+    padding: 0;
+  }
+}
+
+@media (max-width: 750px) {
+  .filterBox .filter .search {
+    width: 40%;
+  }
+  .products .showProducts {
+    -ms-grid-columns: (minmax(260px, 1fr))[auto-fill];
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .products .showProducts .product {
+    width: 250px;
+    height: 280px;
+    margin: inherit auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .filterBox .filter .search {
+    width: 50%;
+  }
 }
 
 .cartPage {
@@ -1924,9 +2080,15 @@ footer .footerContent .scudero b {
           filter: brightness(0.87);
 }
 
+@media (max-width: 1100px) {
+  .cartPage {
+    width: 100%;
+  }
+}
+
 .form {
   width: 1040px;
-  padding: 30px;
+  padding: 30px 20px;
   margin-top: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2003,6 +2165,12 @@ footer .footerContent .scudero b {
 
 .animateButton::before {
   left: 0;
+}
+
+@media (max-width: 1100px) {
+  .form {
+    width: 90%;
+  }
 }
 
 .checkout {
@@ -2144,6 +2312,19 @@ footer .footerContent .scudero b {
   background-color: #994d56;
 }
 
+@media (max-width: 1100px) {
+  .checkout {
+    width: 90%;
+  }
+}
+
+@media (max-width: 700px) {
+  .checkout .data {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+}
+
 .login {
   width: 350px;
   padding: 20px 40px;
@@ -2207,6 +2388,13 @@ footer .footerContent .scudero b {
   width: 100%;
   text-align: center;
   margin-top: 10px;
+}
+
+@media (max-width: 700px) {
+  .login {
+    -webkit-transform: scale(0.85);
+            transform: scale(0.85);
+  }
 }
 
 .status {
@@ -2330,9 +2518,10 @@ footer .footerContent .scudero b {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  gap: 20px;
   height: 65px;
   width: 100%;
   border-bottom: 2px solid #b66d76;
@@ -2367,7 +2556,9 @@ footer .footerContent .scudero b {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 72%;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   gap: 0px;
 }
 
@@ -2486,6 +2677,70 @@ footer .footerContent .scudero b {
       -ms-flex-align: center;
           align-items: center;
   border-radius: 20px;
+}
+
+@media (max-width: 1100px) {
+  .status {
+    width: 90%;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .status .progress {
+    width: 80%;
+    margin: 0 auto;
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+  .status .prodShow {
+    width: 45%;
+  }
+  .status .buyer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 45%;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .status .buyer div {
+    width: 100%;
+  }
+}
+
+@media (max-width: 950px) {
+  .status .progress {
+    width: 60%;
+    gap: 15px;
+  }
+  .status .progress .pass i .passName {
+    width: 100px;
+    text-align: center;
+    bottom: -30px;
+  }
+  .status .progress .pass .arrows i:nth-child(even) {
+    display: none;
+  }
+  .status .buyer div {
+    width: 90%;
+  }
+}
+
+@media (max-width: 680px) {
+  .status .progress {
+    gap: 5px;
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+}
+
+@media (max-width: 680px) {
+  .status .progress {
+    gap: 4px;
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+  }
 }
 
 .mainBanner {

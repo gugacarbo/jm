@@ -6,18 +6,6 @@ $(document).ready(() => {
     $('#SearchMinVal').mask('000.000,00', { reverse: true });
     $('#SearchMaxVal').mask('000.000,00', { reverse: true });
 
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 550) {
-            $(".filterBox").css("position", "fixed");
-            $(".filterBox").css("left", "0");
-            $(".filterBox").css("top", "0");
-            $(".products").css("margin-top", "150px");
-        } else {
-            $(".filterBox").css("position", "inherit");
-            $(".products").css("margin-top", "0px");
-        }
-    });
-
     callProds("");
     
     $("#Search").on('click', () => {
@@ -34,6 +22,10 @@ $(document).ready(() => {
             "text": text
         }
         callProds(searchQuery);
+    })
+
+    $("#toggleFilter").on("click", ()=>{
+        $(".filterBox").toggleClass("off");
     })
 })
 
