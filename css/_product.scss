@@ -279,6 +279,10 @@
                 input:checked ~ small {
                     display: flex;
                 }
+                input:disabled ~ span {	
+                    cursor: not-allowed;
+                    color: #faa;
+                }
             }
             small {
                 position: absolute;

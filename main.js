@@ -1,4 +1,4 @@
-var cart = [];
+
 $(document).ready(() => {
   $("header").load("/includes/header.html");
   $("footer").load("/includes/footer.html");
@@ -84,7 +84,7 @@ function getGliders() {
         "<div class='carouselBtn next" + i + "'><i class='fas fa-chevron-right'></i></div>" +
         "<div role='tablist' class='dots" + i + "'></div>" +
         "</div>";
-      $("#Carousel").append(category)
+      $("#Carousel").append(category);
 
 
 
@@ -100,7 +100,8 @@ function getGliders() {
             + "<span class='carouselItemName'>" + prod['name'] + "</span>"
             + "<span class='carouselItemPrice'>R$" + prod['price'] + "</span>"
             + "<span class='carouselItemPay'>ou em 4x de " + Math.round(prod['price'] / 4) + "</span>"
-            + "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod['id'] + k) + ", 1)'></i>"
+            //+ "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod['id']) + ", 1)'></i>"
+            + "<i class='fas fa-shopping-cart' onclick='addCart(" + (id) + ", 1)'></i>"
             + "</div>";
 
           $("#Carousel" + i).append(ProdCarousel)
