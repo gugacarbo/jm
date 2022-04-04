@@ -1,0 +1,74 @@
+/******************* Atribuições Gerais *********************/
+
+* {
+	-webkit-font-smoothing:antialiased;
+	-moz-font-smoothing:antialiased !important;
+	-moz-font-smooth:antialiased !important;
+	-o-font-smoothing:antialiased;
+	-ms-font-smoothing:antialiased;
+	font-smoothing:antialiased;
+	margin:0;
+	padding:0;
+} 
+
+*::selection, 
+*::-moz-selection, 
+*::-webkit-selection {
+	background:#fff;
+	color:#000;
+}
+
+h1,h2,h3,h4,h5 { font-weight: normal; }
+
+a {
+	cursor:pointer;
+	text-decoration:none;
+} 
+
+br { clear:both; }
+img { border:0; }
+
+input,
+textarea,
+select { outline: none; }
+
+body {
+	color: #000;
+	font-size: 15px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.soft-hover {
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 50);
+    filter: alpha(opacity = 50);
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+strong { font-weight: 700; }
+input::-webkit-input-placeholder{color: #797979;}
+textarea::-webkit-input-placeholder{color: #797979;} 
+input:-moz-placeholder{color: #797979;}
+input::-moz-placeholder{color: #797979;}
+input:-ms-input-placeholder{color: #797979;}
+textarea:-moz-placeholder{color: #797979;}
+textarea::-moz-placeholder{color: #797979;}
+textarea:-ms-input-placeholder {color: #797979;}
+
+header{
+	width: 100%;
+	height: 50px;
+	background-color: #fff;
+	float: left;
+	display: flex;
+}
+
+.Container{
+	width: 100vw;
+	height: 100vh;
+
+}
+
+/******************* Atribuições Gerais *********************/

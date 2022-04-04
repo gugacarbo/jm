@@ -1,0 +1,30 @@
+.main-view-slider{
+  width: 450px;
+  height: 448px;
+  background: #2c3e50; 
+  margin: 0 auto;
+}
+
+.my-view-slide{
+  height: 448px;
+  display: none;
+  overflow: hidden;
+}
+
+.prev-main, .next-main{
+  position: absolute;
+  top: 74%;
+  transform: translate(0, -50%);
+  font-size: 30px;
+  padding: 15px;
+  cursor: pointer;
+  color: #ccc;
+  transition: 0.1s;
+  user-select: none;
+}
+.prev-main:hover, .next-main:hover{
+  color: #FF9B9B; 
+}
+.next-main{
+  left: 510px;
+}

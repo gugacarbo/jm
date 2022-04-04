@@ -1,0 +1,483 @@
+/*
+    Variaveis
+*/
+* {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+header {
+  width: 100%;
+  height: 150px;
+  background-color: #fff;
+  border-bottom: 1px solid #000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .headerContent {
+  width: 1100px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .headerContent .logoSelect {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .headerContent .logoSelect .separator {
+  height: 120px;
+  width: 0.08px;
+  border-radius: 10px;
+  background-color: rgba(70, 150, 255, 0.329);
+  -webkit-box-shadow: 0px 0px 30px 5px rgba(60, 193, 255, 0.6);
+          box-shadow: 0px 0px 30px 5px rgba(60, 193, 255, 0.6);
+}
+
+header .headerContent .logoSelect img {
+  margin: 0 20px;
+  height: 75%;
+}
+
+header .headerContent .logoSelect .logoBook {
+  -webkit-filter: grayscale(0);
+          filter: grayscale(0);
+}
+
+header .headerContent .logoSelect .logoBook:hover {
+  -webkit-filter: grayscale(0%);
+          filter: grayscale(0%);
+}
+
+header .headerContent .logoSelect .logoMagic {
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
+}
+
+header .headerContent .logoSelect .logoMagic:hover {
+  -webkit-filter: grayscale(0%);
+          filter: grayscale(0%);
+}
+
+header .headerContent h1 {
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  letter-spacing: 3px;
+  font-size: 28pt;
+}
+
+.menu {
+  width: 1100px;
+  height: 60px;
+  border: 1px solid #000;
+  border-top: none;
+  border-bottom: none;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.menu .selectBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 50%;
+}
+
+.menu .selectBox select {
+  border: none;
+  border: 1px solid rgba(92, 92, 92, 0.104);
+  width: 45%;
+  padding: 7px 20px;
+  font-size: 12pt;
+  background-color: rgba(221, 221, 221, 0.097);
+  color: #000;
+}
+
+.menu .selectBox .fas {
+  font-size: 16pt;
+  color: #333;
+}
+
+.menu .selectBox .fas:hover {
+  color: #999;
+  cursor: pointer;
+}
+
+.menu .fas {
+  font-size: 20pt;
+  color: #666;
+}
+
+.menu .fas:hover {
+  color: #000;
+  cursor: pointer;
+}
+
+.bodyContent {
+  width: 1100px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.bodyContent .banner {
+  width: 100%;
+  height: 400px;
+  background-color: chocolate;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.bodyContent .banner .bannerImg {
+  height: 100%;
+  background-size: cover;
+}
+
+.bodyContent .products {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  justify-items: center;
+  -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.bodyContent .products .product {
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(53, 52, 33, 0.4);
+          box-shadow: 0px 0px 10px 1px rgba(53, 52, 33, 0.4);
+  width: 250px;
+  padding-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: #fff;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+.bodyContent .products .product .imgContent {
+  width: 220px;
+  height: 220px;
+  background-color: #fff;
+  margin: 0 auto;
+  margin-top: 10px;
+  font-family: "Arial";
+  font-weight: 600;
+}
+
+.bodyContent .products .product .imgContent img {
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.bodyContent .products .product .imgContent .estado {
+  width: 55px;
+  height: 55px;
+  background-color: darkorange;
+  color: #fff;
+  border-radius: 25px;
+  position: relative;
+  top: -90px;
+  left: 170px;
+  z-index: 10;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: 400;
+}
+
+.bodyContent .products .product .imgContent .promo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  z-index: 5;
+  width: 65px;
+  height: 65px;
+  background-color: darkred;
+  color: #fff;
+  border-radius: 40px;
+  position: relative;
+  top: -110px;
+  left: 135px;
+}
+
+.bodyContent .products .product .description .bookName {
+  color: #222;
+  text-align: center;
+  font-family: "Arial";
+  padding: 10px 10px;
+  font-size: 12pt;
+}
+
+.bodyContent .products .product .description .priceBox {
+  color: #000;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 50%;
+  text-align: center;
+  position: relative;
+  top: -15px;
+}
+
+.bodyContent .products .product .description .priceBox * {
+  margin: 0;
+  padding: 0;
+}
+
+.bodyContent .products .product .description .priceBox .price {
+  font-family: "Arial";
+  font-size: 14pt;
+}
+
+.bodyContent .products .product .description .priceBox .pricePromo {
+  font-family: "Arial";
+  font-size: 11pt;
+  color: #999;
+  -webkit-text-decoration: 1px line-through;
+          text-decoration: 1px line-through;
+}
+
+.bodyContent .products .product .description .buy {
+  color: #fff;
+  font-size: 15pt;
+  width: 40%;
+  text-align: center;
+  margin: 0 auto;
+  background-color: #09c;
+  padding: 8px 5px;
+  border-radius: 10px;
+}
+
+.bodyContent .products .product .description .more {
+  font-family: "Arial";
+  background-color: #999;
+  padding: 7px 0;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 14pt;
+}
+
+.bodyContent .products .product:hover {
+  -webkit-box-shadow: 0px 0px 30px 3px #353421;
+          box-shadow: 0px 0px 30px 3px #353421;
+  z-index: 666;
+}
+
+.bodyContent .products .destaque {
+  -webkit-box-shadow: 0px 0px 20px 1px rgba(0, 153, 204, 0.63);
+          box-shadow: 0px 0px 20px 1px rgba(0, 153, 204, 0.63);
+  z-index: 999;
+}
+
+.bodyContent .products .destaque:hover {
+  -webkit-box-shadow: 0px 0px 30px 3px #09c;
+          box-shadow: 0px 0px 30px 3px #09c;
+}
+
+.bodyContent .contact {
+  width: 100%;
+  height: 450px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px 0;
+  border: 1px solid #999;
+  border-top: none;
+  background-color: #eee;
+  border-bottom: none;
+}
+
+.bodyContent .contact * {
+  width: 80%;
+  margin: 5px 0;
+}
+
+.bodyContent .contact input,
+.bodyContent .contact textarea {
+  padding: 17px 20px;
+  border: none;
+  border-radius: 16px;
+  border: 0.5px solid #ddd;
+}
+
+.bodyContent .contact textarea {
+  height: 300px;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.bodyContent .contact button {
+  background-color: #09c;
+  color: #fff;
+  font-size: 16pt;
+  font-weight: lighter;
+  font-family: "Arial";
+  padding: 5px;
+  border: none;
+  border-radius: 20px;
+}
+
+.bodyContent .contact h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: "Arial";
+  color: #333;
+}
+
+footer {
+  width: 100%;
+  background-color: #000;
+}
+
+footer .footerContent {
+  width: 1100px;
+  height: 250px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fff;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+footer .footerContent ul li {
+  list-style: none;
+  font-family: "Arial";
+  margin: 14px 0;
+  font-size: 10pt;
+}
+
+footer .footerContent img {
+  width: 60px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-bottom: 10px;
+}
+
+footer .footerContent .Logo {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  background-color: #fff;
+}
+/*# sourceMappingURL=main.css.map */

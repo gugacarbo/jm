@@ -9,9 +9,9 @@
 
     .bannerShow {
         width: $deskWidth;
-        height: 100%;
+        height: 100.5%;
         position: absolute;
-
+        transform: translateY(-1px);
         overflow: hidden;
     }
     .dotsBanner {

@@ -1,0 +1,37 @@
+.about-container{
+	width: 1100px;
+	height: 600px;
+	margin: 0 auto;
+}
+
+.about-box{
+	width: 480px;
+	height: auto;
+	float: left;
+	padding: 10px;
+	text-align: justify;
+	font-size: 14px;
+	color: #888;
+	margin-bottom: 15px;
+}
+
+.about-title{font-size: 20px;}
+hr{	border: 1px solid #FF9B9B;}
+
+.about-ig-link, .about-wpp-link{
+	font-size: 35px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.about-ig-link a, .about-wpp-link a{ color: #666; }
+
+.about-ig-link a:hover, .about-wpp-link a:hover{ color: #FF9B9B; }
+
+.about-maps{
+	width: 1100px;
+	height: 200px;
+	float: left;
+	margin-bottom:15px ;
+	border: 1px solid #FF9B9B;
+}

@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Aldrich";
+}
+body {
+    background-color: #09c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.btn1 {
+    $btnSz: 160px;
+    width: $btnSz;
+    height: $btnSz;
+    border-radius: $btnSz/2;
+
+    border: none;
+    border: 3px solid rgb(0, 60, 80);
+    font-size: 16pt;
+
+    &:hover {
+        border-color: rgb(255, 136, 136);
+        cursor: pointer;
+        color: rgb(255, 136, 136);
+    }
+}
+
+.backg {
+    $bkstart: 200px;
+    width: $bkstart;
+    height: $bkstart;
+    border-radius: $bkstart/2;
+    background-color: #c09;
+    opacity: 0;
+    display: none;
+    transition: 1s;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    display: none;
+    opacity: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+    margin: 0 30px;
+}
+
+#text2 {
+    display: none;
+    opacity: 0;
+}
+
+#frase {
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: none;
+}
+h4 {
+    color: #ddd;
+    margin-top: 50px;
+    text-align: center;
+    margin: 0 20px;
+}
+
+#frase .fa-heart {
+    font-size: 30pt;
+    color: #fff;
+    margin-top: 30px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.heart{
+    font-size: 60pt;
+}
+
+
+
+@media screen and (max-width: 1100px) {
+    .btn1{
+        $btnSz: 350px;
+        width: $btnSz;
+        height: $btnSz;
+        border-radius: $btnSz/2;
+        font-size: 35pt;
+    }
+    .heart{
+        font-size: 120pt;
+    }
+    h1{
+        font-size: 40pt;
+    }
+    #frase{
+
+        .frase{
+            font-size: 65pt;
+            
+        }
+        
+        .fas{
+            font-size: 90pt;
+        }
+    }
+    h4{
+        font-size: 26pt;
+    }
+}

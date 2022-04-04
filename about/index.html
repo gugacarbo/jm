@@ -20,7 +20,7 @@
 
 
 
-    
+
     <div class="aboutSlider">
 
         <div id="AboutSlider">
@@ -66,7 +66,7 @@
         $(document).ready(() => {
             $("header").load("/includes/header.html");
             $("footer").load("/includes/footer.html");
-            setBanner("#AboutSlider", "ABOUT");
+            setBanner("#AboutSlider", "ABOUT_BANNER");
 
         })
 
@@ -77,17 +77,24 @@
  * 
  * 
  */
+
+
         function setBanner(el_id, banner_name) {
             //"/api/getBanner.php"
-            $.get("/api/getBanner.json", { 'name': banner_name }, function (data) {
-                $.each(data, function (i, img) {
+            $.get("/php/getBanner.php", { 'name': banner_name }, function (d) {
+                var data = JSON.parse(d);
+                var images = JSON.parse(data["images"]);
+                $.each(images, function (i, img) {
                     $(el_id).append("<img src='" + img + "'>");
                 });
             })
-            setTimeout(()=>{
-                callBanner(banner_name)
-            }, 100);
+            setTimeout(callBanner, 100);
         }
+        setTimeout(() => {
+            callBanner(banner_name)
+        }, 100);
+
+
 
         function callBanner(el_id) {
             var about = new Glider(document.querySelector("#AboutSlider"), {

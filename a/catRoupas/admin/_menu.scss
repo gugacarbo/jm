@@ -1,0 +1,60 @@
+.menu {
+    height: 100vh;
+    width: 220px;
+    background-color: #09c;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 2px 0px 4px 1px #aaa;
+    z-index: 5;
+
+    
+    div {
+        width: 200px;
+        height: 70px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px;
+        list-style: none;
+        color: #fff;
+
+        cursor: pointer;
+        &:hover {
+            color: #ddd;
+        }
+        &:hover > i {
+            color: #09c;
+        }
+
+        &:last-child {
+            background-color: #69c;
+            &:hover > i{
+                color: rgb(232, 139, 255);
+            }
+        }
+
+        i {
+            color: #fff;
+            background-color: #666;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+            border-radius: 50%;
+            font-size: 18pt;
+        }
+    }
+    .selected {
+        position: relative;
+        i {
+            background-color: #fff;
+            color: #999;
+        }
+    }
+}

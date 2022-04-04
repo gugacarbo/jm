@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin da Ni</title>
+    <link rel="icon" type="image/x-icon" href="../img/Logo.png">
+    <link rel="stylesheet" href="admin.css">
+    <script src="https://kit.fontawesome.com/7339c6e983.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="admin.js"></script>
+</head>
+
+<body>
+    <div class="menu">
+        <div><i class="fas fa-box"></i><span>Produtos</span></div>
+        <div class="selected"><i class="fas fa-plus-circle"></i><span>Adicionar</span></div>
+        <div><i class="fas fa-arrow-left"></i><span>Voltar ao Site</span></div>
+    </div>
+    <div class="catMenu">
+        <div>
+            <label>
+                <input type="checkbox" id="shirt" name="menu" value="0" class="menuCheck">
+                <span><img src="../img/shirt.png"></span>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" id="jacket" name="menu" value="1" class="menuCheck">
+                <span><img src="../img/jacket.png"></span>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" id="pant" name="menu" value="2" class="menuCheck">
+                <span><img src="../img/pant.png"></span>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" id="foot" name="menu" value="3" class="menuCheck">
+                <span><img src="../img/foot.png"></span>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" id="acessorios" name="menu" value="4" class="menuCheck">
+                <span><img src="../img/acessorios.png"></span>
+            </label>
+        </div>
+    </div>
+    <div class="addContainer">
+        <div class="add">
+            <div class="catSelector">
+                <label>
+                    <input type="radio" name="cat" value="0">
+                    <span><img src="../img/shirt.png"></span>
+
+                </label>
+                <label>
+                    <input type="radio" name="cat" value="1">
+                    <span><img src="../img/jacket.png"></span>
+
+                </label>
+                <label>
+                    <input type="radio" name="cat" value="2">
+                    <span><img src="../img/pant.png"></span>
+
+                </label>
+                <label>
+                    <input type="radio" name="cat" value="3">
+                    <span><img src="../img/foot.png"></span>
+
+                </label>
+                <label>
+                    <input type="radio" name="cat" value="4">
+                    <span><img src="../img/acessorios.png"></span>
+
+                </label>
+            </div>
+            <div class="addImg">
+                <div class="addMainImg">
+                    <img src="https://ichef.bbci.co.uk/news/999/cpsprodpb/15951/production/_117310488_16.jpg">
+                    <i class="far fa-trash-alt"></i>
+                </div>
+                <div class="addSecImg">
+                    <div>
+                        <img
+                            src="https://media.istockphoto.com/photos/photo-depicting-the-person-who-focuses-on-the-target-picture-id1249041775?b=1&k=20&m=1249041775&s=170667a&w=0&h=Pt6ltIPqpMrceX3FCtAEg69BjzrRJv4ZWh0n5rr3Uqs=">
+                        <i class="far fa-trash-alt"></i>
+                    </div>
+                    <div>
+                        <img src="https://media.istockphoto.com/photos/sunset-with-pebbles-on-beach-in-nice-france-picture-id1157205177?k=20&m=1157205177&s=612x612&w=0&h=bmCFFtaLRtF_eYhjZ3FkhPXU3X-yrdvr85xvl2CmQ9g="">
+                    </div>
+                    <div>
+                        <img src="
+                            https://media.istockphoto.com/photos/sunset-with-pebbles-on-beach-in-nice-france-picture-id1157205177?k=20&m=1157205177&s=612x612&w=0&h=bmCFFtaLRtF_eYhjZ3FkhPXU3X-yrdvr85xvl2CmQ9g="">
+                    </div>
+                    <div id="add"><i class="fas fa-plus"></i></div>
+                </div>
+            </div>
+            <div class=" addInfo">
+                <label for="nome">Nome</label>
+                <input type="text" name="nome" id="nome">
+                <label for="tamanho">Tamanho</label>
+                <input type="text" name="tamanho" id="tamanho">
+                <label for="preco">Preco</label>
+                <input type="text" name="preco" id="preco">
+                <label for="descricao">Descrição</label>
+                <textarea id="descricao" name="descricao">
+
+                </textarea>
+                <i class="far fa-save"></i>
+            </div>
+        </div>
+
+        <div>
+            <div class='product'>
+                <span>Pré Visualização</span>
+                <div class='image'>
+                    <img
+                        src="https://media.istockphoto.com/photos/photo-depicting-the-person-who-focuses-on-the-target-picture-id1249041775?b=1&k=20&m=1249041775&s=170667a&w=0&h=Pt6ltIPqpMrceX3FCtAEg69BjzrRJv4ZWh0n5rr3Uqs=">
+                </div>
+                <div class='info'>
+                    <span class='nome'>Nome Tope</span>
+                    <span class='tamanho'>Tamanho Top</span>
+                    <span class='preco'> Preco Top</span>
+                </div>
+                <div class='addPreview'>
+                    <i class='fas fa-arrow-right'></i>
+                    <i class='fas fa-box'></i>
+                    <i class='fas fa-plus'></i>
+                </div>
+            </div>"
+
+        </div>
+
+    </div>
+
+
+    <div class="products">
+
+    </div>
+    <div class="zoom">
+        <i class="fas fa-times" id="closeZoom"></i>
+        <div class="zImages">
+            <div class="zIMain">
+                <img src="" id="ZImg">
+            </div>
+            <div class="zSecImg" id="zSecImg">
+
+            </div>
+        </div>
+        <div class="zInfo">
+
+            <span>Nome: </span>
+            <input type="text" id="zName">
+            <span>Tamanho: </span>
+            <input type="text" id="zSize">
+            <span>Preco: </span>
+            <input type="text" id="zPrice">
+            <span>Descrição: </span>
+            <textarea id="zDescription">
+            </textarea>
+            <div class="zOptions">
+                <i class="far fa-trash-alt"></i>
+                <i class="far fa-save"></i>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

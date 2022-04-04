@@ -34,8 +34,18 @@
                 left: inherit;
                 right: -30px;
             }
+            &:hover{
+                animation: zoomBtn linear 0.4s;
+                filter: brightness(1.1);
+            }
         }
 
+        @keyframes zoomBtn  {
+            50%{
+                transform: scale(1.2);
+            }
+
+        }
         .showCarousel {
             width: $deskWidth;
             margin-top: 10px;

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brechó da Ni</title>
+    <link rel="icon" type="image/x-icon" href="img/Logo.png">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/7339c6e983.js" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="menu">
+            <div class="tel">
+                <a href="Https://wa.me/+5549999183435?" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    <p>(49) 9.9918-3435</p>
+                </a>
+            </div>
+            <div class="toggleMenu">
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" id="shirt" name="menu" value="0" class="menuCheck">
+                    <span><img src="img/shirt.png"></span>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" id="jacket" name="menu" value="1" class="menuCheck">
+                    <span><img src="img/jacket.png"></span>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" id="pant" name="menu" value="2" class="menuCheck">
+                    <span><img src="img/pant.png"></span>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" id="foot" name="menu" value="3" class="menuCheck">
+                    <span><img src="img/foot.png"></span>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" id="acessorios" name="menu" value="4" class="menuCheck">
+                    <span><img src="img/acessorios.png"></span>
+                </label>
+            </div>
+            <div class="box toggleBox">
+                <i class="fas fa-box-open"></i>
+                <h4 class="itemNumber" id="BoxNumber">
+                    0
+                </h4>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="container" id="containerProduts"></div>
+
+    <div class="zoomProd" id="ZoomDisplay"></div>
+
+    <div id="BoxContainer" class="BoxContainer">
+        <i class="fas fa-times toggleBox"></i>
+        <span class="title">Sua Caixa</span>
+        <div class="show">
+
+
+        </div>
+        <div class="send">
+            Reservar Por Whatsapp
+            <i class="fas fa-share"></i>
+            <i class="fab fa-whatsapp"></i>
+        </div>
+    </div>
+    <footer>
+        
+    </footer>
+</body>
+
+</html>

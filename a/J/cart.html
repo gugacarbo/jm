@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://kit.fontawesome.com/7339c6e983.js" crossorigin="anonymous"></script>
+
+
+    <link rel="preconnect" ref="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <script src="main.js"></script>
+
+    <script src="lib/switchable.js"></script>
+
+
+
+
+</head>
+
+<body>
+    <header>
+        <div class="headerContent">
+            <a href="#"><img src="img/Logo.png"></a>
+            <div class="menu" id="menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Sobre</a></li>
+                    <li><a href="#products">Produtos</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            <div class="social">
+                <a href="https://www.instagram.com/jomartelloacessorios/" target="blank"><i class="fab fa-instagram"
+                        aria-hidden="true"></i></a>
+                <a href="https://api.whatsapp.com/send?phone=5549999604384" target="blank"><i class="fab fa-whatsapp"
+                        aria-hidden="true"></i></a>
+            </div>
+
+            <div class="search">
+                <input type="text" placeholder="Pesquise por Produtos">
+                <i class="fas fa-search"></i>
+            </div>
+            <i class="fas fa-shopping-cart"></i>
+            <div class="toggleMenuContent">
+                <div class="toggleMenu">
+                    <div class="bars" id="Bd1"></div>
+                    <div class="bars" id="Bd2"></div>
+                    <div class="bars" id="Bd3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="searchResp">
+            <input type="text" placeholder="Pesquise por Produtos">
+            <i class="fas fa-search"></i>
+        </div>
+    </header>
+
+    <!--PROD PROD-->
+
+    <span class="pgName">Carrinho de Compras</span>
+    <div class="cart">
+        <div class="items">
+            <div class="item">
+                <div class="prodImg">
+                    <img src="prod.png">
+                </div>
+                <div class="nameDesc">
+                    <span class="name">Nome do carfalho</span>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum dolorum officiis perferendis! Ipsum, excepturi quod iure ipsam tenetur ut commodi accusantium explicabo qui maiores eum eius, voluptatum numquam magni architecto.
+                    </p>
+                </div>
+                <div class="prodQtd">
+                    <input type="text" value="1">
+                </div>
+                <div class="prodPrice">
+                    <span>Valor Unitário</span>
+                    <span>149,90</span>
+                </div>
+                <div class="totalPrice">
+                    <span>Valor Total</span>
+                    <span>149,90</span>
+                </div>
+                <i class="fas fa-trash"></i>
+            </div>
+            <div class="item">
+                <div class="prodImg">
+                    <img src="prod.png">
+                </div>
+                <div class="nameDesc">
+                    <span class="name">Nome do carfalho</span>
+                    <span id="itemDesc">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum dolorum officiis perferendis! Ipsum, excepturi quod iure ipsam tenetur ut commodi accusantium explicabo qui maiores eum eius, voluptatum numquam magni architecto.
+                    </span>
+                </div>
+                <div class="prodQtd">
+                    <input type="text" value="1">
+                </div>
+                <div class="prodPrice">
+                    <span>Valor Unitário</span>
+                    <span>149,90</span>
+                </div>
+                <div class="totalPrice">
+                    <span>Valor Total</span>
+                    <span>149,90</span>
+                </div>
+                <i class="fas fa-trash"></i>
+            </div>
+            <div class="item">
+                <div class="prodImg">
+                    <img src="prod.png">
+                </div>
+                <div class="nameDesc">
+                    <span class="name">Nome do carfalho</span>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum dolorum officiis perferendis! Ipsum, excepturi quod iure ipsam tenetur ut commodi accusantium explicabo qui maiores eum eius, voluptatum numquam magni architecto.
+                    </p>
+                </div>
+                <div class="prodQtd">
+                    <input type="text" value="1">
+                </div>
+                <div class="prodPrice">
+                    <span>Valor Unitário</span>
+                    <span>149,90</span>
+                </div>
+                <div class="totalPrice">
+                    <span>Valor Total</span>
+                    <span>149,90</span>
+                </div>
+                <i class="fas fa-trash"></i>
+            </div>
+        </div>
+
+
+
+        <div class="resume">
+            <h4>Resumo do Pedido</h4>
+            <div class="prodRes">
+                <span class="name">Brinco de Cu</span>
+                <span class="price" > R$ 149,90</span>
+            </div>
+            <div class="prodRes">
+                <span class="name">Brinco de Cu</span>
+                <span class="price"> R$ 149,90</span>
+            </div>
+            <div class="prodRes">
+                <span class="name">Brinco de Cu</span>
+                <span class="price"> R$ 149,90</span>
+            </div>
+            <div class="prodRes">
+                <span class="name">Brinco de Cu</span>
+                <span class="price"> R$ 149,90</span>
+            </div> 
+
+            <div class="buy">
+                <button>Finalizar Compra</button>
+                <span class="total"> R$ 750,00</span>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!--PROD PROD-->
+    <footer>
+        <div class="footerContent">
+            <ul>
+                <li><a>Home</a></li>
+                <li><a>Produtos</a></li>
+                <li><a>Sobre</a></li>
+                <li><a>Contato</a></li>
+            </ul>
+            <a href="#"><img src="img/incube.png" alt="www.incubedev.com.br" class="incubeLogo"></a>
+            <img src="img/Logo.png">
+        </div>
+    </footer>
+</body>
+
+</html>

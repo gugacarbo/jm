@@ -42,9 +42,10 @@ function deleteList() {
 
 
 function addCart(id, qtd = 0, opt = 0) {
+  id = parseInt(id);
   if (opt == 0) {
-    var scriptUrl = "/api/getProdById.json?id=" + id;
-    console.log(scriptUrl);
+    var scriptUrl = "/php/getProdById.php?id=" + id;
+    //console.log(scriptUrl);
 
     $.ajax({
       url: scriptUrl,
@@ -64,8 +65,8 @@ function addCart(id, qtd = 0, opt = 0) {
 
   //Verifica se o produto ja esta no carrinho e remove
   var cart_ = cart.filter((item) => {
-    console.log(item.id, id, item.opt, opt)
-    return item.id !== id || item.opt !== opt;
+   // console.log(item.id, id, item.opt, opt)
+    return item.id != id || item.opt != opt;
   });
   // Atualiza carrinho
   cart = cart_;

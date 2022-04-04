@@ -9,7 +9,7 @@ $(document).ready(() => {
 
 
 function delProd(id, opt) {
-    addCart(id, 0, opt);
+    addCart(parseInt(id), 0, opt);
     setTimeout(() => {
         $("#CartProds").html("");
         callCart();
@@ -27,10 +27,10 @@ function callCart() {
     $("#CartProds").html("");
     
     var totalPrice = 0;
-    console.log(totalPrice)
-    console.log(cart_);
+    //console.log(totalPrice)
+    //console.log(cart_);
     $.each(cart_, (p, item) => {
-        console.log(p)
+        //console.log(p)
         var opts = cart_[p].qtd;
         $.get("/api/getProdById.json", { "id": cart_[p].id }, (prod) => {
 
@@ -49,7 +49,7 @@ function callCart() {
                 cartProd += "<option value='" + (x + 1) + "'"+((x+1)==cart_[p].qtd ? "selected" : "")+">" + (x + 1) + "</option>"
             }
 
-            console.log(cart_[p])
+            //console.log(cart_[p])
             cartProd += '</select>' +
                 //'<span class="delProd" onclick="delProd(' + (prod['id']+",\'"+ [cart_[p].opt]) + '\')">Excluir</span>' +
                 '<span class="delProd" onclick="delProd(' + (cart_[p].id+",\'"+ [cart_[p].opt]) + '\')">Excluir</span>' +

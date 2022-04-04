@@ -11,6 +11,7 @@ $(document).ready(() => {
             return results[1] || 0;
         }
     }
+
     var id = 0;
     id = $.urlParam('id');
 
@@ -77,18 +78,20 @@ $(document).ready(() => {
 })
 
 function getProd(id) {
-    $.get("/api/getProdById.json", { id }, (prod) => {
-
+    $.get("/php/getProdById.php", { id }, (p) => {
+        var prod = JSON.parse(p);
+        prod.imgs = (JSON.parse(prod["imgs"]));
+        prod.options = (JSON.parse(prod["options"]));
+        //console.log(prod)
         $("#MainImage").attr("src", prod["imgs"][1])
         $.each(prod["imgs"], function (i, img) {
             var i = '<div class="sImage"><img src="' + img + '" onclick="changeMain(\'' + img + '\')"></div>'
             $(".secImg").append(i)
         })
         $(".productName").text(prod["name"])
-        if (prod["promo"]) {
-
+        if (prod["promo"] > 0) {
             $(".ifPromo").css("display", "flex")
-            $(".promo").text("De R$ " + prod['promo'].toFixed(2).replace('.', ','))
+            $(".promo").text("De R$ " + prod['promo'].replace('.', ','))
         } else {
             $(".ifPromo").css("display", "none")
         }
@@ -98,16 +101,17 @@ function getProd(id) {
         const floatVal = parseInt(splitted[1] || 0);
         $("#intPrice").text(intVal)
         $("#floatPrice").text(floatVal || "00")
-        $("#prodDesc").text(prod['desc'])
+        $("#prodDesc").text(prod['description'])
         $("#material").text(prod['material'])
         $("#size").text(prod['size'])
         
 
         $(".cartBtn").on('click', () => {
-            addCart(parseInt(prod['id']), 1, $("input[name='prodVar']:checked").val())
+            addCart(parseInt((prod['id'])), 1, $("input[name='prodVar']:checked").val())
         })
         $(".buyBtn").on('click', () => {
-            addCart(parseInt(prod['id']), 1, $("input[name='prodVar']:checked").val())
+            addCart(parseInt((prod['id'])), 1, $("input[name='prodVar']:checked").val())
+
             window.location.replace("/cart")
 
         })

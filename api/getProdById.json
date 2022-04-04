@@ -4,9 +4,9 @@
       "name": "ProdP",
       "price": "123.00",
       "promo": 150.90,
-      "availableQuantity" : "15",
+      "totalQuantity" : "15",
       "material": "OURO",
-      "wheight" : "0.05",
+      "weight" : "0.05",
       "desc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem distinctio quod, culpa qui explicabo iusto doloribus aliquam tempora enim, ex rerum repellat quasi veniam fugit, quisquam in sequi numquam doloremque?",
       "options" : 
         {
@@ -23,3 +23,4 @@
           "4" : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Unico_Anello.jpg/360px-Unico_Anello.jpg"
       }
     }
+    

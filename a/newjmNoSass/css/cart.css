@@ -1,0 +1,177 @@
+.cart-container{
+	width: 1080px;
+	height: auto;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+.cart-title{font-size: 20px;}
+.cart-line{width: 770px;}
+
+.cart-review{
+	width: 750px;
+	height: 80px;
+	padding: 10px;
+	margin-top: 25px;
+	border-bottom: 1px solid #ddd;
+	float: left;
+}
+
+.cart-image{
+	width: 78px;
+	height: 78px;
+	border: 1px solid #FF9B9B;
+	float: left;
+}
+
+.cart-description{
+	width: 290px;
+	height: 70px;
+	padding: 5px;
+	float: left;
+	margin-left: 8px;
+	font-size: 12px;
+}
+
+.cart-item-title{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.cart-item-description{
+	float: left;
+	margin-top: 5px;
+}
+
+.cart-qtd{
+	width: 100px;
+	height: 80px;
+	float: left;
+	margin-left: 8px;
+}
+
+.cart-price{
+	width: 80px;
+	height: 60px;
+	float: left;
+	margin-left: 8px;
+	color: #666;
+	font-size: 12px;
+	padding: 10px;
+}
+
+.cart-subtt{
+	width: 80px;
+	height: 60px;
+	float: left;
+	margin-left: 8px;
+	color: #666;
+	font-size: 12px;
+	padding: 10px;
+}
+
+.cart-exclude{
+	width: 30px;
+	height: 80px;
+	float: left;
+	margin-left: 8px;
+}
+
+.qtd-input{
+	width: 50px;
+	float: left;
+	margin-left: 25px;
+	height: 20px;
+	margin-top: 30px;
+	text-align: center;
+	border: 1px solid #ccc;
+	color: #999;
+}
+
+.cart-price-item{
+	float: left;
+	font-size: 15px;
+	margin-top: 9px;
+	text-align: center;
+	width: 100%;
+}
+
+.cart-item-trash{
+	float: left;
+	text-align: center;
+	width: 100%;
+	margin-top: 32px;
+	color: #999;
+	cursor: pointer;
+}
+
+.cart-item-trash:hover{color: red;}
+
+.review-order{
+	float: right;
+	width: 275px;
+	border: 1px solid #ddd;
+	height: auto;
+	border-radius: 10px;
+}
+
+.review-order-title{
+	width: 255px;
+	margin-left: 10px;
+	float: left;
+	margin-top: 10px;
+	text-align: center;
+	color: #666;
+	margin-bottom: 10px;
+}
+
+.review-order-item{
+	float: left;
+	width: 255px;
+	margin-left: 10px;
+	height: 25px;
+	border-bottom: 1px solid #ddd;
+	margin-top: 5px;
+	color: #666;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.review-order-description{
+	float: left;
+	margin-top: 10px;
+}
+
+.review-order-price{
+	float: right;
+	margin-top: 10px;
+}
+
+.review-order-tt{
+	width: 255px;
+	margin-left: 10px;
+	height: 25px;
+	float: left;
+	margin-top: 10px;
+}
+
+.review-order-price-tt{
+	float: right;
+	width: 100px;
+	margin-top: 3px;
+	color: #FF9B9B;
+	text-align: right;
+	font-weight: bold;
+}
+
+.btn-review-order{
+	height: 100%;
+	float: left;
+	width: 150px;
+	border-radius: 20px;
+	cursor: pointer;
+	border:  none;
+	color: #fff;
+	background-color: #48b500;
+}
+.btn-review-order:hover{background-color: #7ec152;}

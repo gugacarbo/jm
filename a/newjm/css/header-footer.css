@@ -1,0 +1,396 @@
+header {
+  height: 50px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 5px;
+}
+
+header .header-content {
+  width: 1100px;
+  height: 100%;
+  background-color: #fffaff;
+  color: #999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  align-items: center;
+}
+
+header .header-content img {
+  width: 70px;
+  margin: 5px;
+}
+
+header .header-content .nav {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .header-content .nav .menu {
+  width: 80%;
+}
+
+header .header-content .nav .menu ul {
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+header .header-content .nav .menu ul li {
+  color: #999;
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 1.4px;
+  list-style: none;
+  font-weight: 500;
+}
+
+header .header-content .nav .menu ul li a {
+  color: #999;
+}
+
+header .header-content .nav .menu ul li a:hover {
+  color: #333;
+}
+
+header .header-content .wpp-link {
+  font-size: 30px;
+  margin-left: 10px;
+  margin-right: 30px;
+  margin-top: 8px;
+}
+
+header .header-content .wpp-link a {
+  color: #999;
+}
+
+header .header-content .wpp-link a:hover {
+  color: #333;
+}
+
+header .header-content .ig-link {
+  font-size: 30px;
+  margin-right: 30px;
+  margin-top: 8px;
+}
+
+header .header-content .ig-link a {
+  color: #999;
+}
+
+header .header-content .ig-link a:hover {
+  color: #333;
+}
+
+header .header-content .search-bar {
+  border: 1px solid #999;
+  border-right: none;
+  color: #666;
+  border-radius: 30px 0px 0px 30px;
+  font-size: 12px;
+  height: 15px;
+  margin-top: 6px;
+  padding: 10px 15px;
+  width: 180px;
+}
+
+header .header-content #btn-search {
+  background-color: #fff;
+  border: 1px solid #999;
+  border-left: none;
+  border-radius: 0px 30px 30px 0px;
+  color: #999;
+  cursor: pointer;
+  height: 37px;
+  margin-right: 20px;
+  margin-top: 6px;
+  padding-right: 7px;
+  width: 25px;
+}
+
+header .header-content #btn-search :hover {
+  color: #ddd;
+}
+
+header .header-content .shopping-cart {
+  font-size: 25px;
+  margin-right: 25px;
+  margin-top: 10px;
+}
+
+header .header-content .shopping-cart a {
+  color: #999;
+}
+
+header .header-content .shopping-cart a:hover {
+  color: #333;
+}
+
+header .header-content .menu-toggle {
+  display: none;
+}
+
+@media screen and (max-width: 1100px) {
+  header .header-content {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  header {
+    height: 60px;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding-bottom: 5px;
+  }
+  header .header-content {
+    height: 100%;
+    background-color: #fffaff;
+    color: #999;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    align-items: center;
+  }
+  header .header-content .logo-img {
+    width: 100px;
+    margin-top: 10px;
+  }
+  header .header-content .nav {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    display: none;
+  }
+  header .header-content .nav .menu {
+    width: 80%;
+  }
+  header .header-content .nav .menu ul {
+    padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+  }
+  header .header-content .nav .menu ul li {
+    color: #999;
+    cursor: pointer;
+    font-size: 14px;
+    letter-spacing: 1.4px;
+    list-style: none;
+    font-weight: 500;
+  }
+  header .header-content .nav .menu ul li a {
+    color: #999;
+  }
+  header .header-content .nav .menu ul li a:hover {
+    color: #333;
+  }
+  header .header-content .midia {
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+    margin-left: 25px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    margin-top: 10px;
+  }
+  header .header-content .wpp-link {
+    font-size: 30px;
+    margin-left: 10px;
+    margin-right: 30px;
+    margin-top: 8px;
+  }
+  header .header-content .wpp-link a {
+    color: #999;
+  }
+  header .header-content .wpp-link a:hover {
+    color: #333;
+  }
+  header .header-content .ig-link {
+    font-size: 30px;
+    margin-right: 30px;
+    margin-top: 8px;
+  }
+  header .header-content .ig-link a {
+    color: #999;
+  }
+  header .header-content .ig-link a:hover {
+    color: #333;
+  }
+  header .header-content .search {
+    display: none;
+  }
+  header .header-content .search-bar {
+    border: 1px solid #999;
+    border-right: none;
+    color: #666;
+    border-radius: 30px 0px 0px 30px;
+    font-size: 12px;
+    height: 15px;
+    margin-top: 6px;
+    padding: 10px 15px;
+    width: 180px;
+  }
+  header .header-content #btn-search {
+    background-color: #fff;
+    border: 1px solid #999;
+    border-left: none;
+    border-radius: 0px 30px 30px 0px;
+    color: #999;
+    cursor: pointer;
+    height: 37px;
+    margin-right: 20px;
+    margin-top: 6px;
+    padding-right: 7px;
+    width: 25px;
+  }
+  header .header-content #btn-search :hover {
+    color: #ddd;
+  }
+  header .header-content .shopping-cart {
+    font-size: 20px;
+    margin-right: 25px;
+    margin-top: 10px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    text-align: right;
+  }
+  header .header-content .shopping-cart a {
+    color: #999;
+  }
+  header .header-content .shopping-cart a:hover {
+    color: #333;
+  }
+  header .header-content .menu-toggle {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 25px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-top: 8px;
+    margin-right: 30px;
+  }
+}
+
+.footer-style {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 150px;
+  border-top: 2px solid #ff9b9b;
+  clear: both;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #fff;
+}
+
+.footer-style .footer-content {
+  background-color: #fff;
+  width: 1100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.footer-style .footer-content .nav-footer ul {
+  margin-top: 30px;
+}
+
+.footer-style .footer-content .nav-footer ul li {
+  cursor: pointer;
+  font-size: 12px;
+  height: 20px;
+  list-style: none;
+  margin-left: 25px;
+}
+
+.footer-style .footer-content .nav-footer ul li a {
+  color: #999;
+}
+
+.footer-style .footer-content .nav-footer ul li a:hover {
+  color: #666;
+}
+
+.footer-style .footer-content .img-footer {
+  margin-top: 35px;
+  width: 100px;
+  height: 50px;
+  margin-right: 25px;
+}
+
+.footer-style .footer-content .incube-img {
+  margin-top: 110px;
+  width: 40px;
+  height: 40px;
+}
+/*# sourceMappingURL=header-footer.css.map */
