@@ -30,10 +30,12 @@ function callCart() {
     //console.log(totalPrice)
     //console.log(cart_);
     $.each(cart_, (p, item) => {
-        //console.log(p)
         var opts = cart_[p].qtd;
-        $.get("/api/getProdById.json", { "id": cart_[p].id }, (prod) => {
-
+        $.get("/php/getProdById.php", { "id": cart_[p].id }, (l) => {
+            var prod = JSON.parse(l);
+            prod.imgs = (JSON.parse(prod["imgs"]));
+            prod.options = (JSON.parse(prod["options"]));
+            
             var cartProd = '<div class="cartP">' +
                 '<a class="pImage" href="/product/?id='+cart_[p].id+'">' +
                 '<img src="' + prod['imgs'][1] + '" alt="">' +

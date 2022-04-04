@@ -1584,6 +1584,9 @@ footer .footerContent .scudero b {
 
 .products .showProducts {
   width: 1100px;
+  min-height: 300px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
   padding: 10px 0;
   display: -ms-grid;
   display: grid;

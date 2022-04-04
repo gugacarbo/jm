@@ -6,8 +6,6 @@ $(document).ready(() => {
     $('#SearchMinVal').mask('000.000,00', { reverse: true });
     $('#SearchMaxVal').mask('000.000,00', { reverse: true });
 
-    callProds("");
-
     $("#Search").on('click', () => {
         var minVal = $("#SearchMinVal").val();
         var MaxVal = $("#SearchMaxVal").val();
@@ -19,10 +17,10 @@ $(document).ready(() => {
             "min": (minVal.replace(",", ".") || 0),
             "max": (MaxVal.replace(",", ".") || 20000),
             "cat": category || 0,
-            "order": order || "price DESC", 
+            "order": order || "price DESC",
             "text": text || ""
         }
-        
+
         console.log(searchQuery)
         callProds(searchQuery);
     })
@@ -36,8 +34,27 @@ $(document).ready(() => {
             console.log("Loading");
         }
     });
+    var getSearchQuery = {
+        "text": $.urlParam("text"),
+        "min": $.urlParam("min") || 0,
+        "max": $.urlParam("max") || 20000,
+        "cat": $.urlParam("cat") || 0,
+        "order": $.urlParam("order") || "price ASC"
+    }
+    console.log(getSearchQuery)
+    callProds(getSearchQuery);
 })
 
+
+$.urlParam = function (name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results == null) {
+        return null;
+    }
+    else {
+        return results[1] || 0;
+    }
+}
 
 /**
  * *Produtos
@@ -52,31 +69,32 @@ function callProds(query) {
     $.get("/php/getFiltered.php", query, (ids_) => {
         console.log(ids_)
         var ids = JSON.parse(ids_);
-        $("#ShowProducts").empty();
-        $.each(ids, function (_, id) {
+        $("#ShowProducts").fadeOut(500, () => {
+            $("#ShowProducts").empty();
+            $.each(ids, function (_, id) {
 
-            $.get("/php/getProdById.php", { id: id }, (p) => {
-                var prod = JSON.parse(p);
-                prod.imgs = (JSON.parse(prod["imgs"]));
-                prod.options = (JSON.parse(prod["options"]));
-                var prodApend =
-                    "<div class='product'>"
-                    + "<a class='prodImage' href='/product/?id=" + prod['id'] + "'>"
-                    + "<img src='" + prod['imgs'][1] + "'>"
-                    + "<img class='sImage' src='" + prod['imgs'][2] + "'>"
-                    + "<span class='promo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
-                    + "</a>"
-                    + "<span class='prodName'>" + prod['name'] + "</span>"
-                    + "<span class='prodPrice'>R$" + prod['price'] + "</span>"
-                    + "<span class='prodPay'>ou em 4x de " + Math.round(prod['price'] / 4) + "</span>"
-                    + "<i class='fas fa-shopping-cart' onclick='addCart(" + id + ", 1)'></i>"
-                    + "</div>";
-                $("#ShowProducts").append(prodApend)
+                $.get("/php/getProdById.php", { id: id }, (p) => {
+                    var prod = JSON.parse(p);
+                    prod.imgs = (JSON.parse(prod["imgs"]));
+                    prod.options = (JSON.parse(prod["options"]));
+                    var prodApend =
+                        "<div class='product'>"
+                        + "<a class='prodImage' href='/product/?id=" + prod['id'] + "'>"
+                        + "<img src='" + prod['imgs'][1] + "'>"
+                        + "<img class='sImage' src='" + prod['imgs'][2] + "'>"
+                        + "<span class='promo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['promo'] / prod['price'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
+                        + "</a>"
+                        + "<span class='prodName'>" + prod['name'] + "</span>"
+                        + "<span class='prodPrice'>R$" + (parseFloat(prod['promo'] > 0 ? prod['promo'] : prod['price']).toFixed(2)).replace(".", ",") + "</span>"
+                        + "<span class='prodPay'>ou em 2x de " + (parseFloat((prod['promo'] > 0 ? prod['promo'] : prod['price']) / 2).toFixed(2)).replace(".", ",") + "</span>"
+                        + "<i class='fas fa-shopping-cart' onclick='addCart(" + (id) + ", 1)'></i>"
+                        + "</div>";
+
+                    $("#ShowProducts").append(prodApend)
+                })
             })
-
-
-        })
-    })
+        }).fadeIn(500)
+    });
 }
 
 

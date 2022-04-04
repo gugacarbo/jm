@@ -53,19 +53,20 @@ function addCart(id, qtd = 0, opt = 0) {
       dataType: 'json',
       async: false,
       success: function (data) {
-        opt = (Object.keys(data["options"])[0]);
-        console.log(opt)
+        data["options"] = JSON.parse(data["options"]);
+
+        opt = ((Object.keys(data["options"])[0]));
       },
-      fail : function(data){
-        console.log(data)
+      fail: function (data) {
       }
     });
   }
 
+  console.log(opt)
 
   //Verifica se o produto ja esta no carrinho e remove
   var cart_ = cart.filter((item) => {
-   // console.log(item.id, id, item.opt, opt)
+    // console.log(item.id, id, item.opt, opt)
     return item.id != id || item.opt != opt;
   });
   // Atualiza carrinho

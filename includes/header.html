@@ -25,7 +25,7 @@
 
         <div class="search">
             <input type="text" id="searchText" placeholder="Pesquise por produtos">
-            <i class="fas fa-search"></i>
+            <i class="fas fa-search" id="headerSearchBtn"></i>
         </div>
 
         <div class="orders">
@@ -70,5 +70,12 @@
        $(".menuToggle").toggleClass("toggleOn");
        $("body").toggleClass("blockBody");
     })
+
+
+    $("#headerSearchBtn").on("click", ()=>{
+        let searchText = $("#searchText").val();
+        window.location.href = "/products?text=" + searchText;
+    })
+
 </script>
 <script src="/mainCart.js"></script>
