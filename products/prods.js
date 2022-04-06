@@ -3,8 +3,9 @@ $(document).ready(() => {
     $("footer").load("/includes/footer.html");
     setBanner("#ProdsSlider", "PRODUCTS_BANNER");
 
-    $('#SearchMinVal').mask('000.000,00', { reverse: true });
-    $('#SearchMaxVal').mask('000.000,00', { reverse: true });
+    //$('#SearchMinVal').mask('000.000,00', { reverse: true });
+    //$('#SearchMaxVal').mask('000.000,00', { reverse: true });
+    getCategory()
 
     $("#Search").on('click', () => {
         var minVal = $("#SearchMinVal").val();
@@ -69,8 +70,9 @@ function callProds(query) {
     $.get("/php/getFiltered.php", query, (ids_) => {
         console.log(ids_)
         var ids = JSON.parse(ids_);
-        $("#ShowProducts").fadeOut(500, () => {
+        $("#ShowProducts").fadeOut("fast", () => {
             $("#ShowProducts").empty();
+
             $.each(ids, function (_, id) {
 
                 $.get("/php/getProdById.php", { id: id }, (p) => {
@@ -89,11 +91,10 @@ function callProds(query) {
                         + "<span class='prodPay'>ou em 2x de " + (parseFloat((prod['promo'] > 0 ? prod['promo'] : prod['price']) / 2).toFixed(2)).replace(".", ",") + "</span>"
                         + "<i class='fas fa-shopping-cart' onclick='addCart(" + (id) + ", 1)'></i>"
                         + "</div>";
-
                     $("#ShowProducts").append(prodApend)
                 })
             })
-        }).fadeIn(500)
+        }).fadeIn("slow");
     });
 }
 
@@ -178,4 +179,14 @@ function filter(value) {
     });
 }
 
-//
+//$.get to /php/getCategory.php and append into SearchCategory id
+function getCategory() {
+    $.get("/php/getCategory.php", function (data) {
+        var categories = JSON.parse(data);
+        console.log(categories)
+        $.each(categories, function (i, cat) {
+            console.log(i, cat)
+            $("#SearchCategory").append("<option value='" + cat["id"] + "'>" + cat["name"] + "</option>");
+        })
+    })
+}

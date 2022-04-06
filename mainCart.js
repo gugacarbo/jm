@@ -1,13 +1,7 @@
 /**
  * TODO Cart
- * 
- * 
- * 
- * 
- * 
- * 
- * 
  */
+
 var cart = [];
 
 $(document).ready(() => {

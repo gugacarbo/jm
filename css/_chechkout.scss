@@ -33,40 +33,95 @@
         flex-direction: column;
 
         .product {
-            width: 90%;
+            text-decoration: none;
+            width: 97%;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 10px 0;
             padding: 10px 0;
+            justify-content: space-around;
             border-bottom: 1px solid $mainColor;
             &:last-child {
-                border: none;
+                border-bottom: none;
             }
-            .productImage {
-                width: 100px;
-                height: 100px;
+
+            .pImage {
+                width: 130px;
+                aspect-ratio: 1/1;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 position: relative;
+                
                 img {
                     width: 100%;
                     height: 100%;
                 }
             }
-            .productName {
-                font-size: 15pt;
-                color: #666;
+            .pInfo {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                
+                .pName {
+                    width: 100%;
+                    font-size: 18pt;
+                    color: #323;
+                    letter-spacing: 1px;
+                    text-align: center;
+                }
+                .pAvailable {
+                    text-align: center;
+                    font-size: 8pt;
+                    color: rgb(67, 207, 67);
+                    width: 100%;
+                    margin-bottom: 8px;
+                }
+                .giftCheck {
+                    width: 100%;
+                    font-size: 11pt;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    input {
+                        margin: 0 5px;
+                        accent-color: $mainColor;
+                    }
+                }
+                .vari{
+                    text-align: center;
+                }
+    
+                .pQuantity {
+                    width: 100%;
+                    height: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 14pt;
+                    span{
+                        font-size: 16pt;
+                   }
+                }
             }
-            .productQuantity {
-                font-size: 14pt;
-            }
-            .productAmount {
-                font-size: 16pt;
-                color: #666;
+            .pPrice{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: center;
+                span{
+                    &:first-child{
+                        font-size: 16pt;
+                        font-weight: bold;
+                    }
+                    font-size: 8pt;
+                    color: #666;
+                }
             }
         }
     }
 
     .shipping,
+    .subTotal,
     .total {
         width: 100%;
         border-radius: 20px;
@@ -74,9 +129,36 @@
         display: flex;
         justify-content: space-between;
         margin: 10px 0;
+        padding: 0 50px;
         span {
-            margin: 10px 60px;
+            margin: 10px 0;
             font-size: 16pt;
+        }
+    }
+    .subTotal{
+        justify-content: flex-end;
+    }
+
+    .shipping{
+        flex-direction: column;
+        padding: 20px 30px;
+        gap: 10px;
+        div{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+            position: relative;
+            input[type="radio"]{
+                right: 90px;
+                position: absolute;
+                accent-color: $mainColor;
+                border: 1px solid #ffffff88;
+                transition: 1s;
+                width: 15px;
+                height: 15px;
+                cursor: pointer;
+            }
         }
     }
     button {
@@ -92,11 +174,16 @@
         margin-bottom: 50px;
         position: relative;
         overflow: hidden;
+        margin: 0 auto;
         margin-top: 10px;
         transition: 0.5s;
         &:hover {
             background-color: darken($mainColor, 12);
         }
+    }
+    .off{
+        pointer-events: none;
+        background-color: #ddd;
     }
 }
 

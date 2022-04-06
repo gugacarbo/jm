@@ -35,36 +35,26 @@ $(document).ready(() => {
                 setTimeout(() => {
 
                     var config = {
-                        "nCdEmpresa": "08082650",
-                        "sDsSenha": "564321",
-                        "sCepOrigem": "70002900",
-                        "sCepDestino": "04547000",
-                        "nVlPeso": "1",
-                        "nCdFormato": "1",
-                        "nVlComprimento": "20",
-                        "nVlAltura": "20",
-                        "nVlLargura": "20",
-                        "sCdMaoPropria": "n",
-                        "nVlValorDeclarado": "0",
-                        "sCdAvisoRecebimento": "n",
-                        "nCdServico": "04510",
-                        "nVlDiametro": "0",
-                        "StrRetorno": "xml",
-                        "nIndicaCalculo": "3",
+                        "sCepDestino": ($("#cep").val().replace("-","").replace(".","")),
+                        "nVlPeso": itemWeight, //Peso + Embalagem Kg
                     }
 
-                    $.get("/api/frete.json", (data) => {//PAC
-                        if (data["error"]) {
+                    $.get("/php/frete.php", config, (d) => {//PAC    
+                        var data = JSON.parse(d);
+                         data = JSON.parse(data);
+                        console.log(data)
+                        
+                        if (data["erro"][0] > 0 || data["erro2"][0] > 0) {
                             $(".preco").css("display", "none");
                             $("#ShipError").css("display", "block")
-                            $("#ShipError").text(data["error"])
+                            $("#ShipError").text("Erro, Tente Novamente Mais Tarde")// data["error"])
                             $(".animatedIconShipping").removeClass("animateShipping");
                         } else {
-                            $("#PrecoPac").html("R$ " + data['vPac'].toFixed(2).replace('.', ','))
-                            $("#PrazoPac").html(data['pPac'] + " Dias")
-                            $("#PrecoSedex").html("R$ " + data['vSedex'].toFixed(2).replace('.', ','))
-                            $("#PrazoSedex").html(data['pSedex'] + " Dias")
-                            $("#SLocal").html(data['cidade'])
+                            $("#PrecoPac").html("R$ " + parseFloat(data['valorPac'][0]).toFixed(2).replace('.', ','))
+                            $("#PrazoPac").html(data['prazoPac'][0] + " Dias")
+                            $("#PrecoSedex").html("R$ " + parseFloat(data['valorSedex'][0]).toFixed(2).replace('.', ','))
+                            $("#PrazoSedex").html(data['prazoSedex'][0] + " Dias")
+                            $("#SLocal").html((Object.keys(data['cidade']["bairro"]).length === 0 ? "" : data['cidade']["bairro"]) + " - " + data['cidade']["cidade"] + " - " + data['cidade']["uf"]);
                             $(".preco").css("display", "flex");
                             $(".animatedIconShipping").removeClass("animateShipping");
                         }
@@ -77,12 +67,14 @@ $(document).ready(() => {
 
 })
 
+var itemWeight;
 function getProd(id) {
     $.get("/php/getProdById.php", { id }, (p) => {
         var prod = JSON.parse(p);
         prod.imgs = (JSON.parse(prod["imgs"]));
         prod.options = (JSON.parse(prod["options"]));
         //console.log(prod)
+        itemWeight = prod.weight;
         $("#MainImage").attr("src", prod["imgs"][1])
         $.each(prod["imgs"], function (i, img) {
             var i = '<div class="sImage"><img src="' + img + '" onclick="changeMain(\'' + img + '\')"></div>'

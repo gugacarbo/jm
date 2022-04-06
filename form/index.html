@@ -26,54 +26,60 @@
 
     </header>
 
+    <form id="buyerForm">
+    
+        <div class="form" >
+            <span class="formHeader">Dados Pessoais</span>
+            <input id="DataNome" name="nome" type="text" placeholder="Nome" maxlength="50" required>
+            <input id="DataSobrenome" name="sobrenome" type="text" placeholder="Sobrenome" maxlength="50" required>
+            <input id="DataEmail" name="email" type="email" placeholder="e-mail" maxlength="120" required>
+            <input id="DataTelefone" name="telefone" type="text" placeholder="Telefone" required>
+            <input id="DataCPF" name="cpf" type="text" placeholder="CPF" required>
+            <input id="DataNascimento" name="nascimento" type="text" placeholder="Data de Nascimento" required>
+        </div>
 
-    <div class="form">
-        <span class="formHeader">Dados Pessoais</span>
-        <input id="DataNome" name="nome" type="text" placeholder="Nome" maxlength="50">
-        <input id="DataSobrenome" name="sobrenome" type="text" placeholder="Sobrenome" maxlength="50">
-        <input id="DataEmail" name="email" type="email" placeholder="e-mail" maxlength="120">
-        <input id="DataTelefone" name="phone" type="text" placeholder="Telefone">
-        <input id="DataCPF" name="cpf" type="text" placeholder="CPF">
-        <input id="DataNascimento" name="nascimento" type="text" placeholder="Data de Nascimento">
-    </div>
-    <div class="form">
-        <span class="formHeader">Dados de Envio</span>
-        <input id="ShippingCEP"type="text" placeholder="CEP" required>
-        <input id="ShippingRua"type="text" placeholder="Rua" style="width: 85%;" >
-        <input id="ShippingNumero"type="text" placeholder="Número" style="width: 8%; text-align: center;" required>
-        <input id="ShippingBairro"type="text" placeholder="Bairro" style="width: 40%;" >
-        <input id="ShippingCidade"type="text" placeholder="Lages" style="width: 40%;" >
-        <input id="ShippingUF"type="text" placeholder="UF" style="width: 8%; text-align: center;" >
-        <input id="ShippingComplemento"type="text" placeholder="Complemento" style="width: 100%;" required maxlength="100">
-    </div>
 
-    <button class="formContinue">Continuar</button>
+        <div class="form" >
+            <span class="formHeader">Dados de Envio</span>
+            <input id="ShippingCEP" type="text" placeholder="CEP" required name="cep">
+            <input id="ShippingRua" type="text" placeholder="Rua" name="rua">
+            <input id="ShippingNumero" type="text" placeholder="Número" required name="numero">
+            <input id="ShippingBairro" type="text" placeholder="Bairro" name="bairro">
+            <input id="ShippingCidade" type="text" placeholder="Cidade" name="cidade">
+            <input id="ShippingUF" type="text" placeholder="UF" name="UF">
+            <input id="ShippingComplemento" type="text" placeholder="Complemento" maxlength="100" name="complemento">
+        </div>
+        <button class="formContinue">Continuar</button>
+    </form>
 
     <footer>
 
     </footer>
     <script>
+        
+        
+  $('form').submit(false);
         $("header").load("/includes/header.html");
         $("footer").load("/includes/footer.html");
-        
+
         $('#DataTelefone').mask('(00) 0.0000-0000');
         $('#DataCPF').mask('000.000.000-00');
         $('#DataNascimento').mask('00/00/0000');
         $('#ShippingCEP').mask('00.000-000');
         $('#ShippingNumero').mask('00000');
-        
-        $(document).ready(()=>{
-            $("#ShippingCEP").on('keyup', ()=>{
-                if($("#ShippingCEP").val().length == 10){
+
+        $(document).ready(() => {
+            $("#ShippingCEP").on('keyup', () => {
+                if ($("#ShippingCEP").val().length == 10) {
                     var cep = $("#ShippingCEP").val();
                     $.ajax({
-                        url: "http://viacep.com.br/ws/"+((cep).replace('.', '').replace('-', ''))+"/json/",
+                        url: "http://viacep.com.br/ws/" + ((cep).replace('.', '').replace('-', '')) + "/json/",
                         type: "GET",
                         crossDomain: true,
                         dataType: "json",
-                        mode:'no-cors'
-                    }).done((data)=>{
-                        console.log(data)
+                        mode: 'no-cors'
+                    }).done((data) => {
+                        //console.log(data)
                         $('#ShippingBairro').val(data['bairro'])
                         $('#ShippingCidade').val(data['localidade'])
                         $('#ShippingRua').val(data['logradouro'])
@@ -81,9 +87,30 @@
                     })
                 }
             })
-            $(".formContinue").on("click",()=>{
-                window.location.replace("/checkout")
+
+
+            var receiverData = {
+                nome: $("#DataNome").val(),
+                sobrenome: $("#DataSobrenome").val(),
+                email: $("#DataEmail").val(),
+                phone: $("#DataTelefone").val(),
+                cpf: $("#DataCPF").val(),
+                nascimento: $("#DataNascimento").val(),
+                cep: $("#ShippingCEP").val(),
+                rua: $("#ShippingRua").val(),
+                numero: $("#ShippingNumero").val(),
+                bairro: $("#ShippingBairro").val(),
+                cidade: $("#ShippingCidade").val(),
+                uf: $("#ShippingUF").val(),
+                complemento: $("#ShippingComplemento").val()
+            }
+            $(".formContinue").on("click", () => {
+                var query = $("#buyerForm").serialize();
+                console.log(query);
+                //redirect to /checkout+query
+                window.location.href = "/checkout/?" + query;
             })
+
         })
 
     </script>
