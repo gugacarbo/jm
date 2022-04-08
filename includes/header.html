@@ -48,20 +48,13 @@
     </div>
     
     <div class="mobileMenu">
-        <div class="orders">
-            <a href="/login">
-                <i class="fa-solid fa-box"></i>
-            </a>
-            <div class="info">
-                <span>Verifique o status do seu pedido aqui</span>
-            </div>
-        </div>
         <div class="menu">
             <span class="menuItem"><a href="/">Home</a></span>
-            <span class="menuItem"><a href="/about">Sobre</a></span>
             <span class="menuItem"><a href="/products">Produtos</a></span>
-            <span class="menuItem"><a href="/#contactDiv">Contato</a></span>
+            <span class="menuItem"><a href="/login">Buscar Por Pedido</a></span>
             <span class="menuItem"><a href="/cart">Carrinho de Compras</a></span>
+            <span class="menuItem"><a href="/#contactDiv">Contato</a></span>
+            <span class="menuItem"><a href="/about">Sobre</a></span>
         </div>
     </div>
 <script>
@@ -76,6 +69,5 @@
         let searchText = $("#searchText").val();
         window.location.href = "/products?text=" + searchText;
     })
-
 </script>
 <script src="/mainCart.js"></script>

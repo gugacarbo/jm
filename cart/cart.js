@@ -64,9 +64,9 @@ async function callCart() {
                     '<span class="vari">Variação ' + cart_[p].opt + '</span>' +
                     '</div>' +
                     '<div class="pPrice">' +
-                    '<span>R$ ' + ((parseFloat(prod['promo'] > 0 ? prod['promo'] : prod['price'])).toFixed(2)).replace(".", ",") + '</span>' +
-                    '<span>Ou em até 4x de R$' + (prod["price"] / 4).toFixed(2) + '</span>' +
-                    '<span>Sem Juros</span>' +
+                    '<span>R$ ' + ((parseFloat(prod['price'])).toFixed(2)).replace(".", ",") + '</span>' +
+                    //'<span>Ou em até 4x de R$' + (prod["price"] / 4).toFixed(2) + '</span>' +
+                    //'<span>Sem Juros</span>' +
                     '</div></div>';
                 $("#CartProds").append(cartProd);
                 return await prod;
@@ -74,7 +74,7 @@ async function callCart() {
         })
         px.then((value) => {
             var v = JSON.parse(value)
-            totalPrice += (parseFloat((parseFloat(v.promo > 0 ? v.promo : v.price) * cart_[p].qtd)));
+            totalPrice += (parseFloat((parseFloat(v.price) * cart_[p].qtd)));
             totalItens += parseInt(cart_[p].qtd);
             $("#totalPrice").html("Subtotal (" + totalItens + " Itens) : R$ " + totalPrice.toFixed(2).replace(".", ",") + "")
             return v;

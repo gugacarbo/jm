@@ -1,19 +1,20 @@
 .aboutSlider {
     width: $deskWidth;
-    height: 450px;
     background-color: $mainColor;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
 
+    
     #AboutSlider {
+        overflow-y: hidden;
         width: $deskWidth;
-        height: 100.5%;
-        position: absolute;
         transform: translateY(-1px);
-
-        overflow: hidden;
+        img{
+            width: 100%;
+            height: 100%;
+        }
     }
     .AboutDotsBanner {
         position: absolute;
@@ -55,6 +56,10 @@
         .map {
             width: 50%;
             height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
             img {
                 width: 100%;
                 height: 100%;
@@ -65,6 +70,7 @@
 
 @media (max-width: $deskWidth) {
     .aboutSlider {
+        width: 100%;
         #AboutSlider {
             width: 100%;
         }
@@ -81,23 +87,9 @@
         }
     }
 }
-@media (max-width: 1000px) {
-    .aboutSlider {
-        width: 100%;
-        height: 400px;
-        #AboutSlider {
-            width: 100%;
-        }
-    }
-}
+
 @media (max-width: 900px) {
-    .aboutSlider {
-        width: 100%;
-        height: 350px;
-        #AboutSlider {
-            width: 100%;
-        }
-    }
+    
     .about {
         div {
             flex-direction: column;
@@ -109,22 +101,11 @@
         }
     }
 }
-@media (max-width: 800px) {
-    .aboutSlider {
-        width: 100%;
-        height: 300px;
-        #AboutSlider {
-            width: 100%;
-        }
-    }
-}
-
 @media (max-width: 700px) {
-    .aboutSlider {
-        width: 100%;
-        height: 280px;
-        #AboutSlider {
-            width: 100%;
+    
+    .about {
+        p{
+            width: 80%;
         }
     }
 }

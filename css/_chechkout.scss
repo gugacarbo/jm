@@ -51,7 +51,7 @@
                 justify-content: center;
                 align-items: center;
                 position: relative;
-                
+
                 img {
                     width: 100%;
                     height: 100%;
@@ -61,7 +61,7 @@
                 display: flex;
                 flex-direction: column;
                 flex-wrap: wrap;
-                
+
                 .pName {
                     width: 100%;
                     font-size: 18pt;
@@ -87,10 +87,10 @@
                         accent-color: $mainColor;
                     }
                 }
-                .vari{
+                .vari {
                     text-align: center;
                 }
-    
+
                 .pQuantity {
                     width: 100%;
                     height: 40px;
@@ -98,22 +98,21 @@
                     justify-content: center;
                     align-items: center;
                     font-size: 14pt;
-                    span{
+                    span {
                         font-size: 16pt;
-                   }
+                    }
                 }
             }
-            .pPrice{
+            .pPrice {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-end;
                 justify-content: center;
-                span{
-                    &:first-child{
+                span {
+              
                         font-size: 16pt;
                         font-weight: bold;
-                    }
-                    font-size: 8pt;
+    
                     color: #666;
                 }
             }
@@ -135,21 +134,21 @@
             font-size: 16pt;
         }
     }
-    .subTotal{
+    .subTotal {
         justify-content: flex-end;
     }
 
-    .shipping{
+    .shipping {
         flex-direction: column;
-        padding: 20px 30px;
+        padding: 10px 20px;
         gap: 10px;
-        div{
+        div {
             display: flex;
             justify-content: space-between;
             width: 100%;
             align-items: center;
             position: relative;
-            input[type="radio"]{
+            input[type="radio"] {
                 right: 90px;
                 position: absolute;
                 accent-color: $mainColor;
@@ -160,9 +159,44 @@
                 cursor: pointer;
             }
         }
+        position: relative;
+        #waitingShipping{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(2px);
+            background-color: rgba($mainColor, 0.05);
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            i{
+                font-size: 25pt;
+                color: #787878;
+                animation: girar 1s infinite;
+
+            }
+            @keyframes girar {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+
+            }
+        }
     }
     button {
         width: 300px;
+
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border: none;
         outline: none;
         font-size: 14pt;
@@ -171,7 +205,6 @@
         background-color: $mainColor;
         color: #fff;
         cursor: pointer;
-        margin-bottom: 50px;
         position: relative;
         overflow: hidden;
         margin: 0 auto;
@@ -181,22 +214,159 @@
             background-color: darken($mainColor, 12);
         }
     }
-    .off{
+    .off {
         pointer-events: none;
         background-color: #ddd;
     }
 }
 
-@media (max-width: $deskWidth){
-    .checkout{
+.redirectMessage {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(#fdd, 0.5);
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+    .redirectMessageContent {
+        transition: 1.5s;
+        width: 500px;
+        height: 300px;
+        border-radius: 20px;
+        color: #fff;
+        background-color: rgba($mainColor, 0.9);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 20px 20px 50px rgba(#000000, 0.5);
+        border-radius: 10px;
+        overflow: hidden;
+        backdrop-filter: blur(20px);
+        i {
+            background-color: #0f0;
+            font-size: 30pt;
+            border-radius: 50%;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 20pt;
+            margin: 0;
+            text-align: center;
+        }
+        p {
+            font-size: 14pt;
+            text-align: center;
+            margin: 0;
+        }
+    }
+}
+
+@media (max-width: $deskWidth) {
+    .checkout {
         width: 90%;
     }
 }
-@media (max-width: 700px){
-    .checkout{
-    .data {
-        width: 90%;
-        margin-bottom: 20px;
+@media (max-width: 700px) {
+    .checkout {
+        .data {
+            width: 100%;
+            margin-bottom: 20px;
+            .dataHeader {
+                font-size: 16pt;
+                font-weight: bold;
+                color: #898989;
+            }
+        }
+        .shipping {
+            .shipHeader {
+                width: 100%;
+                font-size: 18pt;
+                font-weight: bold;
+                color: #898989;
+                text-align: center;
+            }
+        }
     }
+}
+
+@media (max-width: 450px) {
+    .checkout {
+
+        width: 100%;
+        .data {
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+        }
+        .checkoutTitle {
+            width: 100%;
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        .products {
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+            .product{
+                width: 100%;
+                .pImage {
+                    width: 90px;
+                    height: 90px;
+                }
+            .pInfo {
+                .pName{
+                    font-size: 14pt;
+                }
+                .pQuantity{
+                    span{
+
+                        font-size: 12pt;
+                        color: #aa6969;
+                    }
+                    font-size: 12pt;
+                }
+            }
+            .pPrice{
+                span{
+
+                    font-size: 13pt;
+                }
+            }
+            }
+        }
+        .shipping,
+        .subTotal,
+        .total {
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+        }
+        .subTotal{
+            span{
+                font-size: 13pt;
+            }
+        }
+        .total{
+            border-top: none;
+        }
+        .shipping{
+            span{
+                font-size: 12pt;
+            }
+        }
     }
 }

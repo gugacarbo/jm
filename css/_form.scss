@@ -1,12 +1,13 @@
-form {
+#buyerForm   {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     width: 100%;
     min-height: 100vh;
+    overflow: hidden;
 }
-form .form {
+#buyerForm .forms {
     width: $deskWidth - 60px;
     padding: 30px 20px;
 
@@ -28,7 +29,7 @@ form .form {
         box-shadow: 0 0 4px -1px $mainColor;
         border-radius: 30px;
         margin: 10px 0;
-        padding: 6px 12px;
+        padding: 6px 2%;
         font-size: 12pt;
         width: 100%;
         &:focus {
@@ -43,19 +44,19 @@ form .form {
     //nput[placeholder="CEP"] {
     //}
     input[placeholder="Rua"] {
-        width: 85%;
+        width: 76%;
     }
     input[placeholder="Número"] {
-        width: 8%; text-align: center;
+        width: 14%; text-align: center;
     }
     input[placeholder="Bairro"] {
-        width: 40%;
+        width: 30%;
     }
     input[placeholder="Cidade"] {
-        width: 41%;
+        width: 40%;
     }
     input[placeholder="UF"] {
-        width: 8%; text-align: center;
+        width: 14%; text-align: center;
     }
     input[placeholder="Complemento"] {
         width: 100%;
@@ -99,13 +100,69 @@ form .form {
 }
 
 @media (max-width: $deskWidth) {
-    form .form {
-        width: 90%;
+    #buyerForm .forms {
+        width: 90vw;
     }
 }
 
 @media (max-width: 830px) {
-    form .form {
+    #buyerForm .forms {
         width: 90%;
+    }
+.formContinue {
+    width: 80%;
+}
+}
+@media (max-width: 420px) {
+    #buyerForm .forms {
+        width: 90%;
+        padding: 30px;
+        input{padding: 6px 2%; margin: 6px 0;}
+
+        input[placeholder="Rua"] {
+            width: 100%;
+        }
+        input[placeholder="Número"] {
+            width: 20%; text-align: center;
+        }
+        input[placeholder="Bairro"] {
+            width: 70%;
+        }
+        input[placeholder="Cidade"] {
+            width: 80%;
+        }
+        input[placeholder="UF"] {
+            width: 10%; text-align: center;
+        }
+        input[placeholder="Complemento"] {
+            width: 100%;
+        }
+    }
+}
+@media (max-width: 300px) {
+    #buyerForm .forms {
+        padding: 20px;
+        width: 90%;
+        input{padding: 6px 3%; margin: 6px 0;}
+        input[placeholder="Rua"] {
+            width: 100%;
+        }
+        input[placeholder="Número"] {
+            width: 100%;
+            text-align: left;
+        }
+        input[placeholder="Bairro"] {
+            width: 100%;
+        }
+        input[placeholder="Cidade"] {
+            width: 100%;
+        }
+        input[placeholder="UF"] {
+            text-align: left;
+            width: 100%;
+        }
+        input[placeholder="Complemento"] {
+            width: 100%;
+        }
     }
 }

@@ -13,8 +13,8 @@
         margin-bottom: 30px;
         margin-top: 10px;
     }
-    .cartProds{
-        .noProds{
+    .cartProds {
+        .noProds {
             width: 100%;
             font-size: 20pt;
             color: #666;
@@ -33,9 +33,8 @@
         padding: 10px 0;
         border-bottom: 2px solid $mainColor;
         justify-content: space-around;
-        
-        &:first-child{
 
+        &:first-child {
             border-top: 2px solid $mainColor;
         }
         .pImage {
@@ -47,7 +46,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            
+
             img {
                 width: 100%;
                 height: 100%;
@@ -57,7 +56,7 @@
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
-            
+
             .pName {
                 width: 100%;
                 font-size: 18pt;
@@ -116,13 +115,13 @@
                 }
             }
         }
-        .pPrice{
+        .pPrice {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
             justify-content: center;
-            span{
-                &:first-child{
+            span {
+                &:first-child {
                     font-size: 16pt;
                     font-weight: bold;
                 }
@@ -131,27 +130,26 @@
             }
         }
     }
-    .chechoutBtns{
+    .checkoutButtons {
         display: flex;
         align-items: flex-end;
         flex-direction: column;
         margin: 15px 0;
-        span{
+        span {
             font-size: 16pt;
             color: #333;
-            margin: 5px 0;
             letter-spacing: 1px;
             margin-right: 20px;
             margin-bottom: 10px;
             text-align: right;
             width: 100%;
         }
-        .cartButtons{
+        .cartButtons {
             display: flex;
             margin-top: 5px;
             justify-content: space-between;
-      
-            .cBtn{
+
+            .cBtn {
                 margin: 0 20px;
                 width: 180px;
                 height: 25px;
@@ -163,31 +161,104 @@
                 justify-content: center;
                 align-items: center;
                 padding: 2px 5px;
-                
+
                 position: relative;
                 overflow: hidden;
-                a{
+                a {
                     text-decoration: none;
                     color: #fff;
                 }
-                &:last-child{
+                &:last-child {
                     background-color: rgb(34, 139, 34);
                 }
 
-                &:hover{
+                &:hover {
                     cursor: pointer;
                     filter: brightness(0.87);
                 }
-
-
             }
-
         }
     }
 }
 
-@media (max-width: $deskWidth){
+@media (max-width: $deskWidth) {
     .cartPage {
         width: 100%;
+    }
+}
+@media (max-width: 660px) {
+    .cartPage {
+        .cartHeader {
+            text-align: center;
+        }
+        .cartP {
+            .pImage {
+                width: 100px;
+            }
+            .pInfo {
+                .pName {
+                    font-size: 13pt;
+                }
+                .pAvailable {
+                    font-size: 6pt;
+                }
+                .pQuantity {
+                    font-size: 9pt;
+                    select {
+                        width: 50px;
+                        padding: 1px 0px;
+                        font-size: 10pt;
+                    }
+                }
+                .vari {
+                    text-align: flex-start;
+                    font-size: 9pt;
+                }
+                .giftCheck {
+                    font-size: 8pt;
+                }
+            }
+            .pPrice {
+                span {
+                    font-size: 7pt;
+                    &:first-child {
+                        font-size: 12pt;
+                    }
+                }
+            }
+        }
+        .checkoutButtons {
+            align-items: center;
+            span {
+                font-size: 14pt;
+                margin-right: 50px;
+            }
+        }
+    }
+}
+@media (max-width: 450px) {
+    .cartPage {
+        width: 100vw;
+        .cartP {
+            align-items: center;
+            justify-content: space-between;
+            .pImage {
+                width: 90px;
+                height: 90px;
+                aspect-ratio: 1/1;
+            }
+        }
+        .checkoutButtons{
+            .cartButtons {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+                gap: 10px;
+                .cBtn{
+                    width: 80%;
+                    margin: 0;
+                }
+            }
+        }
     }
 }

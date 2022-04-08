@@ -7,7 +7,7 @@ include 'db_connect.php';
 $min = isset($_GET['min']) ? $_GET['min'] : 0;
 $max = isset($_GET['max']) ? $_GET['max'] : 2000;
 $cat = isset($_GET['cat']) ? $_GET['cat'] : 0;
-$order = isset($_GET['order']) ? $_GET['order'] : 'price ASC';
+$order = isset($_GET['order']) ? $_GET['order'] : 'price DESC';
 $text = isset($_GET['text']) ? $_GET['text'] : '';
 
 $sql = "SELECT id FROM products WHERE price BETWEEN $min AND $max";

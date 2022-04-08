@@ -21,48 +21,19 @@
 
 <body>
     <script src="/jquery.mask.js"></script>
-
-    <header>
-        <div class="headerContent">
-
-            <div class="logoImg">
-                <a href="/">
-                    <img src="/img/logoRosa.png">
-                </a>
-            </div>
-
-            <div class="menu">
-                <span class="menuItem"><a href="/">Home</a></span>
-                <span class="menuItem"><a href="/about">Sobre</a></span>
-                <span class="menuItem"><a href="/products">Produtos</a></span>
-                <span class="menuItem"><a href="#contactDiv">Contato</a></span>
-            </div>
-
-            <div class="social">
-                <a href="https://www.instagram.com/jomartelloacessorios/" target="blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-
-                <a href="https://api.whatsapp.com/send?phone=5549999604384" target="blank">
-                    <i class="fab fa-whatsapp"></i></a>
-            </div>
-
-            <div class="search">
-                <input type="text" id="searchText" placeholder="Pesquise por produtos">
-                <i class="fas fa-search"></i>
-            </div>
-
-            <div class="cart">
-                <a href="/cart">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <span class="itemCart" id="ItemCart">0</span>
-            </div>
+    <div class="redirectMessage" id="redirectM">
+        <div class="redirectMessageContent">
+            <i class="fa-solid fa-circle-check"></i>
+            <h1>Redirecionando para o pagamento...</h1>
+            <p>Por favor, aguarde enquanto nós redirecionamos você para o pagamento.</p>
         </div>
+    </div>
+    <header>
     </header>
     <div class="checkout">
         <span class="checkoutTitle">Confirmar dados</span>
         <div class="data">
+            <span class="dataHeader">Dados do Comprador</span>
             <span id="BuyerName"></span>
             <span id="BuyerDate"></span>
             <span id="BuyerCPF"></span>
@@ -70,6 +41,7 @@
             <span id="BuyerEmail"></span>
         </div>
         <div class="data">
+            <span class="dataHeader">Dados de Envio</span>
             <span id="BuyerAddress"></span>
             <span id="BuyerCidade"></span>
             <span id="BuyerBairro"></span>
@@ -85,10 +57,12 @@
             <span id="subTotalPrice">R$00,0</span>
         </div>
         <div class="shipping">
+            <div id="waitingShipping"><i class="fa-solid fa-spinner"></i></div>
+            <span class="shipHeader">Envio</span>
             <div class="pac">
                 <span id="prazoPac"></span>
                 <span id="valorPac"></span>
-                <input type="radio" class="sinput"name="shipping" id="pac" value="PAC">
+                <input type="radio" class="sinput" name="shipping" id="pac" value="PAC">
             </div>
             <div class="sedex">
                 <span id="prazoSedex"></span>
@@ -108,197 +82,9 @@
     </div>
 
     <footer>
-        <div class="footerContent">
-            <div class="footerMenu">
-                <a>Menu</a>
-                <a>Sobre</a>
-                <a>Termos de Compra</a>
-                <a>Contato</a>
-            </div>
 
-            <div class="footerLogo">
-                <img src="/img/logoRosa.png">
-            </div>
-
-            <div class="scudero">
-                <img src="/img/scudero.png">
-            </div>
-        </div>
     </footer>
-    <script>
-        $("header").load("/includes/header.html");
-        $("footer").load("/includes/footer.html");
-        var totalPrice = 0;
-        var totalWeight = 0;
-        var totalItens = 0;
-        var buyerData;
-        var shipData;
-        var TotalData = {};
-        $(document).ready(_ => {
-            getData();
-            callCart();
-            
-            takeShipping().then((value) => {
-                shipData = JSON.parse(value);
-                shipData = JSON.parse(shipData)
-                if(shipData.erro >0 || shipData.erro2 >0 ){
-                    window.location.href = "/";
-                }
-                return (shipData);
-            });
-
-            $('input.sinput').on('input', function (e) {
-                var shipping = $(this).val();
-                var shippingPrice = 0;
-                if (shipping == "PAC") {
-                    shippingPrice = shipData.valorPac[0];
-                    shipData.selected = "PAC";
-                } else {
-                    shippingPrice = shipData.valorSedex[0];
-                    shipData.selected = "SEDEX";
-                }
-                $('#totalPrice').html("R$" + (parseFloat(totalPrice) + parseFloat(shippingPrice)).toFixed(2).replace(".", ","));
-                $("#checkoutButton").removeClass("off")
-            });
-
-            $("#checkoutButton").on("click",()=>{
-                TotalData.buyer = buyerData;
-                TotalData.ship = shipData;
-                TotalData.cart = JSON.parse(localStorage.getItem("JM_CART"));
-
-                //send ajax post to /php/checkuot.php
-                $.ajax({
-                    url: "/php/checkout.php",
-                    type: "POST",
-                    data: {
-                        buyer : TotalData.buyer,
-                        ship : TotalData.ship,
-                        cart : TotalData.cart
-                    },
-                    success: function (data) {
-                        console.log(data)
-                    }
-                });
-            })
-        })
-
-
-        function getData() {
-
-            var url = new URL(window.location.href);
-            buyerData = {
-                'nome': url.searchParams.get("nome"),
-                'sobrenome': url.searchParams.get("sobrenome"),
-                'email': url.searchParams.get("email"),
-                'telefone': url.searchParams.get("telefone"),
-                'cpf': url.searchParams.get("cpf"),
-                'nascimento': url.searchParams.get("nascimento"),
-                'cep': url.searchParams.get("cep"),
-                'rua': url.searchParams.get("rua"),
-                'bairro': url.searchParams.get("bairro"),
-                'UF': url.searchParams.get("UF"),
-                'cidade': url.searchParams.get("cidade"),
-                'numero': url.searchParams.get("numero"),
-                'complemento': url.searchParams.get("complemento")
-            }
-
-            $("#BuyerName").html(buyerData.nome + " " + buyerData.sobrenome);
-            $("#BuyerDate").html(buyerData.nascimento);
-            $("#BuyerCPF").html(buyerData.cpf);
-            $("#BuyerPhone").html(buyerData.telefone);
-            $("#BuyerEmail").html(buyerData.email);
-            $("#BuyerAddress").html(buyerData.rua + ", " + buyerData.numero);
-            $("#BuyerCidade").html(buyerData.cidade + " - " + buyerData.UF);
-            $("#BuyerBairro").html(buyerData.bairro);
-            $("#BuyerCEP").html(buyerData.cep);
-            $("#BuyerComplemento").html(buyerData.complemento);
-        }
-
-
-
-        async function callCart() {
-
-            var cart_ = localStorage.getItem("JM_CART");
-            if (cart_) {
-                cart_ = JSON.parse(cart_);
-            } else {
-                window.location.href = "/";
-            }
-
-            if (Object.keys(cart_).length == 0) {
-                window.location.href = "/";
-            }
-            $("#CartProds").html("");
-            var w;
-            $.each(cart_, (p, item) => {
-                var px = $.ajax({
-                    url: "/php/getProdById.php?id=" + cart_[p].id,
-                    method: "GET",
-                    success: async function (l) {
-                        var prod = JSON.parse(l);
-                        prod.imgs = (JSON.parse(prod["imgs"]));
-                        prod.options = (JSON.parse(prod["options"]));
-
-                        var checkoutProd = '<div class="product">' +
-                            '<a class="pImage" href="/product/?id=' + cart_[p].id + '">' +
-                            '<img src="' + prod['imgs'][1] + '" alt="">' +
-                            '</a>' +
-                            '<div class="pInfo">' +
-                            '<span class="pName">' + prod['name'] + '</span>' +
-                            (prod['options'][cart_[p].opt] > 0 ? "<span class='pAvailable'>Em Estoque" : "<span class='pAvailable' style='color:#922'>Indisponível") + '</span>' +
-                            '<div class="pQuantity">Qtd.: ' +
-                            '<span>' +
-                            cart_[p].qtd +
-                            '</span>' +
-                            '</div>' +
-                            '<span class="vari">Variação ' + cart_[p].opt + '</span>' +
-                            '</div>' +
-                            '<div class="pPrice">' +
-                            '<span>R$ ' + (parseFloat((prod['promo'] > 0 ? prod['promo'] : prod['price'])*cart_[p].qtd).toFixed(2)).replace(".", ",") + "" + '</span>'
-                            + '</div></div>';
-                        $("#ckeckoutProducts").append(checkoutProd);
-                        return await prod;
-                    }
-                })
-                px.then((value) => {
-                    var v = JSON.parse(value)
-                    w = parseFloat(v.weight) * parseInt(cart_[p].qtd);
-                    totalPrice += (parseFloat((parseFloat(v.promo > 0 ? v.promo : v.price) * cart_[p].qtd).toFixed(2)));
-                    totalItens += parseInt(cart_[p].qtd);
-                    $("#subTotalPrice").html("Subtotal (" + totalItens + " Itens) : R$ " + totalPrice.toFixed(2).replace(".", ",") + "")
-                    totalWeight += w;
-                    return w;
-                })
-            })
-        }
-
-
-
-        async function takeShipping() {
-
-            var config = {
-                "sCepDestino": buyerData.cep,
-                "nVlPeso": 0.1
-            }
-
-            var ship = $.get("/php/frete.php", config, (d) => {
-                var data = JSON.parse(d);
-                data = JSON.parse(data);
-                //console.log(data)
-
-                if (data["erro"][0] > 0 || data["erro2"][0] > 0) {
-                    window.location.href("/")
-                } else {
-                    $("#prazoPac").html("PAC: " + data['prazoPac'][0] + " Dias")
-                    $("#prazoSedex").html("Sedex: " + data['prazoSedex'][0] + " Dias")
-                    $("#valorPac").html("R$ " + (data['valorPac'][0]))
-                    $("#valorSedex").html("R$ " + (data['valorSedex'][0]))
-                }
-            })
-            return await ship;
-        }
-
-    </script>
+    <script src="checkout.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,3 @@
-/**
- * TODO Cart
- */
-
 var cart = [];
 
 $(document).ready(() => {
@@ -31,16 +27,10 @@ function deleteList() {
   saveListStorage(cart);
 }
 
-
-
-
-
 function addCart(id, qtd = 0, opt = 0) {
   id = parseInt(id);
   if (opt == 0) {
     var scriptUrl = "/php/getProdById.php?id=" + id;
-    //console.log(scriptUrl);
-
     $.ajax({
       url: scriptUrl,
       type: 'get',
@@ -48,27 +38,27 @@ function addCart(id, qtd = 0, opt = 0) {
       async: false,
       success: function (data) {
         data["options"] = JSON.parse(data["options"]);
+        console.log(data["options"] );
 
-        opt = ((Object.keys(data["options"])[0]));
+        $.each(data["options"], function (i, item) {
+          if (data["options"][i] != 0 && opt == 0) {
+            opt = i
+          }
+        })
       },
       fail: function (data) {
       }
     });
   }
 
-  console.log(opt)
-
   //Verifica se o produto ja esta no carrinho e remove
   var cart_ = cart.filter((item) => {
-    // console.log(item.id, id, item.opt, opt)
     return item.id != id || item.opt != opt;
   });
-  // Atualiza carrinho
   cart = cart_;
 
-  //Adiciona novo item ao carrinho se qtd > 0
   if (qtd > 0) {
-    cart.unshift({ "id": id, "qtd": qtd, "opt": opt });
+    cart.unshift({ "id": parseInt(id), "qtd": parseInt(qtd), "opt": opt });
   }
   saveListStorage(cart);
 }

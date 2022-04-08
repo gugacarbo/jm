@@ -19,7 +19,7 @@
         width: 50%;
         display: flex;
         flex-direction: column;
-        justify-content: space-bartween;
+        justify-content: space-between;
         input {
             border: 1px solid $hoverColor;
             padding: 5px 10px;
@@ -86,7 +86,7 @@
             font-size: 12pt;
         }
         width: 100%;
-        padding: 50px;
+        margin: 50px 0;
         form {
             width: 60%;
         }

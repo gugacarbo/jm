@@ -1,6 +1,5 @@
 .mainBanner {
     width: $deskWidth;
-    height: 450px;
     background-color: $mainColor;
     display: flex;
     justify-content: center;
@@ -9,10 +8,12 @@
 
     .bannerShow {
         width: $deskWidth;
-        height: 100.5%;
-        position: absolute;
         transform: translateY(-1px);
         overflow: hidden;
+        img{
+            width: 100%;
+            height: 100%;
+        }
     }
     .dotsBanner {
         position: absolute;
@@ -31,11 +32,13 @@
 
 @media (max-width: $deskWidth) {
     .mainBanner {
+        width: 100%;
         .bannerShow {
-            width: 100%;
+            width: 100vw;
         }
     }
 }
+/*
 @media (max-width: 1000px) {
     .mainBanner {
         width: 100%;
@@ -63,4 +66,4 @@
         }
     }
 }
-
+*/
