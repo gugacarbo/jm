@@ -1,0 +1,122 @@
+$mainColor: #b66d76;
+* {
+    padding: 0;
+    font-family: "Arial";
+    margin: 0;
+}
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+}
+
+.nps {
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    border: 2px solid $mainColor;
+    border-radius: 20px;
+    h1 {
+        font-weight: normal;
+    }
+    .type {
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .stars {
+            padding: 5px 10px;
+            margin: 5px 0;
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-around;
+            input {
+                display: none;
+            }
+            label {
+                i {
+                    font-size: 28pt;
+                    color: #fefefe;
+                    text-shadow: 0px 0px 4px #000;
+                    cursor: pointer;
+                    transition: 0.5s;
+                }
+            }
+            input:checked ~ label,
+            label:hover {
+                i {
+                    color: $mainColor;
+                }
+            }
+        }
+        #rateMsg{
+            margin: 0;
+            color: $mainColor;
+            font-size: 13pt;
+            filter: brightness(0.7);
+
+        }
+    }
+    textarea{
+        width: 70%;
+        height: 40px;
+        border: 2px solid $mainColor;
+        border-radius: 20px;
+        padding: 10px;
+        resize: none;
+        font-size: 13pt;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: $mainColor;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+        &:hover {
+            filter: brightness(1.1);
+        }
+    }
+}
+
+.buyCode{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 40px;
+    border: 2px solid $mainColor;
+    border-radius: 20px;
+
+    h1{
+        font-size: 20pt;
+        font-weight: normal;
+        margin: 20px 0;
+    } 
+    .code{
+        background-color: $mainColor;
+        padding: 20px 40px;
+        border-radius: 20px;
+        border: 2px solid #55002a;
+        color: #fff;
+        font-size: 13pt;
+        font-weight: normal;
+        filter: brightness(1.2);
+        letter-spacing: 0.5px;
+    }
+    p{
+        font-size: 13pt;
+        font-weight: normal;
+        margin: 0;
+        color: #55002a;
+        filter: brightness(0.7);
+        margin: 20px 0;
+    }
+}

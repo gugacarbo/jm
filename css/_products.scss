@@ -60,6 +60,9 @@
 
         div {
             display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30%;
             span {
                 font-size: 12pt;
                 color: #888;
@@ -83,7 +86,22 @@
                     color: rgba(lighten($mainColor, 14), 0.8);
                 }
             }
-
+            label{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                input[type="range"]{
+                    margin: 0 auto;
+                    width: 60%;
+                    border-radius: none;
+                    accent-color: $mainColor;
+                    &:focus {
+                        box-shadow: none;
+                        outline: none;
+                    }
+                }
+            }
             select {
                 width: 110px;
                 border: 1px solid $mainColor;

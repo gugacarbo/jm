@@ -52,6 +52,8 @@ async function callCart() {
                     '<div class="pQuantity">Qtd.:' +
 
                     '<select onchange="changeQtd(this,' + cart_[p].id + ',' + "'" + [cart_[p].opt] + "'" + ')">  ';
+                    (prod['options'][cart_[p].opt] == 0) ? $("#goForm").addClass("off") : "";
+
                 for (var x = 0; x < prod['options'][cart_[p].opt]; x++) {
                     cartProd += "<option value='" + (x + 1) + "'" + ((x + 1) == cart_[p].qtd ? "selected" : "") + ">" + (x + 1) + "</option>"
                 }

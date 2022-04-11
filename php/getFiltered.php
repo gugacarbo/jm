@@ -20,23 +20,16 @@ if ($text != '') {
     $sql .= " AND name LIKE '%$text%'";
 }
 
-
 $sql .= " ORDER BY $order";
 
-
-
 $result = $mysqli->query($sql);
-//echo($sql);
-
-    if ($result->num_rows) {
-        $products = array();
-        while ($row = $result->fetch_assoc()) {
-            $products[] = $row["id"];
-        }
-        echo json_encode($products);
-    } else {
-        echo json_encode(array());
+$mysqli->close();
+if ($result->num_rows) {
+    $products = array();
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row["id"];
     }
-
-
-?> 
+    die(json_encode($products,  JSON_UNESCAPED_UNICODE));
+} else {
+    die(json_encode(array()));
+}

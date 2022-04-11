@@ -4,20 +4,7 @@ $(document).ready(() => {
 
 
     $("#Search").on('click', () => {
-        var minVal = $("#SearchMinVal").val();
-        var MaxVal = $("#SearchMaxVal").val();
-        var category = $("#SearchCategory").val();
-        var order = $("#SearchOrderBy").val();
-        var text = $("#SearchText").val();
-        console.log(minVal, MaxVal, category, order, text)
-        var searchQuery = {
-            "min": (minVal.replace(",", ".") || 0),
-            "max": (MaxVal.replace(",", ".") || 20000),
-            "cat": category || 0,
-            "order": order || "price ASC",
-            "text": text || ""
-        }
-        callProds(searchQuery);
+        search();
     })
 
     $("#toggleFilter").on("click", () => {
@@ -35,11 +22,70 @@ $(document).ready(() => {
         "cat": $.urlParam("cat") || 0,
         "order": $.urlParam("order") || "price ASC"
     });
+
+    //range id SearchMaxRange on change, change SearchMaxVal value
+
+
+    //range id SearchMinRange on change, change SearchMinVal value
+    $("#SearchMaxVal").val((parseFloat($("#SearchMaxRange").val()).toFixed(2)).replace(".", ","));
+    $("#SearchMinVal").val((parseFloat($("#SearchMinRange").val()).toFixed(2)).replace(".", ","));
+    
+    $("#SearchMinRange").on("click", () => {
+        $("#SearchMinRange").mousemove(() => {
+            $("#SearchMinVal").val((parseFloat($("#SearchMinRange").val()).toFixed(2)).replace(".", ","));
+
+        })
+    })
+    $("#SearchMaxRange").on("click", () => {
+        $("#SearchMaxRange").mousemove(() => {
+            $("#SearchMaxVal").val((parseFloat($("#SearchMaxRange").val()).toFixed(2)).replace(".", ","));
+        })
+    })
+    /*
+    //SearchMaxRange on change
+    $("#SearchMaxRange").on("change", () => {
+        search();
+    })
+    //SearchMinRange on change
+    $("#SearchMinRange").on("change", () => {
+        search();
+    })
+
+
+    //SearchCategory on change
+    $("#SearchCategory").on("change", () => {
+        search();
+    })
+
+    //SearchOrderBy on change
+    $("#SearchOrderBy").on("change", () => {
+        search();*
+    })*/
+    $("#filterProducts input, select").on("change", () => {
+        search();
+    })
+
 })
 
 
 
 
+function search() {
+    var minVal = $("#SearchMinVal").val();
+    var MaxVal = $("#SearchMaxVal").val();
+    var category = $("#SearchCategory").val();
+    var order = $("#SearchOrderBy").val();
+    var text = $("#SearchText").val();
+    //console.log(minVal, MaxVal, category, order, text)
+    var searchQuery = {
+        "min": (minVal.replace(",", ".") || 0),
+        "max": (MaxVal.replace(",", ".") || 20000),
+        "cat": category || 0,
+        "order": order || "price ASC",
+        "text": text || ""
+    }
+    callProds(searchQuery);
+}
 /**
  * *Produtos
  */
@@ -70,7 +116,7 @@ function callProds(query) {
                     $("#ShowProducts").append(prodApend)
                 })
             })
-            if(Object.keys(ids).length == 0){
+            if (Object.keys(ids).length == 0) {
                 $("#ShowProducts").append("<h1 class='notFound'>Nenhum produto encontrado </h1>")
             }
         }).fadeIn("slow");
@@ -95,19 +141,19 @@ function getCategory() {
  * 
  * 
  */
- async function setBanner(el_id, banner_name) {
+async function setBanner(el_id, banner_name) {
     //"/api/getBanner.php"
     return await $.get("/php/getBanner.php", { 'name': banner_name }, function (d) {
-      var data = JSON.parse(d);
-      var images = JSON.parse(data["images"]);
-      $.each(images, function (i, img) {
-        $(el_id).append("<img src='" + img + "'>");
-      });
+        var data = JSON.parse(d);
+        var images = JSON.parse(data["images"]);
+        $.each(images, function (i, img) {
+            $(el_id).append("<img src='" + img + "'>");
+        });
     })
-      .then((value) => {
-        callBanner();
-      })
-  }
+        .then((value) => {
+            callBanner();
+        })
+}
 
 
 
@@ -155,10 +201,11 @@ function sliderAuto(slider, miliseconds) {
 
 $.urlParam = function (name) {
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-       if (results == null) {
+    if (results == null) {
         return null;
     }
     else {
         return results[1] || 0;
     }
 }
+

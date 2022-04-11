@@ -6,7 +6,7 @@ $("footer").load("/includes/footer.html");
 
 $('#DataTelefone').mask('(00) 0.0000-0000');
 $('#DataCPF').mask('000.000.000-00');
-$('#DataNascimento').mask('00/00/0000');
+//$('#DataNascimento').mask('00/00/0000');
 $('#ShippingCEP').mask('00.000-000');
 $('#ShippingNumero').mask('00000');
 
@@ -32,8 +32,23 @@ $(document).ready(() => {
     })
 
 
+    $("#FormContinue").on("click", function() {
+        var vazios = $("#buyerForm input").filter(function() {
+            return !this.value;
+        }).get();
+        
+        if (vazios.length) {
+            $(vazios).addClass('vazio');
+            return false;
+        }else {
+            var ll = $("#buyerForm").serialize();
+        }
+    });
+
+    $("#buyerForm input").on("focus", function() {
+        $(this).removeClass('vazio');
+    })
 
 })
-
 
 

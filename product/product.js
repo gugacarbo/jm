@@ -108,11 +108,11 @@ function getProd(id) {
 
         })
         for (opt in prod['options']) {
-            var o = '<label><input type="radio" name="prodVar" ' + (prod['options'][opt] == 0 ? "disabled" : "") + ' value="' + opt + '"><span>' + opt + '</span><small>' + prod['options'][opt] + ' Unidades Disponíveis</small></label>';
+            var o = '<label><input type="radio" name="prodVar" ' + (prod['options'][opt] == 0 ? "disabled" : "checked='checked'") + ' value="' + opt + '"><span>' + opt + '</span><small>' + prod['options'][opt] + ' Unidades Disponíveis</small></label>';
             $("#ProdOptions").append(o);
 
         }
-        $("input[name='prodVar']:first-child").attr('checked', true);
+
     })
 }
 

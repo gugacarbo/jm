@@ -38,14 +38,19 @@
     </div>
 
     <div class="filterBox off">
-        <div class="filter">
+        <div class="filter" id="filterProducts">
             <div>
-                <span>Preço Min.</span>
-                <input type="text" id="SearchMinVal" placeholder="R$ 0,00">
-            </div>
-            <div>
-                <span>Preço Max.</span>
-                <input type="text" id="SearchMaxVal" placeholder="R$ 0,00">
+                <label>
+
+                    <span>Preço Min.</span>
+                    <input type="text" id="SearchMinVal"  class="mmaxSLider" placeholder="R$ 0,00">
+                    <input type="range" id="SearchMinRange" inverse name="" id="" min="0" max="200" value="0">
+                </label>
+                <label>
+                    <span>Preço Max.</span>
+                    <input type="text" id="SearchMaxVal" class="mmaxSLider" placeholder="R$ 0,00" max="5000">
+                    <input type="range" name="" id="SearchMaxRange" min="0" max="2000" value="2000">
+                </label>
             </div>
             <div>
                 <span>Categoria</span>
@@ -58,7 +63,7 @@
             <div>
                 <span>Ordenar por</span>
                 <select id="SearchOrderBy">
-                    <option selected value="price DESC">
+                    <option selected value="price ASC">
                         <div class="opt"> - </div>
                     </option>
                     <option value="price ASC">
@@ -75,7 +80,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="products">
         <div class="showProducts" id="ShowProducts">
         </div>
@@ -83,7 +88,7 @@
 
     <footer>
         <!--? Footer-->
-        
+
     </footer>
 
     <script src="/jquery.mask.js"></script>

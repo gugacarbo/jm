@@ -58,6 +58,10 @@ function addCart(id, qtd = 0, opt = 0) {
   cart = cart_;
 
   if (qtd > 0) {
+    $("#addCartMessage").css("display", "flex");
+    setTimeout(() => {
+      $("#addCartMessage").css("display", "none");
+    }, 2000);
     cart.unshift({ "id": parseInt(id), "qtd": parseInt(qtd), "opt": opt });
   }
   saveListStorage(cart);

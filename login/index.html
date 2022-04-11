@@ -43,28 +43,31 @@
             $("header").load("/includes/header.html");
             $("footer").load("/includes/footer.html");
             $('#ConsultaCPF').mask('000.000.000-00');
-            $('#ConsultaIdPedido').mask('000-000-000-000');
+            //$('#ConsultaIdPedido').mask('00000000-0000-0000-0000-000000000000');
 
             $("#acessarPedido").on("click", () => {
-                if ($("#ConsultaCPF").val().length < 14 || $("#ConsultaIdPedido").val().length < 15) {
+                if ($("#ConsultaCPF").val().length < 14 || $("#ConsultaIdPedido").val().length < 36) {
 
-                    if ($("#ConsultaIdPedido").val().length < 15)
+                    if ($("#ConsultaIdPedido").val().length < 36)
                         $("#error").html("Código Inválido");
                     if ($("#ConsultaCPF").val().length < 14)
                         $("#error").html("CPF Inválido");
                 
                     } else {
                     var cpf = $("#ConsultaCPF").val().replace(".", "").replace(".", "").replace("-", "");
-                    var code = $("#ConsultaIdPedido").val().replace("-", "").replace("-", "").replace("-", "");
+                    var code = $("#ConsultaIdPedido").val();
                     var data = {
                         "cpf": cpf,
                         "code": code
                     }
-                    $.get("/api/login.json", data, (code) => {
-                        if (code["error"]) {
-                            $("#error").html(code["error"])
+                    console.log(data)
+                    $.get("/php/verifyCode.php", data, (code) => {
+                        code = JSON.parse(code);
+                        console.log(code);
+                        if (code["status"] == "error") {
+                            $("#error").html(code["message"])
                         } else if (code["code"]) {
-                            window.location.replace("/status/?code=" + code["code"])
+                            window.location.replace("/status/?code=" + code["code"] + "&cpf=" + code["cpf"]);
                         }
                     })
                 }

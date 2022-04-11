@@ -307,6 +307,62 @@ header .menuToggle {
   display: none;
 }
 
+#addCartMessage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  pointer-events: none;
+  display: none;
+}
+
+#addCartMessage div {
+  width: 300px;
+  height: 200px;
+  background-color: rgba(182, 109, 118, 0.4);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: #fff;
+  gap: 20px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 0 5px 0 rgba(102, 102, 102, 0.4);
+          box-shadow: 0 0 5px 0 rgba(102, 102, 102, 0.4);
+  text-shadow: 1px 1px 3px #69996b;
+}
+
+#addCartMessage div i {
+  font-size: 32pt;
+}
+
+#addCartMessage div span {
+  width: 100%;
+  text-align: center;
+}
+
 @media (max-width: 1100px) {
   header .headerContent {
     width: 100%;
@@ -1528,6 +1584,13 @@ footer .footerContent .scudero b {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 30%;
 }
 
 .filterBox .filter div span {
@@ -1567,6 +1630,33 @@ footer .footerContent .scudero b {
 
 .filterBox .filter div input::placeholder {
   color: rgba(206, 157, 163, 0.8);
+}
+
+.filterBox .filter div label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.filterBox .filter div label input[type="range"] {
+  margin: 0 auto;
+  width: 60%;
+  border-radius: none;
+  accent-color: #b66d76;
+}
+
+.filterBox .filter div label input[type="range"]:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  outline: none;
 }
 
 .filterBox .filter div select {
@@ -2226,6 +2316,12 @@ footer .footerContent .scudero b {
           filter: brightness(0.87);
 }
 
+.cartPage .checkoutButtons .cartButtons .off:last-child {
+  pointer-events: none;
+  background-color: #ddd;
+  color: #333;
+}
+
 @media (max-width: 1100px) {
   .cartPage {
     width: 100%;
@@ -2398,6 +2494,14 @@ footer .footerContent .scudero b {
 
 #buyerForm .forms input[placeholder="Complemento"] {
   width: 100%;
+}
+
+#buyerForm .forms .vazio {
+  -webkit-box-shadow: 0 0 5px -1px #f5d103, 0 0 12px -1px rgba(255, 255, 0, 0.3), 0 0 10px 0px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0 5px -1px #f5d103, 0 0 12px -1px rgba(255, 255, 0, 0.3), 0 0 10px 0px rgba(0, 0, 0, 0.15);
+  border: 1px solid #fff000;
+  position: relative;
+  overflow: inherit;
 }
 
 .formContinue {
@@ -2869,7 +2973,6 @@ footer .footerContent .scudero b {
           backdrop-filter: blur(4px);
   display: none;
   opacity: 0;
-  pointer-events: none;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -3153,6 +3256,10 @@ footer .footerContent .scudero b {
           justify-content: center;
 }
 
+.status .progress .pass .finalIcon {
+  display: none;
+}
+
 .status .progress .pass .arrows {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3249,6 +3356,7 @@ footer .footerContent .scudero b {
       -ms-flex-align: start;
           align-items: flex-start;
   gap: 0px;
+  width: 100%;
 }
 
 .status .prodShow .prod .info span {
@@ -3366,6 +3474,153 @@ footer .footerContent .scudero b {
       -ms-flex-align: center;
           align-items: center;
   border-radius: 20px;
+  cursor: pointer;
+}
+
+.status .buyer button:hover {
+  -webkit-filter: brightness(1.1);
+          filter: brightness(1.1);
+}
+
+.status .buyer button:active {
+  -webkit-filter: brightness(0.9);
+          filter: brightness(0.9);
+}
+
+#cancelBox {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: none;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+
+#cancelBox .cancel {
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transition: 1s;
+  transition: 1s;
+  width: 600px;
+  background-color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+  padding: 30px 40px;
+  position: relative;
+}
+
+#cancelBox .cancel #closeCancel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20pt;
+  color: #000;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+#cancelBox .cancel #closeCancel:hover {
+  color: #999;
+}
+
+#cancelBox .cancel h3 {
+  font-size: 18pt;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #b66d76;
+}
+
+#cancelBox .cancel p {
+  font-size: 14pt;
+}
+
+#cancelBox .cancel a {
+  font-size: 12pt;
+  color: #b66d76;
+  text-decoration: none;
+}
+
+#cancelBox .cancel a:hover {
+  text-decoration: underline;
+}
+
+#cancelBox .cancel label {
+  font-size: 12pt;
+  width: 100%;
+  color: #878787;
+}
+
+#cancelBox .cancel textarea {
+  margin: 0;
+  width: 100%;
+  height: 100px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  resize: none;
+}
+
+#cancelBox .cancel button {
+  width: 40%;
+  border: none;
+  background-color: #b66d76;
+  color: #fff;
+  padding: 10px;
+  letter-spacing: 1px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 20px;
+  font-size: 12pt;
+}
+
+#cancelBox .cancel button:hover {
+  cursor: pointer;
+  -webkit-filter: brightness(1.1);
+          filter: brightness(1.1);
+}
+
+#cancelBox .cancel button:active {
+  -webkit-filter: brightness(0.9);
+          filter: brightness(0.9);
+}
+
+#cancelBox .cancel small {
+  font-size: 10pt;
+  color: #aaa;
+}
+
+#cancelBox .show {
+  -webkit-transform: scale(1);
+          transform: scale(1);
 }
 
 @media (max-width: 1100px) {

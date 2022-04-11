@@ -11,6 +11,6 @@ if ($result->num_rows > 0) {
     }
 }
 $mysqli->close();
-die(json_encode($data));
+die(json_encode($data, JSON_UNESCAPED_UNICODE));
 ?>
 

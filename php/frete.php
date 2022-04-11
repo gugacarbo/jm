@@ -66,7 +66,7 @@ function getfrete($sCepDestino, $nVlPeso){
     $frete['prazoSedex'] = $xml2->cServico->PrazoEntrega;
     $frete["cidade"] = getCidade($sCepDestino);
     $frete["erro2"] =  $xml2->cServico->Erro;
-    return json_encode($frete);
+    return json_encode($frete,  JSON_UNESCAPED_UNICODE);
 }
 
 

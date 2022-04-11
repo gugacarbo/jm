@@ -1,7 +1,7 @@
 <?php
 //if receive a json "cart", for each get the quantity in db products and update the quantity of each product in the db
-include "db_connect.php";
-if(isset($_GET['cart'])){
+if (isset($_GET['cart'])) {
+    include "db_connect.php";
     $cart = ($_GET['cart']);
 
     foreach ($cart as $n => $p) {
@@ -21,12 +21,14 @@ if(isset($_GET['cart'])){
             $totalQuantity += $options[$n];
         }
 
-        ($options[$opt] < 0) ? die("ERROR") : $newOptions = json_encode($options);
-        //Update products set $newOptions, totalQuantity $totalQuantity where id = $id
+        ($options[$opt] < 0) ? die(json_encode(array('status' => 'error'))) : $newOptions = json_encode($options);
         $sql = "UPDATE products SET options = '$newOptions', totalQuantity = $totalQuantity WHERE id = $id";
         $result = $mysqli->query($sql);
-        //close mysql connection
-        echo("OK");
+        //verify if update is ok
+        if (!$result) {
+            die(json_encode(array('status' => 'error')));
+        }
     }
+    $mysqli->close();
+    die(json_encode(array('status' => 'sucess')));
 }
-$mysqli->close();

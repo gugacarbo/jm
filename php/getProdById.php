@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
     include 'db_connect.php';
     $id = $_GET['id'];
     $r = getByID($id);
-    echo json_encode($r);
+    echo json_encode($r, JSON_UNESCAPED_UNICODE);
 
     $mysqli_->close();
 }

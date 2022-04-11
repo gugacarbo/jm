@@ -9,6 +9,7 @@
     <title>Jm Acessórios de Luxo</title>
 
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="icon" href="/img/Jm_Logo_Branco.png">
 
     <link href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
@@ -23,57 +24,12 @@
 </head>
 
 <body>
-    <header>
-        <div class="headerContent">
-
-            <div class="logoImg">
-                <a href="/">
-                    <img src="/img/logoRosa.png">
-                </a>
-            </div>
-
-            <div class="menu">
-                <span class="menuItem"><a href="/">Home</a></span>
-                <span class="menuItem"><a href="/about">Sobre</a></span>
-                <span class="menuItem"><a href="/products">Produtos</a></span>
-                <span class="menuItem"><a href="#contactDiv">Contato</a></span>
-            </div>
-
-            <div class="social">
-                <a href="https://www.instagram.com/jomartelloacessorios/" target="blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-
-                <a href="https://api.whatsapp.com/send?phone=5549999604384" target="blank">
-                    <i class="fab fa-whatsapp"></i></a>
-            </div>
-
-            <div class="search">
-                <input type="text" id="searchText" placeholder="Pesquise por produtos">
-                <i class="fas fa-search"></i>
-            </div>
-
-            <div class="orders">
-                <a href="/login">
-                    <i class="fa-solid fa-box"></i>
-                </a>
-                <div class="info">
-                    <span>Verifique o status do seu pedido aqui</span>
-                </div>
-            </div>
-            <div class="cart">
-                <a href="/cart">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <span class="itemCart" id="ItemCart">0</span>
-            </div>
-        </div>
-    </header>
+    <header></header>
 
     <div class="status">
         <div class="progress">
-            <div class="pass done">
-                <i class="fa-solid fa-credit-card doing">
+            <div class="pass " id="WaitingPayment">
+                <i class="fa-solid fa-credit-card">
                     <span class="passName">Aguardando Pagamento</span>
                 </i>
                 <div class="arrows">
@@ -101,9 +57,9 @@
                     <i class="fa-solid fa-chevron-right"></i>
                 </div>
             </div>
-            <div class="pass doing">
+            <div class="pass" id="PreparingSending">
                 <i class="fa-solid fa-truck-ramp-box">
-                    <span class="passName">Preparando Envio</span>
+                    <span class="passName" id="preparingText">Preparando Envio</span>
 
                 </i>
                 <div class="arrows">
@@ -131,7 +87,7 @@
                     <i class="fa-solid fa-chevron-right"></i>
                 </div>
             </div>
-            <div class="pass">
+            <div class="pass" id="Sended">
 
                 <i class="fa-solid fa-truck-fast">
                     <span class="passName">Enviado</span>
@@ -161,97 +117,78 @@
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
                 </div>
-                <div class="pass">
-                    <i class="fa-solid fa-check">
-                        <span class="passName">Entregue</span>
+                <div class="pass" id="Arrived">
+                    <i class="fa-solid fa-x finalIcon" id="canceledIcon">
+                        <span class="passName" >Compra Cancelada</span>
+                    </i>
 
+                    <i class="fa-solid fa-exclamation finalIcon" finalIcon" id="disputIcon">
+                        <span class="passName" id="disputText">Entregues</span>
+                    </i>
+
+                    <i class="fa-solid fa-check" id="finiShedIcon">
+                        <span class="passName" >Entregue</span>
                     </i>
                 </div>
             </div>
         </div>
 
 
-        <div class="prodShow">
-            <div class="prod">
-                <div class="image">
-                    <img src="/img/scudero.png">
-                </div>
-                <div class="info">
-                    <span class="prodName">Anelzao Topper</span>
-                    <span class="prodQuantity">Qtd 1</span>
-                    <span class="prodTotalPrice">R$ 119,90</span>
-                </div>
-            </div>
-            <div class="prod">
-                <div class="image">
-                    <img src="/img/scudero.png">
-                </div>
-                <div class="info">
-                    <span class="prodName">Anelzao Topper</span>
-                    <span class="prodQuantity">Qtd 1</span>
-                    <span class="prodTotalPrice">R$ 119,90</span>
-                </div>
-
-            </div>
-            <div class="pay">
-                <span class="shipping">Frete: R$ 10,00</span>
-                <span class="totalPayment">Total: R$ 190,00</span>
-                <span class="paymentMethod">Forma de pagamento: Pix</span>
+        <div class="prodShow" id="StatusProdShow">
+            <div class="pay" style="order: 100;">
+                <span class="shipping" id="ShippingValue">Frete: R$ 0,00</span>
+                <span class="totalPayment" id="TotalDiscount">Desconto: R$ 0,00</span>
+                <span class="totalPayment" id="TotalAmount">Total: R$ 0,00</span>
+                <span class="paymentMethod" id="PaymentMethod">Forma de pagamento: Pix</span>
+                <span id="BoletoLink"></span>
             </div>
         </div>
-
         <div class="buyer">
-            <span class="date">Data da Compra: 08/03/2022</span>
+            <span class="date" id="BuyDate">Data da Compra: 08/03/2022</span>
             <div>
-                <span>Rua Antonio Rodrigues Athaide</span>
-                <span>88508-520</span>
-                <span>Sagrado Coração de Jesus, Lages SC</span>
-                <span>Kitnet Numero 2</span>
+                <h3>Dados de Envio:</h3>
+                <span id="BuyerStreet"></span>
+                <span id="BuyerPostalCode"></span>
+                <span id="BuyerDistrict"></span>
+                <span id="BuyerComplement"></span>
             </div>
             <div>
-                <span>Gustavo Legnaghi Carbonera</span>
-                <span>(49) 9.9960-6003</span>
-                <span>011.894.469-01</span>
-                <span>07/09/2000</span>
-                <span>guga_carbo@hotmail.com</span>
+                <h3>Dados do Comprador:</h3>
+                <span id="BuyerName"></span>
+                <span id="BuyerPhone"></span>
+                <span id="BuyerCPF"></span>
+                <span id="BuyerBornDate"></span>
+                <span id="BuyerEmail"></span>
             </div>
-            <button class="cancel">
+            <button class="cancel" id="requestCancel">
                 Cancelar Compra
             </button>
         </div>
     </div>
-
-    <footer>
-        <div class="footerContent">
-            <div class="footerMenu">
-                <a>Menu</a>
-                <a>Sobre</a>
-                <a>Termos de Compra</a>
-                <a>Contato</a>
+    <div id="cancelBox">
+        <div class="cancel">
+            <div id="closeCancel">
+                <i class="fa-solid fa-xmark"></i>
             </div>
-
-            <div class="footerLogo">
-                <img src="/img/logoRosa.png">
-            </div>
-
-            <div class="scudero">
-                <img src="/img/scudero.png">
-            </div>
+        <h3>Solicitação de Cancelamento</h3>
+            <p>
+                Você tem certeza que deseja cancelar a compra?
+            </p>
+            <a href="#">Termos de Uso e Compra</a>
+            <label for="cancelText">Motivo do Cancelmento:</label>
+            <textarea id="cancelText"></textarea>
+            <button id="cancelButton">Cancelar</button>
+            <small class="redirect">Voce será redirecionado ao WhatsApp para dar proseguimento à solicitação de cancelamento</small>
         </div>
+    </div>
+    <footer>
+
     </footer>
 
 
-    <script src="main.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
-    <script src="jquery.mask.js"></script>
-    <script>
-        
-        $(document).ready(() => {
-            $("header").load("/includes/header.html");
-            $("footer").load("/includes/footer.html");
-        })
-
-    </script>
+    
+    <script src="status.js"></script>
 </body>
 
 </html>
