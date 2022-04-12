@@ -89,6 +89,7 @@ $("input").on("change", ()=>{
             }
 })
         $("#send").on("click", () => {
+            $("#send").css("pointer-events", "none");
             var rate = $("input[name='nps1']:checked").val();
             var message = $("textarea").val();
             var code = "<?php echo($_GET["code"]); ?>";

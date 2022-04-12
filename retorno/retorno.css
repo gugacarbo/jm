@@ -167,4 +167,13 @@ body {
           filter: brightness(0.7);
   margin: 20px 0;
 }
+
+@media (max-width: 970px) {
+  body {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
 /*# sourceMappingURL=retorno.css.map */
