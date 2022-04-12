@@ -2,16 +2,16 @@ $(document).ready(function(){
 	
 	$('#price-range-submit').hide();
 
-	$("#min_price,#max_price").on('change', function () {
+	$("#SearchMinVal,#SearchMaxVal").on('change', function () {
 
 	  $('#price-range-submit').show();
 
-	  var min_price_range = parseInt($("#min_price").val());
+	  var min_price_range = parseInt($("#SearchMinVal").val());
 
-	  var max_price_range = parseInt($("#max_price").val());
+	  var max_price_range = parseInt($("#SearchMaxVal").val());
 
 	  if (min_price_range > max_price_range) {
-		$('#max_price').val(min_price_range);
+		$('#SearchMaxVal').val(min_price_range);
 	  }
 
 	  $("#slider-range").slider({
@@ -21,20 +21,20 @@ $(document).ready(function(){
 	});
 
 
-	$("#min_price,#max_price").on("paste keyup", function () {                                        
+	$("#SearchMinVal,#SearchMaxVal").on("paste keyup", function () {                                        
 
 	  $('#price-range-submit').show();
 
-	  var min_price_range = parseInt($("#min_price").val());
+	  var min_price_range = parseInt($("#SearchMinVal").val());
 
-	  var max_price_range = parseInt($("#max_price").val());
+	  var max_price_range = parseInt($("#SearchMaxVal").val());
 	  
 	  if(min_price_range == max_price_range){
 
 			max_price_range = min_price_range + 100;
 			
-			$("#min_price").val(min_price_range);		
-			$("#max_price").val(max_price_range);
+			$("#SearchMinVal").val(min_price_range);		
+			$("#SearchMaxVal").val(max_price_range);
 	  }
 
 	  $("#slider-range").slider({
@@ -49,29 +49,29 @@ $(document).ready(function(){
 		range: true,
 		orientation: "horizontal",
 		min: 0,
-		max: 10000,
-		values: [0, 10000],
-		step: 100,
+		max: 3000,
+		values: [0, 3000],
+		step: 20,
 
 		slide: function (event, ui) {
 		  if (ui.values[0] == ui.values[1]) {
 			  return false;
 		  }
 		  
-		  $("#min_price").val(ui.values[0]);
-		  $("#max_price").val(ui.values[1]);
+		  $("#SearchMinVal").val(ui.values[0]);
+		  $("#SearchMaxVal").val(ui.values[1]);
 		}
 	  });
 
-	  $("#min_price").val($("#slider-range").slider("values", 0));
-	  $("#max_price").val($("#slider-range").slider("values", 1));
+	  $("#SearchMinVal").val($("#slider-range").slider("values", 0));
+	  $("#SearchMaxVal").val($("#slider-range").slider("values", 1));
 
 	});
 
 	$("#slider-range,#price-range-submit").click(function () {
 
-	  var min_price = $('#min_price').val();
-	  var max_price = $('#max_price').val();
+	  var min_price = $('#SearchMinVal').val();
+	  var max_price = $('#SearchMaxVal').val();
 
 	  $("#searchResults").text("Here List of products will be shown which are cost between " + min_price  +" "+ "and" + " "+ max_price + ".");
 	});

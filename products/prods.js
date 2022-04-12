@@ -27,21 +27,9 @@ $(document).ready(() => {
 
 
     //range id SearchMinRange on change, change SearchMinVal value
-    $("#SearchMaxVal").val((parseFloat($("#SearchMaxRange").val()).toFixed(2)).replace(".", ","));
-    $("#SearchMinVal").val((parseFloat($("#SearchMinRange").val()).toFixed(2)).replace(".", ","));
-    
-    $("#SearchMinRange").on("click", () => {
-        $("#SearchMinRange").mousemove(() => {
-            $("#SearchMinVal").val((parseFloat($("#SearchMinRange").val()).toFixed(2)).replace(".", ","));
 
-        })
-    })
-    $("#SearchMaxRange").on("click", () => {
-        $("#SearchMaxRange").mousemove(() => {
-            $("#SearchMaxVal").val((parseFloat($("#SearchMaxRange").val()).toFixed(2)).replace(".", ","));
-        })
-    })
     /*
+    */
     //SearchMaxRange on change
     $("#SearchMaxRange").on("change", () => {
         search();
@@ -51,7 +39,9 @@ $(document).ready(() => {
         search();
     })
 
-
+    $("#slider-range").on("slidechange", function (event, ui) {
+        search();
+    });
     //SearchCategory on change
     $("#SearchCategory").on("change", () => {
         search();
@@ -59,13 +49,36 @@ $(document).ready(() => {
 
     //SearchOrderBy on change
     $("#SearchOrderBy").on("change", () => {
-        search();*
-    })*/
-    $("#filterProducts input, select").on("change", () => {
+        search();
+    })
+    $("#filterProducts input[type='number']").on("change paste", () => {
         search();
     })
 
+
+    var typingTimer;                //timer identifier
+    var doneTypingInterval = 300;  //time in ms, 5 seconds for example
+    var $input = $('#SearchText');
+
+    //on keyup, start the countdown
+    $input.on('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    });
+
+    //on keydown, clear the countdown 
+    $input.on('keydown', function () {
+        clearTimeout(typingTimer);
+    });
+
+    //user is "finished typing," do something
+    function doneTyping() {
+        search();
+    }
+
+
 })
+
 
 
 

@@ -1577,7 +1577,9 @@ footer .footerContent .scudero b {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 5px 10px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .filterBox .filter div {
@@ -1644,19 +1646,43 @@ footer .footerContent .scudero b {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  row-gap: 15px;
 }
 
-.filterBox .filter div label input[type="range"] {
-  margin: 0 auto;
-  width: 60%;
-  border-radius: none;
-  accent-color: #b66d76;
+.filterBox .filter div label input {
+  width: 60px;
+  margin-right: 10px;
+  text-align: center;
 }
 
-.filterBox .filter div label input[type="range"]:focus {
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  outline: none;
+.filterBox .filter div label div {
+  height: 2px;
+  width: 80%;
+  border-radius: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.filterBox .filter div label div .ui-slider-horizontal {
+  height: 0.2em;
+}
+
+.filterBox .filter div label div .ui-widget-header {
+  background: #b66d76;
+  height: 3px;
+}
+
+.filterBox .filter div label div .ui-slider-handle {
+  top: inherit !important;
+  font-size: 10pt;
+  border-radius: 20px;
+  -webkit-transform: translateY(1px);
+          transform: translateY(1px);
+  cursor: pointer;
 }
 
 .filterBox .filter div select {

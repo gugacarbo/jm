@@ -56,7 +56,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 5px 10px;
+        align-items: flex-start;
 
         div {
             display: flex;
@@ -86,19 +86,39 @@
                     color: rgba(lighten($mainColor, 14), 0.8);
                 }
             }
-            label{
+            label {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
                 align-items: center;
-                input[type="range"]{
-                    margin: 0 auto;
-                    width: 60%;
-                    border-radius: none;
-                    accent-color: $mainColor;
-                    &:focus {
-                        box-shadow: none;
-                        outline: none;
+                row-gap: 15px;
+                input{
+                    width: 60px;
+                    margin-right: 10px;
+                    text-align: center;
+                }
+                div {
+                    height: 2px;
+
+                    width: 80%;
+                    border-radius: 20px;
+                    display: flex;
+                    align-items: center;
+                    //height: 3px;
+                    .ui-slider-horizontal {
+                        height: 0.2em;
+                    }
+                    .ui-widget-header {
+                        background: $mainColor;
+                        height: 3px;
+                        
+                    }
+                    .ui-slider-handle {
+                        top: inherit !important;
+                        font-size: 10pt;
+                        border-radius: 20px;
+                        transform: translateY(1px);
+                        cursor: pointer;
                     }
                 }
             }
@@ -173,7 +193,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
         position: relative;
-        .notFound{
+        .notFound {
             position: absolute;
             width: 100%;
             align-self: center;
@@ -302,11 +322,9 @@
             margin: 0 20px;
         }
     }
-
 }
 
 @media (max-width: 900px) {
-
     .filterBox {
         .filter {
             div {
