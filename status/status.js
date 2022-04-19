@@ -40,11 +40,16 @@ $(document).ready(() => {
             )
         }
     })
+
 })
 
 
 
+function moreTracking() {
+    $("#TrackingDiv").toggleClass("moreTracking");
+    $("#moreTracking").css("transform", "rotate(+180deg)");
 
+}
 
 function getData(cpf, code) {
     //ajax get to getProductStatus
@@ -59,8 +64,8 @@ function getData(cpf, code) {
         items = Object.prototype.toString.call(items) === '[object Array]' ? items : [items];
 
         $("#BuyDate").html("Data da Compra " + data.buyDate);
-        $("#BuyerName").html("Nome: "+pagData.sender.name);
-        $("#BuyerCPF").html("CPF: "+data.cpf);
+        $("#BuyerName").html("Nome: " + pagData.sender.name);
+        $("#BuyerCPF").html("CPF: " + data.cpf);
         $("#BuyerEmail").html("email: " + pagData.sender.email);
         $("#BuyerPhone").html("(" + pagData.sender.phone.areaCode + ")" + pagData.sender.phone.number);
         $("#BuyerStreet").html(pagData.shipping.address.street + " " + pagData.shipping.address.number);
@@ -72,7 +77,7 @@ function getData(cpf, code) {
         $("#BuyerPostalCode").html(pagData.shipping.address.postalCode);
         $("#BuyerBornDate").html(data.bornDate);
         $("#ShippingValue").html("Frete: R$" + parseFloat(pagData.shipping.cost).toFixed(2).replace(".", ","));
-        (pagData.discountAmount > 0) ?  $("#TotalDiscount").html("Desconto: R$" + parseFloat(pagData.discountAmount).toFixed(2).replace(".", ",")) : $("#TotalDiscount").css("display", "none");
+        (pagData.discountAmount > 0) ? $("#TotalDiscount").html("Desconto: R$" + parseFloat(pagData.discountAmount).toFixed(2).replace(".", ",")) : $("#TotalDiscount").css("display", "none");
         $("#TotalAmount").html("Total: R$" + (parseFloat(data.totalAmount).toFixed(2)).replace(".", ","));
         $.each(items, function (i, item) {
             var x = $.get("/php/getProdById.php", { "id": item.id }, async function (data) {
@@ -92,6 +97,8 @@ function getData(cpf, code) {
                 $("#StatusProdShow").append(pAppend);
             })
         });
+
+
 
         switch (pagData.paymentMethod.type) {
             case "1":
@@ -152,7 +159,8 @@ function getData(cpf, code) {
 
                 $("#finiShedIcon").css("display", "none");
                 $("#disputText").html(statusS)
-                $("#disputIcon").css("display", "flex");;
+                $("#disputIcon").css("display", "flex");
+                $("#requestCancel").attr("disabled", true);
                 break;
             case "6":
                 statusS = "Devolvida";
@@ -164,12 +172,14 @@ function getData(cpf, code) {
                 $("#Arrived").addClass("done")
 
                 $("#disputText").html(statusS)
-                $("#disputIcon").css("display", "flex");;
+                $("#disputIcon").css("display", "flex");
+                $("#requestCancel").attr("disabled", true);
+
                 break;
             case "7":
                 statusS = "Cancelada";
                 $("#finiShedIcon").css("display", "none");
-                $("#canceledIcon").css("display", "flex");;
+                $("#canceledIcon").css("display", "flex");
                 break;
             case "8":
                 statusS = "Debitado";
@@ -181,7 +191,9 @@ function getData(cpf, code) {
                 $("#Arrived").addClass("done")
 
                 $("#disputText").html(statusS)
-                $("#disputIcon").css("display", "flex");;
+                $("#disputIcon").css("display", "flex");
+                $("#requestCancel").attr("disabled", true);
+
                 break;
             case "9":
                 statusS = "Retenção temporária";
@@ -191,12 +203,42 @@ function getData(cpf, code) {
                 $("#PreparingSending").addClass("done")
                 $("#Sended").addClass("done")
                 $("#Arrived").addClass("done")
+                $("#requestCancel").attr("disabled", true);
 
                 $("#disputText").html(statusS)
                 $("#disputIcon").css("display", "flex");;
                 break;
             default:
 
+        }
+        var trackingCode = data.trackingCode;
+        if (trackingCode != "") {
+            $("#TrackingDiv").css("display", "flex");
+            $("#WaitingPayment").addClass("done")
+            $("#PreparingSending").addClass("done")
+            $("#Sended").addClass("doing")
+
+            $("#TrackingDiv h3 span").html(trackingCode);
+            //ajax to /php/tracking.php
+            $.ajax({
+                url: "/php/tracking.php",
+                data: {
+                    "trackingCode": trackingCode
+                },
+                success: function (data) {
+                    var data = JSON.parse(data);
+                    //data.eventos for each
+                    $.each(data.eventos, function (i, evento) {
+                        var step = "<section>" +
+                            "<span>" + evento.status + "</span>" +
+                            "<label>" + evento.local + "</label>" +
+                            "<small>" + evento.data + " " + evento.hora + "</small>" +
+                            (i == 0 ? "<i class='fa-solid fa-chevron-down' id='moreTracking' onclick='moreTracking()'></i>" : "") +
+                            "</section>";
+                        $("#TrackingDiv").append(step);
+                    })
+                }
+            })
         }
     })
 }
@@ -210,3 +252,5 @@ $.urlParam = function (name) {
         return results[1] || 0;
     }
 }
+
+

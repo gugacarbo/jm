@@ -57,7 +57,7 @@ $(document).ready(() => {
 
 
     var typingTimer;                //timer identifier
-    var doneTypingInterval = 300;  //time in ms, 5 seconds for example
+    var doneTypingInterval = 1000;  //time in ms, 5 seconds for example
     var $input = $('#SearchText');
 
     //on keyup, start the countdown
@@ -71,11 +71,16 @@ $(document).ready(() => {
         clearTimeout(typingTimer);
     });
 
-    //user is "finished typing," do something
     function doneTyping() {
         search();
     }
 
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() && prodCount >= numProd) {
+            pageDown();
+            $(".loadingProducts").css("display", "block");
+        }
+    });
 
 })
 
@@ -83,7 +88,11 @@ $(document).ready(() => {
 
 
 
-function search() {
+function search(n = 1) {
+    if (n == 1) {
+        page = 0;
+        $("#ShowProducts").empty();
+    }
     var minVal = $("#SearchMinVal").val();
     var MaxVal = $("#SearchMaxVal").val();
     var category = $("#SearchCategory").val();
@@ -102,14 +111,20 @@ function search() {
 /**
  * *Produtos
  */
+var page = 0;
+var numProd = 15;
+var maxPages = 0;
+var prodCount = 0;
 function callProds(query) {
     $.get("/php/getFiltered.php", query, (ids_) => {
+        prodCount = 0;
         var ids = JSON.parse(ids_);
-        $("#ShowProducts").fadeOut("fast", () => {
+        maxPages = Math.ceil(ids.length / numProd);
+        $("#maxPages").html(maxPages);
 
+        var SlicedId = ids.slice(page * numProd, (page + 1) * numProd)
 
-            $("#ShowProducts").empty();
-            $.each(ids, function (_, id) {
+            $.each(SlicedId, function (_, id) {
                 $.get("/php/getProdById.php", { id: id }, (p) => {
                     var prod = JSON.parse(p);
                     prod.imgs = (JSON.parse(prod["imgs"]));
@@ -126,13 +141,16 @@ function callProds(query) {
                         + "<span class='prodPay'>ou em 2x de " + (parseFloat((prod['price']) / 2).toFixed(2)).replace(".", ",") + "</span>"
                         + "<i class='fas fa-shopping-cart' onclick='addCart(" + (id) + ", 1)'></i>"
                         + "</div>";
-                    $("#ShowProducts").append(prodApend)
+                        $("#ShowProducts").append(prodApend)
+                        prodCount++;
                 })
             })
             if (Object.keys(ids).length == 0) {
                 $("#ShowProducts").append("<h1 class='notFound'>Nenhum produto encontrado </h1>")
             }
-        }).fadeIn("slow");
+        setTimeout(() => {
+            $(".loadingProducts").css("display", "none");
+        }, 510);
     });
 }
 
@@ -222,3 +240,8 @@ $.urlParam = function (name) {
     }
 }
 
+
+function pageDown() {
+    page++;
+    search(0);
+}

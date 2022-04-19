@@ -5,13 +5,17 @@ $sender = ($_GET["buyer"]);
 $shipping = ($_GET["ship"]);
 $cart = ($_GET["cart"]);
 $JsonSender = json_encode($sender,  JSON_UNESCAPED_UNICODE);
+
+
 /** CONST */
 $data['currency'] = "BRL";
 $data['shippingAddressCountry'] = "BRA";
 $data['shippingAddressRequired'] = "TRUE";
-/** */
+
+// ** **    ** **
 //$data['extraAmount'] = "Desconto";
 //$data['redirectURL'] = "";
+
 
 //? ***************************************/
 $data['reference'] = md5((str_replace(["-", "."], "", $sender['cpf'])) . date(DATE_RFC822));
@@ -20,18 +24,20 @@ $data['reference'] = md5((str_replace(["-", "."], "", $sender['cpf'])) . date(DA
 //verify if buyer already exists in database cleient by cpf and born date
 $cpf = str_replace(["-", "."], "", $sender['cpf']);
 $date = date('Y-m-d H:i:s', strtotime($sender["nascimento"]));
-$sql = "SELECT * FROM client WHERE cpf = '$cpf' AND bornDate = '$date'";
-$result = $mysqli->query($sql);
+
+$stmt = $mysqli->prepare("SELECT * FROM client WHERE cpf = ? AND bornDate = ?");
+$stmt->bind_param("ss", $cpf, $date);
+$stmt->execute();
+
+$result = $stmt->get_result();
 if ($result->num_rows > 0) {
-    $clientId = $result->fetch_assoc()['id'];
+    $row = $result->fetch_assoc();
+    $clientId = $row['id'];
 } else {
-    //insert name, lastname, cpf, email, phone, bornDate
-    $sql = "INSERT INTO client (name, lastname, cpf, email, phone, bornDate) VALUES ('$sender[nome]', '$sender[sobrenome]', '$cpf', '$sender[email]', '$sender[telefone]', '$date')";
-    $result = $mysqli->query($sql);
-    //get id of client inserted
-    $sql = "SELECT * FROM client WHERE cpf = '$cpf' AND bornDate = '$date'";
-    $result = $mysqli->query($sql);
-    $clientId = $result->fetch_assoc()['id'];
+    $stmt = $mysqli->prepare("INSERT INTO client (name, lastname, cpf, email, phone, bornDate) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $sender['nome'], $sender['sobrenome'], $cpf, $sender['email'], $sender['telefone'], $date);
+    $stmt->execute();
+    $clientId = $mysqli->insert_id;
 }
 
 $data['senderName'] = $sender['nome'] . " " . $sender['sobrenome'];
@@ -63,6 +69,7 @@ foreach ($cart as $n => $p) {
     $data['itemWeight' . strval($n + 1)] = round($item['weight'] * 1000);
 }
 
+
 // curl post to https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?email=guga_carbo@hotmail.com&token=8BE1A0DF1DAD40D99949834093F21AB8
 $url = "https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?email=guga_carbo@hotmail.com&token=8BE1A0DF1DAD40D99949834093F21AB8";
 $ch = curl_init();
@@ -84,15 +91,15 @@ if($array["code"]){
     $JsonCart = json_encode($cart);
 
 
-    $sql = "INSERT INTO internal_buy (products, clientId, buyer, reference) VALUES ('$JsonCart', '$clientId', '$JsonSender', '$data[reference]')";
-    $result = $mysqli->query($sql);
-    if(!$result){
-        echo "Erro ao salvar no banco de dados";
-        echo $mysqli->error;
+    $stmt = $mysqli->prepare("INSERT INTO internal_buy (products, clientId, buyer, reference) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("siss", $JsonCart, $clientId, $JsonSender, $data['reference']);
+    $stmt->execute();
+    if($stmt->affected_rows > 0){
+        die(json_encode(array('status' => 'success', 'url' => "https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=" . $array['code'])));
+    }else{
+        die(json_encode(array('status' => 'error')));
     }
-    die(json_encode(array('status' => 'sucess', 'url' => "https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=" . $array['code'])));
 }else{
-    die(json_encode(array('status' => 'error')));
-
+    //die json
+    die(Array('status' => 'error'));
 }
-

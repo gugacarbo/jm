@@ -817,7 +817,7 @@ footer .footerContent .scudero b {
   }
   .about {
     width: 100%;
-    padding: 30px 60px;
+    margin: 0 60px;
   }
   .about div {
     margin: 0 20px;
@@ -862,7 +862,6 @@ footer .footerContent .scudero b {
 .productPage .galery {
   width: 50%;
   max-height: 400px;
-  aspect-ratio: 1/1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1293,12 +1292,13 @@ footer .footerContent .scudero b {
 }
 
 .productPage .info .prodOptions label input:checked ~ span {
+  font-weight: bolder;
   background-color: #e2e2e2;
-  color: #f3f3f3;
   text-shadow: 0 0 9px #999;
-  border: 1px solid #b8b8b8;
-  -webkit-box-shadow: 0 0 12px -2px #cfcfcf;
-          box-shadow: 0 0 12px -2px #cfcfcf;
+  border: 1px solid #ff7bf4;
+  color: #ff7bf4;
+  -webkit-box-shadow: 0 0 12px -2px #ff7bf4;
+          box-shadow: 0 0 12px -2px #ff7bf4;
 }
 
 .productPage .info .prodOptions label input:checked ~ small {
@@ -1309,7 +1309,17 @@ footer .footerContent .scudero b {
 
 .productPage .info .prodOptions label input:disabled ~ span {
   cursor: not-allowed;
-  color: #faa;
+  color: #f00;
+  position: relative;
+}
+
+.productPage .info .prodOptions label input:disabled ~ span::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
 }
 
 .productPage .info .prodOptions small {
@@ -1449,7 +1459,7 @@ footer .footerContent .scudero b {
     padding-top: 10px;
   }
   .productPage .galery {
-    width: 80%;
+    width: 90%;
     max-height: inherit;
     height: 420px;
   }
@@ -1488,9 +1498,45 @@ footer .footerContent .scudero b {
   }
 }
 
-@media (max-width: 600px) {
-  .productPage .info .payments img {
-    width: 220px;
+@media (max-width: 650px) {
+  .productPage .galery {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    height: 100%;
+    width: 100%;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 30px;
+  }
+  .productPage .galery .mainImg {
+    width: 90%;
+    height: 90%;
+  }
+  .productPage .galery .secImg {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    height: 18%;
+    width: 80%;
+  }
+  .productPage .galery .secImg .sImage {
+    width: 40%;
+  }
+}
+
+@media (max-width: 550px) {
+  .productPage .info .payments {
+    width: 90%;
+  }
+}
+
+@media (max-width: 320px) {
+  .productPage .info .payments {
+    width: 70%;
   }
 }
 
@@ -1542,8 +1588,8 @@ footer .footerContent .scudero b {
 }
 
 .filterBox {
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  -webkit-transition: 1.5s;
+  transition: 1.5s;
   width: 100%;
   border-bottom: 2px solid #b66d76;
   display: -webkit-box;
@@ -1566,20 +1612,25 @@ footer .footerContent .scudero b {
 }
 
 .filterBox .filter {
+  padding: 10px 0;
   height: 100%;
   width: 1100px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 5%;
+          column-gap: 5%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .filterBox .filter div {
@@ -1592,7 +1643,6 @@ footer .footerContent .scudero b {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 30%;
 }
 
 .filterBox .filter div span {
@@ -1776,6 +1826,7 @@ footer .footerContent .scudero b {
   -ms-grid-columns: (minmax(210px, 1fr))[auto-fill];
       grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   position: relative;
+  place-items: center;
 }
 
 .products .showProducts .notFound {
@@ -1914,6 +1965,40 @@ footer .footerContent .scudero b {
   color: #666;
 }
 
+.products .loadingProducts {
+  padding: 10px 0;
+  display: none;
+}
+
+.products .loadingProducts i {
+  font-size: 25pt;
+  color: #a9a9a9;
+  -webkit-animation: spin 1s infinite;
+          animation: spin 1s infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 1100px) {
   .prodBanner {
     width: 100%;
@@ -1938,15 +2023,33 @@ footer .footerContent .scudero b {
   }
   .filterBox .filter {
     margin: 0 20px;
+    -webkit-column-gap: 2%;
+            column-gap: 2%;
   }
 }
 
 @media (max-width: 900px) {
-  .filterBox .filter div {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+  .filterBox .filter {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-column-gap: 8%;
+            column-gap: 8%;
+  }
+  .filterBox .filter div label {
+    row-gap: 25px;
+  }
+  .filterBox .filter .search {
+    width: 350px;
+    padding: 3px 5px;
+    margin-left: auto;
+    margin-right: 5%;
+  }
+  .filterBox .filter .search input {
+    font-size: 11pt;
+  }
+  .filterBox .filter .search i {
+    font-size: 13pt;
   }
 }
 
@@ -1968,6 +2071,12 @@ footer .footerContent .scudero b {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    height: 50px;
+    background-color: #fff;
   }
   .toggleFilter span {
     justify-self: flex-start;
@@ -1995,6 +2104,13 @@ footer .footerContent .scudero b {
     overflow: hidden;
     border-bottom: 1px solid #b66d76;
     padding: 15px 0;
+    top: 50px;
+    -webkit-transform-origin: top center;
+            transform-origin: top center;
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+    -webkit-transition: 1.5s;
+    transition: 1.5s;
   }
   .filterBox .filter {
     -ms-flex-wrap: wrap;
@@ -2008,15 +2124,42 @@ footer .footerContent .scudero b {
     margin-top: 5px;
   }
   .off {
-    height: 0;
-    border-bottom: 1px solid rgba(182, 109, 118, 0);
+    -webkit-transform: scaleY(0);
+            transform: scaleY(0);
     padding: 0;
+    height: 0;
+    -webkit-transform-origin: top center;
+            transform-origin: top center;
+    border-bottom: 1px solid rgba(182, 109, 118, 0);
+    -webkit-transition: 1.5s;
+    transition: 1.5s;
   }
 }
 
 @media (max-width: 750px) {
+  .filterBox .filter {
+    -webkit-column-gap: 5%;
+            column-gap: 5%;
+    row-gap: 30px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .filterBox .filter div {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
   .filterBox .filter .search {
     width: 40%;
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+    margin: inherit;
+  }
+  .products {
+    width: 99%;
+    margin: 0 auto;
   }
   .products .showProducts {
     -ms-grid-columns: (minmax(30%, 1fr))[auto-fill];
@@ -2028,7 +2171,7 @@ footer .footerContent .scudero b {
   .products .showProducts .product {
     width: 90%;
     height: 95%;
-    margin: inherit auto;
+    margin: 0 auto;
   }
 }
 
@@ -2045,9 +2188,6 @@ footer .footerContent .scudero b {
     height: 95%;
     margin: inherit auto;
   }
-  .filterBox .filter .search {
-    width: 50%;
-  }
 }
 
 @media (max-width: 550px) {
@@ -2061,6 +2201,31 @@ footer .footerContent .scudero b {
   .products .showProducts .product {
     width: 95%;
     margin: 0 auto;
+  }
+  .filterBox .filter .search {
+    width: 80%;
+  }
+  .filterBox .filter .minMax {
+    margin: 0 10%;
+  }
+}
+
+@media (max-width: 400px) {
+  .filterBox .filter {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .filterBox .filter div {
+    min-width: 220px;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    -webkit-column-gap: 8px;
+            column-gap: 8px;
+  }
+  .filterBox .filter div select {
+    width: 50%;
   }
 }
 
@@ -3484,6 +3649,73 @@ footer .footerContent .scudero b {
   font-size: 11pt;
 }
 
+.status .buyer .TrackingDiv {
+  display: none;
+  gap: 8px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow: hidden;
+  height: 70px;
+}
+
+.status .buyer .TrackingDiv section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-bottom: 1px solid #b66d76;
+  position: relative;
+}
+
+.status .buyer .TrackingDiv section:last-child {
+  border-bottom: none;
+}
+
+.status .buyer .TrackingDiv section span {
+  font-size: 12pt;
+}
+
+.status .buyer .TrackingDiv section label {
+  font-size: 10pt;
+  color: #aaa;
+}
+
+.status .buyer .TrackingDiv section small {
+  font-size: 8pt;
+  color: #878787;
+}
+
+.status .buyer .TrackingDiv section i {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 18pt;
+  color: #b66d76;
+  cursor: pointer;
+  -webkit-transition: color 0.1s, -webkit-transform 0.5s;
+  transition: color 0.1s, -webkit-transform 0.5s;
+  transition: transform 0.5s, color 0.1s;
+  transition: transform 0.5s, color 0.1s, -webkit-transform 0.5s;
+}
+
+.status .buyer .TrackingDiv section i:hover {
+  -webkit-transform: translateY(6px);
+          transform: translateY(6px);
+}
+
+.status .buyer .TrackingDiv section i:active {
+  color: #ddd;
+}
+
+.status .buyer .moreTracking {
+  height: inherit;
+}
+
 .status .buyer button {
   border: none;
   background-color: #b66d76;
@@ -3501,6 +3733,10 @@ footer .footerContent .scudero b {
           align-items: center;
   border-radius: 20px;
   cursor: pointer;
+  margin: 0 auto;
+  margin-top: 20px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
 }
 
 .status .buyer button:hover {
@@ -3511,6 +3747,17 @@ footer .footerContent .scudero b {
 .status .buyer button:active {
   -webkit-filter: brightness(0.9);
           filter: brightness(0.9);
+}
+
+.status .buyer button:disabled {
+  cursor: initial;
+  background-color: #ddd;
+  color: #aaa;
+}
+
+.status .buyer button:disabled:hover {
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
 }
 
 #cancelBox {
@@ -3555,6 +3802,9 @@ footer .footerContent .scudero b {
   gap: 20px;
   padding: 30px 40px;
   position: relative;
+  -webkit-box-ordinal-group: 0;
+      -ms-flex-order: -1;
+          order: -1;
 }
 
 #cancelBox .cancel #closeCancel {
@@ -3710,6 +3960,103 @@ footer .footerContent .scudero b {
     gap: 4px;
     -webkit-transform: scale(0.8);
             transform: scale(0.8);
+  }
+}
+
+@media (max-width: 550px) {
+  .status {
+    width: 95%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .status .progress {
+    gap: 1px;
+    -webkit-transform: scale(0.75);
+            transform: scale(0.75);
+    -webkit-box-ordinal-group: -1;
+        -ms-flex-order: -2;
+            order: -2;
+  }
+  .status .buyer {
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+  .status .buyer div {
+    width: 80%;
+  }
+  .status .prodShow {
+    margin-top: 1px solid #b66d76;
+    width: 100%;
+  }
+  .status .prodShow .prod {
+    width: 95%;
+  }
+  .status .prodShow .pay {
+    margin: 0 20px;
+  }
+}
+
+@media (max-width: 550px) {
+  .status .progress .pass .arrows i:nth-child(3n) {
+    display: none;
+  }
+  .status .progress .pass i {
+    width: 45px;
+    height: 45px;
+    font-size: 15pt;
+  }
+  .status .buyer div h3 {
+    font-size: 1em;
+  }
+  .status .buyer div span {
+    font-size: 10pt;
+  }
+}
+
+@media (max-width: 400px) {
+  .status .progress {
+    gap: 0px;
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+  }
+}
+
+@media (max-width: 350px) {
+  .status .progress {
+    gap: 0px;
+    -webkit-transform: scale(0.65);
+            transform: scale(0.65);
+  }
+  .status .progress .arrows i {
+    font-size: 11pt;
+  }
+}
+
+@media (max-width: 300px) {
+  .status {
+    width: 100%;
+  }
+  .status .progress {
+    gap: 0px;
+    -webkit-transform: scale(0.55);
+            transform: scale(0.55);
+  }
+  .status .progress .arrows i {
+    font-size: 10pt;
   }
 }
 

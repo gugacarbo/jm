@@ -1,31 +1,38 @@
 <?php
 
 
-if (isset($_GET['cpf']) && isset($_GET['code'])) {
+if (isset($_GET['cpf']) && isset($_GET['code']) && is_numeric($_GET['cpf']) && strlen($_GET['code']) == 36) {
 
     include "db_connect.php";
 
     $cpf = $_GET['cpf'];
     $code = $_GET['code'];
+    $code = preg_replace('/[|\,\;\\\:"]+/', '', $code);
+    
+    $stmt = $mysqli->prepare("SELECT * FROM vendas WHERE code = ?");
+    $stmt->bind_param("s", $code);
+    $stmt->execute();
+    $result_ = $stmt->get_result();
 
-    $sql = "SELECT * FROM vendas WHERE code = '$code'";
-    $result = $mysqli->query($sql);
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
+    if ($result_->num_rows > 0) {
+        $row = $result_->fetch_assoc();
+        $stmt->close();
+
         $clientId = $row['clientId'];
-        
-        $row = $result->fetch_assoc();
-        $sql = "SELECT * FROM client WHERE cpf = '$cpf'  AND id = '$clientId'";
-        //echo $sql;
-        $result = $mysqli->query($sql);
+
+        $stmt = $mysqli->prepare("SELECT * FROM client WHERE cpf =  ?  AND id = ?");
+        $stmt->bind_param("ss", $cpf, $clientId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
         if ($result->num_rows > 0) {
             echo json_encode(array("status" => "success", "code" => $code, "cpf" => $cpf));
         }else{
             echo($sql);
-            echo json_encode(array("status" => "error", "message" => "Dados Inco2rretos!"));
+            echo json_encode(array("status" => "error", "message" => "Dados Incorretos!"));
         }
     }else{
-        echo json_encode(array("status" => "error", "message" => "Dados Inc1orretos!"));
+        echo json_encode(array("status" => "error", "message" => "Dados Incorretos!"));
     }
 }else{
     http_response_code(404);

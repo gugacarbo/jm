@@ -20,7 +20,7 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    
+
 </head>
 
 <body>
@@ -117,19 +117,19 @@
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
                 </div>
-                <div class="pass" id="Arrived">
-                    <i class="fa-solid fa-x finalIcon" id="canceledIcon">
-                        <span class="passName" >Compra Cancelada</span>
-                    </i>
+            </div>
+            <div class="pass" id="Arrived">
+                <i class="fa-solid fa-x finalIcon" id="canceledIcon">
+                    <span class="passName">Compra Cancelada</span>
+                </i>
 
-                    <i class="fa-solid fa-exclamation finalIcon" finalIcon" id="disputIcon">
-                        <span class="passName" id="disputText">Entregues</span>
-                    </i>
+                <i class="fa-solid fa-exclamation finalIcon" finalIcon" id="disputIcon">
+                    <span class="passName" id="disputText">Entregues</span>
+                </i>
 
-                    <i class="fa-solid fa-check" id="finiShedIcon">
-                        <span class="passName" >Entregue</span>
-                    </i>
-                </div>
+                <i class="fa-solid fa-check" id="finiShedIcon">
+                    <span class="passName">Entregue</span>
+                </i>
             </div>
         </div>
 
@@ -160,6 +160,9 @@
                 <span id="BuyerBornDate"></span>
                 <span id="BuyerEmail"></span>
             </div>
+            <div id="TrackingDiv" class="TrackingDiv">
+                <h3>Rastreamento cod.: <span></span></h3>
+            </div>
             <button class="cancel" id="requestCancel">
                 Cancelar Compra
             </button>
@@ -170,7 +173,7 @@
             <div id="closeCancel">
                 <i class="fa-solid fa-xmark"></i>
             </div>
-        <h3>Solicitação de Cancelamento</h3>
+            <h3>Solicitação de Cancelamento</h3>
             <p>
                 Você tem certeza que deseja cancelar a compra?
             </p>
@@ -178,7 +181,8 @@
             <label for="cancelText">Motivo do Cancelmento:</label>
             <textarea id="cancelText"></textarea>
             <button id="cancelButton">Cancelar</button>
-            <small class="redirect">Voce será redirecionado ao WhatsApp para dar proseguimento à solicitação de cancelamento</small>
+            <small class="redirect">Voce será redirecionado ao WhatsApp para dar proseguimento à solicitação de
+                cancelamento</small>
         </div>
     </div>
     <footer>
@@ -187,7 +191,7 @@
 
 
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
-    
+
     <script src="status.js"></script>
 </body>
 

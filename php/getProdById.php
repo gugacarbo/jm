@@ -1,9 +1,6 @@
 <?php
 
-
-
-
-if (isset($_GET['id'])) {
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     include 'db_connect.php';
     $id = $_GET['id'];
     $r = getByID($id);
@@ -13,29 +10,52 @@ if (isset($_GET['id'])) {
 }
 
 
-function getById($id)
+function getById($id_)
 {   
     include 'db_connect.php';
     global $mysqli_;
     $mysqli_ = $mysqli;
 
-    $res = $mysqli_->query("SELECT * FROM products WHERE id = $id");
-    $itens = $res->fetch_all(MYSQLI_ASSOC);
-    $materialId = $itens[0]['material'];
+    $id = preg_replace('/[a-z\|\,\;\@\:"]+/', '', $id_);
+    $id = mysqli_real_escape_string($mysqli, $id);
 
-    $mat = $mysqli_->query("SELECT * FROM material WHERE id = $materialId");
+    $stmt = $mysqli->prepare("SELECT * FROM products WHERE id = ?");
+    $stmt->bind_param("s", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $itens = $result->fetch_assoc();
+    $stmt->close();
 
-    $material_R = $mat->fetch_all(MYSQLI_ASSOC);
+    unset($itens['cost']);
+    $materialId = $itens['material'];
+    $categoryId = $itens['category'];
 
-    $ret["id"] = $itens[0]['id'];
-    $ret["name"] = $itens[0]["name"];
-    $ret["price"] = $itens[0]["price"];
-    $ret["promo"] = $itens[0]["promo"];
-    $ret["material"] = $material_R[0]["name"];
-    $ret["weight"] = $itens[0]["weight"];
-    $ret["description"] = $itens[0]["description"];
-    $ret["imgs"] = ($itens[0]["imgs"]);
-    $ret["options"] = ($itens[0]["options"]);
 
+    $stmt = $mysqli->prepare("SELECT * FROM material WHERE id = ?");
+    $stmt->bind_param("s", $materialId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $material = $result->fetch_assoc();
+    $stmt->close();
+
+    $stmt = $mysqli->prepare("SELECT * FROM categories WHERE id = ?");
+    $stmt->bind_param("s", $categoryId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $category = $result->fetch_assoc();
+    $stmt->close();
+
+    $ret["id"] = $itens['id'];
+    $ret["name"] = $itens["name"];
+    $ret["price"] = $itens["price"];
+    $ret["promo"] = $itens["promo"];
+    $ret["category"] = $category["name"];
+    $ret["material"] = $material["name"];
+    $ret["weight"] = $itens["weight"];
+    $ret["description"] = $itens["description"];
+    $ret["imgs"] = ($itens["imgs"]);
+    $ret["options"] = ($itens["options"]);
     return ($ret);
+    
 }
+

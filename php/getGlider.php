@@ -1,13 +1,17 @@
 <?php
 //connect to database
 include 'db_connect.php';
-
-//get All gliders from db with no filter
-    $res = $mysqli->query("SELECT * FROM carousel");
-    $itens = $res->fetch_all(MYSQLI_ASSOC);
-    $mysqli->close();
-    if(!$itens){
-        echo json_encode(array('status' => 'error'));
+    $stmt = $mysqli->prepare("SELECT * FROM carousel");
+    $stmt->execute();
+    $result_ = $stmt->get_result();
+    if ($result_->num_rows > 0) {
+        $data = array();
+        while($row = $result_->fetch_assoc()) {
+            $data[] = $row;
+        }
+    }
+    if(!$data){
+        die(json_encode(array('status' => 'error')));
     }else{   
-        die (json_encode($itens));
+        die (json_encode($data));
     }

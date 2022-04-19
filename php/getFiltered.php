@@ -1,29 +1,62 @@
 <?php
 error_reporting(0);
 ini_set('display_errors', 0);
-include 'db_connect.php';
 
-//verificar se ha get min, max, cat, order e text com isset separadamente
-$min = isset($_GET['min']) ? $_GET['min'] : 0;
-$max = isset($_GET['max']) ? $_GET['max'] : 2000;
-$cat = isset($_GET['cat']) ? $_GET['cat'] : 0;
-$order = isset($_GET['order']) ? $_GET['order'] : 'price DESC';
-$text = isset($_GET['text']) ? $_GET['text'] : '';
 
-$sql = "SELECT id FROM products WHERE price BETWEEN $min AND $max";
+$params = array();
+$labels = "";
 
-if ($cat != 0) {
-    $sql .= " AND category = '$cat'";
+$sql = "SELECT * FROM products WHERE price BETWEEN ? AND ?";
+
+if(isset($_GET['min']) && is_numeric($_GET['min'])){
+    $min = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['min']);
+}else{
+    $min = 0;
+}
+array_push($params, $min);
+$labels .= "s";
+
+
+if(is_numeric($_GET['max']) &&  isset($_GET['max'])){
+    $max = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['max']);
+}else{
+    $max = 3000;
+}
+array_push($params, $max);
+$labels .= "s";
+
+
+if (isset($_GET['cat']) && is_numeric($_GET['cat']) && ($_GET['cat']) > 0) {
+    $cat = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['cat']);
+    $sql .= " AND category = ?";
+    array_push($params, $cat);
+    $labels .= "s";
 }
 
-if ($text != '') {
-    $sql .= " AND name LIKE '%$text%'";
+if(isset($_GET['text'])){
+    $text = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['text']);
+    $sql .= " AND name LIKE ?";
+    array_push($params, "%$text%");
+    $labels .= "s";
+
 }
 
+if(isset($_GET['order']) && $_GET['order'] == "price DESC"){
+    $order = "price DESC";
+}else{
+    $order = "price ASC";
+}
 $sql .= " ORDER BY $order";
 
-$result = $mysqli->query($sql);
-$mysqli->close();
+include 'db_connect.php';
+
+$stmt = $mysqli->prepare($sql);
+$stmt->bind_param($labels, ...$params);
+$stmt->execute();
+$result = $stmt->get_result();
+$stmt->close();
+
+
 if ($result->num_rows) {
     $products = array();
     while ($row = $result->fetch_assoc()) {

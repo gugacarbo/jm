@@ -1,12 +1,12 @@
 <?php
 //include db and take category from db and returns as json and close connection
 include 'db_connect.php';
-$sql = "SELECT * FROM categories";
-$result = $mysqli->query($sql);
-$data = array();
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
+$stmt = $mysqli->prepare("SELECT * FROM categories");
+$stmt->execute();
+$result_ = $stmt->get_result();
+if ($result_->num_rows > 0) {
+    $data = array();
+    while($row = $result_->fetch_assoc()) {
         $data[] = $row;
     }
 }

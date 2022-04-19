@@ -1,17 +1,21 @@
 <?php
-//if receive a json "cart", for each get the quantity in db products and update the quantity of each product in the db
+
 if (isset($_GET['cart'])) {
     include "db_connect.php";
     $cart = ($_GET['cart']);
 
     foreach ($cart as $n => $p) {
-        $id = $p["id"];
-        $qtd = $p["qtd"];
-        $opt = $p["opt"];
+        $id = preg_replace('/[|\,\;\\\:"]+/', '', $p["id"]);
+        $qtd = preg_replace('/[|\,\;\\\:"]+/', '', $p["qtd"]);
+        $opt = preg_replace('/[|\,\;\\\:"]+/', '', $p["opt"]);
 
-        $sql = "SELECT * FROM products WHERE id = $id";
-        $result = $mysqli->query($sql);
-        $row = $result->fetch_assoc();
+
+        $stmt = $mysqli->prepare("SELECT * FROM products WHERE id = ?");
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $result_ = $stmt->get_result();
+        $row = $result_->fetch_assoc();
+
         $options = json_decode($row['options'], true);
 
         $options[$opt] = $options[$opt] - $qtd;
@@ -22,13 +26,16 @@ if (isset($_GET['cart'])) {
         }
 
         ($options[$opt] < 0) ? die(json_encode(array('status' => 'error'))) : $newOptions = json_encode($options);
-        $sql = "UPDATE products SET options = '$newOptions', totalQuantity = $totalQuantity WHERE id = $id";
-        $result = $mysqli->query($sql);
-        //verify if update is ok
-        if (!$result) {
-            die(json_encode(array('status' => 'error')));
+
+        $stmt = $mysqli->prepare("UPDATE products SET options = ?, totalQuantity = ? WHERE id = ?");
+        $stmt->bind_param("sis", $newOptions, $totalQuantity, $id);
+        $stmt->execute();
+        if ($stmt->affected_rows > 0) {
+            echo json_encode(array('status' => 'success'));
+        } else {
+            echo json_encode(array('status' => 'error'));
         }
     }
     $mysqli->close();
-    die(json_encode(array('status' => 'sucess')));
+    die();
 }

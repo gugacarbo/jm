@@ -52,8 +52,9 @@ $(document).ready(_ => {
             },
             success: function (data) {
                 data = JSON.parse(data);
-                console.log(data)
-                if (data["status"] == "sucess") {
+                console.log(data["status"])
+
+                if (data["status"] == "success") {
                     $.ajax({
                         url: "/php/checkout.php",
                         type: "GET",
@@ -65,7 +66,7 @@ $(document).ready(_ => {
                         success: function (data) {
                             data = JSON.parse(data);
                             console.log(data);
-                            if (data["status"] == "sucess") {
+                            if (data["status"] == "success") {
                                 $("body").toggleClass("blockBody");
                                 $("#redirectM div .fa-circle-xmark").css("display", "none");
                                 $("#redirectM").css("opacity", "1");
@@ -97,7 +98,7 @@ $(document).ready(_ => {
                     $("body").toggleClass("blockBody");
                     $("#redirectM div .fa-circle-xmark").css("background-color", "#f00");
                     $("#redirectM div .fa-circle-check").css("display", "none");
-                    $("#redirectM div h1").html("Ocorreu um erro!");
+                    $("#redirectM div h1").html("Ocorreu um erro2!");
                     $("#redirectM div p").html("Tente novamente mais tarde!");
                     $("#redirectM").css("display", "flex");
                     $("#redirectM").css("opacity", "1");

@@ -7,7 +7,6 @@
     gap: 20px;
 
     .progress {
-
         width: 100%;
         display: flex;
         justify-content: center;
@@ -38,9 +37,9 @@
                     justify-content: center;
                     //background-color: #f0f;
                 }
-
             }
-            .finalIcon{ //disputIcon
+            .finalIcon {
+                //disputIcon
                 display: none;
             }
             .arrows {
@@ -159,6 +158,7 @@
         align-items: flex-start;
         height: 100%;
         gap: 10px;
+        position: relative;
         .date {
             width: 100%;
             text-align: right;
@@ -176,7 +176,51 @@
                 font-size: 11pt;
             }
         }
-        position: relative;
+        .TrackingDiv {
+            display: none;
+            gap: 8px;
+            flex-direction: column;
+            overflow: hidden;
+            height: 70px;
+            section {
+                display: flex;
+                flex-direction: column;
+                border-bottom: 1px solid $mainColor;
+                &:last-child {
+                    border-bottom: none;
+                }
+                span {
+                    font-size: 12pt;
+                }
+                label {
+                    font-size: 10pt;
+                    color: #aaa;
+                }
+                small {
+                    font-size: 8pt;
+                    color: #878787;
+                }
+                position: relative;
+                i{
+                    position: absolute;
+                    bottom: 10px;
+                    right: 20px;
+                    font-size: 18pt;
+                    color: $mainColor;
+                    cursor: pointer;
+                    transition: transform 0.5s, color 0.1s;
+                    &:hover{
+                        transform: translateY(6px);
+                    }
+                    &:active{
+                        color: #ddd;
+                    }
+                }
+            }
+        }
+        .moreTracking{
+            height: inherit;
+        }
         button {
             border: none;
             background-color: $mainColor;
@@ -188,16 +232,27 @@
             align-items: center;
             border-radius: 20px;
             cursor: pointer;
-            &:hover{
+            margin: 0 auto;
+            margin-top: 20px;
+            align-self: flex-start;
+            &:hover {
                 filter: brightness(1.1);
             }
-            &:active{
+            &:active {
                 filter: brightness(0.9);
+            }
+            &:disabled{
+                cursor: initial;
+                background-color: #ddd;
+                color: #aaa;
+                &:hover{
+                    filter: brightness(1);
+                }
             }
         }
     }
 }
-#cancelBox{
+#cancelBox {
     position: fixed;
     display: flex;
     width: 100vw;
@@ -207,7 +262,7 @@
     align-items: center;
     display: none;
     backdrop-filter: blur(10px);
-    .cancel{
+    .cancel {
         transform: scale(0);
         transition: 1s;
         width: 600px;
@@ -219,7 +274,8 @@
         gap: 20px;
         padding: 30px 40px;
         position: relative;
-        #closeCancel{
+        order: -1;
+        #closeCancel {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -227,33 +283,33 @@
             color: #000;
             cursor: pointer;
             z-index: 9999;
-            &:hover{
+            &:hover {
                 color: #999;
             }
         }
-        h3{
+        h3 {
             font-size: 18pt;
             font-weight: bold;
             margin-bottom: 5px;
             color: $mainColor;
         }
-        p{
+        p {
             font-size: 14pt;
         }
-        a{
+        a {
             font-size: 12pt;
             color: $mainColor;
             text-decoration: none;
-            &:hover{
+            &:hover {
                 text-decoration: underline;
             }
         }
-        label{
+        label {
             font-size: 12pt;
             width: 100%;
             color: #878787;
         }
-        textarea{
+        textarea {
             margin: 0;
             width: 100%;
             height: 100px;
@@ -262,7 +318,7 @@
             padding: 10px;
             resize: none;
         }
-        button{
+        button {
             width: 40%;
             border: none;
             background-color: $mainColor;
@@ -274,20 +330,20 @@
             align-items: center;
             border-radius: 20px;
             font-size: 12pt;
-            &:hover{
+            &:hover {
                 cursor: pointer;
                 filter: brightness(1.1);
             }
-            &:active{
+            &:active {
                 filter: brightness(0.9);
             }
         }
-        small{
+        small {
             font-size: 10pt;
             color: #aaa;
         }
     }
-    .show{
+    .show {
         transform: scale(1);
     }
 }
@@ -320,7 +376,7 @@
             width: 60%;
             gap: 15px;
             .pass {
-                i{
+                i {
                     .passName {
                         width: 100px;
                         text-align: center;
@@ -333,7 +389,7 @@
             }
         }
         .buyer {
-            div{
+            div {
                 width: 90%;
             }
         }
@@ -354,6 +410,101 @@
             gap: 4px;
 
             transform: scale(0.8);
+        }
+    }
+}
+@media (max-width: 550px) {
+    .status {
+        width: 95%;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        .progress {
+            gap: 1px;
+            transform: scale(0.75);
+            order: -2;
+        }
+        .buyer {
+            order: -1;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            div {
+                width: 80%;
+            }
+        }
+        .prodShow {
+            margin-top: 1px solid $mainColor;
+            width: 100%;
+            .prod {
+                width: 95%;
+            }
+            .pay {
+                margin: 0 20px;
+            }
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    .status {
+        .progress {
+            .pass {
+                .arrows i:nth-child(3n) {
+                    display: none;
+                }
+                i {
+                    width: 45px;
+                    height: 45px;
+                    font-size: 15pt;
+                }
+            }
+        }
+        .buyer div h3 {
+            font-size: 1em;
+        }
+        .buyer div span {
+            font-size: 10pt;
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .status {
+        .progress {
+            gap: 0px;
+
+            transform: scale(0.7);
+        }
+    }
+}
+@media (max-width: 350px) {
+    .status {
+        .progress {
+            gap: 0px;
+
+            transform: scale(0.65);
+            .arrows {
+                i {
+                    font-size: 11pt;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 300px) {
+    .status {
+        width: 100%;
+        .progress {
+            gap: 0px;
+
+            transform: scale(0.55);
+            .arrows {
+                i {
+                    font-size: 10pt;
+                }
+            }
         }
     }
 }
