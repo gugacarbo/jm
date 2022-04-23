@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background: #f5f5f5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-height: 100vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.jqte {
+  width: 900px;
+  height: 80vh;
+}
+
+.jqte .jqte_editor {
+  height: 100%;
+  resize: none;
+}
+
+.addImage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.addImage img {
+  display: block;
+  height: 320px;
+  width: 450;
+  position: relative;
+  pointer-events: none;
+}
+
+.addImage input[type="file"] {
+  position: absolute;
+  background-color: #fff;
+  background-image: url("plus.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 0pt;
+  color: transparent;
+  cursor: pointer;
+}
+
+.addImage input[type="file"]::-webkit-file-upload-button {
+  display: none;
+}
+
+.addImage i {
+  position: absolute;
+  right: 4px;
+  bottom: 2px;
+  color: #7e2c2c;
+  font-size: 10pt;
+  cursor: pointer;
+}
+
+.addImage i:hover {
+  color: #777777;
+}
+/*# sourceMappingURL=about.css.map */

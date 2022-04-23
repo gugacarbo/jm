@@ -20,22 +20,23 @@ if (isset($_GET['cart'])) {
 
         $options[$opt] = $options[$opt] - $qtd;
         //sum all options
+        ($options[$opt] < 0) ? die(json_encode(array('status' => 'error'))) : $newOptions = json_encode($options);
+        
         $totalQuantity = 0;
         foreach ($options as $n => $op) {
             $totalQuantity += $options[$n];
         }
 
-        ($options[$opt] < 0) ? die(json_encode(array('status' => 'error'))) : $newOptions = json_encode($options);
-
         $stmt = $mysqli->prepare("UPDATE products SET options = ?, totalQuantity = ? WHERE id = ?");
         $stmt->bind_param("sis", $newOptions, $totalQuantity, $id);
         $stmt->execute();
         if ($stmt->affected_rows > 0) {
-            echo json_encode(array('status' => 'success'));
+            
         } else {
-            echo json_encode(array('status' => 'error'));
+            die (json_encode(array('status' => 'error')));
         }
     }
+    echo json_encode(array('status' => 'success'));
     $mysqli->close();
     die();
 }

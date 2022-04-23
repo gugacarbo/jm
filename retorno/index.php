@@ -63,7 +63,7 @@
         </div>
         <span>Deixe uma Mensagem <i style="color: '#aaa';">opicional</i></span>
         <textarea></textarea>
-        <button id="send">Enviar</button>
+        <button id="send">Enviar e Voltar a Loja</button>
     </div>
 
     <script>

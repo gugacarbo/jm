@@ -17,15 +17,15 @@ $(document).ready(() => {
       }
 
       $.get("/php/cadNewsLetter.php", data, function (data) {
-        data=JSON.parse(data)
-        if(data["status"] == "success"){
+        data = JSON.parse(data)
+        if (data["status"] == "success") {
           $("#NewsletterErrorDisplay").css("display", "flex");
           $("#NewsletterErrorDisplay").css("color", "#0f0");
           $("#NewsletterErrorDisplay").html("Cadastro realizado com sucesso!");
           setTimeout(() => {
             $("#NewsletterErrorDisplay").css("display", "none");
           }, 1300);
-        }else{
+        } else {
           $("#NewsletterErrorDisplay").css("display", "flex");
           $("#NewsletterErrorDisplay").css("color", "#F00");
           $("#NewsletterErrorDisplay").html("Erro ao cadastrar!");
@@ -113,7 +113,7 @@ async function getGliders() {
           //console.log(ProdCarousel)
 
           $("#Carousel" + prods["name"].replace(" ", "")).append(ProdCarousel)
-          actProdCount ++;
+          actProdCount++;
 
           if (prodCount == actProdCount) {
             callGliders(prods["name"].replace(" ", ""))
@@ -130,64 +130,64 @@ async function getGliders() {
 
 
 async function callGliders(i) {
- 
 
-    var g = new Glider(document.querySelector('#Carousel' + i), {
-      slidesToShow: 4.5,
-      slidesToScroll: 3,
-      draggable: true,
-      dragVelocity: 1,
-      dots: '.dots' + i,
-      duration: 3,
-      arrows: {
-        prev: '.prev' + i,
-        next: '.next' + i,
+
+  var g = new Glider(document.querySelector('#Carousel' + i), {
+    slidesToShow: 4.5,
+    slidesToScroll: 3,
+    draggable: true,
+    dragVelocity: 1,
+    dots: '.dots' + i,
+    duration: 3,
+    arrows: {
+      prev: '.prev' + i,
+      next: '.next' + i,
+    },
+    responsive: [
+      {
+        breakpoint: 000,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
       },
-      responsive: [
-        {
-          breakpoint: 000,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
+      {
+        breakpoint: 330,
+        settings: {
+          slidesToShow: 1.5,
+          slidesToScroll: 1,
         },
-        {
-          breakpoint: 330,
-          settings: {
-            slidesToShow: 1.5,
-            slidesToScroll: 1,
-          },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2.5,
+          slidesToScroll: 2,
         },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2.5,
-            slidesToScroll: 2,
-          },
+      },
+      {
+        breakpoint: 700,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
         },
-        {
-          breakpoint: 700,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 2,
-          },
+      },
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 3.5,
+          slidesToScroll: 3,
         },
-        {
-          breakpoint: 800,
-          settings: {
-            slidesToShow: 3.5,
-            slidesToScroll: 3,
-          },
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 4.5,
+          slidesToScroll: 3,
         },
-        {
-          breakpoint: 900,
-          settings: {
-            slidesToShow: 4.5,
-            slidesToScroll: 3,
-          },
-        },
-      ],
-    });
+      },
+    ],
+  });
 
 }
 
@@ -202,7 +202,8 @@ async function setBanner(el_id, banner_name) {
     var data = JSON.parse(d);
     var images = JSON.parse(data["images"]);
     $.each(images, function (i, img) {
-      $(el_id).append("<img src='" + img + "'>");
+      if (img != "")
+        $(el_id).append("<img src='" + img + "'>");
     });
   })
     .then((value) => {

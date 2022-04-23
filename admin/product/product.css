@@ -1,0 +1,266 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.productAdd {
+  padding-top: 100px;
+  width: 1100px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 30px;
+  height: 600px;
+  background-color: #dedede;
+}
+
+.productAdd label {
+  background-color: #e0e0f4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 30%;
+}
+
+.productAdd label input[type="text"] {
+  width: 100%;
+  border: none;
+  background-color: #e0f0e4;
+  padding: 5px;
+  outline: none;
+}
+
+.productAdd label input[type="text"]:focus + small,
+.productAdd label input[type="text"]:valid + small {
+  top: -8px;
+}
+
+.productAdd label small {
+  position: absolute;
+}
+
+.productAdd label select {
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.productAdd label textarea {
+  width: 100%;
+  height: 120px;
+  resize: none;
+}
+
+.productAdd label textarea + small {
+  top: -12px;
+}
+
+.productAdd section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 30%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.productAdd .productImages {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+  width: 30%;
+  background-color: #e0f0f0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.productAdd .productImages .productMainImage {
+  width: 280px;
+  height: 280px;
+  background-color: #f99;
+}
+
+.productAdd .productImages .productSecImage {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.productAdd .productImages .productSecImage div {
+  width: 80px;
+  height: 80px;
+  background-color: #f99;
+}
+
+.productAdd .productImages .addImage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.productAdd .productImages .addImage img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  pointer-events: none;
+}
+
+.productAdd .productImages .addImage input[type="file"] {
+  position: absolute;
+  background-color: #fff;
+  background-image: url("plus.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 0pt;
+  color: transparent;
+  cursor: pointer;
+}
+
+.productAdd .productImages .addImage input[type="file"]::-webkit-file-upload-button {
+  display: none;
+}
+
+.productAdd .productImages .addImage i {
+  position: absolute;
+  right: 4px;
+  bottom: 2px;
+  color: #7e2c2c;
+  font-size: 10pt;
+  cursor: pointer;
+}
+
+.productAdd .productImages .addImage i:hover {
+  color: #777777;
+}
+
+.productAdd .productOptions {
+  background-color: #09c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 15px;
+  width: 30%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 20px 0;
+}
+
+.productAdd .productOptions .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.productAdd .productOptions .item input {
+  border: none;
+  padding: 2px;
+  font-size: 13pt;
+  font-weight: bold;
+  width: 30%;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  background-color: transparent;
+}
+
+.productAdd .productOptions .item input:disabled {
+  border: none;
+}
+
+.productAdd .productOptions .item i {
+  font-size: 13pt;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+}
+
+.productAdd .productOptions .item i:hover {
+  color: #b8b8b8;
+}
+
+.productAdd .productOptions .add {
+  -webkit-box-ordinal-group: 10000;
+      -ms-flex-order: 9999;
+          order: 9999;
+  padding-top: 5px;
+}
+
+.productAdd .productOptions .add i {
+  font-size: 15pt;
+}
+
+.productAdd .fa-floppy-disk {
+  font-size: 20pt;
+  color: #359135;
+  cursor: pointer;
+}
+
+.productAdd .fa-floppy-disk:hover {
+  -webkit-filter: brightness(1.1);
+          filter: brightness(1.1);
+}
+
+.productAdd .fa-floppy-disk:active {
+  -webkit-filter: brightness(0.9);
+          filter: brightness(0.9);
+}
+/*# sourceMappingURL=product.css.map */

@@ -29,31 +29,18 @@
 
     </div>
     <div class="about">
-        <span>Sobre</span>
-        <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil nostrum vel et harum mollitia? Tempora iusto
-            omnis voluptatem? Incidunt nam illum rem ipsam veritatis? Vitae cum cupiditate totam aut cumque!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil nostrum vel et harum mollitia? Tempora iusto
-            omnis voluptatem? Incidunt nam illum rem ipsam veritatis? Vitae cum cupiditate totam aut cumque!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil nostrum vel et harum mollitia? Tempora iusto
-            omnis voluptatem? Incidunt nam illum rem ipsam veritatis? Vitae cum cupiditate totam aut cumque!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil nostrum vel et harum mollitia? Tempora iusto
-            omnis voluptatem? Incidunt nam illum rem ipsam veritatis? Vitae cum cupiditate totam aut cumque!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil nostrum vel et harum mollitia? Tempora iusto
-            omnis voluptatem? Incidunt nam illum rem ipsam veritatis? Vitae cum cupiditate totam aut cumque!
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil nostrum vel et harum mollitia? Tempora iusto
-            omnis voluptatem? Incidunt nam illum rem ipsam veritatis? Vitae cum cupiditate totam aut cumque!
+        <p id="aboutText">
         </p>
         <div>
             <div class="img">
                 <img
-                    src="https://img.elo7.com.br/product/zoom/1C340F5/quadro-tela-paisagens-natureza-praia-coqueiro-mar-areia-004-quadro-tela.jpg">
+                    src="aboutImage.jpg">
             </div>
             <div class="map">
-                <img src="https://sillysoft.net/vox/plugins/images/THE%20GREAT%20WAR.jpg">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d882.336481921947!2d-50.30615917076205!3d-27.799120998922096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6378519b90c5cb27!2zMjfCsDQ3JzU2LjgiUyA1MMKwMTgnMjAuMiJX!5e0!3m2!1spt-BR!2sbr!4v1650674226886!5m2!1spt-BR!2sbr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
-
+            
         </div>
     </div>
     <footer>
@@ -61,11 +48,11 @@
     </footer>
 
 
-
     <script>
         $(document).ready(() => {
             $("header").load("/includes/header.html");
             $("footer").load("/includes/footer.html");
+            $("#aboutText").load("aboutFile.html");
             setBanner("#AboutSlider", "ABOUT_BANNER");
 
         })
@@ -85,7 +72,8 @@
                 var data = JSON.parse(d);
                 var images = JSON.parse(data["images"]);
                 $.each(images, function (i, img) {
-                    $(el_id).append("<img src='" + img + "'>");
+                    if (img != "")
+                        $(el_id).append("<img src='" + img + "'>");
                 });
             })
                 .then((value) => {
