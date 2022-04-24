@@ -1,17 +1,77 @@
 <?php
 //connect to database
+
 include 'db_connect.php';
-    $stmt = $mysqli->prepare("SELECT * FROM carousel");
-    $stmt->execute();
-    $result_ = $stmt->get_result();
-    if ($result_->num_rows > 0) {
-        $data = array();
-        while($row = $result_->fetch_assoc()) {
-            $data[] = $row;
+$stmt = $mysqli->prepare("SELECT * FROM carousel");
+$stmt->execute();
+$result_ = $stmt->get_result();
+$data = array();
+if ($result_->num_rows > 0) {
+    $data = array();
+    while ($row = $result_->fetch_assoc()) {
+        $catId = $row['category'];
+        $stmt2 = $mysqli->prepare("SELECT * FROM categories WHERE id = ?");
+        $stmt2->bind_param("i", $catId);
+        $stmt2->execute();
+        $result2 = $stmt2->get_result();
+        $stmt2->close();
+        $carousel["id"] = $row['id'];
+        $carousel["category"] = $catId;
+        $carousel["name"] = $result2->fetch_assoc()['name'];
+
+        if ($row["SelectType"] == "id") {
+            $carousel["prod_ids"] = $row["select"];
+            $data[] = $carousel;
+        } else if ($row["SelectType"] == "auto") {
+
+
+            $selectType = $row["select"];
+            $selectType = (json_decode($selectType, true));
+            $selectType =  $selectType["type"];
+
+
+            switch ($selectType) {
+                case "price":
+                    $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? ORDER BY price ASC LIMIT 7");
+                    $stmt3->bind_param("s", $catId);
+                    $stmt3->execute();
+                    $result3 = $stmt3->get_result();
+                    $stmt3->close();
+                    if ($result3->num_rows > 0) {
+                        $i = 0;
+                        $ids = [];
+                        while ($row3 = $result3->fetch_assoc()) {
+                            $ids["'" . $i . "'"] = $row3['id'];
+                            $i++;
+                        }
+
+                        $carousel["prod_ids"] = json_encode($ids);
+                    }
+                    $data[] = $carousel;
+                    break;
+                case "promo":
+                    $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? AND promo > 0 ORDER BY price ASC LIMIT 7");
+                    $stmt3->bind_param("s", $catId);
+                    $stmt3->execute();
+                    $result3 = $stmt3->get_result();
+                    $stmt3->close();
+
+                    if ($result3->num_rows > 0) {
+                        $i = 0;
+                        $ids = [];
+
+                        while ($row3 = $result3->fetch_assoc()) {
+                            $ids["'" . $i . "'"] = $row3['id'];
+                            $i++;
+                        }
+
+                        $carousel["prod_ids"] = json_encode($ids);
+                    }
+                    $data[] = $carousel;
+                    break;
+                case "promo":
+            }
         }
     }
-    if(!$data){
-        die(json_encode(array('status' => 'error')));
-    }else{   
-        die (json_encode($data));
-    }
+}
+die(json_encode($data));

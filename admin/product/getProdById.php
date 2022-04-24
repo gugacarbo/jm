@@ -48,6 +48,7 @@ function getById($id_)
     $ret["price"] = $itens["price"];
     $ret["promo"] = $itens["promo"];
     $ret["category"] = $category["name"];
+    $ret["categoryId"] = $categoryId;
     $ret["material"] = $material["name"];
     $ret["weight"] = $itens["weight"];
     $ret["description"] = $itens["description"];

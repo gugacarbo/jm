@@ -1,0 +1,238 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.content {
+  width: 1500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.content .carouselList {
+  width: 60%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #ffa;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.content .carouselList .carousel {
+  width: 100%;
+  height: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  overflow-x: scroll;
+  overflow-y: none;
+}
+
+.content .carouselList .carousel span {
+  width: 100%;
+}
+
+.content .carouselList .carousel div {
+  background-color: #aff;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+}
+
+.content .carouselList .carousel div img {
+  width: 100%;
+  height: 100%;
+}
+
+.content .carouselList .carousel .deleteGlider, .content .carouselList .carousel .editGlider {
+  -webkit-box-ordinal-group: 100;
+      -ms-flex-order: 99;
+          order: 99;
+  cursor: pointer;
+  color: #f00;
+}
+
+.content .carouselAdd {
+  width: 40%;
+  background-color: #afa;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 15px;
+}
+
+.content .carouselAdd section {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  gap: 10px;
+}
+
+.content .carouselAdd section select {
+  width: 200px;
+  padding: 5px 0;
+}
+
+.content .carouselAdd .selectProds {
+  position: relative;
+  width: 95%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 10px 0;
+  background-color: #ddd;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.content .carouselAdd .selectProds div {
+  border: 1px solid brown;
+  border-radius: 10px;
+  width: 110px;
+  height: 110px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+}
+
+.content .carouselAdd .selectProds div img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.content .carouselAdd .selectProds div input[type="checkbox"] {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  opacity: 0;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+  cursor: pointer;
+}
+
+.content .carouselAdd .selectProds div input[type="checkbox"]:disabled {
+  cursor: inherit;
+}
+
+.content .carouselAdd .selectProds div input[type="checkbox"]:checked {
+  -webkit-box-ordinal-group: 0;
+      -ms-flex-order: -1;
+          order: -1;
+  opacity: 0.5;
+  accent-color: #09c;
+}
+
+.content .carouselAdd .selectProds div input[type="checkbox"]:checked + img {
+  background-color: #00000066;
+}
+
+.content .carouselAdd .disabled::before {
+  z-index: 122;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #7e7e7e;
+  opacity: 0.8;
+  -webkit-backdrop-filter: blur(15px);
+          backdrop-filter: blur(15px);
+  pointer-events: none;
+}
+
+.content .carouselAdd button {
+  border: none;
+  outline: none;
+  background-color: #09c;
+  font-size: 16pt;
+  width: 80%;
+  margin-top: 20px;
+  border-radius: 20px;
+  color: #fff;
+  margin: 0 auto;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.content .carouselAdd button:hover {
+  -webkit-filter: brightness(1.2);
+          filter: brightness(1.2);
+}
+
+.content .carouselAdd button:active {
+  -webkit-filter: brightness(0.8);
+          filter: brightness(0.8);
+}
+
+.content .carouselAdd button:disabled {
+  color: #686868;
+  background-color: #ddd;
+  cursor: inherit;
+}
+
+.content .carouselAdd button:disabled:active {
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
+}
+
+.content .carouselAdd button:disabled:hover {
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
+}
+/*# sourceMappingURL=carousel.css.map */

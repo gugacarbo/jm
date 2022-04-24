@@ -13,19 +13,22 @@ $min = 0;
 if (isset($_GET['min']) && is_numeric($_GET['min'])) {
     $min = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['min']);
 }
+
 array_push($params, $min);
 $labels .= "s";
 
 $max = 3000;
-
 if (is_numeric($_GET['max']) &&  isset($_GET['max'])) {
     $max = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['max']);
-    array_push($params, $max);
-    $labels .= "s";
+}
+array_push($params, $max);
+$labels .= "s";
+
+if (is_numeric($_GET['promo']) &&  isset($_GET['promo']) && $_GET['promo'] == 1) {
+    $sql .= " AND promo > 0";
 }
 
-
-if (isset($_GET['cat']) && is_numeric($_GET['cat']) && ($_GET['cat']) > 0) {
+if (isset($_GET['cat']) && is_numeric($_GET['cat']) && ($_GET['cat']) >= 0) {
     $cat = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['cat']);
     $sql .= " AND category = ?";
     array_push($params, $cat);
@@ -44,10 +47,10 @@ if (isset($_GET['order']) && $_GET['order'] == "price DESC") {
 } else {
     $order = "price ASC";
 }
+
 $sql .= " ORDER BY $order";
 
-include 'db_connect.php';
-
+include '../db_connect.php';
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param($labels, ...$params);
 $stmt->execute();

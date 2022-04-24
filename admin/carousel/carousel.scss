@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content {
+    width: 1500px;
+    display: flex;
+    .carouselList {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        background-color: #ffa;
+        align-items: center;
+        .carousel {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            align-items: center;
+            flex-wrap: wrap;
+            overflow-x: scroll;
+            overflow-y: none;
+            
+            span {
+                width: 100%;
+            }
+            div {
+                background-color: #aff;
+                width: 120px;
+                height: 120px;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .deleteGlider, .editGlider {
+                order: 99;
+                cursor: pointer;
+                color: #f00;
+            }
+        }
+    }
+
+    .carouselAdd {
+        width: 40%;
+        background-color: #afa;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 10px;
+            select {
+                width: 200px;
+                padding: 5px 0;
+            }
+        }
+        .selectProds {
+            position: relative;
+
+            width: 95%;
+            display: flex;
+            gap: 10px;
+            justify-content: space-around;
+            padding: 10px 0;
+            background-color: #ddd;
+            flex-wrap: wrap;
+            div {
+                border: 1px solid brown;
+                border-radius: 10px;
+                width: 110px;
+                height: 110px;
+                position: relative;
+                display: flex;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                }
+                input[type="checkbox"] {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 9;
+                    opacity: 0;
+                    order: 1;
+                    cursor: pointer;
+                }
+                input[type="checkbox"]:disabled{
+                    cursor: inherit;
+                }
+                input[type="checkbox"]:checked{
+                    order: -1;
+                    opacity: 0.5;
+                    accent-color: #09c;
+                
+                }
+                input[type="checkbox"]:checked + img {
+                    background-color: #00000066;
+                }
+            }
+        }
+        .disabled {
+            &::before {
+                z-index: 122;
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgb(126, 126, 126);
+                opacity: 0.8;
+                backdrop-filter: blur(15px);
+                pointer-events: none;
+            }
+        }
+        button{
+            border: none;
+            outline: none;
+            background-color: #09c;
+            font-size: 16pt;
+            width: 80%;
+            margin-top: 20px;
+            border-radius: 20px;
+            color: #fff;
+            margin: 0 auto;
+            padding: 5px 0;
+            cursor: pointer;
+            &:hover{
+                filter: brightness(1.2);
+            }
+            &:active{
+                filter: brightness(0.8);
+            }
+            &:disabled{
+                color: #686868;
+                background-color: #ddd;
+                cursor: inherit;
+                &:active{
+                    filter: brightness(1);
+                }
+                &:hover{
+                    filter: brightness(1);
+                }
+
+            }
+        }
+    }
+}

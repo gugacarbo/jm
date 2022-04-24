@@ -15,7 +15,7 @@ if (isset($_FILES['file']['name']) && isset($_GET['dir'])) {
 }
 
 
-function upload($file_, $dir_, $md5_ = true, $valid_extensions = array(".jpg", ".jpeg", ".png", ".html"))
+function upload($file_, $dir_, $md5_ = 'true', $valid_extensions = array(".jpg", ".jpeg", ".png", ".html"))
 {
     
     
@@ -25,7 +25,6 @@ function upload($file_, $dir_, $md5_ = true, $valid_extensions = array(".jpg", "
     $imageFileType = strrchr($filename, ".");
     
     if ($md5_ == 'true') {
-        echo $md5_;
         $location = ($dir . md5($filename . time()) . $imageFileType);
     } else {
         $location = $dir . $filename;
@@ -36,7 +35,7 @@ function upload($file_, $dir_, $md5_ = true, $valid_extensions = array(".jpg", "
             $path = str_replace($target_path = $_SERVER['DOCUMENT_ROOT'], "", $location);
 
             list($width_orig, $height_orig, $tipo, $atributo) = getimagesize($location);
-            if ($height_orig > 500) {
+            if ($height_orig > 5000) {
                 //curl post to delete.php
                 include "delete.php";
                 delete($path);
