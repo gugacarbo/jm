@@ -1,6 +1,7 @@
 $(document).ready(() => {
     $("header").load("/includes/header.html");
     $("footer").load("/includes/footer.html");
+    
 
     callCart();
 
@@ -15,6 +16,8 @@ function delProd(id, opt) {
         callCart();
     }, 200);
 }
+
+
 
 async function callCart() {
     var totalPrice = 0;

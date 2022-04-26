@@ -246,12 +246,10 @@ function startGliders() {
             carousel += '</div></div>'
             $("#CarouselList").append(carousel);
             UsedGlider.push(glider['category']);
-            $.each(ids, function (index, id) {
-                $.get("../product/getProdById.php", { id: id }, function (data) {
-                    data = JSON.parse(data);
+            $.each(ids, function (index, data) {
                     var images = JSON.parse(data["imgs"]);
                     $("#Glider" + glider['id']).append('<div><img src="' + images[1] + '" alt=""></div>')
-                })
+            
             })
             $("#Glider" + glider['id']).append('<span class="deleteGlider" onclick="deleteGlider(' + glider['id'] + ')">Del</span>')
         })

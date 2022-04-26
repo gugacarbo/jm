@@ -421,7 +421,7 @@ header .menuToggle {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    z-index: 10;
+    z-index: 19;
   }
   header .headerContent .menuToggle i {
     font-size: 22pt;
@@ -440,7 +440,7 @@ header .menuToggle {
     color: #ddd;
   }
   .mobileMenu {
-    z-index: 8;
+    z-index: 18;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -452,10 +452,10 @@ header .menuToggle {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(182, 109, 118, 0.7);
+    background-color: rgba(182, 109, 118, 0.8);
     overflow: hidden;
-    -webkit-backdrop-filter: blur(3px);
-            backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
   }
   .mobileMenu .menu {
     -webkit-box-orient: vertical;
@@ -468,12 +468,12 @@ header .menuToggle {
     color: #fff;
     font-size: 22pt;
     letter-spacing: 2px;
-    -webkit-filter: drop-shadow(4px 4px 3px rgba(90, 0, 0, 0.8));
-            filter: drop-shadow(4px 4px 3px rgba(90, 0, 0, 0.8));
+    -webkit-filter: drop-shadow(4px 4px 3px rgba(90, 0, 0, 0.5));
+            filter: drop-shadow(4px 4px 3px rgba(90, 0, 0, 0.5));
   }
   .mobileMenu .menu .menuItem a:hover {
-    -webkit-filter: drop-shadow(4px 4px 3px rgba(153, 0, 0, 0.8));
-            filter: drop-shadow(4px 4px 3px rgba(153, 0, 0, 0.8));
+    -webkit-filter: drop-shadow(4px 4px 3px rgba(153, 0, 0, 0.5));
+            filter: drop-shadow(4px 4px 3px rgba(153, 0, 0, 0.5));
     color: #ffecec;
   }
   .menuOpen {
@@ -505,7 +505,7 @@ header .menuToggle {
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 580px) {
   header .headerContent {
     -ms-flex-pack: distribute;
         justify-content: space-around;
@@ -525,7 +525,7 @@ header .menuToggle {
     -webkit-box-ordinal-group: 0;
         -ms-flex-order: -1;
             order: -1;
-    gap: 10px;
+    gap: 20px;
   }
   header .headerContent .social i {
     padding: 0;
@@ -549,6 +549,39 @@ header .menuToggle {
 @media (max-width: 560px) {
   header .headerContent .logoImg {
     width: 120px;
+  }
+}
+
+@media (max-width: 380px) {
+  header .headerContent .logoImg {
+    width: 120px;
+  }
+  header .headerContent .social {
+    gap: 15px;
+  }
+  header .headerContent .social i {
+    font-size: 18pt;
+  }
+  header .headerContent .cart i {
+    font-size: 16pt;
+  }
+  header .headerContent .cart .itemCart {
+    font-size: 8pt;
+  }
+  header .headerContent .orders {
+    gap: 10px;
+  }
+  header .headerContent .orders i {
+    font-size: 18pt;
+  }
+  header .headerContent .menuToggle i {
+    font-size: 20pt;
+  }
+  .mobileMenu .menu {
+    gap: 35px;
+  }
+  .mobileMenu .menu .menuItem a {
+    font-size: 14pt;
   }
 }
 
@@ -876,7 +909,8 @@ footer .footerContent .scudero b {
 }
 
 .productPage .galery .mainImg {
-  width: 70%;
+  width: 400px;
+  height: 400px;
   aspect-ratio: 1/1;
   overflow: hidden;
   border: 1px solid #b66d76;
@@ -899,7 +933,7 @@ footer .footerContent .scudero b {
 }
 
 .productPage .galery .secImg {
-  width: 22%;
+  width: 130px;
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1333,7 +1367,7 @@ footer .footerContent .scudero b {
 
 .productPage .info .prodOptions small {
   position: absolute;
-  top: -20px;
+  top: -25px;
   width: 100%;
   left: 0;
   display: none;
@@ -1381,11 +1415,6 @@ footer .footerContent .scudero b {
   .productPage {
     width: 100%;
   }
-  .productPage .galery {
-    width: 70%;
-    aspect-ratio: 1/1;
-    max-height: 500px;
-  }
   .productPage .info .buyBox {
     width: 80%;
     margin: 25px auto;
@@ -1399,15 +1428,15 @@ footer .footerContent .scudero b {
     margin-left: 20px;
   }
   .productPage .info .productPrice {
-    width: 40%;
+    width: 30%;
     margin-left: 30px;
   }
   .productPage .info .payments {
-    width: 45%;
-    margin-right: 25px;
+    width: 55%;
+    margin-right: auto;
   }
   .sizeTable {
-    width: 100%;
+    width: 95%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1421,8 +1450,7 @@ footer .footerContent .scudero b {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    padding: 10px;
-    margin: 20px;
+    padding: 10px 0;
   }
   .sizeTable * {
     margin: 10px 0;
@@ -1430,32 +1458,26 @@ footer .footerContent .scudero b {
   }
 }
 
-@media (max-width: 1000px) {
-  .productPage .galery {
-    height: 50%;
-  }
-  .productPage .galery .mainImg {
-    position: relative;
-    height: 100%;
-    width: 75%;
-  }
-  .productPage .galery .secImg {
-    width: 24%;
-  }
-}
-
 @media (max-width: 900px) {
   .productPage .galery {
+    width: 60%;
     max-height: inherit;
     height: 400px;
   }
+  .productPage .galery .mainImg {
+    width: 400px;
+    height: 400px;
+  }
+  .productPage .info {
+    width: 40%;
+  }
   .productPage .info .payments {
-    width: 70%;
+    width: 60%;
     margin: 10px auto;
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 860px) {
   .productPage {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -1471,6 +1493,13 @@ footer .footerContent .scudero b {
     width: 90%;
     max-height: inherit;
     height: 420px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .productPage .galery .mainImg {
+    width: 420px;
+    height: 420px;
   }
   .productPage .info {
     width: 90%;
@@ -1479,36 +1508,66 @@ footer .footerContent .scudero b {
   .productPage .info .productName {
     width: 100%;
     text-align: center;
+    margin: 0;
     margin-bottom: 30px;
   }
   .productPage .info .productPrice {
-    width: 20%;
+    width: 40%;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
   .productPage .info .productPrice .promo {
     font-size: 10pt;
   }
   .productPage .info .productPrice .price {
-    font-size: 24pt;
+    font-size: 32pt;
   }
   .productPage .info .productPrice .price p {
-    font-size: 9pt;
+    font-size: 12pt;
   }
   .productPage .info .payments {
     width: 50%;
+    margin: 0;
   }
   .productPage .info .payments img {
-    width: 280px;
+    width: 80%;
+    margin-right: auto;
   }
-}
-
-@media (max-width: 700px) {
-  .productPage .info .payments img {
-    width: 250px;
+  .productPage .info .buyBox {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    row-gap: 20px;
+  }
+  .productPage .info .buyBox .cartBtn,
+  .productPage .info .buyBox .buyBtn {
+    width: 45%;
+  }
+  .productPage .info .buyBox .prodOptions {
+    gap: 20px;
+  }
+  .productPage .info .shipping {
+    width: 60%;
+    margin: 20px 10% 0 auto;
+  }
+  .productPage .info .description {
+    margin: 20px 0;
+    padding: 10px;
   }
 }
 
 @media (max-width: 650px) {
   .productPage .galery {
+    margin: 10px 0;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -1518,34 +1577,130 @@ footer .footerContent .scudero b {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    gap: 30px;
+    gap: 10px;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
   }
   .productPage .galery .mainImg {
-    width: 90%;
-    height: 90%;
+    width: 440px;
+    height: 440px;
   }
   .productPage .galery .secImg {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
-    height: 18%;
-    width: 80%;
-  }
-  .productPage .galery .secImg .sImage {
-    width: 40%;
+    width: 440px;
+    height: 130px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
   }
 }
 
-@media (max-width: 550px) {
-  .productPage .info .payments {
+@media (max-width: 600px) {
+  .productPage .info .payments img {
     width: 90%;
   }
+  .productPage .info .shipping {
+    width: 80%;
+    margin: auto;
+  }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 600px) and (max-width: 450px) {
+  .productPage .galery {
+    margin: 10px 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    height: 100%;
+    width: 100%;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 10px;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+  }
+  .productPage .galery .mainImg {
+    width: 90%;
+    height: auto;
+  }
+  .productPage .galery .secImg {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    width: 90%;
+    height: inherit;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+  }
+  .productPage .info {
+    width: 95%;
+  }
+  .productPage .info .buyBox {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    row-gap: 10px;
+    margin-bottom: 20px;
+  }
+  .productPage .info .buyBox .cartBtn,
+  .productPage .info .buyBox .buyBtn {
+    width: 100%;
+    font-size: 12pt;
+  }
+  .productPage .info .buyBox .prodOptions {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 340px) {
   .productPage .info .payments {
-    width: 70%;
+    display: none;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  .productPage .info .payments img {
+    margin: 0;
+  }
+  .productPage .info .productPrice {
+    width: 90%;
+    margin: 0;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+  }
+  .productPage .info .productPrice .price {
+    font-size: 44pt;
+  }
+  .productPage .info .productPrice .price p {
+    font-size: 18pt;
+  }
+  .productPage .info .productPrice .promo {
+    font-size: 18pts;
+  }
+  .productPage .info .shipping {
+    width: 100%;
+  }
+  .productPage .info .buyBox {
+    width: 98%;
+  }
+  .productPage .info .buyBox .prodOptions {
+    gap: 10px;
   }
 }
 
@@ -2205,7 +2360,7 @@ footer .footerContent .scudero b {
         grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
     -webkit-column-gap: 10px;
             column-gap: 10px;
-    row-gap: 20px;
+    gap: 20px;
   }
   .products .showProducts .product {
     width: 95%;
@@ -2238,7 +2393,7 @@ footer .footerContent .scudero b {
   }
 }
 
-@media (max-width: 300px) {
+@media (max-width: 280px) {
   .products .showProducts {
     -ms-grid-columns: (minmax(80%, 1fr))[auto-fill];
         grid-template-columns: repeat(auto-fill, minmax(80%, 1fr));
@@ -2828,6 +2983,7 @@ footer .footerContent .scudero b {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin: 20px 0;
 }
 
 .checkout .checkoutTitle {
@@ -4419,6 +4575,30 @@ footer .footerContent .scudero b {
     background-size: 30%;
   }
   .carousel .categoryCarousel .showCarousel .moreItens span {
+    bottom: 10%;
+    font-size: 17pt;
+  }
+}
+
+@media (max-width: 300px) {
+  .carousel .categoryCarousel {
+    width: 95%;
+  }
+  .carousel .categoryCarousel .glider-dots {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+    gap: 2px;
+    margin-top: 10px;
+  }
+  .carousel .categoryCarousel .carouselBtn {
+    font-size: 16pt;
+    bottom: 0px;
+  }
+  .carousel .categoryCarousel .showCarousel .carouselItem {
+    height: 75px;
+    width: 110px;
+  }
+  .carousel .categoryCarousel .showCarousel span {
     bottom: 10%;
     font-size: 17pt;
   }

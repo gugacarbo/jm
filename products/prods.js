@@ -23,17 +23,12 @@ $(document).ready(() => {
         "order": $.urlParam("order") || "price ASC"
     });
 
-    //range id SearchMaxRange on change, change SearchMaxVal value
 
-
-    //range id SearchMinRange on change, change SearchMinVal value
-
-    /*
-    */
     //SearchMaxRange on change
     $("#SearchMaxRange").on("change", () => {
         search();
     })
+
     //SearchMinRange on change
     $("#SearchMinRange").on("change", () => {
         search();
@@ -42,6 +37,7 @@ $(document).ready(() => {
     $("#slider-range").on("slidechange", function (event, ui) {
         search();
     });
+
     //SearchCategory on change
     $("#SearchCategory").on("change", () => {
         search();
@@ -51,22 +47,22 @@ $(document).ready(() => {
     $("#SearchOrderBy").on("change", () => {
         search();
     })
+
     $("#filterProducts input[type='number']").on("change paste", () => {
         search();
     })
 
 
-    var typingTimer;                //timer identifier
-    var doneTypingInterval = 1000;  //time in ms, 5 seconds for example
+    var typingTimer;                
+    var doneTypingInterval = 1000;
     var $input = $('#SearchText');
 
-    //on keyup, start the countdown
     $input.on('keyup', function () {
         clearTimeout(typingTimer);
         typingTimer = setTimeout(doneTyping, doneTypingInterval);
     });
 
-    //on keydown, clear the countdown 
+
     $input.on('keydown', function () {
         clearTimeout(typingTimer);
     });
@@ -145,6 +141,7 @@ function callProds(query) {
                 prodCount++;
             })
         })
+        
         if (Object.keys(ids).length == 0) {
             $("#ShowProducts").append("<h1 class='notFound'>Nenhum produto encontrado </h1>")
         }

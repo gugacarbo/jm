@@ -190,7 +190,7 @@ header {
     display: none;
 }
 
-#addCartMessage{
+#addCartMessage {
     position: fixed;
     top: 0;
     left: 0;
@@ -202,7 +202,7 @@ header {
     align-items: center;
     pointer-events: none;
     display: none;
-    div{
+    div {
         width: 300px;
         height: 200px;
         background-color: rgba($mainColor, 0.4);
@@ -216,10 +216,10 @@ header {
         border-radius: 20px;
         box-shadow: 0 0 5px 0 rgba(#666, 0.4);
         text-shadow: 1px 1px 3px #69996b;
-        i{
+        i {
             font-size: 32pt;
         }
-        span{
+        span {
             width: 100%;
             text-align: center;
         }
@@ -288,7 +288,7 @@ header {
             }
             .menuToggle {
                 display: flex;
-                z-index: 10;
+                z-index: 19;
                 i {
                     font-size: 22pt;
                     color: $mainColor;
@@ -311,7 +311,7 @@ header {
         }
     }
     .mobileMenu {
-        z-index: 8;
+        z-index: 18;
         justify-content: center;
         align-items: center;
         width: 100vw;
@@ -319,9 +319,9 @@ header {
         position: fixed;
         top: 0;
         left: 0;
-        background-color: rgba($mainColor, 0.7);
+        background-color: rgba($mainColor, 0.8);
         overflow: hidden;
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(4px);
         .menu {
             flex-direction: column;
             gap: 40px;
@@ -329,9 +329,9 @@ header {
                 color: #fff;
                 font-size: 22pt;
                 letter-spacing: 2px;
-                filter: drop-shadow(4px 4px 3px rgba(#5a0000, 0.8));
+                filter: drop-shadow(4px 4px 3px rgba(#5a0000, 0.5));
                 &:hover {
-                    filter: drop-shadow(4px 4px 3px rgba(#900, 0.8));
+                    filter: drop-shadow(4px 4px 3px rgba(#900, 0.5));
                     color: rgb(255, 236, 236);
                 }
             }
@@ -374,7 +374,7 @@ header {
     }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 580px) {
     header {
         .headerContent {
             justify-content: space-around;
@@ -389,7 +389,7 @@ header {
             }
             .social {
                 order: -1;
-                gap: 10px;
+                gap: 20px;
                 i {
                     padding: 0;
                 }
@@ -418,6 +418,50 @@ header {
         .headerContent {
             .logoImg {
                 width: 120px;
+            }
+        }
+    }
+}
+@media (max-width: 380px) {
+    header {
+        .headerContent {
+            .logoImg {
+                width: 120px;
+            }
+            .social {
+                    gap: 15px;
+                i {
+                    font-size: 18pt;
+                }
+            }
+            .cart {
+                i {
+                    font-size: 16pt;
+                }
+                .itemCart {
+                    font-size: 8pt;
+                }
+            }
+
+            .orders {
+                gap: 10px;
+                i {
+                    font-size: 18pt;
+                }
+            }
+            .menuToggle{
+                i{
+                    font-size: 20pt;
+                }
+            }
+        }
+    }
+    .mobileMenu {
+        .menu{
+            gap: 35px;
+            .menuItem a {
+             
+                font-size: 14pt;
             }
         }
     }

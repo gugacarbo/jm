@@ -1,6 +1,4 @@
 <?php
-//connect to database
-
 include 'db_connect.php';
 $stmt = $mysqli->prepare("SELECT * FROM carousel");
 $stmt->execute();
@@ -20,8 +18,23 @@ if ($result_->num_rows > 0) {
         $carousel["name"] = $result2->fetch_assoc()['name'];
 
         if ($row["SelectType"] == "id") {
-            $carousel["prod_ids"] = $row["select"];
+            $ids = [];
+
+            
+            foreach (json_decode($row["select"]) as $key => $id) {
+                $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE id = ?");
+                $stmt3->bind_param("i", $id);
+                $stmt3->execute();
+                $result3 = $stmt3->get_result();
+                $stmt3->close();
+                $product = $result3->fetch_assoc();
+                unset($product['cost']);
+                $ids["" . $key . ""] = $product;
+            }
+
+            $carousel["prod_ids"] = json_encode($ids);
             $data[] = $carousel;
+
         } else if ($row["SelectType"] == "auto") {
 
 
@@ -41,7 +54,8 @@ if ($result_->num_rows > 0) {
                         $i = 0;
                         $ids = [];
                         while ($row3 = $result3->fetch_assoc()) {
-                            $ids["'" . $i . "'"] = $row3['id'];
+                            unset($row3['cost']);
+                            $ids["" . $i . ""] = $row3;
                             $i++;
                         }
 
@@ -61,7 +75,8 @@ if ($result_->num_rows > 0) {
                         $ids = [];
 
                         while ($row3 = $result3->fetch_assoc()) {
-                            $ids["'" . $i . "'"] = $row3['id'];
+                            unset($row3['cost']);
+                            $ids["" . $i . ""] = $row3;
                             $i++;
                         }
 
@@ -69,7 +84,6 @@ if ($result_->num_rows > 0) {
                     }
                     $data[] = $carousel;
                     break;
-                case "promo":
             }
         }
     }

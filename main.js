@@ -74,7 +74,7 @@ async function getGliders() {
 
   $.get("/php/getGlider.php").then(d => {
     var data = JSON.parse(d);
-    //console.log(data)
+    console.log(data)
     $.each(data, function (i, prods) {
       var category = "<div class='categoryCarousel'>" +
         "<div class='carouselTitle'>" + prods["name"] + "</div>" +
@@ -91,10 +91,8 @@ async function getGliders() {
 
       var prodCount = Object.keys(JSON.parse(prods["prod_ids"])).length;
       var actProdCount = 0;
-      $.each(JSON.parse(prods["prod_ids"]), function (k, id) {
-
-        var cName = $.get("/php/getProdById.php", { id }, (p) => {
-          var prod = JSON.parse(p);
+      console.log(JSON.parse(prods["prod_ids"]))
+      $.each(JSON.parse(prods["prod_ids"]), function (k, prod) {
           prod.imgs = (JSON.parse(prod["imgs"]));
           prod.options = (JSON.parse(prod["options"]));
           //console.log(prod)
@@ -108,7 +106,7 @@ async function getGliders() {
             + "<span class='carouselItemPrice'>R$" + (parseFloat(prod['price']).toFixed(2)).replace(".", ",") + "</span>"
             + "<span class='carouselItemPay'>ou em 2x de " + (parseFloat(prod['price']) / 2).toFixed(2).replace(".", ",") + "</span>"
             //+ "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod['id']) + ", 1)'></i>"
-            + "<i class='fas fa-shopping-cart' onclick='addCart(" + (id) + ", 1)'></i>"
+            + "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod.id) + ", 1)'></i>"
             + "</div>";
           //console.log(ProdCarousel)
 
@@ -118,7 +116,7 @@ async function getGliders() {
           if (prodCount == actProdCount) {
             callGliders(prods["name"].replace(" ", ""))
           }
-        })
+        
 
       })
 
@@ -152,7 +150,7 @@ async function callGliders(i) {
         },
       },
       {
-        breakpoint: 330,
+        breakpoint: 280,
         settings: {
           slidesToShow: 1.5,
           slidesToScroll: 1,

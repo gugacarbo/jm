@@ -16,7 +16,6 @@ $(document).ready(() => {
 
         $("#calcShippingBtn").on("click", () => {
             takeShipping();
-
         })
     }
 
@@ -42,7 +41,7 @@ function takeShipping() {
             $.get("/php/frete.php", config, (d) => {//PAC    
                 var data = JSON.parse(d);
                 data = JSON.parse(data);
-                if (data["erro"][0] > 0 || data["erro2"][0] > 0) {
+                if (data["erro"][0] > 0 || data["erro2"][0] > 0 || data["cidade"]["debug"]) {
                     $(".preco").css("display", "none");
                     $("#ShipError").css("display", "block")
                     $("#ShipError").text("Erro, Tente Novamente Mais Tarde")// data["error"])
@@ -52,7 +51,7 @@ function takeShipping() {
                     $("#PrazoPac").html(data['prazoPac'][0] + " Dias")
                     $("#PrecoSedex").html("R$ " + parseFloat(data['valorSedex'][0]).toFixed(2).replace('.', ','))
                     $("#PrazoSedex").html(data['prazoSedex'][0] + " Dias")
-                    $("#SLocal").html((Object.keys(data['cidade']["bairro"]).length === 0 ? "" : data['cidade']["bairro"]) + " - " + data['cidade']["cidade"] + " - " + data['cidade']["uf"]);
+                    $("#SLocal").html("Prox. à " + (Object.keys(data['cidade']["bairro"]).length === 0 ? "" : data['cidade']["bairro"]) + " - " + data['cidade']["cidade"] + " - " + data['cidade']["uf"]);
                     $(".preco").css("display", "flex");
                     $(".animatedIconShipping").removeClass("animateShipping");
                 }
