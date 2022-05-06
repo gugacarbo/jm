@@ -28,7 +28,9 @@ function deleteList() {
 }
 
 function addCart(id, qtd = 0, opt = 0) {
+  
   id = parseInt(id);
+
   if (opt == 0) {
     var scriptUrl = "/php/getProdById.php?id=" + id;
     $.ajax({
@@ -52,17 +54,18 @@ function addCart(id, qtd = 0, opt = 0) {
         }
       },
       fail: function (data) {
+          alert("Erro ao buscar produto!");
+        return;
       }
     });
   }
+
   if(opt != 0){
-    
-    //Verifica se o produto ja esta no carrinho e remove
     var cart_ = cart.filter((item) => {
       return item.id != id || item.opt != opt;
   });
   cart = cart_;
-  
+
   if (qtd > 0) {
     $("#addCartMessage").css("display", "flex");
     setTimeout(() => {

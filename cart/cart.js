@@ -1,3 +1,4 @@
+var cart_;
 $(document).ready(() => {
     $("header").load("/includes/header.html");
     $("footer").load("/includes/footer.html");
@@ -22,18 +23,20 @@ function delProd(id, opt) {
 async function callCart() {
     var totalPrice = 0;
     var totalItens = 0;
+    var invalidProd = 0;
 
-    var cart_ = localStorage.getItem("JM_CART");
+    cart_ = localStorage.getItem("JM_CART");
     if (cart_) {
         cart_ = JSON.parse(cart_);
     } else {
-        var cart_ = []
+        cart_ = []
     }
     $("#CartProds").html("");
 
 
     //console.log(totalPrice)
     //console.log(cart_);
+
     $.each(cart_, async (p, item) => {
 
         var px = $.ajax({
@@ -43,6 +46,12 @@ async function callCart() {
                 var prod = JSON.parse(l);
                 prod.imgs = (JSON.parse(prod["imgs"]));
                 prod.options = (JSON.parse(prod["options"]));
+                
+                if((prod['options'][cart_[p].opt] == 0) || (!parseInt(prod['options'][cart_[p].opt])))
+                {
+                    invalidProd = 1;
+                }
+                console.log(invalidProd);
 
                 var cartProd = '<div class="cartP">' +
                     '<a class="pImage" href="/product/?id=' + cart_[p].id + '">' +
@@ -78,6 +87,12 @@ async function callCart() {
             }
         })
         px.then((value) => {
+            console.log(invalidProd)
+            if( invalidProd == 1){
+                $("#goForm").addClass("off")
+            }else{
+                $("#goForm").removeClass("off")
+            }
             var v = JSON.parse(value)
             totalPrice += (parseFloat((parseFloat(v.price) * cart_[p].qtd)));
             totalItens += parseInt(cart_[p].qtd);
@@ -86,6 +101,7 @@ async function callCart() {
         })
 
     })
+
     if (cart_.length == 0) {
         $(".chechoutBtns").css("display", "none");
         $("#totalPrice").html("");
@@ -99,3 +115,4 @@ function changeQtd(select, id, opt) {
     addCart(id, $(select).val(), opt);
     callCart();
 }
+

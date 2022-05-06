@@ -58,7 +58,8 @@ $stmt->close();
 if ($result->num_rows) {
     $products = array();
     while ($row = $result->fetch_assoc()) {
-        $products[] = $row["id"];
+        unset($row['cost']);
+        $products[] = $row;
     }
     die(json_encode($products,  JSON_UNESCAPED_UNICODE));
 } else {

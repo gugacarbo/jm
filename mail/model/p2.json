@@ -1,0 +1,119 @@
+{
+    "date": "2022-04-10T19:00:45.000-03:00",
+    "code": "AEEACF6F-3C40-4EF4-BDAD-CBF72EAE5604",
+    "reference": "db8a0183ef1f6a1080b787c8f2aff16d",
+    "type": "1",
+    "status": "6",
+    "lastEventDate": "2022-04-10T19:41:17.000-03:00",
+    "paymentMethod": {
+        "type": "2",
+        "code": "202"
+    },
+    "paymentLink": "https://sandbox.pagseguro.uol.com.br/checkout/payment/booklet/print.jhtml?c=3059bf3e7778d8381e0b51581be4e798c86f4a13b74dfea9da81ac6719a5cc774b93b57f8b1c468a",
+    "grossAmount": "4534.58",
+    "discountAmount": "0.00",
+    "creditorFees": {
+        "intermediationRateAmount": "0.40",
+        "intermediationFeeAmount": "226.28"
+    },
+    "netAmount": "4307.90",
+    "extraAmount": "0.00",
+    "escrowEndDate": "2022-04-10T19:41:17.000-03:00",
+    "installmentCount": "1",
+    "itemCount": "10",
+    "items": {
+        "item": [
+            {
+                "id": "1",
+                "description": "Produto 0 - M",
+                "quantity": "6",
+                "amount": "90.56"
+            },
+            {
+                "id": "2",
+                "description": "Produto 1 - G2",
+                "quantity": "13",
+                "amount": "120.00"
+            },
+            {
+                "id": "1",
+                "description": "Produto 0 - G",
+                "quantity": "10",
+                "amount": "90.56"
+            },
+            {
+                "id": "2",
+                "description": "Produto 1 - P",
+                "quantity": "8",
+                "amount": "120.00"
+            },
+            {
+                "id": "2",
+                "description": "Produto 1 - G1",
+                "quantity": "1",
+                "amount": "120.00"
+            },
+            {
+                "id": "2",
+                "description": "Produto 1 - G",
+                "quantity": "1",
+                "amount": "120.00"
+            },
+            {
+                "id": "2",
+                "description": "Produto 1 - M",
+                "quantity": "1",
+                "amount": "120.00"
+            },
+            {
+                "id": "1",
+                "description": "Produto 0 - G2",
+                "quantity": "1",
+                "amount": "90.56"
+            },
+            {
+                "id": "1",
+                "description": "Produto 0 - G1",
+                "quantity": "1",
+                "amount": "90.56"
+            },
+            {
+                "id": "3",
+                "description": "Produto 2 - P",
+                "quantity": "1",
+                "amount": "2.00"
+            }
+        ]
+    },
+    "sender": {
+        "name": "EABBFDCEDCCs EAEC",
+        "email": "addd@des.com",
+        "phone": {
+            "areaCode": "49",
+            "number": "999014996"
+        },
+        "documents": {
+            "document": {
+                "type": "CPF",
+                "value": "01189446901"
+            }
+        }
+    },
+    "shipping": {
+        "address": {
+            "street": "RUA VISCONDE DE MAUA",
+            "number": "643",
+            "complement": "643",
+            "district": "Copacabana",
+            "city": "LAGES",
+            "state": "SC",
+            "country": "BRA",
+            "postalCode": "88504110"
+        },
+        "type": "2",
+        "cost": "22.50"
+    },
+    "primaryReceiver": {
+        "publicKey": "PUB10E8C317BEED435AB572F9EF2A791EC4"
+    }
+}

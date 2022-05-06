@@ -1,0 +1,62 @@
+{
+    "date": "2022-04-10T18:40:35.000-03:00",
+    "code": "1253450EA-BBFD-4597-8605-9C4EDCC0EAEC",
+    "reference": "50a3fd8d5569f790f4c732d3cb352f95",
+    "type": "1",
+    "status": "3",
+    "lastEventDate": "2022-04-10T18:41:19.000-03:00",
+    "paymentMethod": {
+        "type": "2",
+        "code": "202"
+    },
+    "paymentLink": "https://sandbox.pagseguro.uol.com.br/checkout/payment/booklet/print.jhtml?c=7e7d1eeee7ed4c55dcbb941b35470d9c3c69cb58c3793afe868d865f9de1c283dde9cb71f82dfd74",
+    "grossAmount": "24.50",
+    "discountAmount": "0.00",
+    "creditorFees": {
+        "intermediationRateAmount": "0.40",
+        "intermediationFeeAmount": "1.22"
+    },
+    "netAmount": "22.88",
+    "extraAmount": "0.00",
+    "installmentCount": "1",
+    "itemCount": "1",
+    "items": {
+        "item": {
+            "id": "3",
+            "description": "Produto 2 - P",
+            "quantity": "1",
+            "amount": "2.00"
+        }
+    },
+    "sender": {
+        "name": "cápéta do inferô",
+        "email": "capeta@kk.com",
+        "phone": {
+            "areaCode": "49",
+            "number": "999606003"
+        },
+        "documents": {
+            "document": {
+                "type": "CPF",
+                "value": "01189446901"
+            }
+        }
+    },
+    "shipping": {
+        "address": {
+            "street": "Rua Visconde de MauÃ",
+            "number": "643",
+            "complement": "CÃsÃÃÃ",
+            "district": "Copacabana",
+            "city": "Lages",
+            "state": "SC",
+            "country": "BRA",
+            "postalCode": "88504110"
+        },
+        "type": "2",
+        "cost": "22.50"
+    },
+    "primaryReceiver": {
+        "publicKey": "PUB10E8C317BEED435AB572F9EF2A791EC4"
+    }
+}

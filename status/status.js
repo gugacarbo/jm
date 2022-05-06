@@ -57,14 +57,14 @@ function getData(cpf, code) {
         data = JSON.parse(data)
         var pagData = JSON.parse(data.rawPayload);
 
-
+        console.log(data)
 
         //var prods = ((typeof(pagData.items.item) != "object") ? pagData.items.item:  [pagData.items.item]);
         var items = pagData.items.item;
         items = Object.prototype.toString.call(items) === '[object Array]' ? items : [items];
 
         $("#BuyDate").html("Data da Compra " + data.buyDate);
-        $("#BuyerName").html("Nome: " + pagData.sender.name);
+        $("#BuyerName").html("Nome: " + data.name);
         $("#BuyerCPF").html("CPF: " + data.cpf);
         $("#BuyerEmail").html("email: " + pagData.sender.email);
         $("#BuyerPhone").html("(" + pagData.sender.phone.areaCode + ")" + pagData.sender.phone.number);

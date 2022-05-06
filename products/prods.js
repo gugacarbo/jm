@@ -53,7 +53,7 @@ $(document).ready(() => {
     })
 
 
-    var typingTimer;                
+    var typingTimer;
     var doneTypingInterval = 1000;
     var $input = $('#SearchText');
 
@@ -112,37 +112,37 @@ var numProd = 15;
 var maxPages = 0;
 var prodCount = 0;
 function callProds(query) {
-    $.get("/php/getFiltered.php", query, (ids_) => {
+    $(".loadingProducts").css("display", "flex");
+
+    $.get("/php/getFiltered.php", query, (prods) => {
         prodCount = 0;
-        var ids = JSON.parse(ids_);
-        maxPages = Math.ceil(ids.length / numProd);
+        prods = JSON.parse(prods);
+        maxPages = Math.ceil(prods.length / numProd);
         $("#maxPages").html(maxPages);
 
-        var SlicedId = ids.slice(page * numProd, (page + 1) * numProd)
+        var SlicedProds = prods.slice(page * numProd, (page + 1) * numProd)
 
-        $.each(SlicedId, function (_, id) {
-            $.get("/php/getProdById.php", { id: id }, (p) => {
-                var prod = JSON.parse(p);
+        $.each(SlicedProds, function (_, prod) {
                 prod.imgs = (JSON.parse(prod["imgs"]));
                 prod.options = (JSON.parse(prod["options"]));
                 var prodApend =
                     "<div class='product'>"
                     + "<a class='prodImage' href='/product/?id=" + prod['id'] + "'>"
                     + "<img src='" + prod['imgs'][1] + "'>"
-                    + "<img class='sImage' src='" + prod['imgs'][2] + "'>"
+                    + ((prod['imgs'][2] != "") ? "<img class='sImage' src='" + prod['imgs'][2] + "'>" : "")
                     + "<span class='promo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
                     + "</a>"
                     + "<span class='prodName'>" + prod['name'] + "</span>"
                     + "<span class='prodPrice'>R$" + (parseFloat(prod['price']).toFixed(2)).replace(".", ",") + "</span>"
                     + "<span class='prodPay'>ou em 2x de " + (parseFloat((prod['price']) / 2).toFixed(2)).replace(".", ",") + "</span>"
-                    + "<i class='fas fa-shopping-cart' onclick='addCart(" + (id) + ", 1)'></i>"
+                    + "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod['id']) + ", 1)'></i>"
                     + "</div>";
                 $("#ShowProducts").append(prodApend)
                 prodCount++;
             })
-        })
-        
-        if (Object.keys(ids).length == 0) {
+   
+
+        if (prods.length == 0) {
             $("#ShowProducts").append("<h1 class='notFound'>Nenhum produto encontrado </h1>")
         }
         setTimeout(() => {

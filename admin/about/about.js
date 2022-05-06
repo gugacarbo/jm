@@ -2,15 +2,20 @@ $(document).ready(function () {
     $("textarea").jqte();
     $.get("/about/aboutFile.html", function (response) {
         var text = response;
-        console.log(text);
+
         $("textarea").jqteVal(text);
+    });
+    $.get("/about/mapLink.html", function (response) {
+        var text = response;
+
+        $("#EditMap").val(text);
     });
     $("#save").click(function () {
         var fd = new FormData();
         var content = $("textarea").val()
         var blob = new Blob([content], { type: "text/xml" });
         fd.append("file", blob,  "aboutFile.html");
-
+        
         var dir = "/about/"
         $.ajax({
             beforeSend: function () {
@@ -23,6 +28,24 @@ $(document).ready(function () {
             success: function (response) {
             }
         })
+
+        var mapsL = new FormData();
+        var contentMap = $("#EditMap").val()
+ 
+        var blobMap = new Blob([contentMap], { type: "text/xml" });
+        fd.append("file", blobMap,  "mapLink.html");
+        $.ajax({
+            beforeSend: function () {
+            },
+            url: '/admin/file/upload.php?md5=false&dir=' + dir,
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+            }
+        })
+
     })
     $("input:file").change(function () {
         var fd = new FormData();

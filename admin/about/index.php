@@ -27,6 +27,7 @@
         <input type="file" name="imagem" id="NewProductFile1">
         <img src="/about/aboutImage.jpg">
     </div>
+    <input type="text" name="map" id="EditMap" placeholder="Insira o link do mapa">
     <button id="save">Salvar</button>
     <script src="jquery-te-1.4.0.js"></script>
     <script src="about.js"></script>

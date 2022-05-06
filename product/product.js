@@ -75,7 +75,9 @@ function getProd(id) {
         $("#MainImage").attr("src", prod["imgs"][1])
         $.each(prod["imgs"], function (i, img) {
             var i = '<div class="sImage"><img src="' + img + '" onclick="changeMain(\'' + img + '\')"></div>'
-            $(".secImg").append(i)
+            img != "" ? $(".secImg").append(i) : "";
+            console.log(img)
+
         })
         var str;
         $(".productName").text(prod["name"])
@@ -106,10 +108,15 @@ function getProd(id) {
             window.location.replace("/cart")
 
         })
+        if(prod['options'] == null){
+
+            var o = '<label><input type="radio" name="prodVar" disabled><span>Indisponível</span></label>';
+            $(".buyBox button").addClass("ButtonDisabled")
+            $("#ProdOptions").append(o);
+        }
         for (opt in prod['options']) {
             var o = '<label><input type="radio" name="prodVar" ' + (prod['options'][opt] == 0 ? "disabled" : "checked='checked'") + ' value="' + opt + '"><span>' + opt + '</span><small>' + prod['options'][opt] + ' Unidades Disponíveis</small></label>';
             $("#ProdOptions").append(o);
-
         }
 
     })

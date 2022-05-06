@@ -73,8 +73,8 @@ $(document).ready(_ => {
                                 $("#redirectM").css("display", "flex");
                                 $("#redirectM div").fadeIn(1000);
 
-                                deleteList(); // !
                                 setTimeout(() => {
+                                    deleteList(); // !
                                     window.location.href = data["url"];
                                 }, 1500);
                             } else {
@@ -125,12 +125,12 @@ function getData() {
         'cpf': url.searchParams.get("cpf"),
         'nascimento': url.searchParams.get("nascimento"),
         'cep': url.searchParams.get("cep"),
-        'rua': url.searchParams.get("rua"),
-        'bairro': url.searchParams.get("bairro"),
+        'rua': removeAcento(url.searchParams.get("rua")),
+        'bairro': removeAcento(url.searchParams.get("bairro")),
         'UF': url.searchParams.get("UF"),
-        'cidade': url.searchParams.get("cidade"),
+        'cidade': removeAcento(url.searchParams.get("cidade")),
         'numero': url.searchParams.get("numero"),
-        'complemento': url.searchParams.get("complemento")
+        'complemento': removeAcento(url.searchParams.get("complemento"))
     }
 
     $("#BuyerName").html(buyerData.nome + " " + buyerData.sobrenome);
@@ -138,11 +138,11 @@ function getData() {
     $("#BuyerCPF").html(buyerData.cpf);
     $("#BuyerPhone").html(buyerData.telefone);
     $("#BuyerEmail").html(buyerData.email);
-    $("#BuyerAddress").html(buyerData.rua + ", " + buyerData.numero);
-    $("#BuyerCidade").html(buyerData.cidade + " - " + buyerData.UF);
-    $("#BuyerBairro").html(buyerData.bairro);
+    $("#BuyerAddress").html(removeAcento(buyerData.rua + ", " + buyerData.numero));
+    $("#BuyerCidade").html(removeAcento(buyerData.cidade + " - " + buyerData.UF));
+    $("#BuyerBairro").html(removeAcento(buyerData.bairro));
     $("#BuyerCEP").html(buyerData.cep);
-    $("#BuyerComplemento").html(buyerData.complemento);
+    $("#BuyerComplemento").html(removeAcento(buyerData.complemento));
 }
 
 
@@ -227,4 +227,9 @@ async function takeShipping() {
         }
     })
     return await ship;
+}
+
+
+function removeAcento(str) {
+    return semAcento = str.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 }

@@ -6,7 +6,6 @@ $shipping = ($_GET["ship"]);
 $cart = ($_GET["cart"]);
 $JsonSender = json_encode($sender,  JSON_UNESCAPED_UNICODE);
 
-
 /** CONST */
 $data['currency'] = "BRL";
 $data['shippingAddressCountry'] = "BRA";

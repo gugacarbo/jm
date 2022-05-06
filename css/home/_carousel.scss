@@ -69,28 +69,31 @@
                 margin: 0 5px;
 
                 .carouselImg {
-                    height: 60%;
+                    width: 100%;
+                    aspect-ratio: 1/1;
                     overflow: hidden;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     position: relative;
+                    margin: auto;
                     img {
-                        width: 80%;
+                        width: 90%;
+                        height: 90%;
                     }
 
                     .carouselPromo {
                         position: absolute;
-                        top: 5px;
+                        top: 25px;
                         right: 0;
-                        width: 70px;
-                        height: 20px;
+                        width: 80px;
+                        height: 25px;
                         color: #fff;
                         background-color: $mainColor;
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        font-size: 10pt;
+                        font-size: 11pt;
                     }
                 }
                 .carouselItemName {

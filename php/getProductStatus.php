@@ -24,7 +24,9 @@ if (isset($_GET['cpf']) && isset($_GET['code']) && is_numeric($_GET['cpf']) && s
 
         if ($result2->num_rows > 0) {
             $row = $result2->fetch_assoc();
+            
             $product["bornDate"] = $row["bornDate"];
+            $product["name"] = $row["name"] . " " . $row["lastName"];
             $product["cpf"] = $cpf;
             echo json_encode($product);
         }else{

@@ -11,9 +11,11 @@
         overflow-y: hidden;
         width: $deskWidth;
         transform: translateY(-1px);
+        max-height: 550px;
         img {
             width: 100%;
             height: 100%;
+            max-height: 550px;
         }
     }
     .dotsProdBanner {
@@ -209,7 +211,7 @@
             font-weight: lighter;
         }
         .product {
-            height: 250px;
+            height: 300px;
             width: 200px;
             border: 1px solid $mainColor;
             margin: 0 auto;
@@ -222,26 +224,30 @@
 
             margin: 10px 5px;
             .prodImage {
-                height: 60%;
+                width: 100%;
+                aspect-ratio: 1/1;
                 overflow: hidden;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 position: relative;
                 img {
-                    width: 80%;
+                    width: 90%;
+                    height: 90%;
                 }
 
                 .sImage {
                     position: absolute;
                     z-index: 4;
-                    width: 100%;
+                    width: 90%;
+                    aspect-ratio: 1/1;
+                    overflow: hidden;
                     background-color: #0f0;
                     filter: opacity(0);
                     transition: 0.7s;
                     img {
-                        width: 60%;
-                        height: 10px;
+                        width: 90%;
+                        height: 90%;
                     }
 
                     &:hover {
@@ -251,7 +257,7 @@
 
                 .promo {
                     position: absolute;
-                    top: 5px;
+                    top: 25px;
                     right: 0;
                     width: 70px;
                     height: 20px;
