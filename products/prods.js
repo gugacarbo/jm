@@ -125,8 +125,9 @@ function callProds(query) {
         $.each(SlicedProds, function (_, prod) {
                 prod.imgs = (JSON.parse(prod["imgs"]));
                 prod.options = (JSON.parse(prod["options"]));
+                console.log(prod)
                 var prodApend =
-                    "<div class='product'>"
+                    "<div class='product "+(prod.totalQuantity == 0 ? "unavailable": "")+"' "+(prod.totalQuantity == 0 ? "style='order:100;'": "")+">"
                     + "<a class='prodImage' href='/product/?id=" + prod['id'] + "'>"
                     + "<img src='" + prod['imgs'][1] + "'>"
                     + ((prod['imgs'][2] != "") ? "<img class='sImage' src='" + prod['imgs'][2] + "'>" : "")

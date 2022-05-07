@@ -45,7 +45,7 @@ if ($result_->num_rows > 0) {
 
             switch ($selectType) {
                 case "price":
-                    $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? ORDER BY price ASC LIMIT 7");
+                    $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? AND totalQuantity > 0 ORDER BY price ASC LIMIT 7");
                     $stmt3->bind_param("s", $catId);
                     $stmt3->execute();
                     $result3 = $stmt3->get_result();
@@ -64,7 +64,7 @@ if ($result_->num_rows > 0) {
                     $data[] = $carousel;
                     break;
                 case "promo":
-                    $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? AND promo > 0 ORDER BY price ASC LIMIT 7");
+                    $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? AND promo > 0 AND totalQuantity > 0 ORDER BY price ASC LIMIT 7");
                     $stmt3->bind_param("s", $catId);
                     $stmt3->execute();
                     $result3 = $stmt3->get_result();

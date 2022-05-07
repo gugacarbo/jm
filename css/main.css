@@ -755,15 +755,17 @@ footer .footerContent .scudero b {
 }
 
 .aboutSlider #AboutSlider {
-  overflow-y: hidden;
+  overflow: hidden;
   width: 1100px;
   -webkit-transform: translateY(-1px);
           transform: translateY(-1px);
+  max-height: 550px;
 }
 
 .aboutSlider #AboutSlider img {
   width: 100%;
   height: 100%;
+  max-height: 550px;
 }
 
 .aboutSlider .AboutDotsBanner {
@@ -2142,6 +2144,38 @@ footer .footerContent .scudero b {
 
 .products .showProducts .product i:hover {
   color: #666;
+}
+
+.products .showProducts .unavailable {
+  position: relative;
+}
+
+.products .showProducts .unavailable::after {
+  content: "Indisponível";
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 20pt;
+  color: #ccc;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(102, 102, 102, 0.2);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.products .showProducts .unavailable i {
+  color: #ccc;
+  pointer-events: none;
 }
 
 .products .loadingProducts {
@@ -4496,12 +4530,45 @@ footer .footerContent .scudero b {
 .carousel .categoryCarousel .showCarousel .carouselItem i {
   color: #b66d76;
   margin-bottom: 10px;
+  margin-top: 6px;
   font-size: 14pt;
   cursor: pointer;
 }
 
 .carousel .categoryCarousel .showCarousel .carouselItem i:hover {
   color: #666;
+}
+
+.carousel .categoryCarousel .showCarousel .unavailable {
+  position: relative;
+}
+
+.carousel .categoryCarousel .showCarousel .unavailable::after {
+  content: "Indisponível";
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 20pt;
+  color: #ccc;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(102, 102, 102, 0.2);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.carousel .categoryCarousel .showCarousel .unavailable i {
+  color: #ccc;
+  pointer-events: none;
 }
 
 .carousel .categoryCarousel .moreItens {

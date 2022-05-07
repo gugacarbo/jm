@@ -115,10 +115,17 @@ function getProd(id) {
             $("#ProdOptions").append(o);
         }
         for (opt in prod['options']) {
-            var o = '<label><input type="radio" name="prodVar" ' + (prod['options'][opt] == 0 ? "disabled" : "checked='checked'") + ' value="' + opt + '"><span>' + opt + '</span><small>' + prod['options'][opt] + ' Unidades Disponíveis</small></label>';
+            var o = '<label><input type="radio" name="prodVar" ' + (prod['options'][opt] == 0 ? "disabled" : "checked='checked'") + ' value="' + opt + '"><span>' + opt + '</span><small>' +(prod['options'][opt] + ' Unidades Disponíveis')+ '</small></label>';
             $("#ProdOptions").append(o);
         }
-
+        if(prod.totalQuantity == 0){
+            $("#ProdOptions").append('<span style="position: absolute; top: -20px; font-size:10pt; color:#aaa;">Produto Indisponível</span>');
+        }
+        console.log(prod)
+        if(prod.totalQuantity == 0){
+            $(".cartBtn").addClass("ButtonDisabled");
+            $(".buyBtn").addClass("ButtonDisabled");
+        }
     })
 }
 

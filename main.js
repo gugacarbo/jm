@@ -97,7 +97,7 @@ async function getGliders() {
         prod.options = (JSON.parse(prod["options"]));
         //console.log(prod)
         var ProdCarousel =
-          "<div class='carouselItem'>"
+          "<div class='carouselItem "+(prod.totalQuantity == 0 ? "unavailable' style='order:5;'": "'")+">"
           + "<a class='carouselImg' href='/product/?id=" + prod['id'] + "'>"
           + "<img src='" + prod['imgs'][1] + "'>"
           + "<span class='carouselPromo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"

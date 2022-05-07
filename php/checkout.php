@@ -39,7 +39,7 @@ if ($result->num_rows > 0) {
     $clientId = $mysqli->insert_id;
 }
 
-$data['senderName'] = $sender['nome'] . " " . $sender['sobrenome'];
+$data['senderName'] = str_replace(" ", "_", $sender['nome'] ). " " . str_replace(" ", "_", $sender['sobrenome']);
 $data['senderEmail'] = $sender['email'];
 $data['senderAreaCode'] = $sender['telefone'][1] . $sender['telefone'][2];
 $data['senderCPF'] = str_replace(["-", "."], "", $sender['cpf']);

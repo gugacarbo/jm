@@ -5,13 +5,13 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 */
 if (empty($_POST['notificationCode'])) {
-    $notificationCode =  "1DC176D6960696060A5AA4523FB8123B0EC9";
     include("db_connect.php");
+    include("mail.php");
 
-    //$notificationCode =  $_POST['notificationCode'];
+    $notificationCode =  "4BD8600C76877687A18114D40F9066D62820";
+
 
     //$credenciais = "email=guga_carbo@hotmail.com&token=2892d1c4-4188-475f-b840-975a99cb9b396e0c6960446fa00bc19a696db4163addcac8-51be-49aa-a7bf-2baed7e7e05b";
-    include("mail.php");
     $credenciais = "email=guga_carbo@hotmail.com&token=8BE1A0DF1DAD40D99949834093F21AB8";
 
     $url = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/" . $notificationCode . "?" . $credenciais;
@@ -19,10 +19,7 @@ if (empty($_POST['notificationCode'])) {
     $json = json_encode($xml,  JSON_UNESCAPED_UNICODE);
     $array = json_decode($json, TRUE);
 
-
-    $curl_response = sendMail($array);
-    print_r($curl_response);
-    //echo $array['status'];
+    
 
 
     // * Print
@@ -35,15 +32,16 @@ if (empty($_POST['notificationCode'])) {
 
     if ($stmt->execute()) {
 
-        //curl to mail.php sending post $array
-
-
         $stmt = $mysqli->prepare("SELECT * FROM vendas WHERE reference = ?");
         $stmt->bind_param("s", $array['reference']);
         $stmt->execute();
         $result_ = $stmt->get_result();
 
         if ($result_->num_rows > 0) {
+            $curl_response = sendMail($array);
+            print_r($curl_response);
+
+
             $row = $result_->fetch_assoc();
             if ($array["status"] < 5) {
                 $stmt = $mysqli->prepare("UPDATE vendas SET status = ?, internalStatus = ?, lastUpdate = ?, rawPayload = ? WHERE reference = ?");

@@ -52,6 +52,7 @@ function getById($id_)
     $ret["description"] = $itens["description"];
     $ret["imgs"] = ($itens["imgs"]);
     $ret["options"] = ($itens["options"]);
+    $ret["totalQuantity"] = ($itens["totalQuantity"]);
     return ($ret);
     
 }

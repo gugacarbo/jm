@@ -13,25 +13,181 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.container {
+  padding: 80px 0;
+  background-color: #fff;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  row-gap: 20px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.container .title {
+  width: 95%;
+  color: #b66d76;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin: 0 auto;
+  font-size: 1.3rem;
+}
+
+.container .description {
+  width: 90%;
+  margin: auto;
+  color: #333;
+  margin-bottom: 60px;
+}
+
+.container .preview {
+  width: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 40px;
+}
+
+.container .preview section {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+.container .preview section span {
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  color: #b66d76;
+}
+
+.container .preview section .prev {
+  border: 1px solid #ddd;
+  border-top: 20px solid #ddd;
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-.container {
-  background-color: #ffad86;
+.container .preview section .prev .images {
+  padding: 0 15%;
+  width: 70%;
+  aspect-ratio: 1100/550;
+  background-color: #b66d76;
+  position: relative;
+  overflow: hidden;
+}
+
+.container .preview section .prev .images img {
+  width: 70%;
+  height: 100%;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  margin: auto;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
+}
+
+.container .preview section .prev .images::after {
+  content: "1100px x 550px";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+}
+
+.container .preview section .simu {
+  width: 70%;
+  padding: 5px 0;
   padding: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 5px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.container .preview section .simu p {
+  width: 15%;
+  aspect-ratio: 1.4/2;
+  background-color: #ddd;
+}
+
+.container .preview section .simu b {
+  width: 100%;
+  height: 8px;
+  background-color: #ddd;
+}
+
+.container .content {
+  padding: 0px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 30px;
+  width: 70%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-.container form {
+.container .content form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -39,30 +195,34 @@ body {
       -ms-flex-align: center;
           align-items: center;
   gap: 30px;
-}
-
-.container form .bannerContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 10px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 100%;
 }
 
-.container form .bannerContainer span {
-  font-size: 20px;
-  font-weight: bold;
-  color: #fff;
-  width: 100%;
-  text-align: center;
+.container .content form .bannerContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 30px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
-.container form .bannerContainer .preview {
-  width: 330px;
-  min-height: 150px;
+.container .content form .bannerContainer p {
+  width: 90%;
+  color: #666;
+}
+
+.container .content form .bannerContainer .preview {
+  width: 30%;
+  height: auto;
+  aspect-ratio: 1100/550;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -74,61 +234,118 @@ body {
           align-items: center;
   position: relative;
   overflow: hidden;
+  border: 1px solid #b66d7655;
 }
 
-.container form .bannerContainer .preview img {
+.container .content form .bannerContainer .preview img {
   display: block;
-  height: 150px;
   width: 100%;
+  aspect-ratio: 1100/550;
   position: relative;
   pointer-events: none;
 }
 
-.container form .bannerContainer .preview input[type="file"] {
+.container .content form .bannerContainer .preview input[type="file"] {
   position: absolute;
-  background-color: #fff;
+  background-color: #ddd;
   background-image: url("plus.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
-  top: 0;
-  left: 0;
+  background-size: 30%;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1100/550;
   font-size: 0pt;
   color: transparent;
   cursor: pointer;
 }
 
-.container form .bannerContainer .preview input[type="file"]::-webkit-file-upload-button {
+.container .content form .bannerContainer .preview input[type="file"]::-webkit-file-upload-button {
   display: none;
 }
 
-.container form .bannerContainer .preview i {
+.container .content form .bannerContainer .preview i {
   position: absolute;
   right: 4px;
-  bottom: 2px;
-  color: #7e2c2c;
+  top: 5px;
+  color: #ff0220;
   font-size: 10pt;
   cursor: pointer;
 }
 
-.container form .bannerContainer .preview i:hover {
+.container .content form .bannerContainer .preview i:hover {
   color: #777777;
 }
 
+.container .content form .bannerContainer .preview::after {
+  position: absolute;
+  font-family: "FontAwesome";
+  content: '\f110';
+  content: '';
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.container .content form .bannerContainer .loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.container .content form .bannerContainer .loading::after {
+  font-family: "FontAwesome";
+  width: 1000%;
+  height: 1000%;
+  font-size: 40pt;
+  color: #999;
+  -webkit-animation: rotate 1s infinite;
+          animation: rotate 1s infinite;
+  content: '\f110';
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
 .container input[type="button"] {
-  width: 100%;
+  width: 40%;
   height: 40px;
-  background-color: #b45b32;
+  background-color: #348846;
   border: none;
   color: #fff;
   font-size: 14pt;
   cursor: pointer;
   border-radius: 20px;
+  margin: auto;
+  margin-top: 40px;
 }
 
 .container input[type="button"]:hover {
-  background-color: #9e4620;
+  background-color: #1ca158;
 }
 /*# sourceMappingURL=banner.css.map */

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -23,16 +22,25 @@
 
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <script src="/jquery.mask.js"></script>
 </head>
+
 <body>
-    <div class="content" id="CatList">
-        <div class="item add">
-            <input type="text" value="" id="newCat">
-            <i class="fa-solid fa-plus" id="addCat"></i>
+    <div class="container">
+        <span class="title">Categorias</span>
+        <p class="description">
+            Nesta aba voce pode inserir, alterar e excluir categorias. Elas serão importantes pois estarão presentes nos filtros de pesquisa de produtors bem como estarão presentes na criação de Carroséis.
+        </p>
+        <div class="content" id="CatList">
+
+        </div>
+        <div class="chart">
+            <span>Produtos Por Categoria</span>
+            <canvas id="myChart" width="100%" height="100%"></canvas>
         </div>
     </div>
-    
+
     <script src="category.js"></script>
 </body>
 

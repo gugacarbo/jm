@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -27,82 +26,165 @@
 </head>
 
 <body>
-
     <div class="container">
-        <form method="post" action="" enctype="multipart/form-data" id="myform">
-            <div class="bannerContainer">
-                <span>Main Banner</span>
-                <div class='preview'>
-                    <input type="file" id="Banner1File1" name="file" />
-                    <img src="">
-                    <i class="fa-solid fa-trash"></i>
-                    <input type="hidden" id="Banner1Image1">
+        <span class="title">Banners</span>
+        <p class="description">
+            Nesta aba você pode inserir, alterar e excluir os full Banners contirnos so site. Caso nao queira usar algum banner, basta deixar os seus respectivos campos de imagem vazios.
+        </p>
+        <div class="preview">
+            <section>
+                <span>Banner da Tela Inicial</span>
+                <div class="prev">
+                    <div class="images" id="imgMain">
+                        <img src="" class="prev1Img">
+                        <img src="" class="prev2Img">
+                        <img src="" class="prev13mg" >
+                    </div>
+                    <div class="simu">
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
                 </div>
+            </section>
+            <section>
+                <span>Banner da Tela Produtos</span>
+                <div class="prev">
+                    <div class="images" id="imgProd">
+                        <img src="" class="prev1Img">
+                        <img src="" class="prev2Img">
+                        <img src="" class="prev3Img">
+                    </div>
+                    <div class="simu">
+                        <b></b>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
 
-                <div class='preview'>
-                    <input type="file" id="Banner1File2" name="file" />
-                    <img src="">
-                    <i class="fa-solid fa-trash"></i>
-                    <input type="hidden" id="Banner1Image2">
+                    </div>
                 </div>
+            </section>
+            <section>
+                <span>Banner da Tela Sobre</span>
+                <div class="prev">
+                    <div class="images" id="imgAbout">
+                        <img src="" class="prev1Img">
+                        <img src="" class="prev2Img">
+                        <img src="" class="prev3Img">
+                    </div>
+                    <div class="simu">
 
-                <div class='preview'>
-                    <input type="file" id="Banner1File3" name="file" />
-                    <img src="">
-                    <i class="fa-solid fa-trash"></i>
-                    <input type="hidden" id="Banner1Image3">
-                </div>
-            </div>
-            <div class="bannerContainer">
-            <span>Products Banner</span>
 
-                <div class='preview'>
-                    <input type="file" id="Banner2File1" name="file" />
-                    <img src="">
-                    <i class="fa-solid fa-trash"></i>
-                    <input type="hidden" id="Banner2Image1">
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                        <b></b>
+                    </div>
                 </div>
+            </section>
+        </div>
+        <div class="content">
+            <form method="post" action="" enctype="multipart/form-data" id="myform">
+                <div class="bannerContainer">
+                    <p>
+                        Selecione abaixo as imagens que irão compor o banner da tela inicial. <br>(tamanho da imagem: 1100x500)
+                    </p>
+                    <div class='preview'>
+                        <input type="file" id="Banner1File1" name="file" />
+                        <img src="">
+                        <i class="fa-solid fa-trash"></i>
+                        <input type="hidden" id="Banner1Image1">
+                    </div>
 
-                <div class='preview'>
-                    <input type="file" id="Banner2File2" name="file" />
-                    <img src="">
-                    <i class="fa-solid fa-trash"></i>
-                    <input type="hidden" id="Banner2Image2">
-                </div>
+                    <div class='preview'>
+                        <input type="file" id="Banner1File2" name="file" />
+                        <img src="">
+                        <i class="fa-solid fa-trash"></i>
+                        <input type="hidden" id="Banner1Image2">
+                    </div>
 
-                <div class='preview'>
-                    <input type="file" id="Banner2File3" name="file" />
-                    <img src="">
-                    <i class="fa-solid fa-trash"></i>
-                    <input type="hidden" id="Banner2Image3">
+                    <div class='preview'>
+                        <input type="file" id="Banner1File3" name="file" />
+                        <img src="">
+                        <i class="fa-solid fa-trash"></i>
+                        <input type="hidden" id="Banner1Image3">
+                    </div>
                 </div>
-            </div>
-            <div class="bannerContainer">
-            <span>About Banner</span>
+                <div class="bannerContainer">
+                    <p>
+                        Selecione abaixo as imagens que irão compor o banner da tela de produtos. <br> (tamanho da imagem: 1100x500)
+                    </p>
 
-                <div class='preview'>
-                    <input type="file" id="Banner3File1" name="file" />
-                    <img src="">
-                    <i class="fa-solid fa-trash"></i>
-                    <input type="hidden" id="Banner3Image1">
-                </div>
+                    <div class='preview'>
+                        <input type="file" id="Banner2File1" name="file" />
+                        <img src="">
+                        <i class="fa-solid fa-trash"></i>
+                        <input type="hidden" id="Banner2Image1">
+                    </div>
 
-                <div class='preview'>
-                    <input type="file" id="Banner3File2" name="file" />
-                    <img src="">
-                    <i class="fa-solid fa-trash"></i>
-                    <input type="hidden" id="Banner3Image2">
-                </div>
+                    <div class='preview'>
+                        <input type="file" id="Banner2File2" name="file" />
+                        <img src="">
+                        <i class="fa-solid fa-trash"></i>
+                        <input type="hidden" id="Banner2Image2">
+                    </div>
 
-                <div class='preview'>
-                    <input type="file" id="Banner3File3" name="file" />
-                    <img src="">
-                    <i class="fa-solid fa-trash"></i>
-                    <input type="hidden" id="Banner3Image3">
+                    <div class='preview'>
+                        <input type="file" id="Banner2File3" name="file" />
+                        <img src="">
+                        <i class="fa-solid fa-trash"></i>
+                        <input type="hidden" id="Banner2Image3">
+                    </div>
                 </div>
-            </div>
-        </form>
+                <div class="bannerContainer">
+                    <p>
+                        Selecione abaixo as imagens que irão compor o banner da tela sobre.<br> (tamanho da imagem: 1100x500)
+                    </p>
+
+                    <div class='preview'>
+                        <input type="file" id="Banner3File1" name="file" />
+                        <img src="">
+                        <i class="fa-solid fa-trash"></i>
+                        <input type="hidden" id="Banner3Image1">
+                    </div>
+
+                    <div class='preview'>
+                        <input type="file" id="Banner3File2" name="file" />
+                        <img src="">
+                        <i class="fa-solid fa-trash"></i>
+                        <input type="hidden" id="Banner3Image2">
+                    </div>
+
+                    <div class='preview'>
+                        <input type="file" id="Banner3File3" name="file" />
+                        <img src="">
+                        <i class="fa-solid fa-trash"></i>
+                        <input type="hidden" id="Banner3Image3">
+                    </div>
+                </div>
+            </form>
+        </div>
         <input type="button" class="button" value="Salvar" id="but_upload">
+
+
+
     </div>
 
     <script src="banner.js"></script>

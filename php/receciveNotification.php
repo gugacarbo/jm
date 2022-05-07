@@ -3,10 +3,13 @@
 if (!empty($_POST['notificationCode'])) {
     include("db_connect.php");
     include("mail.php");
-    
+
     $notificationCode =  $_POST['notificationCode'];
 
+    //$notificationCode =  $_POST['notificationCode'];
+
     //$credenciais = "email=guga_carbo@hotmail.com&token=2892d1c4-4188-475f-b840-975a99cb9b396e0c6960446fa00bc19a696db4163addcac8-51be-49aa-a7bf-2baed7e7e05b";
+
     $credenciais = "email=guga_carbo@hotmail.com&token=8BE1A0DF1DAD40D99949834093F21AB8";
 
     $url = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/" . $notificationCode . "?" . $credenciais;
@@ -15,7 +18,9 @@ if (!empty($_POST['notificationCode'])) {
     $array = json_decode($json, TRUE);
 
 
-    $curl_response = sendMail($array);
+
+
+
     //echo $array['status'];
 
 
@@ -38,6 +43,8 @@ if (!empty($_POST['notificationCode'])) {
         $result_ = $stmt->get_result();
 
         if ($result_->num_rows > 0) {
+    $curl_response = sendMail($array);
+
             $row = $result_->fetch_assoc();
             if ($array["status"] < 5) {
                 $stmt = $mysqli->prepare("UPDATE vendas SET status = ?, internalStatus = ?, lastUpdate = ?, rawPayload = ? WHERE reference = ?");

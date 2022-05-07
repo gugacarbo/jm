@@ -22,7 +22,7 @@ function getModel($notification)
             break;
         case "4":
             $statusS = "Disponível"; // ! compra finalizada
-            return ((array("status" => "sucess", "message" => "Email Not Sended!")));
+            return ((array("status" => "not", "message" => "Email Not Sended!")));
             break;
         case "5":
             $statusS = "Uma disputa foi aberta para o pedido";
@@ -31,7 +31,7 @@ function getModel($notification)
         case "6":
             $statusS = "Devolvida";
             $subject = "Compra Devolvida";
-            return((array("status" => "sucess", "message" => "Email Not Sended!")));
+            return((array("status" => "not", "message" => "Email Not Sended!")));
             break;
         case "7":
             $statusS = "Seu pagamento não foi aprovado";
@@ -39,11 +39,11 @@ function getModel($notification)
             break;
         case "8":
             $statusS = "Debitado";
-            return ((array("status" => "sucess", "message" => "Email Not Sended!")));
+            return ((array("status" => "not", "message" => "Email Not Sended!")));
             break;
         case "9":
             $statusS = "Retenção temporária";
-            return ((array("status" => "sucess", "message" => "Email Not Sended!")));
+            return ((array("status" => "not", "message" => "Email Not Sended!")));
             break;
         default:
             $statusS = "";
@@ -87,10 +87,10 @@ function getModel($notification)
         <tr style="margin:0;">
             <td bgcolor="#b66d76" valign="center" align="center">
                 <span color="#ffffff"
-                    style="font-family: Arial, Helvetica, sans-serif;  text-align: center; color: #ffffff; width: 100%;"> <a
+                    style="font-family: Arial, Helvetica, sans-serif;  text-align: center; color: #ffffff; width: 100%;">Visualize<a
                         href="' .
         "http://jmacessoriosdeluxo.com.br/login/?code=" . $notification["code"]
-        . '" style="font-weight: bold; color:#fff; ">Visualize</a> Seu Pedido
+        . '" style="font-weight: bold; color:#fff; ">Aqui</a> Seu Pedido
                 </span>
             </td>
         </tr>' . '<tr><td>
@@ -149,5 +149,5 @@ function getModel($notification)
     </body>
 </html>
 ';
-    return ((array("content" => $ContentMail, "subject" => $subject, "AltBody" => $AltBody)));
+    return ((array('status' => 'success', "content" => $ContentMail, "subject" => $subject, "AltBody" => $AltBody)));
 }
