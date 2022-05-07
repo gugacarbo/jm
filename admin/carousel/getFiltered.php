@@ -48,7 +48,7 @@ if (isset($_GET['order']) && $_GET['order'] == "price DESC") {
     $order = "price ASC";
 }
 
-$sql .= " ORDER BY $order";
+$sql .= " AND totalQuantity > 0 ORDER BY $order";
 
 include '../db_connect.php';
 $stmt = $mysqli->prepare($sql);
@@ -61,7 +61,8 @@ $stmt->close();
 if ($result->num_rows) {
     $products = array();
     while ($row = $result->fetch_assoc()) {
-        $products[] = $row["id"];
+        unset($row['cost']);
+        $products[] = $row;
     }
     die(json_encode($products,  JSON_UNESCAPED_UNICODE));
 } else {

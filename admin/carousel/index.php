@@ -26,35 +26,44 @@
 </head>
 
 <body>
-    <div class="content">
-        <div class="carouselList" id="CarouselList">
-        </div>
-        <div class="carouselAdd">
-            <section>
-                <select id="Categories">
-                    <option value="0">Selecionar Categoria</option>
-                </select>
-            </section>
-            <section>
-                <span>Selecionar Itens Por:</span>
-            </section>
-            <section>
-                <input type="radio" name="type" value="auto" id="radioAuto" checked>
-                <select id="autoType">
-                    <option value="price">Menores Preços</option>
-                    <option value="promo">Em Promoção</option>
-                </select>
-            </section>
-            <section>
-                <input type="radio" name="type" value="id" id="radioId">
-                <label>Selecionar Itens</label>
-            </section>
-            <section>
-                <form class="selectProds" id="prodList">
+    <div class="container">
+        <span class="title">Carrosséis</span>
+        <p class="descricao">
+            Nesta página você pode inserir, alterar e excluir os carrosséis que aaparecerão na página inicial do site. <br>
+            Pode-se ser inserido um carrosél de cada categoria.
+        </p>
+        <div class="content">
 
-                </form>
-            </section>
-            <button id="addCarousel">save</button>
+            <div class="carouselAdd">
+                <section>
+                    <label>Adicionar/Editar: </label>
+                    <select id="Categories">
+                        <option value="0">Selecionar Categoria</option>
+                    </select>
+                </section>
+
+                <section>
+                    <input type="radio" name="type" value="auto" id="radioAuto" checked>
+                    <select id="autoType">
+                        <option value="">Selecionar Por</option>
+                        <option value="price">Menores Preços</option>
+                        <option value="promo">Em Promoção</option>
+                    </select>
+                    <input type="radio" name="type" value="id" id="radioId">
+                    <label>Selecionar Manual</label>
+                </section>
+                <button id="addCarousel">Salvar</button>
+                <div class="previewBox">
+                   
+                </div>
+                <div class="selectProds">
+                    <form id="prodList">
+
+                    </form>
+                </div>
+            </div>
+            <div class="carouselList" id="CarouselList">
+            </div>
         </div>
     </div>
 

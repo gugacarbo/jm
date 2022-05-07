@@ -44,7 +44,7 @@ if (isset($_GET["category"]) && isset($_GET["SelectType"]) && isset($_GET["selec
 
       $selectType["type"] = $select;
       if ($type == "auto") {
-        $params = [$category, $type, json_encode($selectType)];
+        $params = [$category, $type, ($selectType["type"])];
       }else{
         $ids = array();
         $select = json_decode($select);
@@ -58,7 +58,7 @@ if (isset($_GET["category"]) && isset($_GET["SelectType"]) && isset($_GET["selec
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("sss", ...$params);
     if($stmt->execute()){
-        die(json_encode(array("success" => "Carousel updated")));
+        die(json_encode(array("status" => "success")));
     }else{
         echo $sql;
         print_r($params);

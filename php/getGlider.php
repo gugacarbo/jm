@@ -29,10 +29,13 @@ if ($result_->num_rows > 0) {
                 $stmt3->close();
                 $product = $result3->fetch_assoc();
                 unset($product['cost']);
-                $ids["" . $key . ""] = $product;
+                $ids[] = $product;
             }
 
             $carousel["prod_ids"] = json_encode($ids);
+            $carousel["SelectType"] =$row["SelectType"];
+            $carousel["select"] =$row["select"];
+
             $data[] = $carousel;
 
         } else if ($row["SelectType"] == "auto") {
@@ -60,6 +63,8 @@ if ($result_->num_rows > 0) {
                         }
 
                         $carousel["prod_ids"] = json_encode($ids);
+                        $carousel["SelectType"] = "auto";
+                        $carousel["select"] = $selectType;
                     }
                     $data[] = $carousel;
                     break;
@@ -81,6 +86,8 @@ if ($result_->num_rows > 0) {
                         }
 
                         $carousel["prod_ids"] = json_encode($ids);
+                        $carousel["SelectType"] = "auto";
+                        $carousel["select"] =$selectType;
                     }
                     $data[] = $carousel;
                     break;
