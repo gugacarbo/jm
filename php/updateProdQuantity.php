@@ -3,6 +3,9 @@
 if (isset($_GET['cart'])) {
     include "db_connect.php";
     $cart = ($_GET['cart']);
+    $newOptionsG = [];
+    $newTotalQuantityG = [];
+    $newIdG = [];
 
     foreach ($cart as $n => $p) {
         $id = preg_replace('/[|\,\;\\\:"]+/', '', $p["id"]);
@@ -26,12 +29,15 @@ if (isset($_GET['cart'])) {
         foreach ($options as $n => $op) {
             $totalQuantity += $options[$n];
         }
-
+        $newOptionsG[$id] = $newOptions;
+        $newTotalQuantityG[$id] = $totalQuantity;
+        $newIdG[] = $id;
+    }
+    foreach ($newIdG as $n => $id) {
         $stmt = $mysqli->prepare("UPDATE products SET options = ?, totalQuantity = ? WHERE id = ?");
-        $stmt->bind_param("sis", $newOptions, $totalQuantity, $id);
+        $stmt->bind_param("sis", $newOptionsG[$id], $newTotalQuantityG[$id], $id);
         $stmt->execute();
         if ($stmt->affected_rows > 0) {
-            
         } else {
             die (json_encode(array('status' => 'error')));
         }

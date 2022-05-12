@@ -86,8 +86,8 @@ function getModel($notification)
         </tr>
         <tr style="margin:0;">
             <td bgcolor="#b66d76" valign="center" align="center">
-                <span color="#ffffff"
-                    style="font-family: Arial, Helvetica, sans-serif;  text-align: center; color: #ffffff; width: 100%;">Visualize<a
+                <span color="white"
+                    style="font-family: Arial, Helvetica, sans-serif;  text-align: center; color: #ffffff; width: 100%;">Visualize <a
                         href="' .
         "http://jmacessoriosdeluxo.com.br/login/?code=" . $notification["code"]
         . '" style="font-weight: bold; color:#fff; ">Aqui</a> Seu Pedido
@@ -143,7 +143,7 @@ function getModel($notification)
 
 
     $ContentMail .= '<tr>
-            <td height="250" bgcolor="#b66d76" color="#000"></td>
+            <td height="180" bgcolor="#b66d76" color="#000"></td>
         </tr>
     </table>
     </body>

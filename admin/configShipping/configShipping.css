@@ -1,0 +1,336 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #fafafa;
+}
+
+body .content {
+  background-color: #8ed4d4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 500px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+  padding: 20px 10px;
+}
+
+body .content input {
+  text-align: center;
+}
+
+body .content div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
+
+body .content div div {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body .content div div label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+body .content div div label span {
+  width: 70%;
+  font-size: 10pt;
+}
+
+body .content div div label input {
+  width: 100px;
+  text-align: center;
+}
+
+body .content div .previewSize {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px 0;
+}
+
+body .content div .previewSize .box {
+  width: 120px;
+  height: 110px;
+  background-image: url("caixa.png");
+  background-size: 120px;
+  background-position: center;
+}
+
+body .content .freteGratis {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .content .freteGratis h4 {
+  font-weight: normal;
+  font-size: 12pt;
+}
+
+body .content .freteGratis label {
+  font-size: 10pt;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .content .freteGratis label input[type="checkbox"] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 50px;
+}
+
+body .content .freteGratis label input[type="checkbox"]:checked + span::after {
+  left: inherit;
+  right: 0;
+  background-color: #00bcd4;
+}
+
+body .content .freteGratis label span {
+  width: 30px;
+  height: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  background-color: #ddd;
+  height: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1px solid #aaa;
+}
+
+body .content .freteGratis label span::after {
+  -webkit-transition: 1s;
+  transition: 1s;
+  background-color: #999;
+  content: "";
+  position: absolute;
+  border-radius: 20px;
+  width: 18px;
+  height: 18px;
+  left: 0;
+  right: inherit;
+}
+
+body .content .freteGratis .selectFree {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+body .content .freteGratis .selectFree div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+body .content .freteGratis .selectFree div div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .content .freteGratis .selectFree div div label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: center;
+}
+
+body .content .freteGratis .selectFree div div label p {
+  width: 90%;
+}
+
+body .content .freteGratis .selectFree div div label i {
+  cursor: pointer;
+  font-size: 11pt;
+  color: #f00;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+body .content .freteGratis .selectFree div div label i:hover {
+  -webkit-filter: brightness(1.2);
+          filter: brightness(1.2);
+}
+
+body .content .freteGratis .selectFree div div label i:active {
+  -webkit-filter: brightness(0.8);
+          filter: brightness(0.8);
+}
+
+body .content .freteGratis .selectFree div .add {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: center;
+}
+
+body .content .freteGratis .selectFree div .add input {
+  width: 60%;
+  margin: auto;
+  text-align: center;
+}
+
+body .content .freteGratis .selectFree div .add i {
+  cursor: pointer;
+  color: #555;
+  font-size: 14pt;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+body .content .freteGratis .selectFree div .add i:hover {
+  -webkit-filter: brightness(2);
+          filter: brightness(2);
+}
+
+body .content .freteGratis .selectFree div .add i:active {
+  -webkit-filter: brightness(0.9);
+          filter: brightness(0.9);
+}
+
+body .content button {
+  width: 40%;
+  height: 30px;
+  border: none;
+  border-radius: 20px;
+  color: #fff;
+  background-color: #34a034;
+  cursor: pointer;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+body .content button:hover {
+  -webkit-filter: brightness(1.2);
+          filter: brightness(1.2);
+}
+
+body .content button:active {
+  -webkit-filter: brightness(0.8);
+          filter: brightness(0.8);
+}
+/*# sourceMappingURL=configShipping.css.map */

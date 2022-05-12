@@ -1,3 +1,5 @@
+var itemWeight;
+
 $(document).ready(() => {
     $("header").load("/includes/header.html");
     $("footer").load("/includes/footer.html");
@@ -17,6 +19,11 @@ $(document).ready(() => {
         $("#calcShippingBtn").on("click", () => {
             takeShipping();
         })
+        $("#cep").on("keyup paste", () => {
+            if($("#cep").val().length === 10){
+            takeShipping();
+            }
+        })
     }
 
 })
@@ -31,32 +38,37 @@ function takeShipping() {
         $(".animatedIconShipping").addClass("animateShipping");
         $(".preco").css("display", "none");
 
-        setTimeout(() => {
-
-            var config = {
-                "sCepDestino": ($("#cep").val().replace("-", "").replace(".", "")),
-                "nVlPeso": itemWeight, //Peso + Embalagem Kg
-            }
-
-            $.get("/php/frete.php", config, (d) => {//PAC    
-                var data = JSON.parse(d);
-                data = JSON.parse(data);
-                if (data["erro"][0] > 0 || data["erro2"][0] > 0 || data["cidade"]["debug"]) {
-                    $(".preco").css("display", "none");
-                    $("#ShipError").css("display", "block")
-                    $("#ShipError").text("Erro, Tente Novamente Mais Tarde")// data["error"])
+        var config = {
+            "sCepDestino": ($("#cep").val().replace("-", "").replace(".", "")),
+            "nVlPeso": itemWeight, //Peso + Embalagem Kg
+        }
+        $.get("/php/frete.php", config, (d) => {//PAC    
+            var data = JSON.parse(d);
+            if (data["erro"][0] > 0 || data["erro2"][0] > 0) {
+                $(".preco").css("display", "none");
+                $("#ShipError").css("display", "block")
+                $("#ShipError").text("Erro, Tente Novamente Mais Tarde")// data["error"])
+                $(".animatedIconShipping").removeClass("animateShipping");
+            } else {
+                if (data["freteGratis"]) {
+                    $("#PrecoPac").html("<span style='color: #0f0;'>Frete Grátis</span>")
+                    $("#PrazoPac").html(data['prazoPac'][0] + " Dias")
+                    $("#PrecoSedex").html("<span style='color: #0f0;'>Frete Grátis</span>")
+                    $("#PrazoSedex").html(data['prazoSedex'][0] + " Dias")
+                    $("#SLocal").html("Prox. à " + (Object.keys(data['local']["bairro"]).length === 0 ? "" : data['local']["bairro"]) + " - " + data['local']["cidade"] + " - " + data['local']["uf"]);
+                    $(".preco").css("display", "flex");
                     $(".animatedIconShipping").removeClass("animateShipping");
                 } else {
                     $("#PrecoPac").html("R$ " + parseFloat(data['valorPac'][0]).toFixed(2).replace('.', ','))
                     $("#PrazoPac").html(data['prazoPac'][0] + " Dias")
                     $("#PrecoSedex").html("R$ " + parseFloat(data['valorSedex'][0]).toFixed(2).replace('.', ','))
                     $("#PrazoSedex").html(data['prazoSedex'][0] + " Dias")
-                    $("#SLocal").html("Prox. à " + (Object.keys(data['cidade']["bairro"]).length === 0 ? "" : data['cidade']["bairro"]) + " - " + data['cidade']["cidade"] + " - " + data['cidade']["uf"]);
+                    $("#SLocal").html("Prox. à " + (Object.keys(data['local']["bairro"]).length === 0 ? "" : data['local']["bairro"]) + " - " + data['local']["cidade"] + " - " + data['local']["uf"]);
                     $(".preco").css("display", "flex");
                     $(".animatedIconShipping").removeClass("animateShipping");
                 }
-            })
-        }, 1000)
+            }
+        })
     }
 }
 
@@ -65,7 +77,7 @@ function changeMain(src) {
 }
 
 
-var itemWeight;
+
 function getProd(id) {
     $.get("/php/getProdById.php", { id }, (p) => {
         var prod = JSON.parse(p);
@@ -76,7 +88,6 @@ function getProd(id) {
         $.each(prod["imgs"], function (i, img) {
             var i = '<div class="sImage"><img src="' + img + '" onclick="changeMain(\'' + img + '\')"></div>'
             img != "" ? $(".secImg").append(i) : "";
-            console.log(img)
 
         })
         var str;
@@ -108,21 +119,20 @@ function getProd(id) {
             window.location.replace("/cart")
 
         })
-        if(prod['options'] == null){
+        if (prod['options'] == null) {
 
             var o = '<label><input type="radio" name="prodVar" disabled><span>Indisponível</span></label>';
             $(".buyBox button").addClass("ButtonDisabled")
             $("#ProdOptions").append(o);
         }
         for (opt in prod['options']) {
-            var o = '<label><input type="radio" name="prodVar" ' + (prod['options'][opt] == 0 ? "disabled" : "checked='checked'") + ' value="' + opt + '"><span>' + opt + '</span><small>' +(prod['options'][opt] + ' Unidades Disponíveis')+ '</small></label>';
+            var o = '<label><input type="radio" name="prodVar" ' + (prod['options'][opt] == 0 ? "disabled" : "checked='checked'") + ' value="' + opt + '"><span>' + opt + '</span><small>' + (prod['options'][opt] + ' Unidades Disponíveis') + '</small></label>';
             $("#ProdOptions").append(o);
         }
-        if(prod.totalQuantity == 0){
+        if (prod.totalQuantity == 0) {
             $("#ProdOptions").append('<span style="position: absolute; top: -20px; font-size:10pt; color:#aaa;">Produto Indisponível</span>');
         }
-        console.log(prod)
-        if(prod.totalQuantity == 0){
+        if (prod.totalQuantity == 0) {
             $(".cartBtn").addClass("ButtonDisabled");
             $(".buyBtn").addClass("ButtonDisabled");
         }

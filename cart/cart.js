@@ -60,8 +60,8 @@ async function callCart() {
                     '<div class="pInfo">' +
                     '<span class="pName">' + prod['name'] + '</span>' +
                     (prod['options'][cart_[p].opt] > 0 ? "<span class='pAvailable'>Em Estoque" : "<span class='pAvailable' style='color:#922'>Indisponível") + '</span>' +
-                    '<div class="giftCheck"><input type="checkbox" id="' + prod['id'] + 'isGift"> Este produto é para presente?</div>' +
-                    '<div class="pQuantity">Qtd.:' +
+                    //'<div class="giftCheck"><input type="checkbox" id="' + prod['id'] + 'isGift"> Este produto é para presente?</div>' +
+                    '<div class="pQuantity"><span>Qtd.:</span>' +
 
                     '<select onchange="changeQtd(this,' + cart_[p].id + ',' + "'" + [cart_[p].opt] + "'" + ')">  ';
                     (prod['options'][cart_[p].opt] == 0) ? $("#goForm").addClass("off") : "";
@@ -75,7 +75,7 @@ async function callCart() {
                     //'<span class="delProd" onclick="delProd(' + (prod['id']+",\'"+ [cart_[p].opt]) + '\')">Excluir</span>' +
                     '<span class="delProd" onclick="delProd(' + (cart_[p].id + ",\'" + [cart_[p].opt]) + '\')">Excluir</span>' +
                     '</div>' +
-                    '<span class="vari">Variação ' + cart_[p].opt + '</span>' +
+                    '<span class="vari">Variação: ' + cart_[p].opt + '</span>' +
                     '</div>' +
                     '<div class="pPrice">' +
                     '<span>R$ ' + ((parseFloat(prod['price'])).toFixed(2)).replace(".", ",") + '</span>' +

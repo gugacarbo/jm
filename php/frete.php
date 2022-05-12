@@ -1,79 +1,115 @@
 <?php
+if (isset($_GET['sCepDestino']) && isset($_GET['nVlPeso'])) {
 
-//Verify if isset Receive sCepDestino and nVlPeso from get
-if(isset($_GET['sCepDestino']) && isset($_GET['nVlPeso'])){
-    $sCepDestino = $_GET['sCepDestino'];
+    $nVlPeso = ($_GET['nVlPeso']);
+    $sCepDestino =  $_GET['sCepDestino'];
     $nVlPeso = $_GET['nVlPeso'];
-    $frete = getFrete($sCepDestino, $nVlPeso);
 
-    echo json_encode($frete);
-}else{
-    die('{"erro": "Parametros não recebidos"}');
+
+
+    $frete = getFrete($sCepDestino, $nVlPeso);
+    die(json_encode($frete));
+} else {
+    //die('{"erro": "Parametros não recebidos"}');
 }
 
-//Array with  "nCdEmpresa", "sDsSenha", "nCdServico","sCepOrigem","nCdFormato","nVlComprimento","nVlAltura","nVlLargura","sCdMaoPropria","nVlValorDeclarado","sCdAvisoRecebimento","nVlDiametro","StrRetorno","nIndicaCalculo"
 
-function getfrete($sCepDestino, $nVlPeso){
-    $query = http_build_query(array(
+function getfrete($sCepDestino, $nVlPeso)
+{   
+    $replace = array("‑", ".", " ", "," . "-");
+
+    $sCepDestino =  str_replace($replace, "", $sCepDestino);
+
+    $nVlPeso = floatval($nVlPeso);
+    
+    include "db_connect.php";
+    $GconfigTake = ["cepOrigemFrete", "aditionalWeight", "alturaFrete", "larguraFrete", "comprimentoFrete", "freteGratis"];
+    $config = array();
+
+    foreach ($GconfigTake as $key => $value) {
+
+        $sql = "SELECT value FROM generalConfig WHERE config = ?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("s", $value);
+        $stmt->execute();
+        $stmt->bind_result($config[$value]);
+        $stmt->fetch();
+        $stmt->close();
+    }
+    $config['cepOrigemFrete'] = str_replace($replace, "", $config['cepOrigemFrete']);
+
+
+    $frete = array();
+    $local = getCidade($sCepDestino);
+
+    $freteGratis = json_decode($config['freteGratis'], TRUE);
+
+    if ($freteGratis["use"] == "true") {
+
+        foreach ($freteGratis["cidades"] as $key => $value) {
+            if (strtolower(tirarAcentos($local->cidade)) == strtolower(tirarAcentos($value))) {
+                $frete['freteGratis'] = true;
+            }
+        }
+        foreach ($freteGratis["estados"] as $key => $value) {
+            if (strtolower($local->uf) == strtolower($value)) {
+                $frete['freteGratis'] = true;
+            }
+        }
+    }
+
+
+    $frete["local"] = $local;
+    $query = array(
         'nCdEmpresa' => '',
         'sDsSenha' => '',
-        'nCdServico' => '04510', //sedex 04014, 04510 pac
-        'sCepOrigem' => '88504000',
+        'nCdServico' => '04510', // * 04510 pac
+        'sCepOrigem' => $config["cepOrigemFrete"],
         'sCepDestino' => $sCepDestino,
-        'nVlPeso' => $nVlPeso + 0.3,
+        'nVlPeso' => $nVlPeso + $config["aditionalWeight"],
         'nCdFormato' => '1',
-        'nVlComprimento' => '15',
-        'nVlAltura' => '10',
-        'nVlLargura' => '10',
+        'nVlComprimento' => $config["comprimentoFrete"],
+        'nVlAltura' => $config["alturaFrete"],
+        'nVlLargura' => $config["larguraFrete"],
         'sCdMaoPropria' => 'n',
         'nVlValorDeclarado' => '0',
         'sCdAvisoRecebimento' => 'n',
         'nVlDiametro' => '0',
         'StrRetorno' => 'xml',
         'nIndicaCalculo' => '3'
-    ));
+    );
 
-    $url = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?".$query;
+    $url = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?" . http_build_query($query);
+
     $xml = simplexml_load_file($url);
-    $frete = array();
+
     $frete['valorPac'] = $xml->cServico->Valor;
     $frete['prazoPac'] = $xml->cServico->PrazoEntrega;
     $frete["erro"] =  $xml->cServico->Erro;
 
 
-    $queryF = http_build_query(array(
-        'nCdEmpresa' => '',
-        'sDsSenha' => '',
-        'nCdServico' => '04014', //sedex 04014, 04510 pac
-        'sCepOrigem' => '88504000',
-        'sCepDestino' => $sCepDestino,
-        'nVlPeso' => $nVlPeso + 0.3,
-        'nCdFormato' => '1',
-        'nVlComprimento' => '15',
-        'nVlAltura' => '10',
-        'nVlLargura' => '10',
-        'sCdMaoPropria' => 'n',
-        'nVlValorDeclarado' => '0',
-        'sCdAvisoRecebimento' => 'n',
-        'nVlDiametro' => '0',
-        'StrRetorno' => 'xml',
-        'nIndicaCalculo' => '3'
-    ));
-    $url2 = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?".$queryF;
+    $query['nCdServico'] = '04014'; // * 04014 sedex
+    $url2 = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?" .  http_build_query($query);
 
     $xml2 = simplexml_load_file($url2);
     $frete['valorSedex'] = $xml2->cServico->Valor;
     $frete['prazoSedex'] = $xml2->cServico->PrazoEntrega;
-    $frete["cidade"] = getCidade($sCepDestino);
     $frete["erro2"] =  $xml2->cServico->Erro;
-    return json_encode($frete,  JSON_UNESCAPED_UNICODE);
+    return $frete;
 }
 
 
-//function take the city by cep
-function getCidade($cep){
-    $url = "http://cep.republicavirtual.com.br/web_cep.php?cep=".$cep."&formato=xml";
+function getCidade($cep)
+{
+    $url = "http://cep.republicavirtual.com.br/web_cep.php?cep=" . $cep . "&formato=xml";
     $xml = simplexml_load_file($url);
     $cidade = $xml;
+
     return $cidade;
+}
+
+
+function tirarAcentos($string)
+{
+    return preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/"), explode(" ", "a A e E i I o O u U n N"), $string);
 }

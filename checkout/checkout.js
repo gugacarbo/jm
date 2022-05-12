@@ -10,16 +10,7 @@ var TotalData = {};
 
 $(document).ready(_ => {
     getData();
-    callCart();
-
-    takeShipping().then((value) => {
-        shipData = JSON.parse(value);
-        shipData = JSON.parse(shipData)
-        if (shipData.erro > 0 || shipData.erro2 > 0) {
-            window.location.href = "/";
-        }
-        $("#waitingShipping").css("display", "none");
-    });
+    callCart()
 
     $('input.sinput').on('input', function (e) {
         var shipping = $(this).val();
@@ -28,12 +19,21 @@ $(document).ready(_ => {
             shippingPrice = shipData.valorPac[0];
             shipData.price = shipData.valorPac[0];
             shipData.selected = "PAC";
+            $("#totalShipping").html("R$" + (parseFloat(shipData.valorPac[0])).toFixed(2).replace(".", ","));
         } else if (shipping == "SEDEX") {
+            $("#totalShipping").html("R$" + (parseFloat(shipData.valorSedex[0])).toFixed(2).replace(".", ","));
             shippingPrice = shipData.valorSedex[0];
             shipData.price = shipData.valorSedex[0];
             shipData.selected = "SEDEX";
         }
-        $('#totalPrice').html("R$" + (parseFloat(totalPrice) + parseFloat(shippingPrice)).toFixed(2).replace(".", ","));
+        if (shipData.freteGratis == true) {
+
+            $('#totalDiscount').html("-" + "R$" + (parseFloat(shippingPrice)).toFixed(2).replace(".", ","));
+        }
+
+        $('#totalBoxOn').remove();
+        $('#totalPrice').html(shipData.freteGratis == true ? "R$" + (parseFloat(totalPrice).toFixed(2).replace(".", ",")) : "R$" + (parseFloat(totalPrice) + parseFloat(shippingPrice)).toFixed(2).replace(".", ","));
+
         $("#checkoutButton").removeClass("off")
     });
 
@@ -52,7 +52,6 @@ $(document).ready(_ => {
             },
             success: function (data) {
                 data = JSON.parse(data);
-                console.log(data["status"])
 
                 if (data["status"] == "success") {
                     $.ajax({
@@ -65,7 +64,6 @@ $(document).ready(_ => {
                         },
                         success: function (data) {
                             data = JSON.parse(data);
-                            console.log(data);
                             if (data["status"] == "success") {
                                 $("body").toggleClass("blockBody");
                                 $("#redirectM div .fa-circle-xmark").css("display", "none");
@@ -163,10 +161,10 @@ async function callCart() {
     $("#CartProds").html("");
     var w;
     $.each(cart_, (p, item) => {
-        var px = $.ajax({
+        $.ajax({
             url: "/php/getProdById.php?id=" + cart_[p].id,
             method: "GET",
-            success: async function (l) {
+            success: function (l) {
                 var prod = JSON.parse(l);
                 prod.imgs = (JSON.parse(prod["imgs"]));
                 prod.options = (JSON.parse(prod["options"]));
@@ -189,41 +187,60 @@ async function callCart() {
                     '<span>R$ ' + (parseFloat((prod['price']) * cart_[p].qtd).toFixed(2)).replace(".", ",") + "" + '</span>'
                     + '</div></div>';
                 $("#ckeckoutProducts").append(checkoutProd);
-                return await prod;
+
+                totalPrice += (parseFloat((parseFloat(prod.price) * cart_[p].qtd).toFixed(2)));
+                totalWeight += (parseFloat(prod.weight) * cart_[p].qtd);
+                totalItens += parseInt(cart_[p].qtd);
+                $("#subTotalPrice").html("Subtotal (" + totalItens + " Itens) : <b>R$ " + totalPrice.toFixed(2).replace(".", ",") + "<b>")
+                $("#subpriceProds").html("R$" + totalPrice.toFixed(2).replace(".", ","))
             }
-        })
-        px.then((value) => {
-            var v = JSON.parse(value)
-            w = parseFloat(v.weight) * parseInt(cart_[p].qtd);
-            totalPrice += (parseFloat((parseFloat(v.price) * cart_[p].qtd).toFixed(2)));
-            totalItens += parseInt(cart_[p].qtd);
-            $("#subTotalPrice").html("Subtotal (" + totalItens + " Itens) : <b>R$ " + totalPrice.toFixed(2).replace(".", ",") + "<b>")
-            totalWeight += w;
-            return w;
+        }).then(() => {
+
+            if (cart_.length - 1 == p) {
+                takeShipping(totalWeight).then((value) => {
+                    shipData = JSON.parse(value);
+                    if (shipData.erro > 0 || shipData.erro2 > 0) {
+                        window.location.href = "/";
+                    }
+                    $("#waitingShipping").css("display", "none");
+                })
+            } else {
+            }
         })
     })
 }
 
 
 
-async function takeShipping() {
+async function takeShipping(totalW) {
     var config = {
         "sCepDestino": buyerData.cep,
-        "nVlPeso": 0.25
+        "nVlPeso": totalW //!!!
     }
 
     var ship = $.get("/php/frete.php", config, (d) => {
         var data = JSON.parse(d);
-        data = JSON.parse(data);
-        //console.log(data)
 
         if (data["erro"][0] > 0 || data["erro2"][0] > 0) {
             window.location.href("/")
         } else {
-            $("#prazoPac").html("PAC: " + data['prazoPac'][0] + " Dias")
-            $("#prazoSedex").html("Sedex: " + data['prazoSedex'][0] + " Dias")
-            $("#valorPac").html("R$ " + (data['valorPac'][0]))
-            $("#valorSedex").html("R$ " + (data['valorSedex'][0]))
+
+            if (data["freteGratis"]) {
+                $("#valorPac").html("<span style='color: #0f0;'>Frete Grátis</span>")
+                $("#prazoPac").html(data['prazoPac'][0] + " Dias")
+                $("#sedexBox").remove()
+                $("#discountDiv").css("display", "flex")
+                /**
+                 * $("#valorSedex").html("<span style='color: #0f0;'>Frete Grátis</span>")
+                $("#prazoSedex").html(data['prazoSedex'][0] + " Dias")
+                 */
+            } else {
+
+                $("#prazoPac").html("PAC: " + data['prazoPac'][0] + " Dias")
+                $("#prazoSedex").html("Sedex: " + data['prazoSedex'][0] + " Dias")
+                $("#valorPac").html("R$ " + (data['valorPac'][0]))
+                $("#valorSedex").html("R$ " + (data['valorSedex'][0]))
+            }
         }
     })
     return await ship;

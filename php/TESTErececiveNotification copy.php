@@ -39,9 +39,6 @@ if (empty($_POST['notificationCode'])) {
 
         if ($result_->num_rows > 0) {
             $curl_response = sendMail($array);
-            print_r($curl_response);
-
-
             $row = $result_->fetch_assoc();
             if ($array["status"] < 5) {
                 $stmt = $mysqli->prepare("UPDATE vendas SET status = ?, internalStatus = ?, lastUpdate = ?, rawPayload = ? WHERE reference = ?");
@@ -68,7 +65,7 @@ if (empty($_POST['notificationCode'])) {
             if ($stmt->affected_rows) {
 
 
-                echo json_encode(array("status" => "success", "message" => "Notificação recebida com sucesso9!"));
+                echo json_encode(array("status" => "success", "message" => "Recebido com sucesso!"));
             } else {
                 echo json_encode(array("status" => "error", "message" => "Erro ao inserir nova venda!"));
             }

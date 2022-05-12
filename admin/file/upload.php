@@ -11,7 +11,7 @@ if (isset($_FILES['file']['name']) && isset($_GET['dir'])) {
         die(upload($file, $directory));
     }
 } else {
-    die(json_encode(array("status" => "error", "message" => "Nenhum arquivo enviado")));
+    //die(json_encode(array("status" => "error", "message" => "Nenhum arquivo enviado")));
 }
 
 
@@ -35,7 +35,7 @@ function upload($file_, $dir_, $md5_ = 'true', $valid_extensions = array(".jpg",
             $path = str_replace($target_path = $_SERVER['DOCUMENT_ROOT'], "", $location);
 
             list($width_orig, $height_orig, $tipo, $atributo) = getimagesize($location);
-            if ($height_orig > 5000) {
+            if ($height_orig < 0) {
                 //curl post to delete.php
                 include "delete.php";
                 delete($path);

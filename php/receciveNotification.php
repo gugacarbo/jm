@@ -32,10 +32,7 @@ if (!empty($_POST['notificationCode'])) {
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("ss", $json, $array['reference']);
 
-    if ($stmt->execute()) {
-
-        //curl to mail.php sending post $array
-
+    if ($stmt->execute()){
 
         $stmt = $mysqli->prepare("SELECT * FROM vendas WHERE reference = ?");
         $stmt->bind_param("s", $array['reference']);
@@ -43,7 +40,9 @@ if (!empty($_POST['notificationCode'])) {
         $result_ = $stmt->get_result();
 
         if ($result_->num_rows > 0) {
-    $curl_response = sendMail($array);
+            
+            //? Send Mail
+            $curl_response = sendMail($array);
 
             $row = $result_->fetch_assoc();
             if ($array["status"] < 5) {
@@ -71,13 +70,13 @@ if (!empty($_POST['notificationCode'])) {
             if ($stmt->affected_rows) {
 
 
-                echo json_encode(array("status" => "success", "message" => "Notificação recebida com sucesso9!"));
+                echo json_encode(array("status" => "200", "message" => "Notificação recebida com sucesso9!"));
             } else {
-                echo json_encode(array("status" => "error", "message" => "Erro ao inserir nova venda!"));
+                echo json_encode(array("status" => "400", "message" => "Erro ao inserir nova venda!"));
             }
         }
     } else {
-        echo "Error updating recor22d: " . mysqli_error($mysqli);
+        die(json_encode(array("status" => "505", "message" => "Erro ao atualizar notificação!")));
     }
 } else {
     var_dump(http_response_code(505));

@@ -1,0 +1,198 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fafafa;
+    .content {
+        background-color: rgb(142, 212, 212);
+        display: flex;
+        flex-direction: column;
+        width: 500px;
+        align-items: center;
+        gap: 20px;
+        padding: 20px 10px;
+        input {
+            text-align: center;
+        }
+        div {
+            display: flex;
+            width: 100%;
+            gap: 20px;
+            div {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                label {
+                    display: flex;
+                    gap: 10px;
+                    width: 100%;
+                    justify-content: space-between;
+                    span {
+                        width: 70%;
+                        font-size: 10pt;
+                    }
+                    input {
+                        width: 100px;
+                        text-align: center;
+                    }
+                }
+            }
+
+            .previewSize {
+                width: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px 0;
+                .box {
+                    width: 120px;
+                    height: 110px;
+                    background-image: url("caixa.png");
+                    background-size: 120px;
+                    background-position: center;
+                }
+            }
+        }
+        .freteGratis {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            h4 {
+                font-weight: normal;
+                font-size: 12pt;
+            }
+            label {
+                font-size: 10pt;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                input[type="checkbox"] {
+                    appearance: none;
+                    width: 50px;
+                    &:checked + span::after {
+                        left: inherit;
+                        right: 0;
+                        background-color: #00bcd4;
+                    }
+                }
+                span {
+                    width: 30px;
+                    height: 20px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    background-color: #ddd;
+                    height: 20px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    border: 1px solid #aaa;
+                    &::after {
+                        transition: 1s;
+                        background-color: #999;
+                        content: "";
+                        position: absolute;
+                        border-radius: 20px;
+                        width: 18px;
+                        height: 18px;
+                        left: 0;
+                        right: inherit;
+                    }
+                }
+            }
+            .selectFree {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    div { //* #
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        label {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            text-align: center;
+                            p {
+                                width: 90%;
+                            }
+                            i {
+                                cursor: pointer;
+                                font-size: 11pt;
+
+                                color: #f00;
+                                transition: 0.1s;
+
+                                &:hover {
+                                    filter: brightness(1.2);
+                                }
+                                &:active {
+                                    filter: brightness(0.8);
+                                }
+                            }
+                        }
+                    }
+                    .add {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        text-align: center;
+                        input {
+                            width: 60%;
+                            margin: auto;
+                            text-align: center;
+                        }
+
+                        i {
+                            cursor: pointer;
+                            color: #555;
+                            font-size: 14pt;
+                            transition: 0.1s;
+                            &:hover {
+                                filter: brightness(2);
+                            }
+                            &:active {
+                                filter: brightness(0.9);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        button{
+            width: 40%;
+            height: 30px;
+            border: none;
+            border-radius: 20px;
+            color: #fff;
+            background-color: #34a034;
+            cursor: pointer;
+            transition: 0.1s;
+            &:hover {
+                filter: brightness(1.2);
+            }
+            &:active {
+                filter: brightness(0.8);
+            }
+        }
+    }
+}

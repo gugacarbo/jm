@@ -16,6 +16,7 @@ $(document).ready(() => {
       }
 
       $.get("/php/cadNewsLetter.php", data, function (data) {
+        data = JSON.parse(data);
         if (data["status"] == "success") {
           $("#NewsletterErrorDisplay").css("display", "flex");
           $("#NewsletterErrorDisplay").css("color", "#0f0");
@@ -26,7 +27,7 @@ $(document).ready(() => {
         } else {
           $("#NewsletterErrorDisplay").css("display", "flex");
           $("#NewsletterErrorDisplay").css("color", "#F00");
-          $("#NewsletterErrorDisplay").html("Erro ao cadastrar!");
+          $("#NewsletterErrorDisplay").html(data.error);  
           setTimeout(() => {
             $("#NewsletterErrorDisplay").css("display", "none");
           }, 1300);

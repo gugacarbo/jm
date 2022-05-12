@@ -5,22 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/Jm_Logo_Branco.png">
 
     <title>Jm Acessórios de Luxo</title>
 
     <link rel="stylesheet" href="/css/main.css">
-    <link href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </head>
 
 <body>
-    <script src="/jquery.mask.js"></script>
+
     <div class="redirectMessage" id="redirectM">
         <div class="redirectMessageContent">
             <i class="fa-solid fa-circle-check"></i>
@@ -31,7 +29,7 @@
     </div>
     <header>
     </header>
-    <div class="checkout">
+    <div class="checkoutPage">
         <span class="checkoutTitle">Confirmar dados</span>
         <div class="data">
             <span class="dataHeader">Dados do Comprador</span>
@@ -61,20 +59,40 @@
             <div id="waitingShipping"><i class="fa-solid fa-spinner"></i></div>
             <span class="shipHeader">Envio</span>
             <div class="pac">
+                <span>PAC</span>
                 <span id="prazoPac"></span>
                 <span id="valorPac"></span>
                 <input type="radio" class="sinput" name="shipping" id="pac" value="PAC">
             </div>
-            <div class="sedex">
+            <div class="sedex" id="sedexBox">
+                <span>Sedex</span>
                 <span id="prazoSedex"></span>
                 <span id="valorSedex"></span>
                 <input type="radio" class="sinput" name="shipping" id="sedex" value="SEDEX">
             </div>
         </div>
         <div class="total">
-            <span>Total: </span>
-            <span id="totalPrice">R$0,00</span>
-            <small style="display:none;" id="totalWeight"></small>
+            <div id="totalBoxOn"></div>
+            <label>
+                <span>Total Produtos: </span>
+                <span id="subpriceProds">R$0,00</span>
+                <small style="display:none;" id="totalWeight"></small>
+            </label>
+            <label>
+                <span>TotalFrete: </span>
+                <span id="totalShipping">R$0,00</span>
+                <small style="display:none;" id="totalWeight"></small>
+            </label>
+            <label>
+                <span style="display:none;" id="discountDiv">Desconto: </span>
+                <span id="totalDiscount">R$0,00</span>
+                <small style="display:none;" id="totalWeight"></small>
+            </label>
+            <label>
+                <span>Total: </span>
+                <span id="totalPrice">R$0,00</span>
+                <small style="display:none;" id="totalWeight"></small>
+            </label>
         </div>
 
         <button id="checkoutButton" class="off">

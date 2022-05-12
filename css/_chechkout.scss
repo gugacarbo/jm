@@ -1,4 +1,4 @@
-.checkout {
+.checkoutPage{
     width: $deskWidth;
     display: flex;
     flex-wrap: wrap;
@@ -36,10 +36,10 @@
 
         .product {
             text-decoration: none;
-            width: 97%;
+            width: 90%;
             display: flex;
-            padding: 10px 0;
-            justify-content: space-around;
+            padding: 10px 4%;
+            justify-content: space-between;
             border-bottom: 1px solid $mainColor;
             &:last-child {
                 border-bottom: none;
@@ -63,6 +63,8 @@
                 display: flex;
                 flex-direction: column;
                 flex-wrap: wrap;
+                gap: 5px;
+                justify-content: center;
 
                 .pName {
                     width: 100%;
@@ -95,13 +97,16 @@
 
                 .pQuantity {
                     width: 100%;
-                    height: 40px;
+
                     display: flex;
                     justify-content: center;
-                    align-items: center;
-                    font-size: 14pt;
+                    align-items: flex-end;
+                    font-size: 12pt;
                     span {
-                        font-size: 16pt;
+                        color: $mainColor;
+                        font-weight: bold;
+                        font-size: 13pt;
+                        padding: 0 4px;
                     }
                 }
             }
@@ -133,64 +138,60 @@
         padding: 0 50px;
         span {
             margin: 10px 0;
-            font-size: 16pt;
+            font-size: 13pt;
         }
     }
     .subTotal {
         justify-content: flex-end;
     }
-
+    .total{
+        width: 40%;
+        flex-direction: column;
+        position: relative;
+        justify-content: center;
+        label{
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+            margin: 6px 0;
+            span{
+                margin: 0;
+            }
+        }
+    }
     .shipping {
         flex-direction: column;
         padding: 10px 20px;
         gap: 10px;
+        width: 45%;
+        .shipHeader{
+            width: 100%;
+            font-size: 14pt;
+            text-align: center;
+        }
         div {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             width: 100%;
             align-items: center;
             position: relative;
+            column-gap: 30px;
+            span{
+                margin:  0 auto;
+                width: 100%;
+            }
             input[type="radio"] {
-                right: 90px;
-                position: absolute;
+                margin:  0 auto;
                 accent-color: $mainColor;
                 border: 1px solid #ffffff88;
                 transition: 1s;
-                width: 15px;
-                height: 15px;
+                width: 55px;
+                height: 55px;
                 cursor: pointer;
             }
         }
         position: relative;
-        #waitingShipping{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(2px);
-            background-color: rgba($mainColor, 0.05);
-            z-index: 10;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 20px;
-            i{
-                font-size: 25pt;
-                color: #787878;
-                animation: girar 1s infinite;
 
-            }
-            @keyframes girar {
-                0% {
-                    transform: rotate(0deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-
-            }
-        }
     }
     button {
         width: 300px;
@@ -222,6 +223,35 @@
     }
 }
 
+#waitingShipping, #totalBoxOn{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px);
+    background-color: rgba($mainColor, 0.05);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    i{
+        font-size: 25pt;
+        color: #787878;
+        animation: girar 1s infinite;
+
+    }
+    @keyframes girar {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+
+    }
+}
 .redirectMessage {
     width: 100vw;
     height: 100vh;

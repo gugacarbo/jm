@@ -1,0 +1,29 @@
+.unsubscribe{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .unsubscribeBox{
+        display: flex;
+        width: 350px;
+        padding: 40px 20px;
+        background-color: $mainColor;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        color: #fff;
+        span{
+            font-size: 13pt;
+            text-align: center;
+        }
+        button{
+            border: none;
+            border-radius: 20px;
+            padding: 4px 20px;
+            font-size: 12pt;
+        
+        }
+    }
+}

@@ -8,10 +8,29 @@ require '../mailer/src/PHPMailer.php';
 require '../mailer/src/SMTP.php';
 
 include "../mail/model/model_compra.php";
+
 function sendMail($notification)
 {
+    include "db_connect.php";
+    include "db_connect.php";
+    $GconfigTake = ["contactMail", "automaticMail", "automaticMailPass", "adminMail", "sendToAdminMail"];
+    $config = array();
+
+    foreach ($GconfigTake as $key => $value) {
+
+        $sql = "SELECT value FROM generalConfig WHERE config = ?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("s", $value);
+        $stmt->execute();
+        $stmt->bind_result($config[$value]);
+        $stmt->fetch();
+        $stmt->close();
+    }
+
+
     $model = getModel($notification);
-    if ($model['status'] == "sucess") {
+    //print_r($model);
+    if ($model['status'] == "success") {
         $html = $model["content"];
         $subject = $model["subject"];
         $AltBody = $model["AltBody"];
@@ -31,12 +50,12 @@ function sendMail($notification)
         $mail->SMTPAuth = true;
 
 
-        $mail->addCustomHeader("List-Unsubscribe", '<contato@jmacessoriosdeluxo.com.br>, <http://jmacessoriosdeluxo.com.br/Unsubscribe/?email=aaa>');
-        $mail->Username = 'no-reply@jmacessoriosdeluxo.com.br';
-        $mail->Password = 'Dev@159753';
+        $mail->addCustomHeader("List-Unsubscribe", $config["contactMail"] . ', <http://jmacessoriosdeluxo.com.br/unsubscribe/?email=aaa>');
+        $mail->Username = $config["automaticMail"];
+        $mail->Password = $config["automaticMailPass"];
 
-        $mail->setFrom('no-reply@jmacessoriosdeluxo.com.br ', 'JM - Acessorios de Luxo');
-        $mail->addReplyTo('contato@jmacessoriosdeluxo.com.br', 'Contato JM - Acessorios');
+        $mail->setFrom($config["automaticMail"], 'JM - Acessorios de Luxo');
+        $mail->addReplyTo($config["contactMail"], 'Contato JM - Acessorios de Luxo');
 
         $mail->addAddress($To, $Name);
         $mail->Subject = $subject;
@@ -45,7 +64,16 @@ function sendMail($notification)
         if (!$mail->send()) {
             return ((array("status" => "error", "message" => $mail->ErrorInfo)));
         } else {
+            $mail->addAddress($config["adminMail"], $Name);
+            if ($config['sendToAdminMail'] == "true") {
+                if (!$mail->send()) {
+
+                } else {
+                }
+            }
             return ((array("status" => "success", "message" => "Email enviado com sucesso!")));
         }
+    } else {
+        return ((array("status" => "error", "message" => $mail->ErrorInfo)));
     }
 }
