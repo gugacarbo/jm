@@ -22,7 +22,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
-    <script src="/jquery.mask.js"></script>
 </head>
 
 <body>
@@ -43,7 +42,10 @@
                 </section>
 
                 <section>
-                    <input type="radio" name="type" value="auto" id="radioAuto" checked>
+                    <span>
+                        <input type="radio" name="type" value="auto" id="radioAuto" checked>
+                        Automático
+                    </span>
                     <select id="autoType">
                         <option value="">Selecionar Por</option>
                         <option value="price">Menores Preços</option>
@@ -51,12 +53,16 @@
                     </select>
                     <input type="radio" name="type" value="id" id="radioId">
                     <label>Selecionar Manual</label>
+                    <i class="fa-solid fa-hand-pointer cantOpenList" id="selectProdsButton"></i>
                 </section>
                 <button id="addCarousel">Salvar</button>
                 <div class="previewBox">
-                   
+
                 </div>
                 <div class="selectProds">
+                    <span id="closeProdList">
+                        <i class="far fa-times-circle"></i>
+                    </span>
                     <form id="prodList">
 
                     </form>

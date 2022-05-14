@@ -12,27 +12,61 @@ $(document).ready(function () {
     startGliders()
 
 
-    $("#Categories").on("change", function () {
-        var catI = $(this).val();
-        resetPreview()
-        if (UsedGlider.indexOf(parseInt(catI)) > -1) {
-            editGlider(catI);
+    $("#selectProdsButton").click(function () {
+        if ($("#selectProdsButton").hasClass("cantOpenList")) {
         } else {
-            $("#radioAuto").prop("checked", true);
-            $("#autoType").val("price");
-
-            auto();
+            $(".selectProds").css("display", "flex");
         }
+
+
     })
 
-    $("#autoType").on("change", function () {
+    $("#closeProdList").click(function () {
+        SelectedItens.length > 0 ? updatePrevManual(SelectedItens) : ""
+
+        $(".selectProds").hide()
+
+    })
+
+
+    $("#Categories").on("change", function () {
+        var catI = $(this).val();
+        takeCat(catI);
+
+    })
+
+    $("#addCarousel").on("click", function () {
         var cat = $("#Categories").val();
+        var type = $("input[name='type']:checked").val();
+        var selectAutoType = ($("#autoType").val());
+        var category = cat;
+
+        if (type == "id") {
+            var SelectType = "id";
+            var select = SelectedItens;
+            SelectedItens = []
+        } else if (type == "auto") {
+            var SelectType = "auto";
+            var select = selectAutoType;
+        }
+
+        $.get("createCarousel.php", { category: category, SelectType: SelectType, select: select }, function (data) {
+            data = JSON.parse(data);
+            if (data.status == "success") {
+                alert("Carousel created");
+
+                startGliders()
+            }
+        })
+    })
 
 
+    $("#autoType").on("change", function () {
+
+        var cat = $("#Categories").val();
         var filter = $("#autoType").val();
-
+        $("#selectProdsButton").addClass("cantOpenList")
         if (filter == "promo") {
-
             var query = {
                 cat: cat,
                 promo: 1,
@@ -44,9 +78,9 @@ $(document).ready(function () {
             }
         }
 
-
         $.get("getFiltered.php", query, function (data) {
             $("#radioPrice").attr("checked", true);
+
             data = JSON.parse(data);
 
             $("#prodList").empty();
@@ -58,29 +92,32 @@ $(document).ready(function () {
                     actImagePrev++
                 }
                 if (data.length < 7) {
-                    console.log(data.length);
                     for (let index = data.length; index < 7; index++) {
                         $(".preview .items .item")[index].innerHTML = `<img src="noImage.png">`
                     }
                 }
             })
+        }).then((value) => {
+            $("#addCarousel").attr("disabled", false);
         })
 
     })
 
-    $("input[name='type']").on("change", function () {
+    // * ----------------
 
+    $("input[name='type']").on("change", function () {
+        //alert("Please select a category");
         var type = $(this).val();
         SelectedItens = [];
         var cat = $("#Categories").val();
 
         if (type == "auto") {
+            $("#selectProdsButton").addClass("cantOpenList")
             $("#autoType").attr("disabled", false);
             if (UsedGlider.indexOf(parseInt(cat)) > -1) {
+
                 var filter = $("#autoType").val();
-
                 if (filter == "promo") {
-
                     var query = {
                         cat: cat,
                         promo: 1,
@@ -119,241 +156,93 @@ $(document).ready(function () {
             } else {
                 auto();
             }
-        } else {
-            var id_ = $("#Categories").val();
-            $.get("getAglider.php", { id: id_ }, function (data) {
-                if (UsedGlider.indexOf(parseInt(cat)) > -1){
-                    data = JSON.parse(data);
+            $("#addCarousel").attr("disabled", false);
+        } else { //? Manual
 
-                    var glider = $("#Glider" + data.id);
-                    $(glider).addClass("preview")
-                    $(glider).appendTo(".previewBox");
-                    //$(glider).css("top" , $(glider).offset().top)
+            $("#radioId").prop("checked", true);
+            $("#autoType").attr("disabled", true);
+            $("#prodList").empty();
 
-                    $("#prodList").empty();
+            SelectedItens = [];
 
-                    var select = JSON.parse(data["select"]);
+            $.get("getFiltered.php", { cat: cat }, function (r) {
 
-                    if (data["SelectType"] == "auto") {
+                r = JSON.parse(r);
+                $.each(r, function (index, value) {
+                    var prod = (value);
+                    var images = JSON.parse(prod["imgs"]);
 
-                        $("#radioAuto").prop("checked", true);
-                        if (select['type'] == "price") {
-                            $("#autoType").val('price');
-                        } else {
-                            $("#autoType").val('promo');
-                        }
-                        $("#autoType").attr("disabled", false);
-
-                        // !!
-                        // !!
+                    //if id is in json select
 
 
-                        // !!
-                        // !!
+                    var item = '<div>' +
+                        '<input type="checkbox" name="selectedProducts" id="selectingProd' + prod["id"] + '" onclick="selectItems(this,' + prod["id"] + ')" >' +
+                        '<img src="' + images[1] + '" alt="">' +
+                        "</div>"
+                    $("#prodList").append(item);
 
 
-                    } else {
-
-                        $("#radioId").prop("checked", true);
-                        $("#autoType").attr("disabled", true);
-                        $("#addCarousel").attr("disabled", true);
-
-                        SelectedItens = [];
-
-                        
-                        $.get("getFiltered.php", { cat: cat }, function (r) {
-
-                            r = JSON.parse(r);
-
-                            actImagePrev = 0;
-
-                            $.each(r, function (index, value) {
-                                var prod = (value);
-                                var images = JSON.parse(prod["imgs"]);
-
-                                //if id is in json select
-                                var isIn = 0
-
-                                $.each(select, function (index, value) {
-                                    if (value == prod["id"]) {
-                                        isIn = 1;
-                                        SelectedItens.push(parseInt(value));
-
-                                    }
-                                })
-                                if (selectItems.length > 0) {
-                                    $("#addCarousel").attr("disabled", false);
-                                }
-                                var item = '<div>' +
-                                    '<input type="checkbox" name="selectedProducts" onclick="selectItems(this,' + prod["id"] + ')" ' + ((isIn == 1) ? 'checked' : '') + '>' +
-                                    '<img src="' + images[1] + '" alt="">' +
-                                    "</div>"
-                                $("#prodList").append(item);
-
-                                if (isIn == 1) {
-                                    if (actImagePrev < 7) {
-                                        var images = JSON.parse(prod["imgs"]);
-                                        var images = JSON.parse(prod["imgs"]);
-                                        $(".preview .items .item")[actImagePrev].innerHTML = `<img src="${images[1]}" class="selecting">`
-                                        actImagePrev++
-                                    }
-                                }
-
-                                if (data.length < 7) {
-
-                                    for (let index = data.length; index < 7; index++) {
-                                        $(".preview .items .item")[index].innerHTML = `<img src="noImage.png" class="selecting">`
-                                    }
-                                }
-                            })
-                        })
-                    }
-                    $("input[name='type']").attr("disabled", false);
-                    $("checkbox[name='selectedProducts']").attr("disabled", false);
-                }else {
-                    $.get("getFiltered.php", { cat: cat }, function (r) {
-
-                        r = JSON.parse(r);
-
+                })
+            }).then(function () {
+                if (UsedGlider.indexOf(parseInt(cat)) > -1) {
+                    $.get("getAglider.php", { id: cat }, function (data) {
+                        data = JSON.parse(data);
+                        var select = JSON.parse(data["select"]);
                         actImagePrev = 0;
-
-                        $.each(r, function (index, value) {
-                            var prod = (value);
-                            var images = JSON.parse(prod["imgs"]);
-
-                          
-                            $.each(select, function (index, value) {
-                                if (value == prod["id"]) {
-                                    isIn = 1;
-                                    SelectedItens.push(parseInt(value));
-
-                                }
-                            })
-                            if (selectItems.length > 0) {
-                                $("#addCarousel").attr("disabled", false);
-                            }
-                            var item = '<div>' +
-                                '<input type="checkbox" name="selectedProducts" onclick="selectItems(this,' + prod["id"] + ')" >' +
-                                '<img src="' + images[1] + '" alt="">' +
-                                "</div>"
-                            $("#prodList").append(item);
-
-
-                            if (data.length < 7) {
-
-                                for (let index = 0; index < 7; index++) {
-                                    $(".preview .items .item")[index].innerHTML = `<img src="noImage.png" class="selecting">`
-                                }
-                            }
-                        })
+                        updatePrevManual(select);
                     })
-                } 
+                }
+            }).then(function () {
+                $("#selectProdsButton").removeClass("cantOpenList")
             })
-
-        }
-    })
-
-
-    $("#addCarousel").on("click", function () {
-        var cat = $("#Categories").val();
-        var type = $("input[name='type']:checked").val();
-        var selectAutoType = ($("#autoType").val());
-        var category = cat;
-
-        if (type == "id") {
-            var SelectType = "id";
-            var select = SelectedItens;
-        } else if (type == "auto") {
-            var SelectType = "auto";
-            var select = selectAutoType;
-        }
-
-        $.get("createCarousel.php", { category: category, SelectType: SelectType, select: select }, function (data) {
-            data = JSON.parse(data);
-            console.log(data);
-            if (data.status == "success") {
-                alert("Carousel created");
-                $(".previewBox").html("");
-                startGliders()
+            if (SelectedItens.length > 0) {
+                $("#addCarousel").attr("disabled", false);
+            } else {
+                $("#addCarousel").attr("disabled", true);
             }
-        })
-
-
-
-    })
-
-
-})
-
-function selectItems(this_, id) {
-
-    if (SelectedItens.indexOf(id) == -1) {
-        if (SelectedItens.length < 7) {
-
-            SelectedItens.push(id);
-        } else {
-            alert("You can't select more than 7 !! items");
-            $(this_).prop("checked", false);
+            $("input[name='type']").attr("disabled", false);
+            $("checkbox[name='selectedProducts']").attr("disabled", false);
         }
-    } else {
-        SelectedItens.splice(SelectedItens.indexOf(id), 1);
-    }
-    if (SelectedItens.length == 0) {
-        $("#addCarousel").attr("disabled", true);
-    } else {
-        $("#addCarousel").attr("disabled", false);
-
-    }
-}
+    })
+})
 
 
 function auto() {
 
     $("input[name='type']").attr("disabled", true);
     $("#autoType").attr("disabled", true);
+    $("#selectProdsButton").addClass("cantOpenList")
+
     var cat = $("#Categories").val();
-    var filter = $("#autoType").val();
-    if (filter == "promo") {
+    var catName = $("#Categories").find(":selected").text();
+    var filter = $("#autoType").val("price");
 
-        var query = {
-            cat: cat,
-            promo: 1,
-        }
-    } else {
-        $("#autoType").val("price");
-        var query = {
-            cat: cat,
-        }
-    }
+    $("#prodList").empty();
 
-    $.get("getFiltered.php", query, function (data) {
-        $("#radioPrice").attr("checked", true);
-        data = JSON.parse(data);
+    $.get("getFiltered.php", { cat }, function (data) {
 
-        $("#prodList").empty();
-        actImagePrev = 0;
-        var createC = `<div class="carousel preview">
-                        <div class="items">`
-        $.each(data, function (index, prod) {
-            if (actImagePrev < 7) {
-                actImagePrev++
-                var images = JSON.parse(prod["imgs"]);
-                createC += `<div class="item">
-                <img src="${images[1]}">
-                </div>
-                `
+        var glider = JSON.parse(data);;
+
+        var createC = '<div class="carousel preview" >'
+            + '<span class="name">' + catName + '</span>'
+        createC += '<div class="items">'
+
+
+        $.each(glider, function (index, data) {
+            if (index < 7) {
+                var images = JSON.parse(data["imgs"]);
+                createC += '<div class="item"><img src="' + images[1] + '" alt=""></div>'
             }
         })
-        if (data.length < 7) {
-            for (let index = 0; index < 7 - data.length; index++) {
-                createC += `<div class="item">
-                <img src="noImage.png">
-            </div>
-            `
+        if (glider.length < 7) {
+            for (let index = 0; index < 7 - glider.length; index++) {
+                createC += ('<div class="item"><img src="noImage.png" alt=""></div>')
             }
         }
-        createC += `<\div><\div>`
+        createC += '</div></div>'
+
         $(".previewBox").html(createC);
+
     }).then((value) => {
         $("input[name='type']").attr("disabled", false);
         $("#autoType").attr("disabled", false);
@@ -368,8 +257,9 @@ function auto() {
 
 
 function resetPreview() {
-    if ($(".preview").attr("id")) {
+    SelectedItens = [];
 
+    if ($(".preview").attr("id")) {
         $(".preview").appendTo("#CarouselList");
         $(".preview").removeClass("preview")
     } else {
@@ -379,20 +269,22 @@ function resetPreview() {
 }
 
 
+
 function editGlider(id_) {
+    $(".selectProds").hide();
     $.get("getAglider.php", { id: id_ }, function (data) {
         data = JSON.parse(data);
-
         var glider = $("#Glider" + data.id);
         $(glider).addClass("preview")
         $(glider).appendTo(".previewBox");
-        //$(glider).css("top" , $(glider).offset().top)
 
         $("#prodList").empty();
 
         var select = JSON.parse(data["select"]);
 
         if (data["SelectType"] == "auto") {
+            $("#selectProdsButton").addClass("cantOpenList")
+
 
             $("#radioAuto").prop("checked", true);
             if (select['type'] == "price") {
@@ -402,27 +294,18 @@ function editGlider(id_) {
             }
             $("#autoType").attr("disabled", false);
 
-            // !!
-            // !!
-
-
-            // !!
-            // !!
-
 
         } else {
-
             $("#radioId").prop("checked", true);
             $("#autoType").attr("disabled", true);
             $("#addCarousel").attr("disabled", true);
-
+            $("#prodList").empty();
+            var id_ = $("#Categories").val();
             SelectedItens = [];
 
-            var cat = $("#Categories").val();
-            $.get("getFiltered.php", { cat: cat }, function (r) {
+            $.get("getFiltered.php", { cat: id_ }, function (r) {
 
                 r = JSON.parse(r);
-
                 actImagePrev = 0;
 
                 $.each(r, function (index, value) {
@@ -430,85 +313,90 @@ function editGlider(id_) {
                     var images = JSON.parse(prod["imgs"]);
 
                     //if id is in json select
-                    var isIn = 0
 
-                    $.each(select, function (index, value) {
-                        if (value == prod["id"]) {
-                            isIn = 1;
-                            SelectedItens.push(parseInt(value));
 
-                        }
-                    })
-                    if (selectItems.length > 0) {
-                        $("#addCarousel").attr("disabled", false);
-                    }
                     var item = '<div>' +
-                        '<input type="checkbox" name="selectedProducts" onclick="selectItems(this,' + prod["id"] + ')" ' + ((isIn == 1) ? 'checked' : '') + '>' +
+                        '<input type="checkbox" name="selectedProducts" id="selectingProd' + prod["id"] + '" onclick="selectItems(this,' + prod["id"] + ')" >' +
                         '<img src="' + images[1] + '" alt="">' +
                         "</div>"
                     $("#prodList").append(item);
 
-                    if (isIn == 1) {
-                        if (actImagePrev < 7) {
-                            var images = JSON.parse(prod["imgs"]);
-                            var images = JSON.parse(prod["imgs"]);
-                            $(".preview .items .item")[actImagePrev].innerHTML = `<img src="${images[1]}">`
-                            actImagePrev++
-                        }
-                    }
 
-                    if (data.length < 7) {
-
-                        for (let index = data.length; index < 7; index++) {
-                            $(".preview .items .item")[index].innerHTML = `<img src="noImage.png">`
-                        }
-                    }
                 })
+            }).then(function () {
+                if (UsedGlider.indexOf(parseInt(id_)) > -1) {
+                    $.get("getAglider.php", { id: id_ }, function (data) {
+                        data = JSON.parse(data);
+                        var select = JSON.parse(data["select"]);
+                        actImagePrev = 0;
+                        updatePrevManual(select);
+                    })
+                }
+            }).then(function () {
+                $("#selectProdsButton").removeClass("cantOpenList")
+
+                if (SelectedItens.length > 0) {
+                    $("#addCarousel").attr("disabled", false);
+                } else {
+                    $("#addCarousel").attr("disabled", true);
+                }
             })
+            $("checkbox[name='selectedProducts']").attr("disabled", false);
         }
         $("input[name='type']").attr("disabled", false);
-        $("checkbox[name='selectedProducts']").attr("disabled", false);
+
     })
+
 }
 
 
 
 
+function takeCat(catI) {
 
-
-
-
-
-function deleteGlider(id_) {
-    if (confirm("Are you sure you want to delete this glider?")) {
-        $.get("deleteGlider.php", { id: id_ }, function (data) {
-
-            resetPreview();
-            startGliders();
-        })
+    $("#Categories option[value=" + catI + "]").attr("selected", "selected");
+    resetPreview()
+    if (UsedGlider.indexOf(parseInt(catI)) > -1) {
+        editGlider(catI);
+    } else if (catI > 0) {
+        $("#radioAuto").prop("checked", true);
+        $("#autoType").val("price");
+        auto();
+    } else {
+        $("#radioAuto").prop("disabled", true);
+        $("#radioAuto").prop("checked", false);
+        $("#autoType").attr("disabled", true);
+        $("#addCarousel").attr("disabled", true);
     }
 }
 
 
 
+
+
+
+
+
 function startGliders() {
 
+    $(".previewBox").html("");
     $("input[name='type']").attr("disabled", true);
     $("#autoType").attr("disabled", true);
     $("#addCarousel").attr("disabled", true);
     $("#Categories").val(0);
     $("#prodList").empty();
     $("#CarouselList").empty();
+    UsedGlider = [];
+    SelectedItens = [];
 
     $.get("/php/getGlider.php", function (data) {
-
         var gliders = JSON.parse(data);
-        UsedGlider = []
+
         $.each(gliders, function (index, glider) {
             UsedGlider.push(glider['category']);
 
             var prods = JSON.parse(glider['prod_ids']);
-            var carousel = '<div class="carousel" id="Glider' + glider['id'] + '">'
+            var carousel = '<div class="carousel" style="order:' + glider['id'] + ';" id="Glider' + glider['id'] + '">'
                 + '<span class="name">' + glider["name"] + '</span>'
             carousel += '<div class="items"></div>'
             $("#CarouselList").append(carousel);
@@ -531,12 +419,12 @@ function startGliders() {
                                             <span>Itens Selecionados por:</span>
                                             <span><b>${sType}</b></span>
                                             <span>Quantidade de Itens: <b>${prods.length}</b></span>
-                                            <span class="deleteGlider" onclick="deleteGlider(` + glider['id'] + `)"><i class="fa-solid fa-trash-can"></i></span></div>`)
+                                            <label>
+                                            <span class="deleteGlider" onclick="takeCat(${glider.category})"><i class="fa-solid fa-edit"></i></span>
+                                            <span class="deleteGlider" onclick="deleteGlider(` + glider['id'] + `)"><i class="fa-solid fa-trash-can"></i></span>
+                                            </label>
+                                            </div>`)
         })
-
-
-
-
     }).then((value) => {
         $.get("/php/getCategory.php", function (data) {
             var category = JSON.parse(data);
@@ -550,4 +438,61 @@ function startGliders() {
             })
         })
     })
+}
+
+
+
+
+
+function updatePrevManual(select) {
+    actImagePrev = 0;
+    SelectedItens = [];
+
+    if (Array.isArray(select) && select.length > 0) {
+        $.each(select, function (index, value) {
+            $("#selectingProd" + value).prop("checked", true);
+            SelectedItens.push(parseInt(value));
+            $(".preview .items .item")[actImagePrev].innerHTML = `<img src="${$("#selectingProd" + value + " + img").attr("src")}" class="selecting">`
+            actImagePrev++
+        })
+    }
+    if (actImagePrev < 7) {
+        var act = actImagePrev;
+        for (let index = act; index < 7; index++) {
+            $(".preview .items .item")[index].innerHTML = `<img src="noImage.png" class="selecting">`
+            actImagePrev++
+        }
+    }
+    if (SelectedItens.length > 0) {
+        $("#addCarousel").attr("disabled", false);
+    } else {
+        $("#addCarousel").attr("disabled", true);
+    }
+}
+
+function selectItems(this_, id) {
+
+    if (SelectedItens.indexOf(id) == -1) {
+        if (SelectedItens.length < 7) {
+            SelectedItens.push(id);
+        } else {
+            alert("You can't select more than 7 !! items");
+            $(this_).prop("checked", false);
+        }
+    } else {
+        SelectedItens.splice(SelectedItens.indexOf(id), 1);
+    }
+    if (SelectedItens.length == 0) {
+        $("#addCarousel").attr("disabled", true);
+    }
+}
+
+
+function deleteGlider(id_) {
+    if (confirm("Are you sure you want to delete this glider?")) {
+        $.get("deleteGlider.php", { id: id_ }, function (data) {
+            resetPreview();
+            startGliders();
+        })
+    }
 }

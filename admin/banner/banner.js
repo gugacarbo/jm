@@ -106,6 +106,7 @@ $(document).ready(function () {
             var prevTarget = $(this);
             $.ajax({
                 beforeSend: function () {
+                    var prevTarget = $(this);
                     $(prevTarget).parent().addClass("loading");
                 },
                 xhr: function () {

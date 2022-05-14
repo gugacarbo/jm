@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -23,16 +22,24 @@
 
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
-    <script src="/jquery.mask.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 </head>
+
 <body>
-    <div class="content" id="MatList">
-        <div class="item add">
-            <input type="text" value="" id="newMat">
-            <i class="fa-solid fa-plus" id="addMat"></i>
+    <div class="container">
+        <span class="title">Materiais</span>
+        <p class="description">
+            Nesta aba voce pode inserir, alterar e excluir materiais.
+        </p>
+        <div class="content" id="CatList">
+
+        </div>
+        <div class="chart">
+            <span>Produtos Por Material</span>
+            <canvas id="myChart" width="100%" height="100%"></canvas>
         </div>
     </div>
-    
+
     <script src="material.js"></script>
 </body>
 

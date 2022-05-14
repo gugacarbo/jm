@@ -8,7 +8,7 @@ if (empty($_POST['notificationCode'])) {
     include("db_connect.php");
     include("mail.php");
 
-    $notificationCode =  "4BD8600C76877687A18114D40F9066D62820";
+    $notificationCode =  "476DC4DF37FE37FEA7D664067FA47287E17F";
 
 
     //$credenciais = "email=guga_carbo@hotmail.com&token=2892d1c4-4188-475f-b840-975a99cb9b396e0c6960446fa00bc19a696db4163addcac8-51be-49aa-a7bf-2baed7e7e05b";

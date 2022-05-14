@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="adminProducts.css">
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
     <link rel="icon" href="/img/Jm_Logo_Branco.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.min.js"
+        integrity="sha512-hAJgR+pK6+s492clbGlnrRnt2J1CJK6kZ82FZy08tm6XG2Xl/ex9oVZLE6Krz+W+Iv4Gsr8U2mGMdh0ckRH61Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
 
@@ -24,7 +27,8 @@
                 <input type="text" id="textSearch">
                 <i class="fas fa-search" id="btnSearch"></i>
             </label>
-            <button onclick="gotoProduct()">
+            <span id="totalProducts">Total <b></b> Produtos encontrados</span>
+            <button onclick="modalProductShow()">
                 Adicionar Produto
             </button>
         </div>
@@ -48,11 +52,151 @@
         <div class="products" id="productsList">
 
 
-        </div> 
+        </div>
         <div id="PageCounter" class="pageCounter">
         </div>
+
+
+
+
+
+
+
+
+
+        <div class="modalProduct" id="ModalProduct">
+            <i class="fas fa-times closeMod" id="closeModal"></i>
+            <span class="modalTitle">Cadastrar / Editar Produto</span>
+            <div class="productAdd">
+                <div class="productInfo">
+                    <section>
+                        <label>
+                            <input type="text" name="nome" id="NewProductName" required>
+                            <small>Nome</small>
+                        </label>
+                    </section>
+                    <section>
+                        <label>
+                            <span class="rs">R$</span>
+
+                            <input type="text" name="preco" id="NewProductCost" required>
+                            <small>Custo(?)</small>
+                        </label>
+                    </section>
+
+
+                    <section>
+                        <label>
+                            <select id="NewProductCategory">
+                                <option selected value='0' name="0">Selecionar</option>
+                            </select>
+                            <small>
+                                Categoria
+                            </small>
+                        </label>
+                    </section>
+                    <section>
+                        <label>
+                            <span class="rs">R$</span>
+
+
+                            <input type="text" name="preco" id="NewProductPrice" required>
+                            <small>Preço</small>
+                        </label>
+                    </section>
+                    <section>
+                        <label>
+                            <select id="NewProductMaterial">
+                                <option selected name="0" value='0'>Selecionar</option>
+                            </select>
+                            <small>
+                                Material
+                            </small>
+                        </label>
+                    </section>
+                    <section>
+                        <label>
+                            <span class="rs">R$</span>
+
+                            <input type="text" name="preco" id="NewProductPromo" required>
+                            <small>Preço Promocional</small>
+                        </label>
+                    </section>
+
+
+                    <section>
+                        <label>
+                            <input type="text" name="preco" id="NewProductWeight" required>
+                            <small>Peso(?)</small>
+                            <span class="kg">Kg</span>
+                        </label>
+                    </section>
+                    <section>
+                        <label class="save">
+                            <button id="saveProduct">
+                                <span>Salvar</span>
+                                <i class="fa-solid fa-floppy-disk"></i>
+                            </button>
+                        </label>
+                    </section>
+                    <section>
+                        <label>
+                            <textarea id="NewProductDescription"></textarea>
+                            <small>Descrição</small>
+                        </label>
+                    </section>
+                    <section class="productOptions">
+                        <span class="optionsHeader">Variações</span>
+
+                        <div id="OptionsList">
+
+                        </div>
+                        <div class="item add">
+                            <input type="text" value="" id="newOptName" placeholder="Variação">
+                            <input type="text" value="" id="newOptQuantity" placeholder="Qtd.">
+                            <i class="fa-solid fa-plus" id="addOpt"></i>
+                        </div>
+                    </section>
+
+                </div>
+
+                <div class="productImages">
+                    <div class="productMainImage addImage">
+                        <input type="file" name="imagem" id="NewProductFile1">
+                        <img src="../banner/noImage.png">
+                        <i class="fa-solid fa-trash toDeleteList"></i>
+                        <input type="hidden" id="NewProductImage1">
+                    </div>
+                    <div class="productSecImage">
+                        <div class="addImage">
+                            <input type="file" name="imagem" id="NewProductFile2">
+                            <img src="../banner/noImage.png">
+                            <i class="fa-solid fa-trash toDeleteList"></i>
+                            <input type="hidden" id="NewProductImage2">
+                        </div>
+                        <div class="addImage">
+                            <input type="file" name="imagem" id="NewProductFile3">
+                            <img src="../banner/noImage.png">
+                            <i class="fa-solid fa-trash toDeleteList"></i>
+                            <input type="hidden" id="NewProductImage3">
+                        </div>
+                        <div class="addImage">
+                            <input type="file" name="imagem" id="NewProductFile4">
+                            <img src="../banner/noImage.png">
+                            <i class="fa-solid fa-trash toDeleteList"></i>
+                            <input type="hidden" id="NewProductImage4">
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
     </div>
+
     <script src="products.js"></script>
+    <script src="product.js"></script>
 </body>
 
 </html>

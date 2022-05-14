@@ -1719,6 +1719,10 @@ footer .footerContent .scudero b {
   }
 }
 
+body {
+  min-height: 110vh;
+}
+
 .prodBanner {
   width: 1100px;
   background-color: #b66d76;
@@ -1888,7 +1892,7 @@ footer .footerContent .scudero b {
 
 .filterBox .filter div label div {
   height: 2px;
-  width: 80%;
+  width: 100%;
   border-radius: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2006,8 +2010,10 @@ footer .footerContent .scudero b {
   display: grid;
   -ms-grid-columns: (minmax(210px, 1fr))[auto-fill];
       grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  -ms-grid-rows: (minmax(210px, 310px))[auto-fill];
+      grid-template-rows: repeat(auto-fill, minmax(210px, 310px));
   position: relative;
-  place-items: center;
+  place-items: start center;
 }
 
 .products .showProducts .notFound {
@@ -2082,7 +2088,7 @@ footer .footerContent .scudero b {
   width: 90%;
   aspect-ratio: 1/1;
   overflow: hidden;
-  background-color: #0f0;
+  background-color: transparent;
   -webkit-filter: opacity(0);
           filter: opacity(0);
   -webkit-transition: 0.7s;
@@ -3789,7 +3795,7 @@ footer .footerContent .scudero b {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 20px;
+  padding: 10px 0;
 }
 
 .status .prodShow .prod {
@@ -3799,9 +3805,13 @@ footer .footerContent .scudero b {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  gap: 20px;
+  gap: 5px;
+  padding: 5px 0;
   height: 65px;
   width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-bottom: 2px solid #b66d76;
 }
 
@@ -3838,7 +3848,9 @@ footer .footerContent .scudero b {
       -ms-flex-align: start;
           align-items: flex-start;
   gap: 0px;
-  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .status .prodShow .prod .info span {

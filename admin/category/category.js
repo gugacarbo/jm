@@ -2,6 +2,12 @@ var categories = [];
 
 var myChart;
 $(document).ready(function () {
+
+    $("input").on("keydown", function (e) {
+        if (e.keyCode == 13) {
+        }
+        console.log("aa")
+    })
     getCat();
 
     var cdata = {
@@ -42,7 +48,7 @@ $(document).ready(function () {
         document.getElementById('myChart'),
         config
     );
-    console.log(myChart);
+
 
 })
 
@@ -67,20 +73,21 @@ function deleteCategory(n) {
 }
 
 function edit(c) {
-    var newCat = $("input[name='" + c + "']").val();
+    var newCat = UPFisrt($("input[name='" + c + "']").val());
     var oldCat = c;
-    $.get("editCat.php", { newCat, oldCat: c }, function (data) {
-        data = JSON.parse(data);
-        if (data["status"] == "success") {
-            getCat()
-            alert("Categoria Editada");
+    if (newCat != "") {
 
-        }
-    })
+        $.get("editCat.php", { newCat, oldCat: c }, function (data) {
+            data = JSON.parse(data);
+            if (data["status"] == "success") {
+                getCat()
+            }
+        })
+    }
 }
 
 function addCat() {
-    var newCat = $("#newCat").val();
+    var newCat = UPFisrt($("#newCat").val());
     if (newCat != "") {
         if (categories.includes(newCat)) {
             alert("Categoria Já Existe");
@@ -89,7 +96,6 @@ function addCat() {
                 data = JSON.parse(data);
                 if (data["status"] == "success") {
                     getCat()
-                    alert("Categoria Adicionada");
 
                 }
             })
@@ -108,19 +114,18 @@ function getCat() {
                                     <span>Opções</span>
                                 </div>
                                 <div class="item add">
-                                    <input type="text" value="" id="newCat">
+                                    <input type="text" value="" id="newCat" placeholder="Nova Categoria">
                                     <i class="fa-solid fa-plus" id="addCat" onclick="addCat()"></i>
                                 </div>`)
 
         $.each(category, function (index, value) {
-            var item = '<div class="item">'
-                + '<input type="text" value="' + value['name'] + '"  name="' + value['name'] + '" >'
-                + '<i class="fa-solid fa-pen"  onclick="edit(' + "'" + value['name'] + "'" + ')"></i>'
-                +
-                (value.numProds > 0 ? '<i class="fa-solid fa-trash cantDelete"></i>' :
-                    '<i class="fa-solid fa-trash" onclick="deleteCategory(' + "'" + value['name'] + "'" + ')"></i>'
-                )
-                + '</div>';
+            var item = `<div class="item">
+                <input type="text" onkeydown="editing(this)" value="${value.name}"  name="${value.name}" >
+                <i class="fa-solid fa-save" onclick="edit('${value.name}')"></i>
+                `+ (value.numProds > 0 ? '<i class="fa-solid fa-trash cantDelete"></i>' :
+                    '<i class="fa-solid fa-trash" onclick="deleteCategory(' + "'" + value['name'] + "'" + ')"></i>') +
+                `</div>`
+
             categories.push(value['name']);
             $("#CatList").append(item);
 
@@ -134,6 +139,11 @@ function getCat() {
     })
 }
 
+function editing(this_) {
+    $(this_).next("i").addClass("canSave");
+}
+
+
 function addData(chart, label, data) {
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
@@ -143,14 +153,20 @@ function addData(chart, label, data) {
 }
 
 function removeData(chart) {
-    console.log(chart);
-
     chart.data.labels = [];
-
-
     chart.data.datasets.forEach((dataset) => {
         dataset.data = [];
     });
     chart.update();
-    console.log(chart);
+}
+
+
+
+function UPFisrt(string) {
+    string = string.toLowerCase()
+    const arr = string.split(" ");
+    for (var i = 0; i < arr.length; i++) {
+        arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+    }
+    return str2 = arr.join(" ");
 }

@@ -8,6 +8,7 @@ var page = 0;
 $(document).ready(function () {
     page = 0;
     search();
+
     $("#btnSearch").click(function () {
         page = 0;
         search();
@@ -54,6 +55,8 @@ function search(order_ = orderG, filter_ = filterG,) {
     $("#productsList").fadeOut(400, function () {
         $.get("getProducts.php", c, function (data) {
             var produtos = JSON.parse(data);
+            
+            $("#totalProducts b").html(produtos.length);
             if (page == 0) {
                 $("#PageCounter").empty();
                 for (var i = 0; i < Math.ceil((produtos.length) / maxpPage); i++) {
@@ -66,7 +69,12 @@ function search(order_ = orderG, filter_ = filterG,) {
 
 
             $("#productsList").empty();
+
             var prodNum = produtos.length;
+            if (prodNum == 0) {
+                $("#purshcasesList").append(`<span style='width:100%; text-align:center; padding: 10px 0; '>Nenhum resultado encontrado</span>`);
+
+            }
             $.each(produtos.slice(page * maxpPage, (page + 1) * maxpPage), function (index, produto) {
                 createProd(produto)
             })
@@ -95,7 +103,7 @@ function createProd(produto) {
         
         <span>${produto.category}</span>
         <span>${produto.totalQuantity}</span>
-        <span><i class="fas fa-pencil-alt" onclick="gotoProduct(${produto.id})"></i></span>
+        <span><i class="fas fa-pencil-alt" onclick="modalProductShow(${produto.id})"></i></span>
         <span><i class="fas fa-trash-alt" onclick="deleteProduct(${produto.id})"></i></span>
 </div>`
     $("#productsList").append(prod);

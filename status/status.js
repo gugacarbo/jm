@@ -62,7 +62,14 @@ function getData(cpf, code) {
         //var prods = ((typeof(pagData.items.item) != "object") ? pagData.items.item:  [pagData.items.item]);
         var items = pagData.items.item;
         items = Object.prototype.toString.call(items) === '[object Array]' ? items : [items];
+        
+        var date = new Date(data.bornDate.replace(/-/g, '\/'));
+        var d = date.getDate();
+        var m = date.getMonth();
+        m += 1;  // JavaScript months are 0-11
+        var y = date.getFullYear();
 
+        $("#BuyerBornDate").html(d + "/" + m + "/" + y);
         $("#BuyDate").html("Data da Compra " + data.buyDate);
         $("#BuyerName").html("Nome: " + data.name);
         $("#BuyerCPF").html("CPF: " + data.cpf);
@@ -75,7 +82,6 @@ function getData(cpf, code) {
         $("#BuyerState").html(pagData.shipping.address.state);
         $("#BuyerCountry").html(pagData.shipping.address.country);
         $("#BuyerPostalCode").html(pagData.shipping.address.postalCode);
-        $("#BuyerBornDate").html(data.bornDate);
         $("#ShippingValue").html("Frete: R$" + parseFloat(pagData.shipping.cost).toFixed(2).replace(".", ","));
         (pagData.discountAmount > 0) ? $("#TotalDiscount").html("Desconto: R$" + parseFloat(pagData.discountAmount).toFixed(2).replace(".", ",")) : $("#TotalDiscount").css("display", "none");
         $("#TotalAmount").html("Total: R$" + (parseFloat(data.totalAmount).toFixed(2)).replace(".", ","));

@@ -29,7 +29,7 @@ if (isset($_POST["product"])) {
         if ($stmt->execute()) {
             $stmt->close();
             $mysqli->close();
-            die(json_encode(array("status" => "success", "message" => "Produto atualizado com sucesso")));
+            die(json_encode(array("status" => "success", "message" => "Produto atualizado com sucesso", "id"=>$_GET["id"])));
         } else {
             $stmt->close();
             $mysqli->close();
@@ -40,7 +40,8 @@ if (isset($_POST["product"])) {
         $stmt->bind_param("sssssssssss", $name, $price, $promo, $category, $totalQuantity, $material, $weight, $description, $jsonOpt, $jsonImages, $cost);
         $stmt->execute();
         if ($stmt->affected_rows > 0) {
-            die(json_encode(array("status" => "success", "message" => "Produto cadastrado com sucesso")));
+            $id = $stmt->insert_id;
+            die(json_encode(array("status" => "success", "message" => "Produto cadastrado com sucesso", "id"=>$id)));
         } else {
             die(json_encode(array("status" => "error", "message" => "Erro ao cadastrar produto")));
         }

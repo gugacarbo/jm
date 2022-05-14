@@ -21,7 +21,7 @@ $(document).ready(function(){
 	});
 
 
-	$("#SearchMinVal,#SearchMaxVal").on("paste keyup", function () {                                        
+	$("#SearchMinVal,#SearchMaxVal").on("paste keyup input", function () {                                        
 
 	  $('#price-range-submit').show();
 
@@ -49,9 +49,9 @@ $(document).ready(function(){
 		range: true,
 		orientation: "horizontal",
 		min: 0,
-		max: 3000,
-		values: [0, 3000],
-		step: 20,
+		max: 10000,
+		values: [0, 10000],
+		step: 10,
 
 		slide: function (event, ui) {
 		  if (ui.values[0] == ui.values[1]) {

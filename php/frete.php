@@ -21,7 +21,8 @@ function getfrete($sCepDestino, $nVlPeso)
     $sCepDestino =  str_replace($replace, "", $sCepDestino);
 
     $nVlPeso = floatval($nVlPeso);
-    
+    //only 3 decimal places
+    $nVlPeso = round($nVlPeso, 3);
     include "db_connect.php";
     $GconfigTake = ["cepOrigemFrete", "aditionalWeight", "alturaFrete", "larguraFrete", "comprimentoFrete", "freteGratis"];
     $config = array();
@@ -47,7 +48,7 @@ function getfrete($sCepDestino, $nVlPeso)
     if ($freteGratis["use"] == "true") {
 
         foreach ($freteGratis["cidades"] as $key => $value) {
-            if (strtolower(tirarAcentos($local->cidade)) == strtolower(tirarAcentos($value))) {
+            if (strtolower(tirarAcentos($local->localidade)) == strtolower(tirarAcentos($value))) {
                 $frete['freteGratis'] = true;
             }
         }
@@ -101,7 +102,8 @@ function getfrete($sCepDestino, $nVlPeso)
 
 function getCidade($cep)
 {
-    $url = "http://cep.republicavirtual.com.br/web_cep.php?cep=" . $cep . "&formato=xml";
+    $cep = str_replace(["-", ".", " "], "", $cep);
+    $url = "https://viacep.com.br/ws/$cep/xml/";
     $xml = simplexml_load_file($url);
     $cidade = $xml;
 

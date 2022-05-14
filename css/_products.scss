@@ -1,3 +1,6 @@
+body{
+    min-height: 110vh;
+}
 .prodBanner {
     width: $deskWidth;
     background-color: $mainColor;
@@ -104,7 +107,7 @@
                 div {
                     height: 2px;
 
-                    width: 80%;
+                    width: 100%;
                     border-radius: 20px;
                     display: flex;
                     align-items: center;
@@ -196,8 +199,9 @@
         padding: 10px 0;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+        grid-template-rows: repeat(auto-fill, minmax(210px, 310px));
         position: relative;
-        place-items: center;
+        place-items: start center;
         .notFound {
             position: absolute;
             width: 100%;
@@ -242,7 +246,7 @@
                     width: 90%;
                     aspect-ratio: 1/1;
                     overflow: hidden;
-                    background-color: #0f0;
+                    background-color: transparent;
                     filter: opacity(0);
                     transition: 0.7s;
                     img {
