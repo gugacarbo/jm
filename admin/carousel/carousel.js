@@ -241,15 +241,19 @@ function auto() {
         }
         createC += '</div></div>'
 
-        $(".previewBox").html(createC);
+        if (glider.length == 0) {
+            alert("No products in this category")
+            $("#Categories").val(0)
+            resetPreview()
 
-    }).then((value) => {
-        $("input[name='type']").attr("disabled", false);
-        $("#autoType").attr("disabled", false);
-        $("#addCarousel").attr("disabled", false);
+        } else {
 
+            $(".previewBox").html(createC);
 
-
+            $("input[name='type']").attr("disabled", false);
+            $("#autoType").attr("disabled", false);
+            $("#addCarousel").attr("disabled", false);
+        }
 
     })
 

@@ -22,7 +22,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
-    <script src="/jquery.mask.js"></script>
+
 </head>
 
 <body>
@@ -36,9 +36,9 @@
                 <span>Banner da Tela Inicial</span>
                 <div class="prev">
                     <div class="images" id="imgMain">
-                        <img src="" class="prev1Img">
-                        <img src="" class="prev2Img">
-                        <img src="" class="prev13mg" >
+                        <img src="noImage.png" class="prev1Img">
+                        <img src="noImage.png" class="prev2Img">
+                        <img src="noImage.png" class="prev13mg" >
                     </div>
                     <div class="simu">
                         <p></p>
@@ -58,9 +58,9 @@
                 <span>Banner da Tela Produtos</span>
                 <div class="prev">
                     <div class="images" id="imgProd">
-                        <img src="" class="prev1Img">
-                        <img src="" class="prev2Img">
-                        <img src="" class="prev3Img">
+                        <img src="noImage.png" class="prev1Img">
+                        <img src="noImage.png" class="prev2Img">
+                        <img src="noImage.png" class="prev3Img">
                     </div>
                     <div class="simu">
                         <b></b>
@@ -82,9 +82,9 @@
                 <span>Banner da Tela Sobre</span>
                 <div class="prev">
                     <div class="images" id="imgAbout">
-                        <img src="" class="prev1Img">
-                        <img src="" class="prev2Img">
-                        <img src="" class="prev3Img">
+                        <img src="noImage.png" class="prev1Img">
+                        <img src="noImage.png" class="prev2Img">
+                        <img src="noImage.png" class="prev3Img">
                     </div>
                     <div class="simu">
 

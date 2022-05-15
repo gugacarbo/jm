@@ -171,9 +171,16 @@
             border: 2px solid $mainColor;
             padding: 15px 25px;
             border-radius: 30px;
+            gap: 5px;
             span {
                 width: 100%;
                 font-size: 11pt;
+                font-weight: bold;
+                color: $mainColor;
+                b{
+                    font-weight: normal;
+                    color: #333;
+                }
             }
         }
         .TrackingDiv {

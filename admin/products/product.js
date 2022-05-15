@@ -26,6 +26,12 @@ $(document).ready(function () {
 
 
     $("#saveProduct").click(function () {
+        $("#saveProduct").addClass("alertButton")
+
+        setTimeout(() => {
+            $("#saveProduct").removeClass("alertButton")
+
+        }, 1500);
         var id = $(this).attr("name");
         id = id || 0;
         var prodImages = {
@@ -144,9 +150,9 @@ $(document).ready(function () {
                 $("#NewProductPrice").removeClass("invalidInput")
                 $("#NewProductPromo").removeClass("invalidInput")
             }, 1000);
-            
-        }else if(((parseFloat(newProduct.cost)) > parseFloat(newProduct.price))){
-            if(parseFloat(newProduct.promo) > 0){
+
+        } else if (((parseFloat(newProduct.cost)) > parseFloat(newProduct.price))) {
+            if (parseFloat(newProduct.promo) > 0) {
                 $("#NewProductPrice").addClass("invalidInput")
                 $("#NewProductCost").addClass("invalidInput")
                 $("#NewProductPromo").addClass("invalidInput")
@@ -155,7 +161,7 @@ $(document).ready(function () {
                     $("#NewProductPrice").removeClass("invalidInput")
                     $("#NewProductPromo").removeClass("invalidInput")
                 }, 1000);
-            }else{
+            } else {
                 $("#NewProductPrice").addClass("invalidInput")
                 $("#NewProductCost").addClass("invalidInput")
                 setTimeout(() => {
@@ -166,6 +172,12 @@ $(document).ready(function () {
 
 
         } else {
+            $("#saveProduct").removeClass("alertButton")
+            $("#saveProduct").addClass("doneButton")
+            
+            setTimeout(() => {
+                $("#saveProduct").removeClass("doneButton")
+            }, 1500);
 
             $.ajax({
                 url: "saveProduct.php?id=" + id,
@@ -175,8 +187,6 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     data = JSON.parse(data);
-                    console.log(data);
-                    clearProduct();
                     modalProductShow(data.id);
                     search();
                 }
@@ -310,7 +320,7 @@ function modalProductShow(id = 0) {
             $("#NewProductWeight").val(data['weight']);
             $("#NewProductDescription").html(data['description']);
             $("#NewProductMaterial option[name='" + data['material'] + "']").attr("selected", true);
-            $("#NewProductCategory option[name='" + data['category'] + "']").attr("selected", "selected");
+            $("#NewProductCategory option[value='" + data['categoryId'] + "']").attr("selected", "selected");
             var options = JSON.parse(data['options']);
             console.log(data)
 

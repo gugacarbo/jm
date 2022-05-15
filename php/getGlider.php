@@ -45,7 +45,6 @@ if ($result_->num_rows > 0) {
             $selectType = (json_decode($selectType, true));
             $selectType =  $selectType["type"];
 
-
             switch ($selectType) {
                 case "price":
                     $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? AND totalQuantity > 0 ORDER BY price ASC LIMIT 7");
@@ -65,8 +64,8 @@ if ($result_->num_rows > 0) {
                         $carousel["prod_ids"] = json_encode($ids);
                         $carousel["SelectType"] = "auto";
                         $carousel["select"] = $selectType;
+                        $data[] = $carousel;
                     }
-                    $data[] = $carousel;
                     break;
                 case "promo":
                     $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? AND promo > 0 AND totalQuantity > 0 ORDER BY price ASC LIMIT 7");
@@ -88,11 +87,13 @@ if ($result_->num_rows > 0) {
                         $carousel["prod_ids"] = json_encode($ids);
                         $carousel["SelectType"] = "auto";
                         $carousel["select"] =$selectType;
+                        $data[] = $carousel;
                     }
-                    $data[] = $carousel;
                     break;
             }
         }
     }
+        die(json_encode($data));
+}else{
+    die(json_encode(array("status"=>"error", "error" => "No carousel found")));
 }
-die(json_encode($data));

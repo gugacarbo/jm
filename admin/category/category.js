@@ -66,6 +66,7 @@ function deleteCategory(n) {
         data = JSON.parse(data);
         if (data["status"] == "success") {
             alert("Categoria Deletada");
+            categories.splice(categories.indexOf(n), 1);
             getCat()
         }
     })

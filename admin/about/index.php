@@ -17,18 +17,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
-
-    <script src="/jquery.mask.js"></script>
 </head>
 
 <body>
-    <textarea></textarea>
-    <div class="productMainImage addImage">
-        <input type="file" name="imagem" id="NewProductFile1">
-        <img src="/about/aboutImage.jpg">
+    <div class="aboutAdminContainer">
+        <span class="aboutTitle">Página Sobre</span>
+        <p class="description">Nesta aba voce pode alterar o texto de apresentação do seu negócio, bem como inserir o código com a localização fisica do google maps e editar o banner presente na pagina.
+            (Caso não queira usar o banner ou o mapa, basta deixar os campos em branco)
+        </p>
+        <div class="content">
+            <textarea></textarea>
+            <div class="addImage">
+                <i class="fas fa-trash-can" id="DeleteAboutImage"></i> 
+                <input type="file" name="imagem" id="AboutImageFile">
+                <img src="/about/aboutImage.jpg">
+            </div>
+            <label>
+                <span>Link do Google Maps</span>
+                <p>Adicione o link do google maps aqui</p>
+                <input type="text" name="map" id="EditMap" placeholder="Insira o link do mapa">
+                <button id="save">Salvar</button>
+            </label>
+        </div>
     </div>
-    <input type="text" name="map" id="EditMap" placeholder="Insira o link do mapa">
-    <button id="save">Salvar</button>
+
+
     <script src="jquery-te-1.4.0.js"></script>
     <script src="about.js"></script>
 </body>

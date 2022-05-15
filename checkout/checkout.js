@@ -45,61 +45,35 @@ $(document).ready(_ => {
         TotalData.cart = JSON.parse(localStorage.getItem("JM_CART"));
 
         $.ajax({
-            url: "/php/updateProdQuantity.php",
+            url: "/php/checkout.php",
             type: "GET",
             data: {
+                buyer: TotalData.buyer,
+                ship: TotalData.ship,
                 cart: TotalData.cart
             },
             success: function (data) {
                 data = JSON.parse(data);
-
                 if (data["status"] == "success") {
-                    $.ajax({
-                        url: "/php/checkout.php",
-                        type: "GET",
-                        data: {
-                            buyer: TotalData.buyer,
-                            ship: TotalData.ship,
-                            cart: TotalData.cart
-                        },
-                        success: function (data) {
-                            data = JSON.parse(data);
-                            if (data["status"] == "success") {
-                                $("body").toggleClass("blockBody");
-                                $("#redirectM div .fa-circle-xmark").css("display", "none");
-                                $("#redirectM").css("opacity", "1");
-                                $("#redirectM").css("display", "flex");
-                                $("#redirectM div").fadeIn(1000);
+                    $("body").toggleClass("blockBody");
+                    $("#redirectM div .fa-circle-xmark").css("display", "none");
+                    $("#redirectM").css("opacity", "1");
+                    $("#redirectM").css("display", "flex");
+                    $("#redirectM div").fadeIn(1000);
 
-                                setTimeout(() => {
-                                    deleteList(); // !
-                                    window.location.href = data["url"];
-                                }, 1500);
-                            } else {
-
-                                $("body").toggleClass("blockBody");
-                                $("#redirectM div .fa-circle-xmark").css("background-color", "#f00");
-                                $("#redirectM div .fa-circle-check").css("display", "none");
-                                $("#redirectM div h1").html("Ocorreu um erro!");
-                                $("#redirectM div p").html("Tente novamente mais tarde!");
-                                $("#redirectM").css("opacity", "1");
-                                $("#redirectM").css("display", "flex");
-                                $("#redirectM div").fadeIn(1000);
-                                setTimeout(() => {
-                                    window.location.href = "/";
-                                }, 1500);
-                            }
-                        }
-                    });
-
+                    setTimeout(() => {
+                        deleteList(); // !
+                        window.location.href = data["url"];
+                    }, 1500);
                 } else {
+
                     $("body").toggleClass("blockBody");
                     $("#redirectM div .fa-circle-xmark").css("background-color", "#f00");
                     $("#redirectM div .fa-circle-check").css("display", "none");
-                    $("#redirectM div h1").html("Ocorreu um erro2!");
+                    $("#redirectM div h1").html("Ocorreu um erro!");
                     $("#redirectM div p").html("Tente novamente mais tarde!");
-                    $("#redirectM").css("display", "flex");
                     $("#redirectM").css("opacity", "1");
+                    $("#redirectM").css("display", "flex");
                     $("#redirectM div").fadeIn(1000);
                     setTimeout(() => {
                         window.location.href = "/";
@@ -107,6 +81,8 @@ $(document).ready(_ => {
                 }
             }
         });
+
+
 
     })
 })

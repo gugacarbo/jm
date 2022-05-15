@@ -97,7 +97,7 @@ function createProd(produto) {
     var prod = `
     <div class="product" id="Prod${produto.id}">
         <span>${produto.id}</span>
-        <span  onclick="gotoProduct(${produto.id})">${produto.name}</span>
+        <span  onclick="modalProductShow(${produto.id})">${produto.name}</span>
         <span>${"R$ " + produto.price.toFixed(2).replace(".", ",")}</span>
         <span ${(produto.promo > 0 ? " style='color:#31AF33;' " : " style='color:#AF314E;' ")}  >${(produto.promo > 0 ? ("(" + ((1 - (produto.price / produto.promo)) * 100).toFixed(2) + "%)") : "Nao")}</span>
         
@@ -109,9 +109,7 @@ function createProd(produto) {
     $("#productsList").append(prod);
 }
 
-function gotoProduct(id = 0) {
-    window.location.href = "../product" + (id == 0 ? "" : "?id=" + id);
-}
+
 
 var timerDel;
 function deleteProduct(id) {

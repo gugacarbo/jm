@@ -20,9 +20,10 @@ function getModel($notification)
             $statusS = "Compra Realizada com Sucesso";
             $subject = "Compra Realizada com Sucesso";
             break;
-        case "4":
-            $statusS = "Disponível"; // ! compra finalizada
-            return ((array("status" => "not", "message" => "Email Not Sended!")));
+            case "4":
+                $statusS = "Disponível"; // ! compra finalizada
+                $subject = "Obrigado por comprar na nossa loja!";
+            //return ((array("status" => "403", "message" => "Email Not Sended!")));
             break;
         case "5":
             $statusS = "Uma disputa foi aberta para o pedido";
@@ -31,7 +32,7 @@ function getModel($notification)
         case "6":
             $statusS = "Devolvida";
             $subject = "Compra Devolvida";
-            return((array("status" => "not", "message" => "Email Not Sended!")));
+            return((array("status" => "403", "message" => "Email Not Sended!")));
             break;
         case "7":
             $statusS = "Seu pagamento não foi aprovado";
@@ -39,11 +40,11 @@ function getModel($notification)
             break;
         case "8":
             $statusS = "Debitado";
-            return ((array("status" => "not", "message" => "Email Not Sended!")));
+            return ((array("status" => "403", "message" => "Email Not Sended!")));
             break;
         case "9":
             $statusS = "Retenção temporária";
-            return ((array("status" => "not", "message" => "Email Not Sended!")));
+            return ((array("status" => "403", "message" => "Email Not Sended!")));
             break;
         default:
             $statusS = "";
@@ -99,6 +100,7 @@ function getModel($notification)
         <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000;text-align:center;" >Email: ' . $notification["sender"]["email"] . '</h4>
         <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000; text-align:center;" ">Tel.:(' . $notification["sender"]["phone"]["areaCode"] . ')' . $notification["sender"]["phone"]["number"] . '</h4>
         <h2 style="margin:25px 0;font-family: Arial, Helvetica, sans-serif; font-size: 12pt; color: #333; text-align:center;">Endereço de envio</h2>
+        <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000; text-align:center;" >' . $notification["shipping"]["address"]["postalCode"] .'</h4>
         <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000; text-align:center;" >' . $notification["shipping"]["address"]["street"] . ', ' . $notification["shipping"]["address"]["number"] . '</h4>
         <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000; text-align:center;" >' . $notification["shipping"]["address"]["complement"] . '</h4>
         <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000; text-align:center;" >' . $notification["shipping"]["address"]["city"] . ' - ' . $notification["shipping"]["address"]["state"] . '</h4>

@@ -27,7 +27,7 @@ $(document).ready(() => {
         } else {
           $("#NewsletterErrorDisplay").css("display", "flex");
           $("#NewsletterErrorDisplay").css("color", "#F00");
-          $("#NewsletterErrorDisplay").html(data.error);  
+          $("#NewsletterErrorDisplay").html(data.error);
           setTimeout(() => {
             $("#NewsletterErrorDisplay").css("display", "none");
           }, 1300);
@@ -72,7 +72,6 @@ async function getGliders() {
 
   $.get("/php/getGlider.php").then(d => {
     var data = JSON.parse(d);
-
     $.each(data, function (i, prods) {
       var category = "<div class='categoryCarousel'>" +
         "<div class='carouselTitle'>" + prods["name"] + "</div>" +
@@ -81,7 +80,8 @@ async function getGliders() {
         "<span>Exibir Mais Produtos</span>" +
         "</a>" +
         "</div>"
-      if (Object.keys(JSON.parse(prods["prod_ids"])).length >= 4) {
+      console.log(data);
+      if (Object.keys((prods["prod_ids"])).length >= 4) {
         category += "<div class='carouselBtn prev" + prods["name"].replace(" ", "") + "'><i class=' fas fa-chevron-left'></i></div>" +
           "<div class='carouselBtn next" + prods["name"].replace(" ", "") + "'><i class='fas fa-chevron-right'></i></div>"
       }
@@ -98,7 +98,7 @@ async function getGliders() {
         prod.options = (JSON.parse(prod["options"]));
         //console.log(prod)
         var ProdCarousel =
-          "<div class='carouselItem "+(prod.totalQuantity == 0 ? "unavailable' style='order:5;'": "'")+">"
+          "<div class='carouselItem " + (prod.totalQuantity == 0 ? "unavailable' style='order:5;'" : "'") + ">"
           + "<a class='carouselImg' href='/product/?id=" + prod['id'] + "'>"
           + "<img src='" + prod['imgs'][1] + "'>"
           + "<span class='carouselPromo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"

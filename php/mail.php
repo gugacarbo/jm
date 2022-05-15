@@ -74,6 +74,6 @@ function sendMail($notification)
             return ((array("status" => "success", "message" => "Email enviado com sucesso!")));
         }
     } else {
-        return ((array("status" => "error", "message" => $mail->ErrorInfo)));
+        return ((array("status" => "error", "message" => $model['status'])));
     }
 }

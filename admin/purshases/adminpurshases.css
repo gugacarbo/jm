@@ -1,0 +1,679 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.purshasesContainer {
+  background-color: #fff;
+  margin-top: 40px;
+  width: 1100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 10px 0;
+  position: relative;
+}
+
+.purshasesContainer .purshasesTitle {
+  color: #b66d76;
+  font-size: 15pt;
+  margin-bottom: 10px;
+}
+
+.purshasesContainer .description {
+  width: 80%;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.purshasesContainer .filterPurshases {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  border-top: 1px solid #b66d76;
+  margin-top: 20px;
+  padding: 10px 0;
+  gap: 30px;
+}
+
+.purshasesContainer .filterPurshases .filterTitle {
+  color: #b66d76;
+  font-size: 12pt;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  padding: 2px 0;
+}
+
+.purshasesContainer .filterPurshases #totalProducts {
+  color: #b66d76;
+  font-size: 12pt;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  padding: 2px 0;
+}
+
+.purshasesContainer .filterPurshases button {
+  width: 260px;
+  height: 28px;
+  border-radius: 30px;
+  border: none;
+  background-color: #b66d76;
+  color: #fff;
+  font-weight: bold;
+  font-size: 10pt;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.purshasesContainer .filterPurshases label {
+  margin-left: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 250px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.purshasesContainer .filterPurshases label input {
+  padding: 6px 10px;
+  background-color: transparent;
+  width: 85%;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: rgba(235, 227, 227, 0.507);
+  border-bottom: 1px solid #fff;
+  color: #333;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  font-weight: bold;
+  font-size: 11pt;
+}
+
+.purshasesContainer .filterPurshases label input:focus {
+  border-bottom: 1px solid #b66d76;
+  border-right: none;
+}
+
+.purshasesContainer .filterPurshases label input:focus + i {
+  border-bottom: 1px solid #b66d76;
+  border-left: none;
+}
+
+.purshasesContainer .filterPurshases label i {
+  border-radius: 20px;
+  background-color: rgba(235, 227, 227, 0.507);
+  height: 100%;
+  width: 15%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #b66d76;
+  border-bottom: 1px solid #fff;
+  border-left: none;
+  font-size: 13pt;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.purshasesContainer .filterPurshases label i:hover {
+  color: #b66d7685;
+}
+
+.purshasesContainer .filterPurshases label i:active {
+  color: #72444a85;
+}
+
+.purshasesContainer .purshasesHeader {
+  margin-top: 0px;
+  background-color: #b66d76;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: #fff;
+  padding: 3px 0;
+  font-weight: bolder;
+}
+
+.purshasesContainer .purshasesHeader label {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+  font-size: 11pt;
+  text-align: center;
+  cursor: pointer;
+  text-shadow: 0px 0px 1px #ffc7e3;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.purshasesContainer .purshasesHeader label:hover {
+  color: #c7c7c7;
+}
+
+.purshasesContainer .purshasesHeader label:first-child {
+  width: 25%;
+}
+
+.purshasesContainer .purshasesHeader label:nth-child(2) {
+  width: 60%;
+}
+
+.purshasesContainer .purshasesHeader label:nth-child(4) {
+  width: 60%;
+}
+
+.purshasesContainer .purshasesHeader label:last-child {
+  width: 35%;
+}
+
+.purshasesContainer .purshasesHeader .selected i {
+  color: #ffa1a1;
+  text-shadow: 0px 5px 1px #ffc7e3;
+}
+
+.purshasesContainer .purshasesHeader .selected .up {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  -webkit-transform: 2.5px;
+          transform: 2.5px;
+}
+
+.purshasesContainer .purshases {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  border-bottom: 1px solid #b66d76;
+}
+
+.purshasesContainer .purshases .purshase {
+  width: 100%;
+  padding: 5px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.purshasesContainer .purshases .purshase span {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 11pt;
+  color: #000;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.purshasesContainer .purshases .purshase span:first-child {
+  width: 25%;
+}
+
+.purshasesContainer .purshases .purshase span:nth-child(2) {
+  width: 60%;
+}
+
+.purshasesContainer .purshases .purshase span:nth-child(4) {
+  width: 60%;
+}
+
+.purshasesContainer .purshases .purshase span:last-child {
+  width: 35%;
+}
+
+.purshasesContainer .purshases .purshase span i {
+  font-size: 13pt;
+  color: #b66d76;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.purshasesContainer .purshases .purshase span i:hover {
+  color: #ccc;
+}
+
+.purshasesContainer .purshases .purshase:nth-child(even) {
+  background-color: #efefef;
+}
+
+.purshasesContainer .purshases .purshase .deleteConfirm {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+
+.purshasesContainer .purshases .purshase .deleteConfirm button {
+  border: none;
+  color: #fff;
+  border-radius: 20px;
+  width: 100%;
+  padding: 2px 10px;
+  cursor: pointer;
+  background-color: #b66d76;
+}
+
+.purshasesContainer .purshases .purshase .deleteConfirm button:hover {
+  background-color: #f00;
+}
+
+.purshasesContainer .pageCounter {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.purshasesContainer .pageCounter span {
+  color: #aaa;
+  font-size: 13pt;
+  cursor: pointer;
+}
+
+.purshasesContainer .pageCounter span:hover {
+  color: #ccc;
+}
+
+.purshasesContainer .pageCounter .pageSelected {
+  font-weight: bold;
+  color: #b66d76;
+}
+
+.purshasesContainer .pageCounter .pageSelected:hover {
+  color: #b66d7691;
+  font-size: 13pt;
+}
+
+.purshasesContainer .modalPurshase {
+  position: absolute;
+  width: 100%;
+  padding: 30px 20px;
+  background-color: #fff;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 1px solid #b66d76;
+  border-radius: 20px;
+  top: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  row-gap: 20px;
+  display: none;
+  -webkit-box-shadow: 0px 0px 5px #00000057, 0px 0px 15px #b66d7643, 0px 0px 20px #00000011;
+          box-shadow: 0px 0px 5px #00000057, 0px 0px 15px #b66d7643, 0px 0px 20px #00000011;
+}
+
+.purshasesContainer .modalPurshase #closeModalPurshase {
+  position: absolute;
+  top: -25px;
+  right: calc(50% - 25px);
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #b66d76;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  color: #b66d76;
+  font-size: 20pt;
+  -webkit-box-shadow: 0px 0px 5px #00000037, 0px 0px 8px #b66d7623, 0px 0px 10px #00000011;
+          box-shadow: 0px 0px 5px #00000037, 0px 0px 8px #b66d7623, 0px 0px 10px #00000011;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.purshasesContainer .modalPurshase #closeModalPurshase:hover {
+  color: #dbb;
+  border: none;
+}
+
+.purshasesContainer .modalPurshase section {
+  width: 49%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  border: 1px solid #b66d76;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.purshasesContainer .modalPurshase section h4 {
+  color: #b66d76;
+  font-size: 13pt;
+}
+
+.purshasesContainer .modalPurshase section label {
+  width: 100%;
+  background-color: #b66d76;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fff;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 25px;
+  padding: 10px 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.purshasesContainer .modalPurshase section label span {
+  font-size: 11pt;
+  color: #fff;
+}
+
+.purshasesContainer .modalPurshase section label select {
+  width: 180px;
+  padding: 4px 0;
+  border: 1px solid #b66d76;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg id='eha7kRn9GDj1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 99%;
+  background-position-y: -4px;
+  background-color: #fff;
+  outline: none;
+  border-radius: 30px;
+}
+
+.purshasesContainer .modalPurshase section label select:focus {
+  background-image: url("data:image/svg+xml;utf8,<svg id='euV7IenENMk1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' transform='matrix(-1 0 0-1 24 25)' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
+}
+
+.purshasesContainer .modalPurshase section label select:disabled {
+  border-color: #ccc;
+}
+
+.purshasesContainer .modalPurshase section label input[type="text"] {
+  width: 180px;
+  padding: 3px 0;
+  border: 1px solid #b66d76;
+  border-radius: 30px;
+  text-align: center;
+  font-size: 11pt;
+}
+
+.purshasesContainer .modalPurshase section label input[type="text"]::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+.purshasesContainer .modalPurshase section label input[type="text"]:-ms-input-placeholder {
+  color: #ccc;
+}
+
+.purshasesContainer .modalPurshase section label input[type="text"]::-ms-input-placeholder {
+  color: #ccc;
+}
+
+.purshasesContainer .modalPurshase section label input[type="text"]::placeholder {
+  color: #ccc;
+}
+
+.purshasesContainer .modalPurshase section label button {
+  width: 120px;
+  color: #b66d76;
+  background-color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 4px 0;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid #b66d76;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.purshasesContainer .modalPurshase section label button:hover {
+  color: #fff;
+  background-color: #b66d76;
+  border: 1px solid #fff;
+}
+
+.purshasesContainer .modalPurshase section label button:active {
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+  background-color: #a5626a;
+}
+
+.purshasesContainer .modalPurshase .info {
+  padding: 20px 0;
+}
+
+.purshasesContainer .modalPurshase .info:last-child {
+  margin-bottom: auto;
+}
+
+.purshasesContainer .modalPurshase .info span {
+  font-weight: bold;
+  color: #b66d76;
+}
+
+.purshasesContainer .modalPurshase .info span b {
+  color: #333;
+  font-weight: normal;
+}
+
+.purshasesContainer .modalPurshase .info span a {
+  color: #a5626a;
+}
+
+.purshasesContainer .modalPurshase .prods {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.purshasesContainer .modalPurshase .prods .prodsHeader {
+  width: 100%;
+}
+
+.purshasesContainer .modalPurshase .prods .prodsHeader span {
+  width: 100px;
+  text-align: center;
+}
+
+.purshasesContainer .modalPurshase .prods .prodsHeader span:first-child {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.purshasesContainer .modalPurshase .prods .productList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.purshasesContainer .modalPurshase .prods .productList .product {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  border-bottom: 1px solid #b66d76;
+}
+
+.purshasesContainer .modalPurshase .prods .productList .product:last-child {
+  border-bottom: none;
+}
+
+.purshasesContainer .modalPurshase .prods .productList .product .image {
+  width: 75px;
+  height: 75px;
+  overflow: hidden;
+  border: 1px solid #b66d76;
+  border-radius: 10px;
+  padding: 0;
+  background-color: #b66d76;
+}
+
+.purshasesContainer .modalPurshase .prods .productList .product .image img {
+  width: 100%;
+  height: 100%;
+}
+
+.purshasesContainer .modalPurshase .prods .productList .product label {
+  width: 100px;
+  background-color: #fff;
+}
+
+.purshasesContainer .modalPurshase .prods .productList .product label span {
+  color: #333;
+}
+
+.purshasesContainer .modalPurshase .prods .productList .product .name {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.purshasesContainer .modalOpen {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+/*# sourceMappingURL=adminPurshases.css.map */

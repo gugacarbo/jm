@@ -62,36 +62,64 @@ function getData(cpf, code) {
         //var prods = ((typeof(pagData.items.item) != "object") ? pagData.items.item:  [pagData.items.item]);
         var items = pagData.items.item;
         items = Object.prototype.toString.call(items) === '[object Array]' ? items : [items];
-        
+
         var date = new Date(data.bornDate.replace(/-/g, '\/'));
         var d = date.getDate();
         var m = date.getMonth();
         m += 1;  // JavaScript months are 0-11
         var y = date.getFullYear();
 
-        $("#BuyerBornDate").html(d + "/" + m + "/" + y);
-        $("#BuyDate").html("Data da Compra " + data.buyDate);
-        $("#BuyerName").html("Nome: " + data.name);
-        $("#BuyerCPF").html("CPF: " + data.cpf);
-        $("#BuyerEmail").html("email: " + pagData.sender.email);
-        $("#BuyerPhone").html("(" + pagData.sender.phone.areaCode + ")" + pagData.sender.phone.number);
-        $("#BuyerStreet").html(pagData.shipping.address.street + " " + pagData.shipping.address.number);
-        $("#BuyerComplement").html(pagData.shipping.address.complement);
-        $("#BuyerDistrict").html(pagData.shipping.address.district);
-        $("#BuyerCity").html(pagData.shipping.address.city);
-        $("#BuyerState").html(pagData.shipping.address.state);
-        $("#BuyerCountry").html(pagData.shipping.address.country);
-        $("#BuyerPostalCode").html(pagData.shipping.address.postalCode);
-        $("#ShippingValue").html("Frete: R$" + parseFloat(pagData.shipping.cost).toFixed(2).replace(".", ","));
+        var today = new Date();
+        var dd = new Date(data.buyDate.replace(/-/g, '\/'));
+        var timeDiff = Math.abs(dd.getTime() - today.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        if(diffDays > 8){
+            $("#requestCancel").css("display", "none");
+
+        }
+
+        var date2 = new Date(data.buyDate.replace(/-/g, '\/'));
+        var d2 = date2.getDate();
+        var m2= date2.getMonth();
+        m2 += 1;  // JavaScript months are 0-11
+        var y2 = date2.getFullYear();
+
+        $("#BuyDate").html("Data da Compra " + d2 + "/" + m2 + "/" + y2);
+        
+        $("#BuyerBornDate b").html(d + "/" + m + "/" + y);
+        $("#BuyerName b").html("Nome: " + data.name);
+        $("#BuyerCPF b").html("CPF: " + data.cpf);
+        $("#BuyerEmail b").html("email: " + pagData.sender.email);
+        $("#BuyerPhone b").html("(" + pagData.sender.phone.areaCode + ")" + pagData.sender.phone.number);
+        $("#BuyerStreet b").html(pagData.shipping.address.street + " " + pagData.shipping.address.number);
+        $("#BuyerComplement b").html(pagData.shipping.address.complement);
+        $("#BuyerDistrict b").html(pagData.shipping.address.district);
+        $("#BuyerCity b").html(pagData.shipping.address.city);
+        $("#BuyerState b").html(pagData.shipping.address.state);
+        $("#BuyerCountry b").html(pagData.shipping.address.country);
+        $("#BuyerPostalCode b").html(pagData.shipping.address.postalCode);
+        $("#ShippingValue b").html("Frete: R$" + parseFloat(pagData.shipping.cost).toFixed(2).replace(".", ","));
         (pagData.discountAmount > 0) ? $("#TotalDiscount").html("Desconto: R$" + parseFloat(pagData.discountAmount).toFixed(2).replace(".", ",")) : $("#TotalDiscount").css("display", "none");
-        $("#TotalAmount").html("Total: R$" + (parseFloat(data.totalAmount).toFixed(2)).replace(".", ","));
+        $("#TotalAmount b").html("Total: R$" + (parseFloat(data.totalAmount).toFixed(2)).replace(".", ","));
         $.each(items, function (i, item) {
             var x = $.get("/php/getProdById.php", { "id": item.id }, async function (data) {
-                imgs = (JSON.parse(data)["imgs"]);
-                imgs = JSON.parse(imgs);
-                var pAppend = '<div class="prod">' +
+                if (JSON.parse(data).id != null) {
+                    imgs = JSON.parse(JSON.parse(data)["imgs"]);
+                    var pAppend = '<div class="prod">' +
+                        '<div class="image">' +
+                        '<img src="' + imgs[1] + '">' +
+                        '</div>' +
+                        '<div class="info">' +
+                        '<span class="prodName">' + item.description + '</span>' +
+                        '<span class="prodQuantity">Qtd ' + item.quantity + '</span>' +
+                        '<span class="prodTotalPrice">R$ ' + (parseFloat(item.amount).toFixed(2)).replace(".", ",") + '</span>' +
+                        '</div>' +
+                        '</div>';
+                    $("#StatusProdShow").append(pAppend);
+                }else{
+                    var pAppend = '<div class="prod">' +
                     '<div class="image">' +
-                    '<img src="' + imgs[1] + '">' +
+                    '<img src="noImage.png">' +
                     '</div>' +
                     '<div class="info">' +
                     '<span class="prodName">' + item.description + '</span>' +
@@ -99,8 +127,8 @@ function getData(cpf, code) {
                     '<span class="prodTotalPrice">R$ ' + (parseFloat(item.amount).toFixed(2)).replace(".", ",") + '</span>' +
                     '</div>' +
                     '</div>';
-
                 $("#StatusProdShow").append(pAppend);
+                }
             })
         });
 
@@ -226,6 +254,10 @@ function getData(cpf, code) {
 
             $("#TrackingDiv h3 span").html(trackingCode);
             //ajax to /php/tracking.php
+            if (trackingCode == "_ENTREGUE____") {
+                $("#Arrived").addClass("done")
+                $("#Sended").addClass("done")
+            }
             $.ajax({
                 url: "/php/tracking.php",
                 data: {
@@ -233,16 +265,27 @@ function getData(cpf, code) {
                 },
                 success: function (data) {
                     var data = JSON.parse(data);
-                    //data.eventos for each
-                    $.each(data.eventos, function (i, evento) {
-                        var step = "<section>" +
-                            "<span>" + evento.status + "</span>" +
-                            "<label>" + evento.local + "</label>" +
-                            "<small>" + evento.data + " " + evento.hora + "</small>" +
-                            (i == 0 ? "<i class='fa-solid fa-chevron-down' id='moreTracking' onclick='moreTracking()'></i>" : "") +
-                            "</section>";
-                        $("#TrackingDiv").append(step);
-                    })
+                    if (data != null) {
+                        console.log(data);
+                        //data.eventos for each
+                        $.each(data.eventos, function (i, evento) {
+                            if (evento.status == "Objeto entregue ao destinatário") {
+                                $("#Arrived").addClass("done")
+                                $("#Sended").addClass("done")
+                                console.log(evento.status)
+
+                            } else {
+                            }
+                            var step = "<section>" +
+                                "<span>" + evento.status + "</span>" +
+                                "<label>" + evento.local + "</label>" +
+                                "<small>" + evento.data + " " + evento.hora + "</small>" +
+                                (i == 0 ? "<i class='fa-solid fa-chevron-down' id='moreTracking' onclick='moreTracking()'></i>" : "") +
+                                "</section>";
+                            $("#TrackingDiv").append(step);
+                        })
+                    }
+
                 }
             })
         }

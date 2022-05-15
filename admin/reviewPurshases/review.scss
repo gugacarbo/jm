@@ -1,0 +1,93 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "roboto", sans-serif;
+}
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.reviewPurchasesContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0;
+    gap: 15px;
+    width: 1100px;
+    .reviewTitle{
+        align-self: flex-start;
+        font-size: 20px;
+        font-weight: bold;
+        color: #b66d76;
+    }
+
+
+    p{
+        margin-left: 20px;
+    }
+    button {
+        border: none;
+        padding: 5px 0;
+        width: 220px;
+        background-color: #b66d76;
+        color: #fff;
+        font-weight: bold;
+        font-size: 11pt;
+        margin-top: 20px;
+        align-self: flex-start;
+        border-radius: 40px;
+        border: 1px solid #fff;
+        transition: 0.25s;
+        cursor: pointer;
+
+        &:hover{
+            background-color: #fff;
+            color: #b66d76;
+            border: 1px solid #b66d76;
+        }
+    }
+    #totalOrders{
+        align-self: flex-start;
+        b{
+            color: #b66d76;
+        }
+    }
+
+    .contentHeader{
+        background-color: #b66d76;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 4px 20px;
+
+        span{
+            color: #fff;
+            text-align: center;
+            width: 100%;
+
+        }
+    }
+
+    .reviewContent {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        .item{
+            padding: 4px 20px;
+            border-bottom: 1px solid #b66d76;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            span{
+                width: 100%;
+                text-align: center;
+
+            }
+        }
+    }
+}

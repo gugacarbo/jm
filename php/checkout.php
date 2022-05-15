@@ -9,7 +9,7 @@ function errHandle($errNo, $errStr, $errFile, $errLine)
     }
 }
 
-set_error_handler('errHandle');
+//set_error_handler('errHandle');
 
 
 
@@ -18,13 +18,16 @@ if (isset($_GET['buyer']) && isset($_GET['ship']) && isset($_GET['cart'])) {
     include "db_connect.php";
     include "frete.php";
 
-    $totalWeight = 0;
     $sender = ($_GET["buyer"]);
 
     $shipping = ($_GET["ship"]);
     $cart = ($_GET["cart"]);
+    if(count($cart) > 50){
+        die(json_encode(array('status' => '403')));
+    }
 
     $JsonSender = json_encode($sender,  JSON_UNESCAPED_UNICODE);
+
 
     /** CONST */
     $data['currency'] = "BRL";
@@ -36,7 +39,8 @@ if (isset($_GET['buyer']) && isset($_GET['ship']) && isset($_GET['cart'])) {
     //$data['redirectURL'] = "";
 
 
-    //? ***************************************/
+    //? ************ Referencia ************
+
     $data['reference'] = md5((str_replace(["-", "."], "", $sender['cpf'])) . date(DATE_RFC822));
     //? ***************************************/
 
@@ -77,25 +81,60 @@ if (isset($_GET['buyer']) && isset($_GET['ship']) && isset($_GET['cart'])) {
     $data['shippingAddressState'] = $sender["UF"];
     $data['shippingAddressPostalCode'] = str_replace(["‑", ".", "-", " "], "", $sender["cep"]);
 
+    $totalValue = 0;
+    $totalWeight = 0;
+
     foreach ($cart as $n => $p) {
-        $id_ = $p["id"];
-        $qtd_ = $p["qtd"];
-        $opt_ = $p["opt"];
-        $item = getById($id_);
+        $id = preg_replace('/[|\,\;\\\:"]+/', '', $p["id"]);
+        $qtd = preg_replace('/[|\,\;\\\:"]+/', '', $p["qtd"]);
+        $opt = preg_replace('/[|\,\;\\\:"]+/', '', $p["opt"]);
+        $item = getById($id);
         $data['itemId' . strval($n + 1)] = $item['id'];
-        $data['itemDescription' . strval($n + 1)] = tirarAcentos2($item['name']) . " - " . tirarAcentos2($opt_);
-        $data['itemQuantity' . strval($n + 1)] = $qtd_;
+        $data['itemDescription' . strval($n + 1)] = tirarAcentos2($item['name']) . " - " . tirarAcentos2($opt);
+        $data['itemQuantity' . strval($n + 1)] = $qtd;
         $data['itemAmount' . strval($n + 1)] = number_format((str_replace(",", ".", ($item['price']))), 2, '.', '');
         $data['itemWeight' . strval($n + 1)] = round($item['weight'] * 1000);
         $totalWeight += $item['weight'];
+        $totalValue += $item['price'] * $qtd;
+
+        $newOptionsG = [];
+        $newTotalQuantityG = [];
+        $newIdG = [];
+
+
+        $options = json_decode($item['options'], true);
+
+        $options[$opt] = $options[$opt] - $qtd;
+        ($options[$opt] < 0) ? die(json_encode(array('status' => 'error', "message" => "Itens Indisponíveis"))) : $newOptions = json_encode($options);
+
+
+        $totalQuantityOpt = 0;
+        foreach ($options as $n => $op) {
+            $totalQuantityOpt += $options[$n];
+        }
+        $newOptionsG[$id] = $newOptions;
+        $newTotalQuantityG[$id] = $totalQuantityOpt;
+        $newIdG[] = $id;
+    }
+    foreach ($newIdG as $n => $i) {
+        $stmtU = $mysqli->prepare("UPDATE products SET options = ?, totalQuantity = ? WHERE id = ?");
+        $stmtU->bind_param("sis", $newOptionsG[$i], $newTotalQuantityG[$i], $i);
+        $stmtU->execute();
+        if ($stmtU->affected_rows > 0) {
+            $stmtU->close();
+        } else {
+            $stmtU->close();
+            die(json_encode(array('status' => 'error')));
+        }
     }
 
 
 
 
 
+
     $newShip = getfrete(str_replace(["‑", ".", "-", " "], "", $sender["cep"]), $totalWeight);
-    
+
     if ($shipping["selected"] == "PAC") {
         $data['shippingType'] = 1;
         $sprice = str_replace(",", ".", $newShip["valorPac"][0]);
@@ -125,13 +164,12 @@ if (isset($_GET['buyer']) && isset($_GET['ship']) && isset($_GET['cart'])) {
     $xml = simplexml_load_string($retorno, "SimpleXMLElement", LIBXML_NOCDATA);
     $json = json_encode($xml,  JSON_UNESCAPED_UNICODE);
     $array = json_decode($json, TRUE);
-
     if ($array["code"]) {
 
         $JsonCart = json_encode($cart);
 
-        $stmt = $mysqli->prepare("INSERT INTO internal_buy (products, clientId, buyer, reference) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("siss", $JsonCart, $clientId, $JsonSender, $data['reference']);
+        $stmt = $mysqli->prepare("INSERT INTO checkout_data (products, totalValue, clientId, buyer, reference) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $JsonCart, $totalValue, $clientId, $JsonSender, $data['reference']);
         $stmt->execute();
         if ($stmt->affected_rows > 0) {
             die(json_encode(array('status' => 'success', 'url' => "https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=" . $array['code'])));

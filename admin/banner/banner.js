@@ -1,8 +1,7 @@
 var toDelete = [];
 
 $(document).ready(function () {
-    preview();
-    setInterval(preview, 4000);
+
 
     $.get("/php/getBanner.php", { name: "MAIN_BANNER" }, function (data) {
         data = JSON.parse(data);
@@ -34,7 +33,9 @@ $(document).ready(function () {
             $("#Banner3File" + (i) + " + img + i + input[type='hidden']").val(value);
         })
     }).then((value) => {
-        preview();
+        setTimeout(() => {
+            setInterval(preview, 2000);
+        }, 2000);
     })
 
 
@@ -106,7 +107,7 @@ $(document).ready(function () {
             var prevTarget = $(this);
             $.ajax({
                 beforeSend: function () {
-                    var prevTarget = $(this);
+                    
                     $(prevTarget).parent().addClass("loading");
                 },
                 xhr: function () {

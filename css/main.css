@@ -3945,11 +3945,19 @@ body {
   border: 2px solid #b66d76;
   padding: 15px 25px;
   border-radius: 30px;
+  gap: 5px;
 }
 
 .status .buyer div span {
   width: 100%;
   font-size: 11pt;
+  font-weight: bold;
+  color: #b66d76;
+}
+
+.status .buyer div span b {
+  font-weight: normal;
+  color: #333;
 }
 
 .status .buyer .TrackingDiv {
