@@ -1,56 +1,24 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    color: #333;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .productsContainer {
-    background-color: #fff;
-    margin-top: 40px;
-    width: 1100px;
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0;
-    .productsTitle {
-        color: #b66d76;
-        font-size: 15pt;
-        margin-bottom: 10px;
-    }
-    .description {
-        width: 80%;
-        margin-left: 20px;
-        margin-bottom: 10px;
-    }
+
 
     .filterProducts {
-        width: 100%;
+        width: 95%;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
-        border-top: 1px solid #b66d76;
+        border-top: 1px solid $mainColor;
         margin-top: 20px;
         padding: 10px 0;
         #totalProducts {
-            color: #b66d76;
+            color: $mainColor;
             font-size: 12pt;
             margin-top: 10px;
             margin-bottom: 8px;
             padding: 2px 0;
         }
         .filterTitle {
-            color: #b66d76;
+            color: $mainColor;
             font-size: 12pt;
             margin-top: 10px;
             margin-bottom: 8px;
@@ -58,14 +26,7 @@ body {
         }
         button {
             width: 260px;
-            height: 28px;
-            border-radius: 30px;
-            border: none;
-            background-color: #b66d76;
-            color: #fff;
-            font-weight: bold;
-            font-size: 10pt;
-            cursor: pointer;
+
             margin-left: auto;
         }
 
@@ -96,11 +57,11 @@ body {
                 font-weight: bold;
                 font-size: 11pt;
                 &:focus {
-                    border-bottom: 1px solid #b66d76;
+                    border-bottom: 1px solid $mainColor;
                     border-right: none;
                 }
                 &:focus + i {
-                    border-bottom: 1px solid #b66d76;
+                    border-bottom: 1px solid $mainColor;
                     border-left: none;
                 }
             }
@@ -114,7 +75,7 @@ body {
                 align-items: center;
                 padding: 5px 10px;
                 cursor: pointer;
-                color: #b66d76;
+                color: $mainColor;
                 border-bottom: 1px solid #fff;
                 border-left: none;
                 font-size: 13pt;
@@ -122,7 +83,7 @@ body {
                 border-bottom-left-radius: 0;
                 transition: 0.3s;
                 &:hover {
-                    color: #b66d7685;
+                    color: $mainColor;
                 }
                 &:active {
                     color: #72444a85;
@@ -130,14 +91,20 @@ body {
             }
         }
     }
+    .displayProds{
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+    }
     .productsHeader {
         margin-top: 0px;
-        background-color: #b66d76;
+        background-color: $mainColor;
         display: flex;
         justify-content: space-between;
         color: #fff;
         padding: 3px 0;
         font-weight: bolder;
+        width: 100%;
         label {
             width: 100%;
             display: flex;
@@ -190,7 +157,7 @@ body {
                 }
                 i {
                     font-size: 13pt;
-                    color: #b66d76;
+                    color: $mainColor;
                     cursor: pointer;
                     &:hover {
                         color: #f00;
@@ -201,7 +168,7 @@ body {
                 background-color: #efefef;
             }
             &:hover {
-                border: 1px solid #b66d7674;
+                border: 1px solid $mainColor;
                 border-left: none;
                 border-right: none;
             }
@@ -218,14 +185,14 @@ body {
                     width: 100%;
                     padding: 2px 10px;
                     cursor: pointer;
-                    background-color: #b66d76;
+                    background-color: $mainColor;
                     &:hover {
                         background-color: #f00;
                     }
                 }
             }
         }
-        border-bottom: 1px solid #b66d76;
+        border-bottom: 1px solid $mainColor;
     }
     .pageCounter {
         width: 100%;
@@ -245,9 +212,9 @@ body {
 
         .pageSelected {
             font-weight: bold;
-            color: #b66d76;
+            color: $mainColor;
             &:hover {
-                color: #b66d7691;
+                color: $mainColor;
                 font-size: 13pt;
             }
         }
@@ -256,7 +223,7 @@ body {
     .modalProduct {
         position: absolute;
         background-color: #fff;
-        border: 1px solid #b66d76;
+        border: 1px solid $mainColor;
         border-radius: 20px;
         overflow: hidden;
         width: 100%;
@@ -269,7 +236,7 @@ body {
         .modalTitle {
             font-size: 12pt;
             font-weight: bold;
-            color: #b66d76;
+            color: $mainColor;
             margin-bottom: 10px;
         }
         .productAdd {
@@ -296,7 +263,7 @@ body {
                         .kg {
                             font-size: 12pt;
                             font-weight: bold;
-                            color: #b66d76;
+                            color: $mainColor;
                             margin-right: 5px;
                         }
                         .kg {
@@ -311,16 +278,16 @@ body {
                             box-sizing: border-box;
                             outline: none;
                             background-color: #fff;
-                            border: 1px solid #b66d76;
+                            border: 1px solid $mainColor;
 
-                            color: #b66d76;
+                            color: $mainColor;
                             transition: 0.5s;
                             &:focus + small,
                             &:valid + small {
                                 top: -12px;
                                 left: 0px;
                                 font-weight: bold;
-                                color: #b66d76;
+                                color: $mainColor;
                                 text-shadow: 0 0 1px #ffe0e4;
 
                                 font-size: 9pt;
@@ -334,8 +301,8 @@ body {
                             font-size: 11pt;
                             box-sizing: border-box;
                             background-color: #fff;
-                            color: #b66d76;
-                            border: 1px solid #b66d76;
+                            color: $mainColor;
+                            border: 1px solid $mainColor;
                             transition: 0.5s;
                         }
                         select + small {
@@ -343,7 +310,7 @@ body {
                             top: -12px;
                             left: 0px;
                             font-weight: bold;
-                            color: #b66d76;
+                            color: $mainColor;
                             text-shadow: 0 0 1px #ffe0e4;
 
                             font-size: 9pt;
@@ -354,7 +321,7 @@ body {
                             left: 30px;
                             top: 25%;
                             font-size: 11pt;
-                            color: #b66d76;
+                            color: $mainColor;
                         }
 
                         textarea {
@@ -369,43 +336,31 @@ body {
                             padding: 10px;
 
                             &:focus {
-                                border: 1px solid #b66d76;
+                                border: 1px solid $mainColor;
                             }
                         }
                         #NewProductDescription + small {
                             top: -17px;
                             left: -5px;
                             font-weight: bold;
-                            color: #b66d76;
+                            color: $mainColor;
                             font-size: 11pt;
                         }
                     }
                     .save {
                         align-items: center;
                         button {
-                            background-color: #b66d76;
                             width: 90%;
-                            height: 100%;
-                            color: #fff;
-                            border: none;
-                            outline: none;
-                            border-radius: 20px;
-                            padding: 5px 0;
-                            display: flex;
-                            justify-content: center;
                             gap: 10px;
                             cursor: pointer;
-                            &:hover {
-                                filter: brightness(1.1);
-                            }
-                            &:active {
-                                filter: brightness(0.9);
-                            }
                             span {
                                 font-size: 11pt;
                             }
                             i {
                                 font-size: 13pt;
+                                &:nth-child(2) {
+                                    display: block;
+                                }
                                 &:nth-child(3) {
                                     display: none;
                                 }
@@ -448,7 +403,7 @@ body {
                     gap: 10px;
                     .optionsHeader {
                         font-size: 13pt;
-                        color: #b66d76;
+                        color: $mainColor;
                         font-weight: bold;
                     }
                     #OptionsList {
@@ -464,9 +419,9 @@ body {
                         input {
                             width: 40%;
                             border: none;
-                            border: 1px solid #b66d76;
+                            border: 1px solid $mainColor;
                             background-color: #fff;
-                            color: #b66d76;
+                            color: $mainColor;
                             outline: none;
                             border-radius: 20px;
                             padding: 5px 0;
@@ -474,14 +429,14 @@ body {
                             box-shadow: 0;
                             transition: 0.5s;
                             &::placeholder {
-                                color: #b66d76;
+                                color: $mainColor;
                             }
                         }
 
                         i {
                             width: 10%;
                             font-size: 14pt;
-                            color: #b66d76;
+                            color: $mainColor;
                             transition: 0.1s;
                             cursor: pointer;
                             &:hover {
@@ -506,7 +461,7 @@ body {
                     width: 280px;
                     height: 280px;
                     background-color: #f99;
-                    border: 1px solid #b66d76;
+                    border: 1px solid $mainColor;
                     transition: 0.5s;
                 }
                 .productSecImage {
@@ -518,7 +473,7 @@ body {
                         width: 80px;
                         height: 80px;
                         background-color: #f99;
-                        border: 1px solid #b66d76;
+                        border: 1px solid $mainColor;
                     }
                 }
                 .addImage {
@@ -562,7 +517,7 @@ body {
                         position: absolute;
                         right: 4px;
                         top: 4px;
-                        color: #b66d76;
+                        color: $mainColor;
                         font-size: 10pt;
                         cursor: pointer;
                         &:hover {
@@ -613,7 +568,7 @@ body {
         .closeMod {
             position: absolute;
             top: 10px;
-            color: #b66d76;
+            color: $mainColor;
             font-size: 18pt;
             right: 30px;
             cursor: pointer;
@@ -623,7 +578,7 @@ body {
         }
     }
     .invalidInput {
-        border: 1px solid #b66d76;
+        border: 1px solid $mainColor;
         box-shadow: 0px 0px 4px 1px #dbce12;
     }
 }

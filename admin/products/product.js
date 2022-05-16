@@ -68,8 +68,8 @@ $(document).ready(function () {
         var productPrice;
         var productPromo;
         if ($("#NewProductPromo").val() != "") {
-            productPrice = $("#NewProductPromo").val();
-            productPromo = $("#NewProductPrice").val();
+            productPrice = parseFloat($("#NewProductPromo").val().replace(",", "."));
+            productPromo = parseFloat($("#NewProductPrice").val().replace(",", "."));
         } else {
             productPrice = $("#NewProductPrice").val();
             productPromo = $("#NewProductPromo").val();
@@ -174,7 +174,7 @@ $(document).ready(function () {
         } else {
             $("#saveProduct").removeClass("alertButton")
             $("#saveProduct").addClass("doneButton")
-            
+
             setTimeout(() => {
                 $("#saveProduct").removeClass("doneButton")
             }, 1500);
@@ -320,7 +320,13 @@ function modalProductShow(id = 0) {
             $("#NewProductWeight").val(data['weight']);
             $("#NewProductDescription").html(data['description']);
             $("#NewProductMaterial option[name='" + data['material'] + "']").attr("selected", true);
-            $("#NewProductCategory option[value='" + data['categoryId'] + "']").attr("selected", "selected");
+            $("#NewProductCategory option").each(function (i, x) {
+                if ($(x).val() == data['categoryId']) {
+                    $(x).attr("selected", true);
+                } else {
+                    $(x).attr("selected", false);
+                }
+            })
             var options = JSON.parse(data['options']);
             console.log(data)
 

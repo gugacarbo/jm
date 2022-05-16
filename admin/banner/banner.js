@@ -1,7 +1,9 @@
 var toDelete = [];
 
 $(document).ready(function () {
-
+    $("body").append($("<div class='adminHeader'>").load("../header.html"));
+    $("body").append($("<div class='adminMenu'>").load("../menu.html"));
+    
 
     $.get("/php/getBanner.php", { name: "MAIN_BANNER" }, function (data) {
         data = JSON.parse(data);
@@ -39,7 +41,7 @@ $(document).ready(function () {
     })
 
 
-    $("#but_upload").click(function () {
+    $("#but_uploadBanners").click(function () {
 
         var banners = {
             "MAIN_BANNER": [$("#Banner1Image1").val(), $("#Banner1Image2").val(), $("#Banner1Image3").val()],

@@ -4906,6 +4906,11 @@ body {
   border: 1px solid #b66d76;
 }
 
+.contact form small {
+  font-size: 10pt;
+  color: #333;
+}
+
 .contact form textarea {
   resize: none;
   height: 300px;

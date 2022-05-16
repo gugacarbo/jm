@@ -23,20 +23,23 @@
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="../admin.css">
 </head>
 
 <body>
-    <div class="container">
-        <span class="title">Materiais</span>
-        <p class="description">
+    <div class="adminMaterialContainer adminContainer">
+        <span class="adminTitle">Materiais</span>
+        <p class="adminDescricao">
             Nesta aba voce pode inserir, alterar e excluir materiais.
         </p>
-        <div class="content" id="CatList">
+        <div class="materialContent">
+            <div class="content" id="CatList">
 
-        </div>
-        <div class="chart">
-            <span>Produtos Por Material</span>
-            <canvas id="myChart" width="100%" height="100%"></canvas>
+            </div>
+            <div class="chart">
+                <span>Produtos Por Material</span>
+                <canvas id="myChart" width="100%" height="100%"></canvas>
+            </div>
         </div>
     </div>
 

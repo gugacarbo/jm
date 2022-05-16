@@ -1,16 +1,4 @@
 <?php
-function errHandle($errNo, $errStr, $errFile, $errLine)
-{
-    $msg = "$errStr in $errFile on line $errLine";
-    if ($errNo == E_NOTICE || $errNo == E_WARNING) {
-        die(json_encode(array('status' => '403')));
-    } else {
-        echo $msg;
-    }
-}
-
-//set_error_handler('errHandle');
-
 
 
 if (isset($_GET['buyer']) && isset($_GET['ship']) && isset($_GET['cart'])) {

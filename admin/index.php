@@ -9,16 +9,29 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
 }
 ?>
 
-<a href="about">Sobre</a>
-<a href="banner">Banner</a>
-<a href="category">Category</a>
-<a href="client">client</a>
-<a href="purshases">Vendas</a>
-<a href="products">Products</a>
-<a href="carousel">Carrossel</a>
-<a href="configShipping">configShipp</a>
-<a href="material">materiais</a>
-<a href="reviewPurshases">review</a>
-<a href="logout">Logout</a>
+<!DOCTYPE html>
+<html lang="en">
 
-purchases
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="admin.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="/img/Jm_Logo_Branco.png">
+
+</head>
+
+<body>
+    <div class="adminContainer">
+
+
+        <script>
+            $(".adminContainer").append($("<div class='adminHeader'>").load("header.html"));
+            $(".adminContainer").append($("<div class='adminMenu'>").load("menu.html"));
+        </script>
+</body>
+
+</html>

@@ -2,7 +2,9 @@ var categories = [];
 
 var myChart;
 $(document).ready(function () {
-
+    $("body").append($("<div class='adminHeader'>").load("../header.html"));
+    $("body").append($("<div class='adminMenu'>").load("../menu.html"));
+    
     $("input").on("keydown", function (e) {
         if (e.keyCode == 13) {
         }

@@ -8,7 +8,6 @@
     <title>JM - Admin</title>
     <link rel="icon" href="/img/Jm_Logo_Branco.png">
 
-    <link rel="stylesheet" href="banner.css">
 
     <link href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" rel="stylesheet">
 
@@ -23,14 +22,17 @@
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="../admin.css">
 </head>
-
 <body>
-    <div class="container">
-        <span class="title">Banners</span>
-        <p class="description">
+    <div class="adminBannerContainer adminContainer">
+        <span class="adminTitle">Banners</span>
+        <p class="adminDescricao">
             Nesta aba você pode inserir, alterar e excluir os full Banners contirnos so site. Caso nao queira usar algum banner, basta deixar os seus respectivos campos de imagem vazios.
         </p>
+        <button id="but_uploadBanners">Salvar</button>
+        <div class="con">
+
         <div class="preview">
             <section>
                 <span>Banner da Tela Inicial</span>
@@ -100,7 +102,7 @@
                 </div>
             </section>
         </div>
-        <div class="content">
+        <div class="bannersContent">
             <form method="post" action="" enctype="multipart/form-data" id="myform">
                 <div class="bannerContainer">
                     <p>
@@ -181,7 +183,7 @@
                 </div>
             </form>
         </div>
-        <input type="button" class="button" value="Salvar" id="but_upload">
+        </div>
 
 
 

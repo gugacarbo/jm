@@ -5,28 +5,17 @@ $(document).ready(() => {
     $("header").load("/includes/header.html");
     $("footer").load("/includes/footer.html");
 
+    setBanner("#ProdsSlider", "PRODUCTS_BANNER");
+    getCategory()
+    search();
 
-    $("#Search").on('click', () => {
+    $("#Search i").on('click', () => {
         search();
     })
 
     $("#toggleFilter").on("click", () => {
         $(".filterBox").toggleClass("off");
     })
-
-
-    setBanner("#ProdsSlider", "PRODUCTS_BANNER");
-    getCategory()
-
-    callProds({
-        "text": $.urlParam("text"),
-        "min": $.urlParam("min") || 0,
-        "max": $.urlParam("max") || 10000,
-        "cat": $.urlParam("cat") || 0,
-        "order": $.urlParam("order") || "price ASC"
-    });
-
-
     //SearchMaxRange on change
     $("#SearchMaxRange").on("change", () => {
         search();
@@ -83,9 +72,6 @@ $(document).ready(() => {
         clearTimeout(typingTimer);
     });
 
-    function doneTyping() {
-        search();
-    }
 
 
     //? On scroll
@@ -99,6 +85,10 @@ $(document).ready(() => {
 
 })
 
+
+function doneTyping() {
+    search();
+}
 
 
 
@@ -139,39 +129,28 @@ function callProds(query) {
 
     searching = 1;
     $.get("/php/getFiltered.php", query, (prods) => {
-
         prodCount = 0;
         prods = JSON.parse(prods);
-
-        console.log(prods)
         if (prods["maxPrice"] > 0) {
             var MaxPriceS = Math.ceil((prods["maxPrice"] / 100) * 100) + 100;
             console.log(MaxPriceS)
             $('#slider-range').slider("option", "max", MaxPriceS);
-
             $("#SearchMaxVal").val() > (MaxPriceS) ? $("#SearchMaxVal").val(MaxPriceS) : $("#SearchMaxVal").val(parseInt($("#SearchMaxVal").val()));
             $("#SearchMinVal").val() > (MaxPriceS) ? $("#SearchMinVal").val(0) : $("#SearchMinVal").val(parseInt($("#SearchMinVal").val()));
             $("#ShowProducts").append("<h1 class='notFound'>Nenhum produto encontrado </h1>")
-        }
-        else {
-
+        } else if (prods.length == 0) {
+            $("#ShowProducts").append("<h1 class='notFound'>Nenhum produto encontrado </h1>")
+        } else {
 
             maxPages = Math.ceil(prods.length / numProd);
             $("#maxPages").html(maxPages);
-
             var SlicedProds = prods.slice(page * numProd, (page + 1) * numProd)
-
             var MaxPriceS = Math.ceil((prods[0]["maxPrice"] / 100) * 100) + 100;
-            console.log(MaxPriceS)
             $('#slider-range').slider("option", "max", MaxPriceS);
-
             $("#SearchMaxVal").val() > (MaxPriceS) ? $("#SearchMaxVal").val(MaxPriceS) : $("#SearchMaxVal").val(parseInt($("#SearchMaxVal").val()));
             $("#SearchMinVal").val() > (MaxPriceS) ? $("#SearchMinVal").val(0) : $("#SearchMinVal").val(parseInt($("#SearchMinVal").val()));
 
             $.each(SlicedProds, function (_, prod) {
-
-
-
                 prod.imgs = (JSON.parse(prod["imgs"]));
                 prod.options = (JSON.parse(prod["options"]));
                 //console.log(prod)
@@ -191,15 +170,11 @@ function callProds(query) {
                 prodCount++;
             })
         }
-
-
-        if (prods.length == 0) {
-        }
+    }).then(() => {
+        searching = 0;
         setTimeout(() => {
             $(".loadingProducts").css("display", "none");
         }, 510);
-    }).then(() => {
-        searching = 0;
     })
 }
 
@@ -214,13 +189,6 @@ function getCategory() {
     })
 }
 
-/**
- * ! Banner
- * 
- * 
- * 
- * 
- */
 async function setBanner(el_id, banner_name) {
     //"/api/getBanner.php"
     return await $.get("/php/getBanner.php", { 'name': banner_name }, function (d) {
@@ -236,8 +204,6 @@ async function setBanner(el_id, banner_name) {
         })
 }
 
-
-
 function callBanner() {
     var bannerSlider = new Glider(document.querySelector('#ProdsSlider'), {
         slidesToShow: 1,
@@ -250,7 +216,6 @@ function callBanner() {
     });
     sliderAuto(bannerSlider, 1500)
 }
-
 
 
 function sliderAuto(slider, miliseconds) {

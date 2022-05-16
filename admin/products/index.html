@@ -13,13 +13,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.min.js"
         integrity="sha512-hAJgR+pK6+s492clbGlnrRnt2J1CJK6kZ82FZy08tm6XG2Xl/ex9oVZLE6Krz+W+Iv4Gsr8U2mGMdh0ckRH61Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <link rel="stylesheet" href="../admin.css">
 </head>
 
 <body>
-    <div class="productsContainer">
-        <span class="productsTitle">Produtos</span>
-        <p class="description">Nesta aba você pode inserir, alterar e excluir produtos</p>
+    <div class="productsContainer adminContainer">
+        <span class="adminTitle">Produtos</span>
+        <p class="adminDescricao">Nesta aba você pode inserir, alterar e excluir produtos</p>
         <div class="filterProducts">
 
             <span class="filterTitle">Pesquisar Produto</span>
@@ -32,29 +32,33 @@
                 Adicionar Produto
             </button>
         </div>
-        <div class="productsHeader">
-            <label name="id" class="filterI selected">Id<i class="fa-solid fa-chevron-down">
-                </i></label>
-            <label name="name" class="filterI ">Nome<i class="fa-solid fa-chevron-down">
-                </i></label>
-            <label name="price" class="filterI">Preço <i class="fa-solid fa-chevron-down">
-                </i></label>
-            <label name="promo" class="filterI">Em Promoção <i class="fa-solid fa-chevron-down">
-                </i></label>
-            <label name="cat" class="filterI">Categoria <i class="fa-solid fa-chevron-down">
-                </i></label>
-            <label name="qtd" class="filterI">Quantidade Em Estoque <i class="fa-solid fa-chevron-down">
-                </i></label>
-            <label>Alterar/Visualizar</label>
-            <label>Excluir</label>
+        <div class="displayProds">
+
+            <div class="productsHeader">
+                <label name="id" class="filterI selected">Id<i class="fa-solid fa-chevron-down">
+                    </i></label>
+                <label name="name" class="filterI ">Nome<i class="fa-solid fa-chevron-down">
+                    </i></label>
+                <label name="price" class="filterI">Preço <i class="fa-solid fa-chevron-down">
+                    </i></label>
+                <label name="promo" class="filterI">Em Promoção <i class="fa-solid fa-chevron-down">
+                    </i></label>
+                <label name="cat" class="filterI">Categoria <i class="fa-solid fa-chevron-down">
+                    </i></label>
+                <label name="qtd" class="filterI">Quantidade Em Estoque <i class="fa-solid fa-chevron-down">
+                    </i></label>
+                <label>Alterar/Visualizar</label>
+                <label>Excluir</label>
+            </div>
+
+            <div class="products" id="productsList">
+
+
+            </div>
+            <div id="PageCounter" class="pageCounter">
+            </div>
         </div>
 
-        <div class="products" id="productsList">
-
-
-        </div>
-        <div id="PageCounter" class="pageCounter">
-        </div>
 
 
 

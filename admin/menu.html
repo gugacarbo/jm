@@ -1,0 +1,72 @@
+<nav class="adminMenu" id="MenuContent">
+    <div class="menuToggleBox" id="MenuToggle">
+        <div class="menuToggle">
+            <div class="bars"></div>
+            <div class="bars"></div>
+            <div class="bars"></div>
+        </div>
+    </div>
+    <a href="/admin">
+        <label>Home</label>
+        <i class="fas fa-home"></i>
+    </a>
+    <a href="/admin/products">
+        <label>Produtos</label>
+        <i class="fas fa-box-open"></i>
+    </a>
+    <a href="/admin/banner">
+        <label>Banner</label>
+        <i class="fa-solid fa-panorama"></i>
+    </a>
+    <a href="/admin/category">
+        <label>Categorias</label>
+        <i class="fas fa-list-ul"></i>
+    </a>
+    <a href="/admin/material">
+        <label>Materiais</label>
+        <i class="fa-solid fa-gem"></i>
+    </a>
+    <a href="/admin/carousel">
+        <label>Carrossel</label>
+        <i class="fa-solid fa-dharmachakra"></i>
+    </a>
+  <!--
+      <a href="/admin/client">
+          
+          <label>clientes</label>
+          <i class="fas fa-users"></i>
+        </a>
+    --> 
+    <a href="/admin/about">
+        <label>Sobre</label>
+        <i class="fas fa-info-circle"></i>
+    </a>
+    <a href="/admin/purchases">
+        <label>Compras</label>
+        <i class="fas fa-shopping-cart"></i>
+    </a>
+
+    <a href="/admin/configShipping">
+        <label>Configurações de Frete</label>
+        <i class="fas fa-truck"></i>
+    </a>
+
+    <a href="/admin/reviewPurchases">
+        <label>Pedidos Incompletos</label>
+        <i class="fa-solid fa-arrow-rotate-left"></i>
+    </a>
+    <a href="/admin/logout.php">
+        <label>Sair</label>
+        <i class="fas fa-sign-out-alt"></i>
+    </a>
+</nav>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#MenuToggle").on("click", function () {
+            $("#MenuToggle div").toggleClass("active");
+            $("#Menu").toggleClass("active");
+            $("#MenuContent").toggleClass("active");
+        });
+    })
+</script>

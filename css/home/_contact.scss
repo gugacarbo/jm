@@ -50,7 +50,10 @@
                 border: 1px solid $mainColor;
             }
         }
-
+        small{
+            font-size: 10pt;
+            color: #333;
+        }
         textarea {
             resize: none;
             height: 300px;

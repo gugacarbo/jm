@@ -15,8 +15,12 @@ if (isset($_FILES['file']['name']) && isset($_GET['dir'])) {
 }
 
 
-function upload($file_, $dir_, $md5_ = 'true', $valid_extensions = array(".jpg", ".jpeg", ".png", ".html"))
+function upload($file_, $dir_, $md5_ = 'true', $valid_extensions = array(   ))
 {
+    $imgExt = array('.jpg', '.jpeg', '.png', '.gif');
+    $textExt =  array('.txt');
+    $validExtAll = array_merge($imgExt, $textExt);
+    $valid_extensions = $validExtAll; 
 
 
     $dir = $target_path = $_SERVER['DOCUMENT_ROOT'] . $dir_;
@@ -34,13 +38,12 @@ function upload($file_, $dir_, $md5_ = 'true', $valid_extensions = array(".jpg",
         if (move_uploaded_file($file_, $location)) {
             $path = str_replace($target_path = $_SERVER['DOCUMENT_ROOT'], "", $location);
 
-
             return (json_encode(array("status" => "success", "location" => $path)));
         } else {
             return (json_encode(array("status" => "error", "message" => "Erro ao salvar imagem")));
         }
     } else {
-        return (json_encode(array("status" => "error", "message" => $imageFileType . "Extensão inválida")));
+        return (json_encode(array("status" => "error", "message" => $imageFileType . " Extensão inválida")));
     }
 }
 

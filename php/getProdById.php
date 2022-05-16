@@ -24,6 +24,7 @@ function getById($id_)
     $stmt->close();
 
     unset($itens['cost']);
+    
     $materialId = $itens['material'];
     $categoryId = $itens['category'];
 
@@ -54,6 +55,5 @@ function getById($id_)
     $ret["options"] = ($itens["options"]);
     $ret["totalQuantity"] = ($itens["totalQuantity"]);
     return ($ret);
-    
 }
 

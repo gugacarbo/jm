@@ -8,8 +8,6 @@
     <title>JM - Admin</title>
     <link rel="icon" href="/img/Jm_Logo_Branco.png">
 
-    <link rel="stylesheet" href="category.css">
-
     <link href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" rel="stylesheet">
 
 
@@ -23,20 +21,23 @@
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="../admin.css">
 </head>
 
 <body>
-    <div class="container">
-        <span class="title">Categorias</span>
-        <p class="description">
+    <div class="adminCategoryContainer adminContainer">
+        <span class="adminTitle">Categorias</span>
+        <p class="adminDescricao">
             Nesta aba voce pode inserir, alterar e excluir categorias. Elas serão importantes pois estarão presentes nos filtros de pesquisa de produtors bem como estarão presentes na criação de Carroséis.
         </p>
-        <div class="content" id="CatList">
+        <div class="categoryContent">
+            <div class="content" id="CatList">
 
-        </div>
-        <div class="chart">
-            <span>Produtos Por Categoria</span>
-            <canvas id="myChart" width="100%" height="100%"></canvas>
+            </div>
+            <div class="chart">
+                <span>Produtos Por Categoria</span>
+                <canvas id="myChart" width="100%" height="100%"></canvas>
+            </div>
         </div>
     </div>
 

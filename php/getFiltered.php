@@ -19,19 +19,6 @@ if (is_numeric($_GET['max']) &&  isset($_GET['max'])) {
     $max = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['max']);
 }
 
-/*
-array_push($params, $min);
-$labels .= "s";
-
-$max = 20000;
-
-if (is_numeric($_GET['max']) &&  isset($_GET['max'])) {
-    array_push($params, $max);
-    $labels .= "s";
-    $max = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['max']);
-}
-*/
-
 if (isset($_GET['cat']) && is_numeric($_GET['cat']) && ($_GET['cat']) > 0) {
     $cat = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['cat']);
     $sql .= " AND category = ?";
@@ -39,8 +26,9 @@ if (isset($_GET['cat']) && is_numeric($_GET['cat']) && ($_GET['cat']) > 0) {
     $labels .= "s";
 }
 
-if (isset($_GET['text'])) {
+if (isset($_GET['text']) && strlen($_GET['text']) > 0 && strlen($_GET['text']) < 100 && $_GET["text"] != "") {
     $text = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['text']);
+    echo  $_GET['text'];
     $sql .= " AND name LIKE ?";
     array_push($params, "%$text%");
     $labels .= "s";

@@ -9,7 +9,7 @@
     <link rel="icon" href="/img/Jm_Logo_Branco.png">
 
     <link type="text/css" rel="stylesheet" href="jquery-te-1.4.0.css">
-    <link rel="stylesheet" href="about.css">
+
 
     <link href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" rel="stylesheet">
 
@@ -17,12 +17,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../admin.css">
 </head>
-
 <body>
-    <div class="aboutAdminContainer">
-        <span class="aboutTitle">Página Sobre</span>
-        <p class="description">Nesta aba voce pode alterar o texto de apresentação do seu negócio, bem como inserir o código com a localização fisica do google maps e editar o banner presente na pagina.
+    <div class="aboutAdminContainer adminContainer">
+        <span class="adminTitle">Página Sobre</span>
+        <p class="adminDescricao">Nesta aba voce pode alterar o texto de apresentação do seu negócio, bem como inserir o código com a localização fisica do google maps e editar o banner presente na pagina.
             (Caso não queira usar o banner ou o mapa, basta deixar os campos em branco)
         </p>
         <div class="content">

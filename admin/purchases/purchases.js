@@ -6,6 +6,9 @@ var maxpPage = 20;
 var page = 0;
 
 $(document).ready(function () {
+    $("body").append($("<div class='adminHeader'>").load("../header.html"));
+    $("body").append($("<div class='adminMenu'>").load("../menu.html"));
+    
     page = 0;
     search();
     $("#btnSearch").click(function () {
@@ -46,9 +49,9 @@ $(document).ready(function () {
             })
         }
     })
-    $("#closeModalPurshase").on("click", function () {
+    $("#closeModalPurchase").on("click", function () {
         console.log("close")
-        $("#ModalPurshase").removeClass("modalOpen");
+        $("#ModalPurchase").removeClass("modalOpen");
 
     })
 })
@@ -65,11 +68,11 @@ function search(order_ = orderG, filter_ = filterG,) {
         "text": textSearch
     }
 
-    $("#purshasesList").fadeOut(400, function () {
-        $.get("getPurshases.php", c, function (data) {
+    $("#purchasesList").fadeOut(400, function () {
+        $.get("getPurchases.php", c, function (data) {
             var compras = JSON.parse(data);
 
-            $("#totalPurshases b").html(compras.length);
+            $("#totalPurchases b").html(compras.length);
 
             if (page == 0) {
                 $("#PageCounter").empty();
@@ -82,17 +85,17 @@ function search(order_ = orderG, filter_ = filterG,) {
             $("#PageCounter span:nth-child(" + (page + 1) + ")").addClass("pageSelected");
 
 
-            $("#purshasesList").empty();
+            $("#purchasesList").empty();
             var purshNum = compras.length;
             if (purshNum == 0) {
-                $("#purshasesList").append(`<span style='width:100%; text-align:center; padding: 10px 0; '>Nenhum resultado encontrado</span>`);
+                $("#purchasesList").append(`<span style='width:100%; text-align:center; padding: 10px 0; '>Nenhum resultado encontrado</span>`);
 
             }
             $.each(compras.slice(page * maxpPage, (page + 1) * maxpPage), function (index, compra) {
-                createPurshase(compra)
+                createPurchase(compra)
             })
         }).then(_ => {
-            $("#purshasesList").fadeIn(500);
+            $("#purchasesList").fadeIn(500);
         })
     })
 
@@ -106,7 +109,7 @@ function changePage(i) {
 }
 
 
-function createPurshase(compra) {
+function createPurchase(compra) {
     var status = "";
     switch (compra.status) {
         case 1:
@@ -146,27 +149,27 @@ function createPurshase(compra) {
     m += 1;  // JavaScript months are 0-11
     var y = date.getFullYear();
     var pursh = `
-    <div class="purshase" id="Purshase${compra.id}">
+    <div class="purchase" id="Purchase${compra.id}">
         <span>${compra.id}</span>
         <span>${d}/${m}/${y}</span>
-        <span onclick="modalPurshase(${compra.id})">${compra.client.name + " " + compra.client.lastName}</span>
+        <span onclick="modalPurchase(${compra.id})">${compra.client.name + " " + compra.client.lastName}</span>
         <span>R$ ${compra.totalAmount.toFixed(2).replace(".", ",")}</span>
         <span>${status}</span>
         <span>${compra.code}</span>
-        <span><i class="fas fa-ellipsis-h" onclick="modalPurshase(${compra.id})"></i></span>
+        <span><i class="fas fa-ellipsis-h" onclick="modalPurchase(${compra.id})"></i></span>
 </div>`
-    $("#purshasesList").append(pursh);
+    $("#purchasesList").append(pursh);
 }
 
-function modalPurshase(id = 0) {
+function modalPurchase(id = 0) {
     if (id > 0) {
-        $.get("getPurshase.php", { "Bid": id }, function (data) {
+        $.get("getPurchase.php", { "Bid": id }, function (data) {
             data = JSON.parse(data);
             console.log(data)
-            var purshase = (data["purshase"]);
+            var purchase = (data["purchase"]);
             var client = (data["client"]);
             var products = (data["products"]);
-            var payload = JSON.parse(purshase.rawPayload);
+            var payload = JSON.parse(purchase.rawPayload);
 
             $("#addTrackingCode").attr("data-id", id)
             console.log(client)
@@ -186,13 +189,13 @@ function modalPurshase(id = 0) {
             $("#ClientBorndate b").html(d + "/" + m + "/" + y);
 
             console.log(products)
-            $("#PurshaseProducts").empty();
+            $("#PurchaseProducts").empty();
 
             $.each(products, function (index, product) {
                 if (product.id == null) {
 
 
-                    $("#PurshaseProducts").append(`
+                    $("#PurchaseProducts").append(`
                 <div class="product">
                 <div class="image">    
                 <img src="noImage.png" alt="">
@@ -211,7 +214,7 @@ function modalPurshase(id = 0) {
                 } else {
 
                     var images = JSON.parse(product.imgs);
-                    $("#PurshaseProducts").append(`
+                    $("#PurchaseProducts").append(`
                 <div class="product">
                 <div class="image">    
                 <img src="${images['1']}" alt="">
@@ -229,60 +232,60 @@ function modalPurshase(id = 0) {
                 `)
                 }
             })
-            console.log(purshase)
+            console.log(purchase)
 
-            purshase.trackingCode != "" ? $("#TrackingCode").val(purshase.trackingCode) : $("#TrackingCode").val("");
+            purchase.trackingCode != "" ? $("#TrackingCode").val(purchase.trackingCode) : $("#TrackingCode").val("");
             var status = "";
             $("#StatusSelect").html("");
-            switch (parseInt(purshase.status)) {
+            switch (parseInt(purchase.status)) {
                 case 1:
-                    $("#PurshaseStatus b").html("Aguardando Pagamento");
+                    $("#PurchaseStatus b").html("Aguardando Pagamento");
                     $("#StatusSelect").append(`<option selected>Aguardando Pagamento</option>`)
                     $("#StatusSelect").append(`<option value="3" >Paga</option>`)
                     $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
                     break;
                 case 2:
-                    $("#PurshaseStatus b").html("Pagamento em Análise");
+                    $("#PurchaseStatus b").html("Pagamento em Análise");
                     $("#StatusSelect").append(`<option value="1" selected>Pagamento em Análise</option>`)
                     $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
                     break;
                 case 3:
 
-                    $("#PurshaseStatus b").html("Pagamento Aprovado");
+                    $("#PurchaseStatus b").html("Pagamento Aprovado");
                     $("#StatusSelect").append(`<option value="1" selected>Pagamento Aprovado</option>`)
                     $("#StatusSelect").append(`<option value="5" >Em Disputa</option>`)
                     $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
                     break;
                 case 4:
-                    $("#PurshaseStatus b").html("Finalizada");
+                    $("#PurchaseStatus b").html("Finalizada");
                     $("#StatusSelect").append(`<option value="1" selected>Finalizada</option>`)
                     $("#StatusSelect").append(`<option value="5" >Em Disputa</option>`)
                     $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
                     break;
                 case 5:
-                    $("#PurshaseStatus b").html("Em Disputa");
+                    $("#PurchaseStatus b").html("Em Disputa");
                     $("#StatusSelect").append(`<option  selected>Em Disputa</option>`)
                     $("#StatusSelect").append(`<option value="4" >Finalizada</option>`)
                     $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
                     break;
                 case 6:
-                    $("#PurshaseStatus b").html("Devolvida");
+                    $("#PurchaseStatus b").html("Devolvida");
                     $("#StatusSelect").append(`<optionselected>Devolvida</option>`)
                     break;
                 case 7:
-                    $("#PurshaseStatus b").html("Cancelada");
+                    $("#PurchaseStatus b").html("Cancelada");
                     $("#StatusSelect").append(`<option  selected>Cancelada</option>`)
 
                     break;
                 case 8:
-                    $("#PurshaseStatus b").html("Debitado");
+                    $("#PurchaseStatus b").html("Debitado");
                     $("#StatusSelect").append(`<option selected>Debitado</option>`)
                     $("#StatusSelect").append(`<option value="3" >Paga</option>`)
                     $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
 
                     break;
                 case 9:
-                    $("#PurshaseStatus b").html("Retenção Temporária");
+                    $("#PurchaseStatus b").html("Retenção Temporária");
                     $("#StatusSelect").append(`<option value="1" selected>Retenção Temporária</option>`)
                     break;
                 default:
@@ -294,37 +297,37 @@ function modalPurshase(id = 0) {
 
             var d = new Date(payload.date);
             var d2 = new Date(payload.lastEventDate);
-            $("#PurshaseDate b").html(d.toLocaleString());
-            $("#PurshaseLastUpdate b").html(d2.toLocaleString());
-            $("#PurshaseCode a").html(payload.code);
-            $("#PurshaseCode a").attr("href", "http://localhost/checkStatus?code=" + payload.code);
-            $("#PurshaseTotalAmount b").html((payload.grossAmount));
-            $("#PurshaseFeeAmount b").html(payload.creditorFees.intermediationFeeAmount);
-            $("#PurshaseDiscount b").html(payload.discountAmount);
-            $("#PurshaseNetAmount b").html(payload.netAmount);
-            $("#PurshaseShippingPrice b").html(payload.shipping.cost);
+            $("#PurchaseDate b").html(d.toLocaleString());
+            $("#PurchaseLastUpdate b").html(d2.toLocaleString());
+            $("#PurchaseCode a").html(payload.code);
+            $("#PurchaseCode a").attr("href", "http://localhost/checkStatus?code=" + payload.code);
+            $("#PurchaseTotalAmount b").html((payload.grossAmount));
+            $("#PurchaseFeeAmount b").html(payload.creditorFees.intermediationFeeAmount);
+            $("#PurchaseDiscount b").html(payload.discountAmount);
+            $("#PurchaseNetAmount b").html(payload.netAmount);
+            $("#PurchaseShippingPrice b").html(payload.shipping.cost);
 
             switch (parseInt(payload.paymentMethod.type)) {
                 case 1:
-                    $("#PurshasePaymentMethod b").html("Cartão de Crédito");
+                    $("#PurchasePaymentMethod b").html("Cartão de Crédito");
                     break;
                 case 2:
-                    $("#PurshasePaymentMethod b").html("Boleto");
+                    $("#PurchasePaymentMethod b").html("Boleto");
                     break;
                 case 3:
-                    $("#PurshasePaymentMethod b").html("Débito Online (TEF)");
+                    $("#PurchasePaymentMethod b").html("Débito Online (TEF)");
                     break;
                 case 4:
-                    $("#PurshasePaymentMethod b").html("Saldo PagSeguro");
+                    $("#PurchasePaymentMethod b").html("Saldo PagSeguro");
                     break;
                 case 5:
-                    $("#PurshasePaymentMethod b").html("Oi Paggo");
+                    $("#PurchasePaymentMethod b").html("Oi Paggo");
                     break;
                 case 6:
-                    $("#PurshasePaymentMethod b").html("Depósito em Conta");
+                    $("#PurchasePaymentMethod b").html("Depósito em Conta");
                     break;
                 case 11:
-                    $("#PurshasePaymentMethod b").html("Pix");
+                    $("#PurchasePaymentMethod b").html("Pix");
                     break;
                 default:
             }
@@ -336,15 +339,15 @@ function modalPurshase(id = 0) {
             $("#ShippingType b").html(payload.shipping.type == "1" ? "PAC" : "SEDEX");
 
         }).then(function () {
-            $("#ModalPurshase").addClass("modalOpen");
+            $("#ModalPurchase").addClass("modalOpen");
         })
     }
 }
 
 var timerDel;
-function deletePurshase(id) {
+function deletePurchase(id) {
     $(".deleteConfirm").remove();
-    $("#Purshase" + id + " span:last-child").append(`
+    $("#Purchase" + id + " span:last-child").append(`
         <div class="deleteConfirm">
         <button onclick='del(${id})'>Deletar?</button>
         </div>
@@ -360,10 +363,10 @@ function deletePurshase(id) {
 
 function del(id) {
 
-    $.get("deletePurshase.php", { "id": id }, function (data) {
+    $.get("deletePurchase.php", { "id": id }, function (data) {
         data = JSON.parse(data);
         if (data.status == "success") {
-            $("#Purshase" + id).remove();
+            $("#Purchase" + id).remove();
         } else {
         }
     })

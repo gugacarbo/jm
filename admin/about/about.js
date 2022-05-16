@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    $("body").append($("<div class='adminHeader'>").load("../header.html"));
+    $("body").append($("<div class='adminMenu'>").load("../menu.html"));
+
     $("textarea").jqte();
     $.get("/about/aboutFile.html", function (response) {
         var text = response;
@@ -20,8 +23,8 @@ $(document).ready(function () {
     $("#save").click(function () {
         var fd = new FormData();
         var content = $("textarea").val()
-        var blob = new Blob([content], { type: "text/xml" });
-        fd.append("file", blob, "aboutFile.html");
+        var blob = new Blob([content], { type: "text/plain" });
+        fd.append("file", blob, "aboutFile.txt");
 
         var dir = "/about/"
         $.ajax({
@@ -39,8 +42,8 @@ $(document).ready(function () {
         var mapsL = new FormData();
         var contentMap = $("#EditMap").val()
 
-        var blobMap = new Blob([contentMap], { type: "text/xml" });
-        fd.append("file", blobMap, "mapLink.html");
+        var blobMap = new Blob([contentMap], { type: "text/plain" });
+        fd.append("file", blobMap, "mapLink.txt");
         $.ajax({
             beforeSend: function () {
             },

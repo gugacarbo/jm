@@ -37,3 +37,14 @@ if (isset($_GET['cpf']) && isset($_GET['code']) && is_numeric($_GET['cpf']) && s
 }else{
     http_response_code(404);
 }
+
+
+
+function errHandle($errNo, $errStr, $errFile, $errLine)
+{
+    if ($errNo == E_NOTICE || $errNo == E_WARNING) {
+        die(json_encode(array('status' => '403')));
+    } 
+}
+
+set_error_handler('errHandle');

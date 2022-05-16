@@ -80,8 +80,7 @@ async function getGliders() {
         "<span>Exibir Mais Produtos</span>" +
         "</a>" +
         "</div>"
-      console.log(data);
-      if (Object.keys((prods["prod_ids"])).length >= 4) {
+      if (Object.keys(JSON.parse(prods["prod_ids"])).length >= 4) {
         category += "<div class='carouselBtn prev" + prods["name"].replace(" ", "") + "'><i class=' fas fa-chevron-left'></i></div>" +
           "<div class='carouselBtn next" + prods["name"].replace(" ", "") + "'><i class='fas fa-chevron-right'></i></div>"
       }

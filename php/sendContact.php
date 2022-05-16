@@ -15,3 +15,12 @@ if(isset($_GET['name']) && isset($_GET['phone']) && isset($_GET['message'])){
     $mysqli->close();
     die(json_encode(array('status' => 'success')));
 }
+
+function errHandle($errNo, $errStr, $errFile, $errLine)
+{
+    if ($errNo == E_NOTICE || $errNo == E_WARNING) {
+        die(json_encode(array('status' => '403')));
+    } 
+}
+
+set_error_handler('errHandle');

@@ -7,7 +7,9 @@ var actImagePrev = 0;
 
 
 $(document).ready(function () {
-
+    $("body").append($("<div class='adminHeader'>").load("../header.html"));
+    $("body").append($("<div class='adminMenu'>").load("../menu.html"));
+    
 
     startGliders()
 

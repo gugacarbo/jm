@@ -22,12 +22,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../admin.css">
 </head>
-
 <body>
-    <div class="container">
-        <span class="title">Carrosséis</span>
-        <p class="descricao">
+    <div class="adminCarouselContainer adminContainer">
+        <span class="adminTitle">Carrosséis</span>
+        <p class="adminDescricao">
             Nesta página você pode inserir, alterar e excluir os carrosséis que aaparecerão na página inicial do site. <br>
             Pode-se ser inserido um carrosél de cada categoria.
         </p>
