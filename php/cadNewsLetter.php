@@ -1,5 +1,6 @@
 <?php
 //session start 
+header('Content-Type: application/json; charset=utf-8');
 session_start();
 
 if (isset($_GET['name']) && isset($_GET['email'])) {

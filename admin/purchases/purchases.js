@@ -3,22 +3,20 @@ var orderG = 'true';
 var filterG = 'id'
 var textSearch = ''
 var maxpPage = 20;
-var page = 0;
+var PurchasesPage = 0;
 
 $(document).ready(function () {
-    $("body").append($("<div class='adminHeader'>").load("../header.html"));
-    $("body").append($("<div class='adminMenu'>").load("../menu.html"));
-    
-    page = 0;
+
+    PurchasesPage = 0;
     search();
     $("#btnSearch").click(function () {
-        page = 0;
+        PurchasesPage = 0;
         search();
 
     })
     $('#textSearch').keyup(function (e) {
         if (e.keyCode == 13) {
-            page = 0;
+            PurchasesPage = 0;
             search();
         }
     });
@@ -37,7 +35,7 @@ $(document).ready(function () {
             $(this).addClass("selected");
         }
 
-        page = 0;
+        PurchasesPage = 0;
         search($(this).find("i").hasClass("up"), $(this).attr("name"));
     })
 
@@ -45,12 +43,11 @@ $(document).ready(function () {
         var code = $("#TrackingCode").val();
         if (code.length == 13) {
             var id = $(this).attr("data-id");
-            $.get("addTrackingCode.php", { code, id }, function (data) {
+            $.get("/admin/php/addTrackingCode.php", { code, id }, function (data) {
             })
         }
     })
     $("#closeModalPurchase").on("click", function () {
-        console.log("close")
         $("#ModalPurchase").removeClass("modalOpen");
 
     })
@@ -69,20 +66,20 @@ function search(order_ = orderG, filter_ = filterG,) {
     }
 
     $("#purchasesList").fadeOut(400, function () {
-        $.get("getPurchases.php", c, function (data) {
+        $.get("/admin/php/getPurchases.php", c, function (data) {
             var compras = JSON.parse(data);
 
             $("#totalPurchases b").html(compras.length);
 
-            if (page == 0) {
+            if (PurchasesPage == 0) {
                 $("#PageCounter").empty();
                 for (var i = 0; i < Math.ceil((compras.length) / maxpPage); i++) {
-                    $("#PageCounter").append(`<span onclick="changePage(${i})">${i + 1}</span>`)
+                    $("#PageCounter").append(`<span onclick="PurchasesPurchasePage(${i})">${i + 1}</span>`)
                 }
             }
 
             $(".pageSelected").removeClass("pageSelected");
-            $("#PageCounter span:nth-child(" + (page + 1) + ")").addClass("pageSelected");
+            $("#PageCounter span:nth-child(" + (PurchasesPage + 1) + ")").addClass("pageSelected");
 
 
             $("#purchasesList").empty();
@@ -91,7 +88,7 @@ function search(order_ = orderG, filter_ = filterG,) {
                 $("#purchasesList").append(`<span style='width:100%; text-align:center; padding: 10px 0; '>Nenhum resultado encontrado</span>`);
 
             }
-            $.each(compras.slice(page * maxpPage, (page + 1) * maxpPage), function (index, compra) {
+            $.each(compras.slice(PurchasesPage * maxpPage, (PurchasesPage + 1) * maxpPage), function (index, compra) {
                 createPurchase(compra)
             })
         }).then(_ => {
@@ -102,8 +99,8 @@ function search(order_ = orderG, filter_ = filterG,) {
 }
 
 
-function changePage(i) {
-    page = i;
+function PurchasesPurchasePage(i) {
+    PurchasesPage = i;
     search();
 
 }
@@ -163,12 +160,13 @@ function createPurchase(compra) {
 
 function modalPurchase(id = 0) {
     if (id > 0) {
-        $.get("getPurchase.php", { "Bid": id }, function (data) {
+        $.get("/admin/php/getPurchase.php", { "Bid": id }, function (data) {
             data = JSON.parse(data);
             console.log(data)
             var purchase = (data["purchase"]);
             var client = (data["client"]);
             var products = (data["products"]);
+            console.log(data["purchase"])
             var payload = JSON.parse(purchase.rawPayload);
 
             $("#addTrackingCode").attr("data-id", id)
@@ -232,8 +230,7 @@ function modalPurchase(id = 0) {
                 `)
                 }
             })
-            console.log(purchase)
-
+   
             purchase.trackingCode != "" ? $("#TrackingCode").val(purchase.trackingCode) : $("#TrackingCode").val("");
             var status = "";
             $("#StatusSelect").html("");
@@ -293,7 +290,7 @@ function modalPurchase(id = 0) {
                     break;
             }
 
-            console.log(payload)
+       
 
             var d = new Date(payload.date);
             var d2 = new Date(payload.lastEventDate);
@@ -342,32 +339,4 @@ function modalPurchase(id = 0) {
             $("#ModalPurchase").addClass("modalOpen");
         })
     }
-}
-
-var timerDel;
-function deletePurchase(id) {
-    $(".deleteConfirm").remove();
-    $("#Purchase" + id + " span:last-child").append(`
-        <div class="deleteConfirm">
-        <button onclick='del(${id})'>Deletar?</button>
-        </div>
-    `)
-    clearTimeout(timerDel);
-    timerDel = setTimeout(() => {
-        $(".deleteConfirm").fadeOut(500, function () {
-            $(".deleteConfirm").remove();
-        })
-    }, 3000);
-
-}
-
-function del(id) {
-
-    $.get("deletePurchase.php", { "id": id }, function (data) {
-        data = JSON.parse(data);
-        if (data.status == "success") {
-            $("#Purchase" + id).remove();
-        } else {
-        }
-    })
 }

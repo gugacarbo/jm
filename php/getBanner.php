@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
 
 //get banner on db by name
 if(isset($_GET['name'])){

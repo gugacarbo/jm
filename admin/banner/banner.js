@@ -1,15 +1,12 @@
 var toDelete = [];
 
 $(document).ready(function () {
-    $("body").append($("<div class='adminHeader'>").load("../header.html"));
-    $("body").append($("<div class='adminMenu'>").load("../menu.html"));
-    
 
     $.get("/php/getBanner.php", { name: "MAIN_BANNER" }, function (data) {
         data = JSON.parse(data);
         var images = JSON.parse(data.images);
         $.each(images, function (i, value) {
-            $("#Banner1File" + (i) + " + img").attr("src", value || "noImage.png");
+            $("#Banner1File" + (i) + " + img").attr("src", value || "img/noImage.png");
             $("#Banner1File" + (i) + " + img + i").attr("value", value);
             $("#Banner1File" + (i) + " + img + i + input[type='hidden']").val(value);
         })
@@ -21,7 +18,7 @@ $(document).ready(function () {
         $.each(images, function (i, value) {
             console.log(value);
 
-            $("#Banner2File" + (i) + " + img").attr("src", value || "noImage.png");
+            $("#Banner2File" + (i) + " + img").attr("src", value || "img/noImage.png");
             $("#Banner2File" + (i) + " + img + i").attr("value", value);
             $("#Banner2File" + (i) + " + img + i + input[type='hidden']").val(value);
         })
@@ -30,7 +27,7 @@ $(document).ready(function () {
         data = JSON.parse(data);
         var images = JSON.parse(data.images);
         $.each(images, function (i, value) {
-            $("#Banner3File" + (i) + " + img").attr("src", value || "noImage.png");
+            $("#Banner3File" + (i) + " + img").attr("src", value || "img/noImage.png");
             $("#Banner3File" + (i) + " + img + i").attr("value", value);
             $("#Banner3File" + (i) + " + img + i + input[type='hidden']").val(value);
         })
@@ -50,7 +47,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: "upload_banners.php",
+            url: "php/upload_banners.php",
             type: "POST",
             data: {
                 banners: banners
@@ -88,7 +85,7 @@ $(document).ready(function () {
     $(".fa-trash").on("click", function () {
         var file = $(this).attr("value");
         toDelete.push(file);
-        $("img[src='" + file + "']").attr("src", "noImage.png");
+        $("img[src='" + file + "']").attr("src", "img/noImage.png");
         $("input[value='" + file + "']").val("");
     })
 
@@ -138,7 +135,7 @@ $(document).ready(function () {
                         toDelete.push(response["location"]);
                         toDelete.push(actImg);
                     } else {
-                        $("#" + fileId + " + img").attr("src", "noImage.png");
+                        $("#" + fileId + " + img").attr("src", "img/noImage.png");
                         $("#" + fileId + " + img").show();
                         $("#" + fileId + " + img + i").attr("value", "");
                         $("#" + fileId + " + img + i + input[type='hidden']").val("");
@@ -169,9 +166,9 @@ function preview() {
     ]
     switch (swtichPrev) {
         case 0:
-            $("#imgMain img:nth-child(1)").attr("src", prevImages[0][0] || "noImage.png");
-            $("#imgProd img:nth-child(1)").attr("src", prevImages[1][0] || "noImage.png");
-            $("#imgAbout img:nth-child(1)").attr("src", prevImages[2][0] || "noImage.png");
+            $("#imgMain img:nth-child(1)").attr("src", prevImages[0][0] || "img/noImage.png");
+            $("#imgProd img:nth-child(1)").attr("src", prevImages[1][0] || "img/noImage.png");
+            $("#imgAbout img:nth-child(1)").attr("src", prevImages[2][0] || "img/noImage.png");
             $(".prev1Img").css("z-index", "5");
             $(".prev2Img").css("z-index", "1");
             $(".prev3Img").css("z-index", "1");
@@ -180,8 +177,8 @@ function preview() {
             break;
         case 1:
             $("#imgMain img:nth-child(2)").attr("src", prevImages[0][1] || "noImage.png");
-            $("#imgProd img:nth-child(2)").attr("src", prevImages[1][1] || "noImage.png");
-            $("#imgAbout img:nth-child(2)").attr("src", prevImages[2][1] || "noImage.png");
+            $("#imgProd img:nth-child(2)").attr("src", prevImages[1][1] || "img/noImage.png");
+            $("#imgAbout img:nth-child(2)").attr("src", prevImages[2][1] || "img/noImage.png");
             $(".prev1Img").css("z-index", "1");
             $(".prev2Img").css("z-index", "5");
             $(".prev3Img").css("z-index", "1");
@@ -189,9 +186,9 @@ function preview() {
             swtichPrev = 2;
             break;
         case 2:
-            $("#imgMain img:nth-child(3)").attr("src", prevImages[0][2] || "noImage.png");
-            $("#imgProd img:nth-child(3)").attr("src", prevImages[1][2] || "noImage.png");
-            $("#imgAbout img:nth-child(3)").attr("src", prevImages[2][2] || "noImage.png");
+            $("#imgMain img:nth-child(3)").attr("src", prevImages[0][2] || "img/noImage.png");
+            $("#imgProd img:nth-child(3)").attr("src", prevImages[1][2] || "img/noImage.png");
+            $("#imgAbout img:nth-child(3)").attr("src", prevImages[2][2] || "img/noImage.png");
             $(".prev1Img").css("z-index", "1");
             $(".prev2Img").css("z-index", "1");
             $(".prev3Img").css("z-index", "5");

@@ -1,4 +1,30 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
+session_start();
+//unset($_SESSION['checkoutTry']);
+if (isset($_SESSION["checkoutTry"])) {
+
+    $checkoutTry = $_SESSION["checkoutTry"];
+    
+    if ($checkoutTry < 10) {
+        $_SESSION["checkoutTry"] = $checkoutTry + 1;
+    } else {
+
+        $lastTry = date($_SESSION['checkoutLastTry']);
+        $interval = strtotime(date('Y-m-d H:i:s')) - strtotime($lastTry);
+
+        if ($interval > 60) {
+            $_SESSION["checkoutTry"] = 0;
+            $_SESSION["checkoutLastTry"] = date('Y-m-d H:i:s');
+        }
+
+        die(json_encode(array("status" => "403", "message" => "Tente novamente mais tarde")));
+    }
+    //echo $_SESSION["checkoutTry"];
+} else {
+    $_SESSION["checkoutTry"] = 1;
+    $_SESSION["checkoutLastTry"] = date("Y-m-d H:i:s");
+}
 
 
 if (isset($_GET['buyer']) && isset($_GET['ship']) && isset($_GET['cart'])) {
@@ -10,13 +36,12 @@ if (isset($_GET['buyer']) && isset($_GET['ship']) && isset($_GET['cart'])) {
 
     $shipping = ($_GET["ship"]);
     $cart = ($_GET["cart"]);
-    if(count($cart) > 50){
-        die(json_encode(array('status' => '403')));
+
+    if (count($cart) > 50) {
+        die(json_encode(array('status' => '405')));
     }
 
     $JsonSender = json_encode($sender,  JSON_UNESCAPED_UNICODE);
-
-
     /** CONST */
     $data['currency'] = "BRL";
     $data['shippingAddressCountry'] = "BRA";

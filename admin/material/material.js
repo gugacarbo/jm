@@ -2,8 +2,7 @@ var categories = [];
 
 var myChart;
 $(document).ready(function () {
-    $("body").append($("<div class='adminHeader'>").load("../header.html"));
-    $("body").append($("<div class='adminMenu'>").load("../menu.html"));
+
     
     $("input").on("keydown", function (e) {
         if (e.keyCode == 13) {
@@ -64,7 +63,7 @@ $(document).ready(function () {
 
 
 function deleteCategory(n) {
-    $.get("deleteMat.php", { cat: n }, function (data) {
+    $.get("/admin/php/deleteMat.php", { cat: n }, function (data) {
         data = JSON.parse(data);
         if (data["status"] == "success") {
             alert("Categoria Deletada");
@@ -79,7 +78,7 @@ function edit(c) {
     var oldCat = c;
     if (newCat != "") {
 
-        $.get("editMat.php", { newCat, oldCat: c }, function (data) {
+        $.get("/admin/php/editMat.php", { newCat, oldCat: c }, function (data) {
             data = JSON.parse(data);
             if (data["status"] == "success") {
                 getCat()
@@ -94,7 +93,7 @@ function addCat() {
         if (categories.includes(newCat)) {
             alert("Categoria Já Existe");
         } else {
-            $.get("addMat.php", { newCat }, function (data) {
+            $.get("/admin/php/addMat.php", { newCat }, function (data) {
                 data = JSON.parse(data);
                 if (data["status"] == "success") {
                     getCat()
@@ -106,7 +105,7 @@ function addCat() {
 }
 
 function getCat() {
-    $.get("getMaterial.php", function (data) {
+    $.get("/admin/php/getMaterial.php", function (data) {
         var category = JSON.parse(data);
         //category foreach
         removeData(myChart);

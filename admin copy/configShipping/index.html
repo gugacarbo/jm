@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../admin.css">
+
+    <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="/img/Jm_Logo_Branco.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.min.js"
+        integrity="sha512-hAJgR+pK6+s492clbGlnrRnt2J1CJK6kZ82FZy08tm6XG2Xl/ex9oVZLE6Krz+W+Iv4Gsr8U2mGMdh0ckRH61Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+
+<body>
+    <div class="purchasesShippingConfig adminContainer">
+        <span class="adminTitle">Configurações de Frete</span>
+        <p class="adminDescricao">Nesta aba voce fazer a configuração para calculo de frete e frete grátis.</p>
+        <button id="SaveShipConfig" class="saveShip">
+            Salvar
+        </button>
+        <div class="shipConfigContent">
+            <div class="Frete">
+
+                <label>
+                    <span>Cep Origem: </span>
+                    <input type="text" id="cepOrigemFrete" placeholder="00000-000">
+                </label>
+
+                <div class="previewSize">
+                    <div class="box">
+                    </div>
+
+                    <div class="shipSizes">
+                        <label>
+                            <span>Altura do Pacote: </span>
+                            <input type="number" min="10" value="10" id="alturaFrete">
+                            <b>cm</b>
+                        </label>
+                        <label>
+                            <span>Largura do Pacote: </span>
+                            <input type="number" min="10" value="10" id="larguraFrete">
+                            <b>cm</b>
+                        </label>
+                        <label>
+                            <span>Comprimento do Pacote: </span>
+                            <input type="number" min="10" value="10" id="comprimentoFrete">
+                            <b>cm</b>
+                        </label>
+                    </div>
+                </div>
+
+                <label>
+                    <span>Peso da Embalagem: </span>
+                    <input type="number" min="0" step="0.1" value="0.0" id="aditionalWeight">
+                    <b>Kg</b>
+                </label>
+
+            </div>
+
+            <div class="freteGratis ">
+                <div>
+                    <h4>Frete Gratis</h4>
+                    <label>
+                        <input type="checkbox" id="freteGratisCheck">
+                        <span class="toggleFreteGratis"></span>
+                    </label>
+                </div>
+
+                <div class="selectFree">
+                    <div>
+                        <h3>
+                            <i class="fas fa-trash-alt" onclick="deleteAllCity()"></i>
+                            Cidades
+                        </h3>
+                        <div id="freeCity">
+                        </div>
+                    </div>
+                    <div>
+                        <h3>
+                            <i class="fas fa-trash-alt" onclick="deleteAllState()"></i>
+                            Estados
+                        </h3>
+                        <div id="freeState">
+                        </div>
+                    </div>
+                    <label class="add">
+                        <input type="text" id="addCityInput" placeholder="Adicionar Cidade">
+                        <i class="fa-solid fa-plus" id="addCity"></i>
+                    </label>
+                    <label class="add">
+                        <span onclick="addAllState()">+ Todos</span>
+                        <input type="text" maxlength="2" id="addStateInput" placeholder="Adicionar UF">
+                        <i class="fa-solid fa-plus" id="addState"></i>
+                    </label>
+                    <div class="addF">
+                        <p>Adicionar por Cep</p>
+                        <input type="text" maxlength="10" id="addCepInput" placeholder="CEP">
+                        <i class="fa-solid fa-plus" id="addCep"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <script src="configShipping.js"></script>
+</body>
+
+</html>

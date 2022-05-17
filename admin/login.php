@@ -109,7 +109,7 @@ if (isset($_GET["error"])) {
             <div>
 
               
-                    <img src="logoRosa.png">
+                    <img src="img/logoRosa.png">
                 </div>
         </header>
             <input type="text" name="username" placeholder="Usuário" required>

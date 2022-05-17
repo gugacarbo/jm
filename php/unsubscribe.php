@@ -1,5 +1,7 @@
 <?php
 session_start();
+header('Content-Type: application/json; charset=utf-8');
+
 if(isset ($_GET['email'])){
     include "db_connect.php";
     if (isset($_SESSION['unsubTry']) && $_SESSION['unsubTry'] > 2){

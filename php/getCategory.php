@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
+
 //include db and take category from db and returns as json and close connection
 include 'db_connect.php';
 $stmt = $mysqli->prepare("SELECT * FROM categories");

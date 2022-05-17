@@ -1,26 +1,23 @@
 $(document).ready(function () {
-    $("body").append($("<div class='adminHeader'>").load("../header.html"));
-    $("body").append($("<div class='adminMenu'>").load("../menu.html"));
-
     $("textarea").jqte();
-    $.get("/about/aboutFile.html", function (response) {
+    $.get("/about/aboutFile.txt", function (response) {
         var text = response;
 
         $("textarea").jqteVal(text);
     });
-    $.get("/about/mapLink.html", function (response) {
+    $.get("/about/mapLink.txt", function (response) {
         var text = response;
 
         $("#EditMap").val(text);
     });
     $(("#DeleteAboutImage")).click(function () {
-        $.post("../file/delete.php", { file: "/about/aboutImage.jpg" }, function (response) {
+        $.post("/admin/file/delete.php", { file: "/about/aboutImage.jpg" }, function (response) {
             var text = response;
-            $("#AboutImageFile + img").attr("src", "noImage.png");
+            $("#AboutImageFile + img").attr("src", "img/noImage.png");
         });
     })
 
-    $("#save").click(function () {
+    $("#SaveAdminAbout").click(function () {
         var fd = new FormData();
         var content = $("textarea").val()
         var blob = new Blob([content], { type: "text/plain" });

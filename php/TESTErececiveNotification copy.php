@@ -1,9 +1,14 @@
 <?php
-/*
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-*/
+function errHandle($errNo, $errStr, $errFile, $errLine)
+{
+    if ($errNo == E_NOTICE || $errNo == E_WARNING) {
+        die(json_encode(array('status' => '403')));
+    } 
+}
+
+set_error_handler('errHandle');
+
+
 if (empty($_POST['notificationCode'])) {
     include("db_connect.php");
     include("mail.php");
@@ -40,7 +45,7 @@ if (empty($_POST['notificationCode'])) {
             $sendedMail = sendMail($Payload);
             $Purshcase = $result->fetch_assoc();
 
-            //? Review Products Of Canceled Purchase
+            //? ["status" = 7, "Value" : "Cancelada"], ["internalStatus" = 8, "Review Products Of Canceled Purchase"]
             if ($Payload['status'] == 7 && $Purshcase['internalStatus'] < 8) {
 
                 $stmtC = $mysqli->prepare("SELECT * FROM checkout_data WHERE reference = ?");
@@ -129,11 +134,4 @@ if (empty($_POST['notificationCode'])) {
 die();
 
 
-function errHandle($errNo, $errStr, $errFile, $errLine)
-{
-    if ($errNo == E_NOTICE || $errNo == E_WARNING) {
-        die(json_encode(array('status' => '403')));
-    } 
-}
 
-set_error_handler('errHandle');

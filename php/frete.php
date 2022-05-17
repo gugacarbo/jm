@@ -1,4 +1,8 @@
 <?php
+
+header('Content-Type: application/json; charset=utf-8');
+
+
 if (isset($_GET['sCepDestino']) && isset($_GET['nVlPeso'])) {
 
     $nVlPeso = ($_GET['nVlPeso']);
@@ -14,12 +18,11 @@ if (isset($_GET['sCepDestino']) && isset($_GET['nVlPeso'])) {
 }
 
 
-function getfrete($sCepDestino, $nVlPeso)
-{   
-    $replace = array("‑", ".", " ", "," . "-");
+function getfrete($CepDestino, $nVlPeso)
+{
+    $replace = array("‑", ".", " ", "," . "-", "-", "-");
 
-    $sCepDestino =  str_replace($replace, "", $sCepDestino);
-
+    $sCepDestino =  str_replace($replace, "", $CepDestino);
     $nVlPeso = floatval($nVlPeso);
     //only 3 decimal places
     $nVlPeso = round($nVlPeso, 3);
@@ -37,8 +40,9 @@ function getfrete($sCepDestino, $nVlPeso)
         $stmt->fetch();
         $stmt->close();
     }
-    $config['cepOrigemFrete'] = str_replace($replace, "", $config['cepOrigemFrete']);
 
+    $config['cepOrigemFrete'] = str_replace($replace, "", $config['cepOrigemFrete']);
+    
 
     $frete = array();
     $local = getCidade($sCepDestino);
@@ -58,15 +62,13 @@ function getfrete($sCepDestino, $nVlPeso)
             }
         }
     }
-
-
     $frete["local"] = $local;
     $query = array(
         'nCdEmpresa' => '',
         'sDsSenha' => '',
         'nCdServico' => '04510', // * 04510 pac
         'sCepOrigem' => $config["cepOrigemFrete"],
-        'sCepDestino' => $sCepDestino,
+        'sCepDestino' => str_replace($replace, "", $sCepDestino),
         'nVlPeso' => $nVlPeso + $config["aditionalWeight"],
         'nCdFormato' => '1',
         'nVlComprimento' => $config["comprimentoFrete"],
@@ -115,5 +117,3 @@ function tirarAcentos($string)
 {
     return preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/"), explode(" ", "a A e E i I o O u U n N"), $string);
 }
-
-

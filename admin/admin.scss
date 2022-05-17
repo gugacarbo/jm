@@ -13,8 +13,27 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    width: 100vw;
+    overflow-y: hidden ;
 
-    div button{
+
+}
+.AllContent{
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 80px;
+    padding-top: 60px;
+}
+.adminContainer {
+    width: $containerWidth;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    button{
         border-radius: 30px;
         padding: 6px 0;
         border: none;
@@ -29,6 +48,7 @@ body {
         justify-content: center;
         align-items: center;
         text-align:center;
+        border: 1px solid #fff;
         &:active {
             filter: brightness(1.1);
         }
@@ -41,16 +61,16 @@ body {
             color: #686868;
             background-color: #ddd;
             cursor: inherit;
+            border: none;
+            &:hover{
+                background-color: #ddd;
+            }
+            &:active{
+                background-color: #ddd;
+
+            }
         }
     }
-}
-.adminContainer {
-    width: $containerWidth;
-    padding-top: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
 
 }
 
@@ -67,8 +87,14 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 30px;
+    background-color: #fff;
+    z-index: 90;
     span{
         color: $mainColor;
+    }
+    .PageTitle{
+        font-size: 16pt;
+        font-weight: bold;
     }
 }
 
@@ -80,6 +106,7 @@ body {
     width: 60px;
     background-color: $mainColor;
     padding: 10px 0;
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -152,9 +179,6 @@ body {
                 background-color: rgb(233, 188, 188);
             }
         }
-        .active {
-            align-items: flex-end;
-        }
         .bars {
             transition: width 0.5s ease-out, background-color 1.5s;
             width: 95%;
@@ -172,24 +196,125 @@ body {
 
 .active {
     width: 300px;
+    .menuToggleBox .menuToggle {
+        align-items: flex-end;
+    } 
+        
 }
 
 .adminTitle {
-    width: 95%;
+    width: 85%;
     color: $mainColor;
     font-weight: bold;
     font-size: 14pt;
+    margin-top: 30px;
 }
 .adminDescricao {
-    width: 90%;
+    width: 75%;
+    margin-bottom: 20px
+}
+
+.modal{
+    position: fixed;
+    background-color: #fff;
+    border: 1px solid $mainColor;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1100px;
+    box-sizing: border-box;
+    padding: 20px;
+    box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
+    display: flex;
+    display: none;
+    flex-direction: column;
 }
 
 
-@import "about";
-@import "banner";
-@import "carousel";
-@import "category";
-@import "material";
-@import "products";
-@import "purchases";
-@import "reviewPurshases";
+.right{
+    left: -5px;
+}
+.help{
+    color: $mainColor;
+    font-size: 16pt;
+    cursor: pointer;
+    position: relative;
+    right: -5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10pt;
+    top: 10%;
+    i{
+        font-size: 1.3em !important;
+        aspect-ratio: 1/1;
+        color: rgba(150, 150, 150, 0.9) !important;
+        &:hover{
+            color: rgba(255, 128, 0,0.9) !important;
+
+        }
+    }
+    &:hover .helpMessage{
+
+        opacity: 1;
+    }
+    &:hover i{
+        filter: brightness(1.2);
+        animation: q 1s ease-in-out;
+    }
+    @keyframes q {
+        0% {
+            transform: scale(1);
+        }
+        25% {
+            transform: scale(1.2);
+        }
+        50% {
+            transform: scale(1);
+        }
+        75% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    .helpMessage{
+        padding: 6px;
+        max-width: 300px;
+        width: fit-content;
+        position: absolute;
+        display: flex;
+        min-width: 150px;
+        top: 8px;
+        left: 8px;
+        border: 1px solid $mainColor;
+        border-radius: 10px;
+        background-color: #fff;
+        pointer-events: none;
+        transition: 0.3s;
+        z-index: 100;
+        opacity: 0;
+        box-shadow: 0px 0px 10px -4px #00000024;
+        height: inherit !important;
+        p{
+            width: 100%;
+            font-size: 1em;
+            color: #333;
+            text-align: center;
+            font-weight: normal;
+            position: relative;
+
+        }
+    }
+}
+@import "scss/home";
+@import "scss/about";
+@import "scss/banner";
+@import "scss/carousel";
+@import "scss/category";
+@import "scss/material";
+@import "scss/products";
+@import "scss/purchases";
+@import "scss/reviewPurshases";
+@import "scss/configShipping";

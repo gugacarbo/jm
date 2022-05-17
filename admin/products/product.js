@@ -6,17 +6,17 @@ $(document).ready(function () {
     $("#NewProductPrice").mask("0000,0#", { reverse: true });
     $("#NewProductPromo").mask("0000,0#", { reverse: true });
     $("#NewProductCost").mask("0000,0#", { reverse: true });
-    $("#NewProductWeight").mask("0,000", { reverse: false });
+    $("#NewProductWeight").mask("0000");
 
 
-    $.get("/php/getCategory.php", function (data) {
+    $.get("/admin/php/getCategory.php", function (data) {
         var category = JSON.parse(data);
         $.each(category, function (index, value) {
             var item = '<option value="' + value['id'] + '" name="' + value['name'] + '" >' + value['name'] + '</option>';
             $("#NewProductCategory").append(item);
         })
     })
-    $.get("../getMaterial.php", function (data) {
+    $.get("/admin/php/getMaterial.php", function (data) {
         var material = JSON.parse(data);
         $.each(material, function (index, value) {
             var item = '<option value="' + value['id'] + '" name="' + value['name'] + '" >' + value['name'] + '</option>';
@@ -84,7 +84,7 @@ $(document).ready(function () {
             description: $("#NewProductDescription").val(),
             material: $("#NewProductMaterial").val(),
             category: $("#NewProductCategory").val(),
-            weight: $("#NewProductWeight").val(),
+            weight: parseFloat($("#NewProductWeight").val())/1000,
             options: prodOptions,
             imgs: (prodImages)
         }
@@ -180,7 +180,7 @@ $(document).ready(function () {
             }, 1500);
 
             $.ajax({
-                url: "saveProduct.php?id=" + id,
+                url: "/admin/php/saveProduct.php?id=" + id,
                 type: "POST",
                 data: {
                     product: newProduct
@@ -254,7 +254,7 @@ $(document).ready(function () {
 $(".toDeleteList").on("click", function () {
     var file = $(this).attr("value");
     toDelete.push(file);
-    $("img[src='" + file + "']").attr("src", "noImage.png");
+    $("img[src='" + file + "']").attr("src", "img/noImage.png");
     $("input[value='" + file + "']").val("");
 })
 
@@ -307,7 +307,7 @@ function deleteOpt(this_) {
 function modalProductShow(id = 0) {
     if (id > 0) {
 
-        $.get("getProdById.php", { id }, function (data) {
+        $.get("/admin/php/getProdById.php", { id }, function (data) {
             data = JSON.parse(data);
             $("#NewProductName").val(data['name']);
             if (data['promo'] == 0) {
@@ -317,7 +317,7 @@ function modalProductShow(id = 0) {
                 $("#NewProductPromo").val(data['price'].toFixed(2).replace(/\./g, ','));
             }
             $("#NewProductCost").val(data['cost'].toFixed(2).replace(/\./g, ','));
-            $("#NewProductWeight").val(data['weight']);
+            $("#NewProductWeight").val(data['weight']*1000);
             $("#NewProductDescription").html(data['description']);
             $("#NewProductMaterial option[name='" + data['material'] + "']").attr("selected", true);
             $("#NewProductCategory option").each(function (i, x) {
@@ -353,7 +353,7 @@ function modalProductShow(id = 0) {
                 $("#NewProductFile" + index + " + img + i").attr("value", value);
                 $("#NewProductFile" + index + " + img").show();
                 $("#NewProductFile" + index + " + img + i + input[type='hidden']").val(value);
-                value = value || "noImage.png";
+                value = value || "img/noImage.png";
                 $("#NewProductFile" + index + " + img").attr("src", value);
                 $("#saveProduct").attr("name", id);
 
@@ -361,8 +361,10 @@ function modalProductShow(id = 0) {
         })
     } else {
         clearProduct();
+      
     }
     $("#ModalProduct").css("display", "flex");
+    
 
 }
 
@@ -387,7 +389,7 @@ function clearProduct() {
         $("#NewProductFile" + index + " + img + i").attr("value", '');
         $("#NewProductFile" + index + " + img").show();
         $("#NewProductFile" + index + " + img + i + input[type='hidden']").val('');
-        $("#NewProductFile" + index + " + img").attr("src", "noImage.png");
+        $("#NewProductFile" + index + " + img").attr("src", "img/noImage.png");
         $("#saveProduct").attr("name", "");
     }
 }

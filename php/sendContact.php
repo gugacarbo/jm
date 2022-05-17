@@ -1,6 +1,8 @@
 <?php
 //send contact form data to database
 //connect to database
+header('Content-Type: application/json; charset=utf-8');
+
 include 'db_connect.php';
 
 //verfiying if is get name, phone and message

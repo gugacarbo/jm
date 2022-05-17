@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
+
 include 'db_connect.php';
 $stmt = $mysqli->prepare("SELECT * FROM carousel");
 $stmt->execute();

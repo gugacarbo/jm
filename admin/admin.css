@@ -18,9 +18,43 @@ body {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+  width: 100vw;
+  overflow-y: hidden;
 }
 
-body div button {
+.AllContent {
+  width: 100vw;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding-left: 80px;
+  padding-top: 60px;
+}
+
+.adminContainer {
+  width: calc(100% - 60px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+}
+
+.adminContainer button {
   border-radius: 30px;
   padding: 6px 0;
   border: none;
@@ -42,39 +76,33 @@ body div button {
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
+  border: 1px solid #fff;
 }
 
-body div button:active {
+.adminContainer button:active {
   -webkit-filter: brightness(1.1);
           filter: brightness(1.1);
 }
 
-body div button:hover {
+.adminContainer button:hover {
   background-color: #fff;
   color: #b66d76;
   border: 1px solid #b66d76;
 }
 
-body div button:disabled {
+.adminContainer button:disabled {
   color: #686868;
   background-color: #ddd;
   cursor: inherit;
+  border: none;
 }
 
-.adminContainer {
-  width: calc(100% - 60px);
-  padding-top: 60px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 20px;
+.adminContainer button:disabled:hover {
+  background-color: #ddd;
+}
+
+.adminContainer button:disabled:active {
+  background-color: #ddd;
 }
 
 .adminHeader {
@@ -95,10 +123,17 @@ body div button:disabled {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 0 30px;
+  background-color: #fff;
+  z-index: 90;
 }
 
 .adminHeader span {
   color: #b66d76;
+}
+
+.adminHeader .PageTitle {
+  font-size: 16pt;
+  font-weight: bold;
 }
 
 .adminMenu {
@@ -109,6 +144,7 @@ body div button:disabled {
   width: 60px;
   background-color: #b66d76;
   padding: 10px 0;
+  padding-top: 40px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -221,12 +257,6 @@ body div button:disabled {
   background-color: #e9bcbc;
 }
 
-.adminMenu .menuToggleBox .active {
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-}
-
 .adminMenu .menuToggleBox .bars {
   -webkit-transition: width 0.5s ease-out, background-color 1.5s;
   transition: width 0.5s ease-out, background-color 1.5s;
@@ -247,15 +277,181 @@ body div button:disabled {
   width: 300px;
 }
 
+.active .menuToggleBox .menuToggle {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
 .adminTitle {
-  width: 95%;
+  width: 85%;
   color: #b66d76;
   font-weight: bold;
   font-size: 14pt;
+  margin-top: 30px;
 }
 
 .adminDescricao {
-  width: 90%;
+  width: 75%;
+  margin-bottom: 20px;
+}
+
+.modal {
+  position: fixed;
+  background-color: #fff;
+  border: 1px solid #b66d76;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1100px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
+          box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.right {
+  left: -5px;
+}
+
+.help {
+  color: #b66d76;
+  font-size: 16pt;
+  cursor: pointer;
+  position: relative;
+  right: -5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 10pt;
+  top: 10%;
+}
+
+.help i {
+  font-size: 1.3em !important;
+  aspect-ratio: 1/1;
+  color: rgba(150, 150, 150, 0.9) !important;
+}
+
+.help i:hover {
+  color: rgba(255, 128, 0, 0.9) !important;
+}
+
+.help:hover .helpMessage {
+  opacity: 1;
+}
+
+.help:hover i {
+  -webkit-filter: brightness(1.2);
+          filter: brightness(1.2);
+  -webkit-animation: q 1s ease-in-out;
+          animation: q 1s ease-in-out;
+}
+
+@-webkit-keyframes q {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  25% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  50% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  75% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes q {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  25% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  50% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  75% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+.help .helpMessage {
+  padding: 6px;
+  max-width: 300px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 150px;
+  top: 8px;
+  left: 8px;
+  border: 1px solid #b66d76;
+  border-radius: 10px;
+  background-color: #fff;
+  pointer-events: none;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  z-index: 100;
+  opacity: 0;
+  -webkit-box-shadow: 0px 0px 10px -4px #00000024;
+          box-shadow: 0px 0px 10px -4px #00000024;
+  height: inherit !important;
+}
+
+.help .helpMessage p {
+  width: 100%;
+  font-size: 1em;
+  color: #333;
+  text-align: center;
+  font-weight: normal;
+  position: relative;
+}
+
+.adminHomeContainer .Chart {
+  width: 600px;
+  height: 400px;
+}
+
+.adminHomeContainer .Chart canvas {
+  width: 100%;
+  height: 100%;
 }
 
 .aboutAdminContainer .content {
@@ -268,6 +464,7 @@ body div button:disabled {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  padding-bottom: 80px;
 }
 
 .aboutAdminContainer .content .jqte {
@@ -276,9 +473,10 @@ body div button:disabled {
 }
 
 .aboutAdminContainer .content .jqte .jqte_editor {
-  height: 96%;
+  height: 100%;
   resize: none;
-  padding: 2%;
+  margin: 2%;
+  border: 2px dashed #bbb;
 }
 
 .aboutAdminContainer .content .addImage {
@@ -323,7 +521,7 @@ body div button:disabled {
 .aboutAdminContainer .content .addImage input[type="file"] {
   position: absolute;
   background-color: #fff;
-  background-image: url("plus.png");
+  background-image: url("img/plus.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 50%;
@@ -633,6 +831,7 @@ body div button:disabled {
 .adminBannerContainer .bannersContent form .bannerContainer p {
   width: 90%;
   color: #666;
+  position: relative;
 }
 
 .adminBannerContainer .bannersContent form .bannerContainer .preview {
@@ -664,7 +863,7 @@ body div button:disabled {
 .adminBannerContainer .bannersContent form .bannerContainer .preview input[type="file"] {
   position: absolute;
   background-color: #ddd;
-  background-image: url("plus.png");
+  background-image: url("img/plus.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 30%;
@@ -745,7 +944,11 @@ body div button:disabled {
   margin-left: 50px;
 }
 
-.adminCarouselContainer .content {
+.adminCarouselContainer button {
+  width: 280px;
+}
+
+.adminCarouselContainer .carouselContent {
   width: 80%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -757,259 +960,10 @@ body div button:disabled {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  padding-bottom: 80px;
 }
 
-.adminCarouselContainer .content .carouselAdd {
-  width: 100%;
-  background-color: #fff;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 15px;
-  padding: 10px 0;
-  border: 1px solid #b66d76;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  border-radius: 20px;
-  -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2), 0px 0px 15px rgba(0, 0, 0, 0.051);
-          box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2), 0px 0px 15px rgba(0, 0, 0, 0.051);
-  position: relative;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.adminCarouselContainer .content .carouselAdd section {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 15px;
-  padding: 0 10px;
-}
-
-.adminCarouselContainer .content .carouselAdd section:nth-child(2) {
-  padding: 5px 10px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.adminCarouselContainer .content .carouselAdd section select {
-  width: 180px;
-  padding: 5px 0;
-  border: 1px solid #b66d76;
-  text-align: center;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: transparent;
-  background-image: url("data:image/svg+xml;utf8,<svg id='eha7kRn9GDj1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
-  background-repeat: no-repeat;
-  background-position-x: 99%;
-  background-position-y: -4px;
-  outline: none;
-}
-
-.adminCarouselContainer .content .carouselAdd section select:disabled {
-  border-color: #ccc;
-}
-
-.adminCarouselContainer .content .carouselAdd section select:focus {
-  background-image: url("data:image/svg+xml;utf8,<svg id='euV7IenENMk1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' transform='matrix(-1 0 0-1 24 25)' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
-}
-
-.adminCarouselContainer .content .carouselAdd section input[type="radio"] {
-  accent-color: #b66d76;
-}
-
-.adminCarouselContainer .content .carouselAdd section input[type="radio"]:disabled {
-  color: #09c;
-  border-color: #b66d76;
-}
-
-.adminCarouselContainer .content .carouselAdd i {
-  color: #b66d76;
-  font-size: 14pt;
-  cursor: pointer;
-}
-
-.adminCarouselContainer .content .carouselAdd i:hover {
-  color: #ddd;
-}
-
-.adminCarouselContainer .content .carouselAdd .cantOpenList {
-  pointer-events: none;
-  color: #ddd;
-}
-
-.adminCarouselContainer .content .carouselAdd button {
-  width: 180px;
-}
-
-.adminCarouselContainer .content .carouselAdd button:disabled {
-  color: #686868;
-  background-color: #ddd;
-  cursor: inherit;
-}
-
-.adminCarouselContainer .content .carouselAdd button:disabled:active {
-  -webkit-filter: brightness(1);
-          filter: brightness(1);
-}
-
-.adminCarouselContainer .content .carouselAdd button:disabled:hover {
-  -webkit-filter: brightness(1);
-          filter: brightness(1);
-}
-
-.adminCarouselContainer .content .carouselAdd .previewBox {
-  width: 100%;
-  padding: 20px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  position: relative;
-}
-
-.adminCarouselContainer .content .carouselAdd .previewBox .preview {
-  width: 95%;
-  position: relative;
-}
-
-.adminCarouselContainer .content .carouselAdd .selectProds {
-  position: absolute;
-  width: 100%;
-  min-height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0 auto;
-  gap: 10px;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-transition: 1s;
-  transition: 1s;
-  background-color: #b66d76;
-  border-radius: 20px;
-  top: 0;
-  z-index: 100;
-  padding: 20px;
-  display: none;
-}
-
-.adminCarouselContainer .content .carouselAdd .selectProds #closeProdList {
-  width: 100%;
-  text-align: center;
-  padding: 0px 0;
-  top: 3px;
-  position: absolute;
-}
-
-.adminCarouselContainer .content .carouselAdd .selectProds #closeProdList i {
-  color: #fff;
-  font-size: 16pt;
-  cursor: pointer;
-}
-
-.adminCarouselContainer .content .carouselAdd .selectProds form {
-  overflow: hidden;
-  width: 100%;
-  display: -ms-grid;
-  display: grid;
-  gap: 20px;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-grid-columns: (minmax(130px, 150px))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(130px, 150px));
-  place-items: center;
-  -webkit-transition: 1s;
-  transition: 1s;
-}
-
-.adminCarouselContainer .content .carouselAdd .selectProds form div {
-  border: 1px solid brown;
-  border-radius: 10px;
-  width: 110px;
-  height: 110px;
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  overflow: hidden;
-}
-
-.adminCarouselContainer .content .carouselAdd .selectProds form div img {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.adminCarouselContainer .content .carouselAdd .selectProds form div input[type="checkbox"] {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9;
-  opacity: 0;
-  -webkit-box-ordinal-group: 2;
-      -ms-flex-order: 1;
-          order: 1;
-  cursor: pointer;
-}
-
-.adminCarouselContainer .content .carouselAdd .selectProds form div input[type="checkbox"]:disabled {
-  cursor: inherit;
-}
-
-.adminCarouselContainer .content .carouselAdd .selectProds form div input[type="checkbox"]:checked {
-  -webkit-box-ordinal-group: 0;
-      -ms-flex-order: -1;
-          order: -1;
-  opacity: 0.5;
-  accent-color: #b66d76;
-}
-
-.adminCarouselContainer .content .carouselAdd .selectProds form div input[type="checkbox"]:checked + img {
-  background-color: #00000066;
-}
-
-.adminCarouselContainer .content .carouselAdd .disabled::before {
-  z-index: 122;
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #7e7e7e;
-  opacity: 0.8;
-  -webkit-backdrop-filter: blur(15px);
-          backdrop-filter: blur(15px);
-  pointer-events: none;
-}
-
-.adminCarouselContainer .content .carouselList {
+.adminCarouselContainer .carouselContent .carouselList {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1028,17 +982,17 @@ body div button:disabled {
   transition: 2s;
 }
 
-.adminCarouselContainer .content .carouselList .preview {
+.adminCarouselContainer .carouselContent .carouselList .preview {
   width: 95%;
   position: absolute;
 }
 
-.adminCarouselContainer .carousel {
+.adminCarouselContainer .carouselContent .carousel {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: #ededed;
+  background-color: #fff;
   border-radius: 20px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
@@ -1050,12 +1004,11 @@ body div button:disabled {
           justify-content: center;
   padding: 10px;
   padding-bottom: 20px;
-  -webkit-transition: 2s;
-  transition: 2s;
+  border: 1px solid #b66d76;
 }
 
-.adminCarouselContainer .carousel .name {
-  width: 95%;
+.adminCarouselContainer .carouselContent .carousel .name {
+  width: 98%;
   color: #b66d76;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1063,12 +1016,13 @@ body div button:disabled {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 12pt;
-  margin: 10px 0;
+  font-size: 15pt;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
-.adminCarouselContainer .carousel .items {
-  width: 70%;
+.adminCarouselContainer .carouselContent .carousel .items {
+  width: 80%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1080,22 +1034,22 @@ body div button:disabled {
   padding: 0;
 }
 
-.adminCarouselContainer .carousel .items .item {
-  width: 90px;
-  height: 90px;
+.adminCarouselContainer .carouselContent .carousel .items .item {
+  width: 120px;
+  height: 120px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
 }
 
-.adminCarouselContainer .carousel .items .item img {
+.adminCarouselContainer .carouselContent .carousel .items .item img {
   width: 100%;
   height: 100%;
 }
 
-.adminCarouselContainer .carousel .info {
-  width: 30%;
+.adminCarouselContainer .carouselContent .carousel .info {
+  width: 20%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1111,32 +1065,281 @@ body div button:disabled {
   gap: 10px;
 }
 
-.adminCarouselContainer .carousel .info span {
+.adminCarouselContainer .carouselContent .carousel .info span {
   font-size: 10pt;
   font-weight: bold;
   margin-left: 10px;
 }
 
-.adminCarouselContainer .carousel .info span b {
+.adminCarouselContainer .carouselContent .carousel .info span b {
   font-size: 9pt;
   color: #b66d76;
 }
 
-.adminCarouselContainer .carousel .info i {
+.adminCarouselContainer .carouselContent .carousel .info i {
   margin-left: 15px;
   font-size: 14pt;
   color: #b66d76;
   cursor: pointer;
 }
 
-.adminCarouselContainer .carousel .info i:hover {
+.adminCarouselContainer .carouselContent .carousel .info i:hover {
   -webkit-filter: brightness(1.2);
           filter: brightness(1.2);
 }
 
-.adminCarouselContainer .carousel .info i:active {
+.adminCarouselContainer .carouselContent .carousel .info i:active {
   -webkit-filter: brightness(0.9);
           filter: brightness(0.9);
+}
+
+.adminCarouselContainer .modalSelectProds {
+  width: 600px;
+  padding: 0;
+  top: 20%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 20px;
+}
+
+.adminCarouselContainer .modalSelectProds #closeCarouselModal {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 18pt;
+  color: #fff;
+  cursor: pointer;
+}
+
+.adminCarouselContainer .modalSelectProds #closeCarouselModal:hover {
+  -webkit-filter: brightness(1.2);
+          filter: brightness(1.2);
+}
+
+.adminCarouselContainer .modalSelectProds #closeCarouselModal:active {
+  -webkit-filter: brightness(0.9);
+          filter: brightness(0.9);
+}
+
+.adminCarouselContainer .modalSelectProds .catSelect {
+  width: 100%;
+  background-color: #b66d76;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 15px 0;
+  gap: 10px;
+}
+
+.adminCarouselContainer .modalSelectProds .catSelect span {
+  color: #fff;
+  font-size: 13pt;
+  font-weight: bold;
+}
+
+.adminCarouselContainer .modalSelectProds .catSelect select {
+  border: none;
+  background-color: #fff;
+  border-radius: 25px;
+  padding: 3px 10px;
+  font-size: 11pt;
+  text-align: center;
+}
+
+.adminCarouselContainer .modalSelectProds .catSelect select:disabled {
+  border-color: #999;
+}
+
+.adminCarouselContainer .modalSelectProds section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px 0;
+  width: 80%;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+
+.adminCarouselContainer .modalSelectProds section label {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.adminCarouselContainer .modalSelectProds section label input[type="radio"] {
+  accent-color: #b66d76;
+}
+
+.adminCarouselContainer .modalSelectProds section label input[type="radio"]:checked + i {
+  color: #b66d76;
+}
+
+.adminCarouselContainer .modalSelectProds section label input[type="radio"]:disabled + i {
+  color: #ccc;
+}
+
+.adminCarouselContainer .modalSelectProds section label i {
+  color: #ccc;
+  pointer-events: none;
+}
+
+.adminCarouselContainer .modalSelectProds section span {
+  color: #333;
+}
+
+.adminCarouselContainer .modalSelectProds section #ProdAddCount b {
+  color: #b66d76;
+  margin-right: 5px;
+}
+
+.adminCarouselContainer .modalSelectProds section select {
+  border: none;
+  background-color: #fff;
+  border-radius: 25px;
+  padding: 3px 5px;
+  text-align: center;
+  border: 1px solid #b66d76;
+}
+
+.adminCarouselContainer .prodList {
+  position: absolute;
+  width: 600px;
+  padding: 20px;
+  background-color: #b66d76;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  top: 20%;
+  min-height: 200px;
+  display: none;
+  overflow: auto;
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+
+.adminCarouselContainer .prodList ::-webkit-scrollbar {
+  width: 10px;
+}
+
+.adminCarouselContainer .prodList ::-webkit-scrollbar-track {
+  background: #dadada;
+}
+
+.adminCarouselContainer .prodList ::-webkit-scrollbar-thumb {
+  background: #b66d76;
+}
+
+.adminCarouselContainer .prodList ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(182, 109, 118, 0.8);
+}
+
+.adminCarouselContainer .prodList #closeProdList {
+  position: absolute;
+  font-size: 20pt;
+  color: #fff;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  background-color: #b66d76;
+  padding: 5px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.adminCarouselContainer .prodList #closeProdList i {
+  text-shadow: 0 0 3px #fff;
+}
+
+.adminCarouselContainer .prodList #closeProdList:hover {
+  color: #13a71f;
+}
+
+.adminCarouselContainer .prodList #prodList {
+  width: 100%;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  gap: 10px;
+  -ms-grid-columns: (minmax(100px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  -ms-grid-rows: (minmax(100px, 1fr))[auto-fill];
+      grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+  padding: 30px 20px;
+  max-height: 60vh;
+  background-color: #fff;
+}
+
+.adminCarouselContainer .prodList #prodList label {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid #b66d76;
+  cursor: pointer;
+}
+
+.adminCarouselContainer .prodList #prodList label img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.adminCarouselContainer .prodList #prodList label input[type="checkbox"] {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  accent-color: #b66d76;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .adminCategoryContainer .categoryContent {
@@ -1561,9 +1764,9 @@ body div button:disabled {
 .productsContainer .filterProducts #totalProducts {
   color: #b66d76;
   font-size: 12pt;
-  margin-top: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 0;
   padding: 2px 0;
+  margin-left: 10px;
 }
 
 .productsContainer .filterProducts .filterTitle {
@@ -1590,6 +1793,7 @@ body div button:disabled {
           align-items: center;
   overflow: hidden;
   border-radius: 20px;
+  background-color: rgba(235, 227, 227, 0.507);
 }
 
 .productsContainer .filterProducts label input {
@@ -1601,7 +1805,6 @@ body div button:disabled {
   outline: none;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  background-color: rgba(235, 227, 227, 0.507);
   border-bottom: 1px solid #fff;
   color: #333;
   -webkit-transition: 0.3s;
@@ -1622,7 +1825,6 @@ body div button:disabled {
 
 .productsContainer .filterProducts label i {
   border-radius: 20px;
-  background-color: rgba(235, 227, 227, 0.507);
   height: 100%;
   width: 15%;
   display: -webkit-box;
@@ -1634,7 +1836,7 @@ body div button:disabled {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 5px 10px;
+  padding: 6px 10px;
   cursor: pointer;
   color: #b66d76;
   border-bottom: 1px solid #fff;
@@ -1845,6 +2047,7 @@ body div button:disabled {
   border-radius: 20px;
   overflow: hidden;
   width: 100%;
+  max-width: 1100px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding: 20px;
@@ -1903,28 +2106,30 @@ body div button:disabled {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
 }
 
 .productsContainer .modalProduct .productAdd .productInfo section label .rs,
 .productsContainer .modalProduct .productAdd .productInfo section label .kg {
-  font-size: 12pt;
+  font-size: 10pt;
   font-weight: bold;
   color: #b66d76;
-  margin-right: 5px;
+  left: 3px;
+  position: absolute;
+  top: 6px;
 }
 
 .productsContainer .modalProduct .productAdd .productInfo section label .kg {
-  margin-left: 5px;
+  left: 13%;
 }
 
 .productsContainer .modalProduct .productAdd .productInfo section label input {
   width: 90%;
   border: none;
   border-radius: 30px;
-  padding: 3px 16px;
+  padding: 3px 20px;
   font-size: 13pt;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -1975,8 +2180,8 @@ body div button:disabled {
   -webkit-transition: 0.3s;
   transition: 0.3s;
   position: absolute;
-  left: 30px;
-  top: 25%;
+  left: 22px;
+  top: 6px;
   font-size: 11pt;
   color: #b66d76;
 }
@@ -2003,7 +2208,7 @@ body div button:disabled {
   left: -5px;
   font-weight: bold;
   color: #b66d76;
-  font-size: 11pt;
+  font-size: 10pt;
 }
 
 .productsContainer .modalProduct .productAdd .productInfo section .save {
@@ -2077,6 +2282,12 @@ body div button:disabled {
   font-size: 13pt;
   color: #b66d76;
   font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
 }
 
 .productsContainer .modalProduct .productAdd .productInfo .productOptions #OptionsList {
@@ -2223,7 +2434,7 @@ body div button:disabled {
 .productsContainer .modalProduct .productAdd .productImages .addImage input[type="file"] {
   position: absolute;
   background-color: #fff;
-  background-image: url("plus.png");
+  background-image: url("img/plus.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 50%;
@@ -3050,5 +3261,412 @@ body div button:disabled {
 .reviewPurchasesContent .reviewContent .item span {
   width: 100%;
   text-align: center;
+}
+
+.purchasesShippingConfig input[type="text"],
+.purchasesShippingConfig input[type="number"] {
+  border: none;
+  background-color: #fff;
+  border: 1px solid #b66d76;
+  border-radius: 30px;
+  padding: 3px 0;
+  text-align: center;
+}
+
+.purchasesShippingConfig .saveShip {
+  width: 240px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin-left: 13%;
+}
+
+.purchasesShippingConfig .shipConfigContent {
+  padding-bottom: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.purchasesShippingConfig .shipConfigContent * {
+  -webkit-transition: color 0.5s border-color 0.5s;
+  transition: color 0.5s border-color 0.5s;
+}
+
+.purchasesShippingConfig .shipConfigContent div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.purchasesShippingConfig .shipConfigContent div label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.purchasesShippingConfig .shipConfigContent div label span {
+  font-size: 11pt;
+  font-weight: bold;
+  color: #b66d76;
+}
+
+.purchasesShippingConfig .shipConfigContent .Frete,
+.purchasesShippingConfig .shipConfigContent .freteGratis {
+  width: 30%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 410px;
+  gap: 20px;
+  border: 1px solid #b66d76;
+  padding: 30px;
+  height: 100%;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2), 0px 0px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2), 0px 0px 5px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.purchasesShippingConfig .shipConfigContent .previewSize {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.purchasesShippingConfig .shipConfigContent .previewSize .box {
+  width: 120px;
+  height: 110px;
+  background-image: url("img/caixa.png");
+  background-size: 125px;
+  background-position: center;
+}
+
+.purchasesShippingConfig .shipConfigContent .previewSize .shipSizes {
+  width: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.purchasesShippingConfig .shipConfigContent .previewSize .shipSizes label {
+  width: 100%;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 0;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.purchasesShippingConfig .shipConfigContent .previewSize .shipSizes label input {
+  width: 90px;
+  text-align: center;
+}
+
+.purchasesShippingConfig .shipConfigContent .previewSize .shipSizes label span {
+  font-size: 11pt;
+  width: 60%;
+  text-align: left;
+}
+
+.purchasesShippingConfig .shipConfigContent .previewSize .shipSizes label b {
+  color: #b66d76;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis {
+  width: 30%;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis div {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis div h4 {
+  font-weight: bold;
+  color: #b66d76;
+  font-size: 14pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis div label input[type="checkbox"] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis div label input[type="checkbox"]:checked + .toggleFreteGratis {
+  background-color: #fff;
+  border: 1px solid #b66d76;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis div label input[type="checkbox"]:checked + .toggleFreteGratis::after {
+  -webkit-transform: translateX(80%);
+          transform: translateX(80%);
+  background-color: #b66d76;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis div label .toggleFreteGratis {
+  width: 30px;
+  height: 18px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  background-color: #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1px solid #aaa;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis div label .toggleFreteGratis::after {
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+  background-color: #999;
+  content: "";
+  position: absolute;
+  border-radius: 20px;
+  width: 14px;
+  height: 14px;
+  left: 2px;
+  top: 1px;
+  right: inherit;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  row-gap: 20px;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div {
+  width: 40%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 {
+  margin-right: auto;
+  font-size: 13pt;
+  color: #b66d76;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 i {
+  font-size: 10pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 button {
+  margin-left: 5px;
+  padding: 2px 0;
+  width: 130px;
+  font-size: 10pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div div {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div div label {
+  width: 85%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: center;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div div label p {
+  width: 90%;
+  font-size: 11pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div div label i {
+  cursor: pointer;
+  font-size: 11pt;
+  color: #b66d76;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div div label i:hover {
+  color: #f00;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div div label i:active {
+  -webkit-filter: brightness(0.8);
+          filter: brightness(0.8);
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div .add {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: center;
+  width: 85%;
+  position: relative;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div .add input {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree .addF {
+  position: relative;
+  width: 100%;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-top: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 10px;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree .addF p {
+  font-weight: 11pt;
+  color: #b66d76;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree i {
+  cursor: pointer;
+  color: #b66d76;
+  font-size: 14pt;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree i:hover {
+  -webkit-filter: brightness(1.4);
+          filter: brightness(1.4);
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree i:active {
+  -webkit-filter: brightness(0.9);
+          filter: brightness(0.9);
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .noFreteGratis * {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  color: #ccc !important;
+  border-color: #ccc !important;
+  pointer-events: none;
 }
 /*# sourceMappingURL=admin.css.map */

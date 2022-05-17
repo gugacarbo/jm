@@ -1,7 +1,5 @@
 <?php
-
-error_reporting(1);
-ini_set('display_errors', 1);
+header('Content-Type: application/json; charset=utf-8');
 
 
 $params = array();
@@ -28,7 +26,6 @@ if (isset($_GET['cat']) && is_numeric($_GET['cat']) && ($_GET['cat']) > 0) {
 
 if (isset($_GET['text']) && strlen($_GET['text']) > 0 && strlen($_GET['text']) < 100 && $_GET["text"] != "") {
     $text = preg_replace('/[|\,\;\@\:"]+/', '', $_GET['text']);
-    echo  $_GET['text'];
     $sql .= " AND name LIKE ?";
     array_push($params, "%$text%");
     $labels .= "s";
@@ -44,7 +41,9 @@ $sql .= " ORDER BY $order";
 include 'db_connect.php';
 
 $stmt = $mysqli->prepare($sql);
-$stmt->bind_param($labels, ...$params);
+if ($labels != ""){
+    $stmt->bind_param($labels, ...$params);
+}
 $stmt->execute();
 $result = $stmt->get_result();
 $stmt->close();
