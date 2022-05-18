@@ -11,10 +11,7 @@ $(document).ready(function () {
     $(document).click(function (e) {
         if ($(".adminMenu").find(e.target).length > 0 && $("#MenuContent").hasClass("active") &&  $(e.target).find(".bars").length > 0) {
         }else{
-            console.log($(".adminMenu").find(e.target).length)
-            console.log($("#MenuContent").hasClass("active"))
             $("#MenuContent").removeClass("active");
-
         }
 
     });

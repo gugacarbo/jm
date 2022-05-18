@@ -2,7 +2,7 @@ var cart_;
 $(document).ready(() => {
     $("header").load("/includes/header.html");
     $("footer").load("/includes/footer.html");
-    
+
 
     callCart();
 
@@ -34,24 +34,17 @@ async function callCart() {
     $("#CartProds").html("");
 
 
-    //console.log(totalPrice)
-    //console.log(cart_);
-
     $.each(cart_, async (p, item) => {
 
-        var px = $.ajax({
-            url: "/php/getProdById.php?id=" + cart_[p].id,
+         $.ajax({
+            url: "/api/get/getProdById.php?id=" + cart_[p].id,
             method: "GET",
-            success: async function (l) {
-                var prod = JSON.parse(l);
-                prod.imgs = (JSON.parse(prod["imgs"]));
-                prod.options = (JSON.parse(prod["options"]));
-                
-                if((prod['options'][cart_[p].opt] == 0) || (!parseInt(prod['options'][cart_[p].opt])))
-                {
+            success:  function (prod) {
+
+
+                if ((prod['options'][cart_[p].opt] == 0) || (!parseInt(prod['options'][cart_[p].opt]))) {
                     invalidProd = 1;
                 }
-                console.log(invalidProd);
 
                 var cartProd = '<div class="cartP">' +
                     '<a class="pImage" href="/product/?id=' + cart_[p].id + '">' +
@@ -60,44 +53,38 @@ async function callCart() {
                     '<div class="pInfo">' +
                     '<span class="pName">' + prod['name'] + '</span>' +
                     (prod['options'][cart_[p].opt] > 0 ? "<span class='pAvailable'>Em Estoque" : "<span class='pAvailable' style='color:#922'>Indisponível") + '</span>' +
-                    //'<div class="giftCheck"><input type="checkbox" id="' + prod['id'] + 'isGift"> Este produto é para presente?</div>' +
+                
                     '<div class="pQuantity"><span>Qtd.:</span>' +
 
                     '<select onchange="changeQtd(this,' + cart_[p].id + ',' + "'" + [cart_[p].opt] + "'" + ')">  ';
-                    (prod['options'][cart_[p].opt] == 0) ? $("#goForm").addClass("off") : "";
+                (prod['options'][cart_[p].opt] == 0) ? $("#goForm").addClass("off") : "";
 
                 for (var x = 0; x < prod['options'][cart_[p].opt]; x++) {
                     cartProd += "<option value='" + (x + 1) + "'" + ((x + 1) == cart_[p].qtd ? "selected" : "") + ">" + (x + 1) + "</option>"
                 }
 
-                //console.log(cart_[p])
                 cartProd += '</select>' +
-                    //'<span class="delProd" onclick="delProd(' + (prod['id']+",\'"+ [cart_[p].opt]) + '\')">Excluir</span>' +
+                    
                     '<span class="delProd" onclick="delProd(' + (cart_[p].id + ",\'" + [cart_[p].opt]) + '\')">Excluir</span>' +
                     '</div>' +
                     '<span class="vari">Variação: ' + cart_[p].opt + '</span>' +
                     '</div>' +
                     '<div class="pPrice">' +
                     '<span>R$ ' + ((parseFloat(prod['price'])).toFixed(2)).replace(".", ",") + '</span>' +
-                    //'<span>Ou em até 4x de R$' + (prod["price"] / 4).toFixed(2) + '</span>' +
-                    //'<span>Sem Juros</span>' +
+                   
                     '</div></div>';
                 $("#CartProds").append(cartProd);
-                return await prod;
+                if (invalidProd == 1) {
+                    $("#goForm").addClass("off")
+                } else {
+                    $("#goForm").removeClass("off")
+                }
+                totalPrice += (parseFloat((parseFloat(prod.price) * cart_[p].qtd)));
+                totalItens += parseInt(cart_[p].qtd);
+
+                $("#totalPrice").html("Subtotal (" + totalItens + " Itens) : R$ " + totalPrice.toFixed(2).replace(".", ",") + "")
+               
             }
-        })
-        px.then((value) => {
-            console.log(invalidProd)
-            if( invalidProd == 1){
-                $("#goForm").addClass("off")
-            }else{
-                $("#goForm").removeClass("off")
-            }
-            var v = JSON.parse(value)
-            totalPrice += (parseFloat((parseFloat(v.price) * cart_[p].qtd)));
-            totalItens += parseInt(cart_[p].qtd);
-            $("#totalPrice").html("Subtotal (" + totalItens + " Itens) : R$ " + totalPrice.toFixed(2).replace(".", ",") + "")
-            return v;
         })
 
     })

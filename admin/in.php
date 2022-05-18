@@ -1,78 +1,67 @@
 <?php
-//verify and receive "user" and "password" from post method
-if (isset($_POST['username']) && isset($_POST['password'])) {
-    include "../php/db_connect.php";
-    session_start();
-    $user = $_POST['username'];
-    $password = $_POST['password'];
-
-    //select user from admin table
-    $sql = "SELECT * FROM admin WHERE user = '$user'";
-    $result = $mysqli->query($sql);
-    $row = $result->fetch_assoc();
-    $loginTry = $row['loginTry'];
-    if ($row["loginTry"] >= 3) {
-        $lastTryDate = $row["lastTry"];
-        date_default_timezone_set('America/Sao_Paulo');
-        $now = date("Y-m-d H:i:s", time());
-        $diff = strtotime($now) - strtotime($lastTryDate);
-        $awaitTime = 60 * 1; //5 minutes
-        if ($diff >= $awaitTime) {
-            $sql = "UPDATE admin SET loginTry = 0, lastTry = '$now' WHERE user = '$user'";
-            $mysqli->query($sql);
-            header("Location: login.php?error=1&time=0");
-        }else{
-
-            header("Location: login.php?error=1&time=" . ($awaitTime - $diff));
-        }
-    } else {
-        //verify md5($password) == $row["password"]
-        if (md5($password) == $row["password"]) {
-            //verify if user is admin
-            $now = date("Y-m-d H:i:s");
-            if ($row["admin"] == 1) {
-                //set session admin
-                $_SESSION['admin'] = 1;
-                $_SESSION['user'] = $user;
-                //update last login date
-                $sql = "UPDATE admin SET  loginTry = 0 WHERE user = '$user'";
-                $result = $mysqli->query($sql);
-                if (!$result) {
-                    echo "Erro ao atualizar tentativas de login.";
-                }else{
-                    header("Location: login.php");
-                }
-
-            } else {
-                //set session user
-                $_SESSION['user'] = $user;
-                $_SESSION['admin'] = 0;
-                //update last login date and logintry = 0
-                $sql = "UPDATE admin SET loginTry = 6 WHERE user = '$user'";
-                $result = $mysqli->query($sql);
-                if (!$result) {
-                    echo "Erro ao atualizar tentativas de login.";
-                }else{
-                    header("Location: login.php");
-                }
-
-
-                //redirect to user page
-
-            }
-        } else {
-            //update login try
-            $loginTry = $loginTry + 1;
-            $sql = "UPDATE admin SET  loginTry = '$loginTry' WHERE user = '$user'";
-            $result = $mysqli->query($sql);
-            if (!$result) {
-                echo "Erro ao atualizar tentativas de login.";
-            }
-            header("Location: login.php?error=0");
-        }
-        $mysqli->close();
-        exit;
+header('Content-Type: application/json; charset=utf-8');
+date_default_timezone_set('America/Sao_Paulo');
+session_start();
+if (isset($_SESSION["loginTry"]) && $_SESSION["loginTry"] >= 10) {
+    $interval = time() -  $_SESSION["lastLoginTry"];
+    if ($interval > 60) {
+        $_SESSION["loginTry"] = 0;
     }
-}else{
-    header("Location: login.php");
+    die(json_encode(array('status' => 401, 'message' => 'Too many login attempts. Please try again in ' . (60 - $interval) . ' seconds.')));
+} else {
+    $_SESSION["loginTry"] = isset($_SESSION["loginTry"]) ? $_SESSION["loginTry"] + 1 : 1;
+    $_SESSION["lastLoginTry"] = time();
+
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        include "api/config/db_config.php";
+        $mysqli = new mysqli($server, $user, $password, $dbname);
+        if (!$mysqli) {
+            die("Falha na conexao: " . mysqli_connect_error());
+        }
+        $username = $_POST['username'];
+        $password = md5($_POST['password']);
+
+        $stmt = $mysqli->prepare("SELECT * FROM admin WHERE user = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows == 0) {
+            die(json_encode(array('status' => 403, 'message' => 'Invalid username or password.')));
+        } else {
+            $row = $result->fetch_assoc();
+
+            $tries = $row["loginTry"] + 1;
+            if ($tries < 4) {
+                if ($row['password'] == $password) {
+                    $_SESSION['user'] = $username;
+                    $_SESSION['admin'] = $row['admin'];
+                    $stmt = $mysqli->prepare("UPDATE admin SET loginTry = 0, lastTry = NOW() WHERE user = ?");
+                    $stmt->bind_param("s", $username);
+                    $stmt->execute();
+                    header("Location: login.php");
+                    die(json_encode(array('status' => 200)));
+                } else {
+
+                    $stmt = $mysqli->prepare("UPDATE admin SET loginTry = ?, lastTry = NOW() WHERE user = ?");
+                    $stmt->bind_param("is", $tries, $username);
+                    $stmt->execute();
+
+                    die(json_encode(array('status' => 403, 'message' => 'Invalid username or password.')));
+                }
+            } else {
+                $interval2 = strtotime(date("Y-m-d H:i:s")) - strtotime($row["lastTry"]);
+                if ($interval2 > 60) {
+                    $stmt = $mysqli->prepare("UPDATE admin SET loginTry = 0, lastTry = NOW() WHERE user = ?");
+                    $stmt->bind_param("s", $username);
+                    $stmt->execute();
+                }
+                die(json_encode(array('status' => 401, 'message' => 'Too many login attempts. Please try again in ' . (60 - $interval2) . ' seconds.')));
+            }
+        }
+
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+    } else {
+        header("Location: login.php");
+    }
 }

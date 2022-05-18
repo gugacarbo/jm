@@ -43,8 +43,9 @@ $(document).ready(function () {
         var code = $("#TrackingCode").val();
         if (code.length == 13) {
             var id = $(this).attr("data-id");
-            $.get("/admin/php/addTrackingCode.php", { code, id }, function (data) {
+            $.post("/admin/api/post/addTrackingCode.php", { code, id }, function (data) {
             })
+            search();
         }
     })
     $("#closeModalPurchase").on("click", function () {
@@ -66,9 +67,7 @@ function search(order_ = orderG, filter_ = filterG,) {
     }
 
     $("#purchasesList").fadeOut(400, function () {
-        $.get("/admin/php/getPurchases.php", c, function (data) {
-            var compras = JSON.parse(data);
-
+        $.get("/admin/api/get/getPurchases.php", c, function (compras) {
             $("#totalPurchases b").html(compras.length);
 
             if (PurchasesPage == 0) {
@@ -152,6 +151,7 @@ function createPurchase(compra) {
         <span onclick="modalPurchase(${compra.id})">${compra.client.name + " " + compra.client.lastName}</span>
         <span>R$ ${compra.totalAmount.toFixed(2).replace(".", ",")}</span>
         <span>${status}</span>
+        <span><i class="fa-solid fa-truck" onclick="modalPurchase(${compra.id})" ${compra.trackingCode == "" ? compra.status > 4 ?  "style='color:#aaa'" : "style='color:#e3b10a'" : "style='color:#6db67b'"}> </i></span>
         <span>${compra.code}</span>
         <span><i class="fas fa-ellipsis-h" onclick="modalPurchase(${compra.id})"></i></span>
 </div>`
@@ -160,33 +160,25 @@ function createPurchase(compra) {
 
 function modalPurchase(id = 0) {
     if (id > 0) {
-        $.get("/admin/php/getPurchase.php", { "Bid": id }, function (data) {
-            data = JSON.parse(data);
-            console.log(data)
+        $.get("/admin/api/get/getPurchase.php", { "Bid": id }, function (data) {
             var purchase = (data["purchase"]);
             var client = (data["client"]);
-            var products = (data["products"]);
-            console.log(data["purchase"])
+            var products = data["products"];
+            
             var payload = JSON.parse(purchase.rawPayload);
 
             $("#addTrackingCode").attr("data-id", id)
-            console.log(client)
             $("#ClientName b").html(client.name + " " + client.lastName);
             $("#ClientEmail b").html(client.email);
             $("#ClientPhone b").html(client.phone);
-            $("#ClientCPF b").html(client.cpf);
-
-            console.log(client.bornDate)
+            $("#ClientCPF b").html(formataCPF(client.cpf));
             var date = new Date(client.bornDate.replace(/-/g, '\/'));
-            console.log(date)
             var d = date.getDate();
             var m = date.getMonth();
             m += 1;  // JavaScript months are 0-11
             var y = date.getFullYear();
 
             $("#ClientBorndate b").html(d + "/" + m + "/" + y);
-
-            console.log(products)
             $("#PurchaseProducts").empty();
 
             $.each(products, function (index, product) {
@@ -196,7 +188,7 @@ function modalPurchase(id = 0) {
                     $("#PurchaseProducts").append(`
                 <div class="product">
                 <div class="image">    
-                <img src="noImage.png" alt="">
+                <img src="img/noImage.png" alt="">
                 </div>
                 <label class="name">
                     <span>${product.description}</span>
@@ -211,7 +203,7 @@ function modalPurchase(id = 0) {
                 `)
                 } else {
 
-                    var images = JSON.parse(product.imgs);
+                    var images = (product.imgs);
                     $("#PurchaseProducts").append(`
                 <div class="product">
                 <div class="image">    
@@ -231,65 +223,81 @@ function modalPurchase(id = 0) {
                 }
             })
    
-            purchase.trackingCode != "" ? $("#TrackingCode").val(purchase.trackingCode) : $("#TrackingCode").val("");
             var status = "";
-            $("#StatusSelect").html("");
+            //$("#StatusSelect").html("");
             switch (parseInt(purchase.status)) {
                 case 1:
                     $("#PurchaseStatus b").html("Aguardando Pagamento");
-                    $("#StatusSelect").append(`<option selected>Aguardando Pagamento</option>`)
-                    $("#StatusSelect").append(`<option value="3" >Paga</option>`)
-                    $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
+                    $("#StatusSelect").html(`Aguardando Pagamento`)
+                    //$("#StatusSelect").append(`<option selected>Aguardando Pagamento</option>`)
+                    //$("#StatusSelect").append(`<option value="3" >Paga</option>`)
+                    //$("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
                     break;
                 case 2:
                     $("#PurchaseStatus b").html("Pagamento em Análise");
-                    $("#StatusSelect").append(`<option value="1" selected>Pagamento em Análise</option>`)
-                    $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
+                    $("#StatusSelect").html(`Pagamento em Análise`)
+                    //$("#StatusSelect").append(`<option value="1" selected>Pagamento em Análise</option>`)
+                    //$("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
                     break;
                 case 3:
 
                     $("#PurchaseStatus b").html("Pagamento Aprovado");
-                    $("#StatusSelect").append(`<option value="1" selected>Pagamento Aprovado</option>`)
-                    $("#StatusSelect").append(`<option value="5" >Em Disputa</option>`)
-                    $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
+                    $("#StatusSelect").html(`Pagamento Aprovado`)
+                    //$("#StatusSelect").append(`<option value="1" selected>Pagamento Aprovado</option>`)
+                    //$("#StatusSelect").append(`<option value="5" >Em Disputa</option>`)
+                    //$("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
                     break;
                 case 4:
                     $("#PurchaseStatus b").html("Finalizada");
-                    $("#StatusSelect").append(`<option value="1" selected>Finalizada</option>`)
-                    $("#StatusSelect").append(`<option value="5" >Em Disputa</option>`)
-                    $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
+                    $("#StatusSelect").html(`Finalizada`)
+                    //$("#StatusSelect").append(`<option value="1" selected>Finalizada</option>`)
+                    //$("#StatusSelect").append(`<option value="5" >Em Disputa</option>`)
+                    //$("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
                     break;
                 case 5:
                     $("#PurchaseStatus b").html("Em Disputa");
-                    $("#StatusSelect").append(`<option  selected>Em Disputa</option>`)
-                    $("#StatusSelect").append(`<option value="4" >Finalizada</option>`)
-                    $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
+                    $("#StatusSelect").html(`Em Disputa`)
+                    //$("#StatusSelect").append(`<option  selected>Em Disputa</option>`)
+                    //$("#StatusSelect").append(`<option value="4" >Finalizada</option>`)
+                    //$("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
                     break;
                 case 6:
                     $("#PurchaseStatus b").html("Devolvida");
-                    $("#StatusSelect").append(`<optionselected>Devolvida</option>`)
+                    $("#StatusSelect").html(`Devolvida`)
+                    //$("#StatusSelect").append(`<optionselected>Devolvida</option>`)
                     break;
                 case 7:
                     $("#PurchaseStatus b").html("Cancelada");
-                    $("#StatusSelect").append(`<option  selected>Cancelada</option>`)
+                    $("#StatusSelect").html(`Cancelada`)
+                    //$("#StatusSelect").append(`<option  selected>Cancelada</option>`)
 
                     break;
                 case 8:
                     $("#PurchaseStatus b").html("Debitado");
-                    $("#StatusSelect").append(`<option selected>Debitado</option>`)
-                    $("#StatusSelect").append(`<option value="3" >Paga</option>`)
-                    $("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
+                    $("#StatusSelect").html(`Debitado`)
+                    //$("#StatusSelect").append(`<option selected>Debitado</option>`)
+                    //$("#StatusSelect").append(`<option value="3" >Paga</option>`)
+                    //$("#StatusSelect").append(`<option value="3" >Cancelada</option>`)
 
                     break;
                 case 9:
                     $("#PurchaseStatus b").html("Retenção Temporária");
-                    $("#StatusSelect").append(`<option value="1" selected>Retenção Temporária</option>`)
+                    $("#StatusSelect").html(`Retenção Temporária`)
+                    //$("#StatusSelect").append(`<option value="1" selected>Retenção Temporária</option>`)
                     break;
                 default:
                     console.log("anao")
                     break;
             }
 
+            if(purchase.trackingCode != ""){
+                $("#TrackingCode").val(purchase.trackingCode)
+                $.get("/api/get/tracking.php", { trackingCode: purchase.trackingCode }, function (data) {
+                   
+                })
+            }else{
+                $("#TrackingCode").val("");
+            }
        
 
             var d = new Date(payload.date);
@@ -298,11 +306,11 @@ function modalPurchase(id = 0) {
             $("#PurchaseLastUpdate b").html(d2.toLocaleString());
             $("#PurchaseCode a").html(payload.code);
             $("#PurchaseCode a").attr("href", "http://localhost/checkStatus?code=" + payload.code);
-            $("#PurchaseTotalAmount b").html((payload.grossAmount));
-            $("#PurchaseFeeAmount b").html(payload.creditorFees.intermediationFeeAmount);
-            $("#PurchaseDiscount b").html(payload.discountAmount);
-            $("#PurchaseNetAmount b").html(payload.netAmount);
-            $("#PurchaseShippingPrice b").html(payload.shipping.cost);
+            $("#PurchaseTotalAmount b").html((payload.grossAmount.replace(".", ",")));
+            $("#PurchaseFeeAmount b").html(payload.creditorFees.intermediationFeeAmount.replace(".", ","));
+            $("#PurchaseDiscount b").html(payload.discountAmount.replace(".", ","));
+            $("#PurchaseNetAmount b").html(payload.netAmount.replace(".", ","));
+            $("#PurchaseShippingPrice b").html(payload.shipping.cost.replace(".", ","));
 
             switch (parseInt(payload.paymentMethod.type)) {
                 case 1:
@@ -340,3 +348,11 @@ function modalPurchase(id = 0) {
         })
     }
 }
+
+function formataCPF(cpf){
+    //retira os caracteres indesejados...
+    cpf = cpf.replace(/[^\d]/g, "");
+    
+    //realizar a formatação...
+      return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  }

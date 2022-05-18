@@ -53,14 +53,12 @@ function moreTracking() {
 
 function getData(cpf, code) {
     //ajax get to getProductStatus
-    $.get("/php/getProductStatus.php", { "cpf": cpf, "code": code }, function (data) {
-        data = JSON.parse(data)
-        var pagData = JSON.parse(data.rawPayload);
-
-        console.log(data)
-
+    $.get("/api/get/ProductStatus.php", { "cpf": cpf, "code": code }, function (data) {
+        
+        var pagData = data.rawPayload;
         //var prods = ((typeof(pagData.items.item) != "object") ? pagData.items.item:  [pagData.items.item]);
         var items = pagData.items.item;
+        
         items = Object.prototype.toString.call(items) === '[object Array]' ? items : [items];
 
         var date = new Date(data.bornDate.replace(/-/g, '\/'));
@@ -102,9 +100,9 @@ function getData(cpf, code) {
         (pagData.discountAmount > 0) ? $("#TotalDiscount").html("Desconto: R$" + parseFloat(pagData.discountAmount).toFixed(2).replace(".", ",")) : $("#TotalDiscount").css("display", "none");
         $("#TotalAmount b").html("Total: R$" + (parseFloat(data.totalAmount).toFixed(2)).replace(".", ","));
         $.each(items, function (i, item) {
-            var x = $.get("/php/getProdById.php", { "id": item.id }, async function (data) {
-                if (JSON.parse(data).id != null) {
-                    imgs = JSON.parse(JSON.parse(data)["imgs"]);
+            var x = $.get("/api/get/getProdById.php", { "id": item.id }, async function (data) {
+                if (data.id != null) {
+                    imgs = data["imgs"];
                     var pAppend = '<div class="prod">' +
                         '<div class="image">' +
                         '<img src="' + imgs[1] + '">' +
@@ -259,7 +257,7 @@ function getData(cpf, code) {
                 $("#Sended").addClass("done")
             }
             $.ajax({
-                url: "/php/tracking.php",
+                url: "/api/get/tracking.php",
                 data: {
                     "trackingCode": trackingCode
                 },

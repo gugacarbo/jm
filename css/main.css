@@ -2471,8 +2471,6 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -2542,7 +2540,7 @@ body {
 .cartPage .cartP .pImage {
   width: 130px;
   aspect-ratio: 1/1;
-  background-color: #0ff;
+  background-color: #fff;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3094,6 +3092,15 @@ body {
 .checkoutPage .data span {
   font-size: 13pt;
   margin: 3px 20px;
+  font-weight: bold;
+  color: #b66d76;
+  text-align: center;
+}
+
+.checkoutPage .data span b {
+  font-weight: normal;
+  color: #333;
+  font-size: 11pt;
 }
 
 .checkoutPage .products {
@@ -3277,7 +3284,7 @@ body {
 }
 
 .checkoutPage .total {
-  width: 40%;
+  width: 45%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -3286,6 +3293,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  padding: 10px;
 }
 
 .checkoutPage .total label {
@@ -3308,7 +3316,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 10px 20px;
+  padding: 20px 20px;
   gap: 10px;
   width: 45%;
   position: relative;
@@ -3389,7 +3397,8 @@ body {
   background-color: #ddd;
 }
 
-#waitingShipping, #totalBoxOn {
+#waitingShipping,
+#totalBoxOn {
   position: absolute;
   top: 0;
   left: 0;
@@ -3411,7 +3420,8 @@ body {
   border-radius: 20px;
 }
 
-#waitingShipping i, #totalBoxOn i {
+#waitingShipping i,
+#totalBoxOn i {
   font-size: 25pt;
   color: #787878;
   -webkit-animation: girar 1s infinite;
@@ -3459,10 +3469,10 @@ body {
           align-items: center;
   -webkit-backdrop-filter: blur(4px);
           backdrop-filter: blur(4px);
-  display: none;
   opacity: 0;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  pointer-events: none;
 }
 
 .redirectMessage .redirectMessageContent {
@@ -3496,7 +3506,9 @@ body {
 }
 
 .redirectMessage .redirectMessageContent i {
-  background-color: #0f0;
+  width: 80px;
+  width: 80px;
+  color: #17a117;
   font-size: 30pt;
   border-radius: 50%;
   display: -webkit-box;

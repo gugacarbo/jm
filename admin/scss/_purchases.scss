@@ -22,12 +22,15 @@
             margin-bottom: 8px;
             padding: 2px 0;
         }
-        #totalProducts {
-            color: $mainColor;
+        #totalPurchases {
+            color: #333;
             font-size: 12pt;
             margin-top: 10px;
             margin-bottom: 8px;
             padding: 2px 0;
+            b{
+                color: $mainColor;
+            }
         }
         button {
             width: 260px;
@@ -135,6 +138,9 @@
             &:nth-child(4) {
                 width: 60%;
             }
+            &:nth-child(6) {
+                width: 20%;
+            }
             &:last-child {
                 width: 35%;
             }
@@ -175,6 +181,9 @@
                 }
                 &:nth-child(4) {
                     width: 60%;
+                }
+                &:nth-child(6) {
+                    width: 20%;
                 }
                 &:last-child {
                     width: 35%;
@@ -314,6 +323,9 @@
                 span {
                     font-size: 11pt;
                     color: #fff;
+                }
+                #StatusSelect{
+                    font-weight: bold;
                 }
                 select {
                     width: 180px;

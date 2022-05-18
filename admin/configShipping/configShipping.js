@@ -27,8 +27,7 @@ $(document).ready(function () {
         }, 200);
     })
 
-    $.get("/admin/php/getShippingConfig.php", (data) => {
-        data = JSON.parse(data);
+    $.get("/admin/api/get/getShippingConfig.php", (data) => {
 
         var freteGratis = JSON.parse(data.data.freteGratis);
         $("#freteGratisCheck").prop("checked", freteGratis.use == "true");
@@ -58,12 +57,10 @@ $(document).ready(function () {
         var cep = $("#addCepInput").val();
         cep = cep.replace(/\D/g, '');
         if (cep.length == 8) {
-            $.get("/admin/php/getAddress.php", {
+            $.get("/admin/api/get/getAddress.php", {
                 cep: cep
             }, function (data) {
-                data = JSON.parse(data);
                 if (data.erro) {
-                    alert(data.erro);
                 } else {
                     var c_ = data.cidade[0];
                     var s_ = data.uf[0];
@@ -123,9 +120,7 @@ $(document).ready(function () {
             "estados": states || []
 
         }
-        console.log(settings)
-        $.get("/admin/php/saveShipConfig.php", settings, function (data) {
-            data = JSON.parse(data)
+        $.post("/admin/api/post/editShippingConfig.php", settings, function (data) {     
         })
     })
 

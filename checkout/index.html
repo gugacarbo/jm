@@ -6,19 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/img/Jm_Logo_Branco.png">
-
-    <title>Jm Acessórios de Luxo</title>
-
+    <title>Checkout - Jm Acessórios de Luxo</title>
     <link rel="stylesheet" href="/css/main.css">
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
-
+    <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
     <div class="redirectMessage" id="redirectM">
         <div class="redirectMessageContent">
             <i class="fa-solid fa-circle-check"></i>
@@ -33,23 +27,21 @@
         <span class="checkoutTitle">Confirmar dados</span>
         <div class="data">
             <span class="dataHeader">Dados do Comprador</span>
-            <span id="BuyerName"></span>
-            <span id="BuyerDate"></span>
-            <span id="BuyerCPF"></span>
-            <span id="BuyerPhone"></span>
-            <span id="BuyerEmail"></span>
+            <span id="BuyerName">Nome: <b></b></span>
+            <span id="BuyerDate">Data de Nasc.: <b></b></span>
+            <span id="BuyerCPF">CPF: <b></b></span>
+            <span id="BuyerPhone">Tel.: <b></b></span>
+            <span id="BuyerEmail">E-mail: <b></b></span>
         </div>
         <div class="data">
             <span class="dataHeader">Dados de Envio</span>
-            <span id="BuyerAddress"></span>
-            <span id="BuyerCidade"></span>
-            <span id="BuyerBairro"></span>
-            <span id="BuyerCEP"></span>
-            <span id="BuyerComplemento"></span>
-
+            <span id="BuyerAddress">Rua: <b></b></span>
+            <span id="BuyerCidade">Cidade: <b></b></span>
+            <span id="BuyerBairro">Bairro: <b></b></span>
+            <span id="BuyerCEP">Cep: <b></b></span>
+            <span id="BuyerComplemento">Complemento: <b></b></span>
         </div>
         <span class="checkoutTitle">Resumo do pedido</span>
-
         <div class="products" id="ckeckoutProducts">
         </div>
         <div class="subTotal">
@@ -74,11 +66,11 @@
         <div class="total">
             <div id="totalBoxOn"></div>
             <label>
-                <span>Total Produtos: </span>
+                <span>Produtos: </span>
                 <span id="subpriceProds">R$0,00</span>
             </label>
             <label>
-                <span>TotalFrete: </span>
+                <span>Frete: </span>
                 <span id="totalShipping">R$0,00</span>
             </label>
             <label>
@@ -90,14 +82,11 @@
                 <span id="totalPrice">R$0,00</span>
             </label>
         </div>
-
         <button id="checkoutButton" class="off">
             Pagar com Pagseguro
         </button>
     </div>
-
     <footer>
-
     </footer>
     <script src="checkout.js"></script>
 </body>

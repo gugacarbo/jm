@@ -2,16 +2,14 @@ $(document).ready(function () {
     $("textarea").jqte();
     $.get("/about/aboutFile.txt", function (response) {
         var text = response;
-
         $("textarea").jqteVal(text);
     });
     $.get("/about/mapLink.txt", function (response) {
         var text = response;
-
         $("#EditMap").val(text);
     });
     $(("#DeleteAboutImage")).click(function () {
-        $.post("/admin/file/delete.php", { file: "/about/aboutImage.jpg" }, function (response) {
+        $.post("/admin/api/file/delete.php", { file: "/about/aboutImage.jpg" }, function (response) {
             var text = response;
             $("#AboutImageFile + img").attr("src", "img/noImage.png");
         });
@@ -27,7 +25,7 @@ $(document).ready(function () {
         $.ajax({
             beforeSend: function () {
             },
-            url: '/admin/file/upload.php?md5=false&dir=' + dir,
+            url: '/admin/api/file/upload.php?md5=false&dir=' + dir,
             type: 'post',
             data: fd,
             contentType: false,
@@ -44,7 +42,7 @@ $(document).ready(function () {
         $.ajax({
             beforeSend: function () {
             },
-            url: '/admin/file/upload.php?md5=false&dir=' + dir,
+            url: '/admin/api/file/upload.php?md5=false&dir=' + dir,
             type: 'post',
             data: fd,
             contentType: false,
@@ -69,14 +67,13 @@ $(document).ready(function () {
                 beforeSend: function () {
                     $(prevTarget).parent().addClass("loading");
                 },
-                url: '/admin/file/upload.php?md5=false&dir=' + dir,
+                url: '/admin/api/file/upload.php?md5=false&dir=' + dir,
                 type: 'post',
                 data: fd,
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    response = JSON.parse(response);
-                    if (response["status"] == "success") {
+                    if (response["status"] == 200) {
                         $("#AboutImageFile + img").attr("src", "");
                         $("#AboutImageFile + img").attr("src", response["location"] + "?" + new Date().getTime());
                     } else {

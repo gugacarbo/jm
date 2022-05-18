@@ -2,7 +2,7 @@
     width: $deskWidth;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+
     justify-content: center;
     padding: 10px;
     .cartHeader {
@@ -43,7 +43,7 @@
         .pImage {
             width: 130px;
             aspect-ratio: 1/1;
-            background-color: #0ff;
+            background-color: #fff;
             overflow: hidden;
             display: flex;
             justify-content: center;

@@ -1,17 +1,11 @@
 
-
-
 $("header").load("/includes/header.html");
 $("footer").load("/includes/footer.html");
-
 $('#DataTelefone').mask('(00) 0.0000-0000');
 $('#DataCPF').mask('000.000.000-00');
-//$('#DataNascimento').mask('00/00/0000');
 $('#ShippingCEP').mask('00.000-000');
 $('#ShippingNumero').mask('00000');
-
 $(document).ready(() => {
-
     $("#ShippingCEP").on('keyup', () => {
         if ($("#ShippingCEP").val().length == 10) {
             var cep = $("#ShippingCEP").val();
@@ -30,19 +24,15 @@ $(document).ready(() => {
             })
         }
     })
-
-
     $("#FormContinue").on("click", function () {
         var vazios = $("#buyerForm input").filter(function () {
             return !this.value;
         }).get();
         var cpf = $("#DataCPF").val().replace(".", "").replace(".", "").replace("-", "");
         var date = ($('#DataNascimento').val());
-
         if (vazios.length) {
             $(vazios).addClass('vazio');
             return false;
-
         } else if (!validarCPF(cpf)) {
             $("#DataCPF").addClass('vazio');
             alert("Cpf inválido");
@@ -58,10 +48,7 @@ $(document).ready(() => {
     $("#buyerForm input").on("focus", function () {
         $(this).removeClass('vazio');
     })
-
 })
-
-
 function validarCPF(cpf) {
     cpf = cpf.replace(/[^\d]+/g, '');
     if (cpf == '') return false;
@@ -98,11 +85,9 @@ function validarCPF(cpf) {
         return false;
     return true;
 }
-
 function verificaData(input) {
     var Data = formatDate(input)
     Data = Data.substring(0, 10);
-
     var dma = -1;
     var data = Array(3);
     var ch = Data.charAt(0);
@@ -117,7 +102,6 @@ function verificaData(input) {
             ch = Data.charAt(++i);
         }
     }
-
     if (ch != '') return false;
     if (data[0] == '' || isNaN(data[0]) || parseInt(data[0]) < 1) return false;
     if (data[1] == '' || isNaN(data[1]) || parseInt(data[1]) < 1 ||
@@ -141,9 +125,7 @@ function verificaData(input) {
         default: { if (parseInt(data[0]) > 31) return false; }
     }
     return true;
-
 }
-
 function formatDate(input) {
     input.replace("-", "/").replace("-", "/");
     var datePart = input.match(/\d+/g),

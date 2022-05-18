@@ -2,31 +2,28 @@ var toDelete = [];
 
 $(document).ready(function () {
 
-    $.get("/php/getBanner.php", { name: "MAIN_BANNER" }, function (data) {
-        data = JSON.parse(data);
-        var images = JSON.parse(data.images);
-        $.each(images, function (i, value) {
+    $.get("/api/get/getBanner.php", { name: "MAIN_BANNER" }, function (data) {
+        
+        $.each(data.images, function (i, value) {
             $("#Banner1File" + (i) + " + img").attr("src", value || "img/noImage.png");
             $("#Banner1File" + (i) + " + img + i").attr("value", value);
             $("#Banner1File" + (i) + " + img + i + input[type='hidden']").val(value);
         })
     })
-    $.get("/php/getBanner.php", { name: "PRODUCTS_BANNER" }, function (data) {
-        data = JSON.parse(data);
+    $.get("/api/get/getBanner.php", { name: "PRODUCTS_BANNER" }, function (data) {
+        
 
-        var images = JSON.parse(data.images);
-        $.each(images, function (i, value) {
-            console.log(value);
+        $.each(data.images, function (i, value) {
+      
 
             $("#Banner2File" + (i) + " + img").attr("src", value || "img/noImage.png");
             $("#Banner2File" + (i) + " + img + i").attr("value", value);
             $("#Banner2File" + (i) + " + img + i + input[type='hidden']").val(value);
         })
     })
-    $.get("/php/getBanner.php", { name: "ABOUT_BANNER" }, function (data) {
-        data = JSON.parse(data);
-        var images = JSON.parse(data.images);
-        $.each(images, function (i, value) {
+    $.get("/api/get/getBanner.php", { name: "ABOUT_BANNER" }, function (data) {
+        
+        $.each(data.images, function (i, value) {
             $("#Banner3File" + (i) + " + img").attr("src", value || "img/noImage.png");
             $("#Banner3File" + (i) + " + img + i").attr("value", value);
             $("#Banner3File" + (i) + " + img + i + input[type='hidden']").val(value);
@@ -47,7 +44,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: "php/upload_banners.php",
+            url: "/admin/api/post/editBanners.php",
             type: "POST",
             data: {
                 banners: banners
@@ -69,7 +66,7 @@ $(document).ready(function () {
 
         $.each(toDelete, function (i, value) {
             $.ajax({
-                url: "/admin/file/delete.php",
+                url: "/admin/api/file/delete.php",
                 type: "POST",
                 data: {
                     file: value
@@ -120,13 +117,12 @@ $(document).ready(function () {
                     }, false);
                     return xhr;
                 },
-                url: '/admin/file/upload.php?dir=' + dir,
+                url: '/admin/api/file/upload.php?dir=' + dir,
                 type: 'post',
                 data: fd,
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    response = JSON.parse(response);
                     if (response["status"] == "success") {
                         $("#" + fileId + " + img").attr("src", response["location"]);
                         $("#" + fileId + " + img").show();

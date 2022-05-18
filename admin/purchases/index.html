@@ -25,7 +25,11 @@
                     </i></label>
                 <label name="status" class="filterI">Status<i class="fa-solid fa-chevron-down">
                     </i></label>
+                <label name="sended" class="filterI">Enviado
+                    <i class="fa-solid fa-chevron-down">
+                    </i></label>
                 <label>Código da Compra</label>
+
                 <label>Acessar</label>
             </div>
 
@@ -61,18 +65,23 @@
             </section>
             <section>
                 <label>
-                    <span>Alterar Status</span>
-                    <select id="StatusSelect">
-                    </select>
-                    <button>
-                        Salvar
-                    </button>
+                    <span>Status Da Compra</span>
+                    <span id="StatusSelect"></span>
+                    <!--
+
+                        <select id="StatusSelect">
+                        </select>
+                        
+                        <button>
+                            Salvar
+                        </button>
+                    -->
                 </label>
             </section>
             <section>
                 <label>
                     <span>Código de Rastreio</span>
-                    <input type="text" id="TrackingCode" placeholder="CD99999999BR">
+                    <input type="text" id="TrackingCode" placeholder="CD99999999BR" maxlength="13">
                     <button id="addTrackingCode">
                         Salvar
                     </button>
@@ -95,11 +104,11 @@
                 <span id="PurchaseLastUpdate">Ultima Atualização: <b></b></span>
                 <span id="PurchaseStatus">Status da Compra: <b></b></span>
                 <span id="PurchaseCode">Código da Compra: <a target="_blank"></a></span>
-                <span id="PurchaseTotalAmount">Valor Total: R$<b></b></span>
+                <span id="PurchaseTotalAmount">Valor Total: R$ <b></b></span>
                 <span id="PurchaseFeeAmount">Taxas: R$ <b></b></span>
-                <span id="PurchaseDiscount">Desconto: R$<b></b></span>
-                <span id="PurchaseShippingPrice">Frete: R$<b></b></span>
-                <span id="PurchaseNetAmount">Lucro Liquido: R$<b></b></span>
+                <span id="PurchaseDiscount">Desconto: R$ <b></b></span>
+                <span id="PurchaseShippingPrice">Frete: R$ <b></b></span>
+                <span id="PurchaseNetAmount">Lucro Liquido: R$ <b></b></span>
                 <span id="PurchasePaymentMethod">Método de Pagamento: <b></b></span>
             </section>
         </div>

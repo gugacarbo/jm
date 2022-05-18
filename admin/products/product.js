@@ -8,16 +8,13 @@ $(document).ready(function () {
     $("#NewProductCost").mask("0000,0#", { reverse: true });
     $("#NewProductWeight").mask("0000");
 
-
-    $.get("/admin/php/getCategory.php", function (data) {
-        var category = JSON.parse(data);
+    $.get("/admin/api/get/getCategory.php", function (category) {
         $.each(category, function (index, value) {
             var item = '<option value="' + value['id'] + '" name="' + value['name'] + '" >' + value['name'] + '</option>';
             $("#NewProductCategory").append(item);
         })
     })
-    $.get("/admin/php/getMaterial.php", function (data) {
-        var material = JSON.parse(data);
+    $.get("/admin/api/get/getMaterial.php", function (material) {
         $.each(material, function (index, value) {
             var item = '<option value="' + value['id'] + '" name="' + value['name'] + '" >' + value['name'] + '</option>';
             $("#NewProductMaterial").append(item);
@@ -49,7 +46,7 @@ $(document).ready(function () {
         })
         $.each(toDelete, function (i, value) {
             $.ajax({
-                url: "/admin/file/delete.php",
+                url: "/admin/api/file/delete.php",
                 type: "POST",
                 data: {
                     file: value
@@ -88,8 +85,6 @@ $(document).ready(function () {
             options: prodOptions,
             imgs: (prodImages)
         }
-        console.log(newProduct)
-
         if (newProduct.name == "") {
             $("#NewProductName").addClass("invalidInput")
             setTimeout(() => {
@@ -180,17 +175,17 @@ $(document).ready(function () {
             }, 1500);
 
             $.ajax({
-                url: "/admin/php/saveProduct.php?id=" + id,
+                url: "/admin/api/post/postProduct.php",
                 type: "POST",
                 data: {
+                    id: id,
                     product: newProduct
                 },
                 success: function (data) {
-                    data = JSON.parse(data);
                     modalProductShow(data.id);
-                    search();
                 }
             })
+            search();
         }
 
 
@@ -216,14 +211,14 @@ $(document).ready(function () {
                 beforeSend: function () {
                     $(prevTarget).parent().addClass("loading");
                 },
-                url: '/admin/file/upload.php?dir=' + dir,
+                url: '/admin/api/file/upload.php?dir=' + dir,
                 type: 'post',
                 data: fd,
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    response = JSON.parse(response);
-                    if (response["status"] == "success") {
+               
+                    if (response["status"] >= 200 && response["status"] < 300) {
                         $("#" + fileId + " + img").attr("src", response["location"]);
                         $("#" + fileId + " + img").show();
                         $("#" + fileId + " + img + i").attr("value", response["location"]);
@@ -307,8 +302,8 @@ function deleteOpt(this_) {
 function modalProductShow(id = 0) {
     if (id > 0) {
 
-        $.get("/admin/php/getProdById.php", { id }, function (data) {
-            data = JSON.parse(data);
+        $.get("/admin/api/get/getProdById.php", { id }, function (data) {
+    
             $("#NewProductName").val(data['name']);
             if (data['promo'] == 0) {
                 $("#NewProductPrice").val(data['price'].toFixed(2).replace(/\./g, ','))
@@ -327,8 +322,8 @@ function modalProductShow(id = 0) {
                     $(x).attr("selected", false);
                 }
             })
-            var options = JSON.parse(data['options']);
-            console.log(data)
+            var options = (data['options']);
+          
 
             $("#OptionsList").html("");
             $.each(options, function (index, value) {
@@ -342,7 +337,7 @@ function modalProductShow(id = 0) {
 
             })
 
-            var images = JSON.parse(data['imgs']);
+            var images = (data['imgs']);
             $.each(images, function (index, value) {
 
                 var item = '<div class="item">'
@@ -355,9 +350,8 @@ function modalProductShow(id = 0) {
                 $("#NewProductFile" + index + " + img + i + input[type='hidden']").val(value);
                 value = value || "img/noImage.png";
                 $("#NewProductFile" + index + " + img").attr("src", value);
-                $("#saveProduct").attr("name", id);
-
             })
+            $("#saveProduct").attr("name", id);
         })
     } else {
         clearProduct();

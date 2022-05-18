@@ -1,52 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jm Acessórios de Luxo</title>
+    <title>Sobre - Jm Acessórios de Luxo</title>
+    <link rel="icon" href="/img/Jm_Logo_Branco.png">
     <link rel="stylesheet" href="../css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" rel="stylesheet">
-    
-    <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
 </head>
-
 <body>
-
     <header></header>
-
-
-
-
     <div class="aboutSlider">
-
         <div id="AboutSlider">
         </div>
         <div role="tablist" class="AboutDotsBanner"></div>
-
     </div>
     <div class="about">
         <p id="aboutText">
         </p>
         <div>
             <div class="img">
-                <img
-                    src="aboutImage.jpg" id="aboutImg">
+                <img src="aboutImage.jpg" id="aboutImg">
             </div>
             <div class="map" id="mapL">
             </div>
-
-            
         </div>
     </div>
     <footer>
-
     </footer>
-
-
     <script>
         $(document).ready(() => {
             $("header").load("/includes/header.html");
@@ -55,44 +38,27 @@
             $("#mapL").load("mapLink.txt");
             setBanner("#AboutSlider", "ABOUT_BANNER");
             var http = new XMLHttpRequest();
-
             http.open('HEAD', "aboutImage.jpg", false);
             http.send();
-        
-            if(http.status == 404){
+            if (http.status == 404) {
                 $("#aboutImg").parent().remove()
                 $("#mapL").css("width", "100%")
                 $("#mapL").css("height", "500px")
-            } 
-
+            }
         })
-
-        /**
- * ! Banner
- * 
- * 
- * 
- * 
- */
-
-
-        async function setBanner(el_id, banner_name) {
+        function setBanner(el_id, banner_name) {
             //"/api/getBanner.php"
-            return await $.get("/php/getBanner.php", { 'name': banner_name }, function (d) {
+            return $.get("/php/getBanner.php", { 'name': banner_name }, function (d) {
                 var data = JSON.parse(d);
                 var images = JSON.parse(data["images"]);
                 $.each(images, function (i, img) {
                     if (img != "")
                         $(el_id).append("<img src='" + img + "'>");
                 });
+            }).then((value) => {
+                callBanner();
             })
-                .then((value) => {
-                    callBanner();
-                })
         }
-
-
-
         function callBanner(el_id) {
             var about = new Glider(document.querySelector("#AboutSlider"), {
                 slidesToShow: 1,
@@ -105,14 +71,10 @@
             });
             sliderAuto(about, 1500)
         }
-
-
-
         function sliderAuto(slider, miliseconds) {
             const slidesCount = slider.track.childElementCount;
             let slideTimeout = null;
             let nextIndex = 1;
-
             function slide() {
                 slideTimeout = setTimeout(
                     function () {
@@ -120,18 +82,15 @@
                         if (nextIndex >= slidesCount) {
                             nextIndex = 0;
                         }
-
                         slider.scrollItem(nextIndex);
                     },
                     miliseconds
                 );
             }
-
             slider.ele.addEventListener('glider-animated', function () {
                 window.clearInterval(slideTimeout);
                 slide();
             });
-
             slide();
         }
     </script>

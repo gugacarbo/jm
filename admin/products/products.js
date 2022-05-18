@@ -53,9 +53,7 @@ function search(order_ = orderG, filter_ = filterG,) {
         "text": textSearch
     }
     $("#productsList").fadeOut(400, function () {
-        $.get("/admin/php/getProducts.php", c, function (data) {
-            var produtos = JSON.parse(data);
-            
+        $.get("/admin/api/get/getProducts.php", c, function (produtos) {
             $("#totalProducts b").html(produtos.length);
             if (ProdsPage == 0) {
                 $("#PageCounter").empty();
@@ -131,9 +129,7 @@ function deleteProduct(id) {
 }
 
 function del(id) {
-
-    $.get("php/deleteProduct.php", { "id": id }, function (data) {
-        data = JSON.parse(data);
+    $.post("/admin/api/post/deleteProduct.php", { "id": id }, function (data) {
         if (data.status == "success") {
             $("#Prod" + id).remove();
         } else {

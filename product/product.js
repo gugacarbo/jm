@@ -42,8 +42,8 @@ function takeShipping() {
             "sCepDestino": ($("#cep").val().replace("-", "").replace(".", "")),
             "nVlPeso": itemWeight, //Peso + Embalagem Kg
         }
-        $.get("/php/frete.php", config, (d) => {//PAC    
-            var data = JSON.parse(d);
+        $.get("/api/get/frete.php", config, (data) => {//PAC    
+
             if (data["erro"][0] > 0 || data["erro2"][0] > 0) {
                 $(".preco").css("display", "none");
                 $("#ShipError").css("display", "block")
@@ -79,10 +79,7 @@ function changeMain(src) {
 
 
 function getProd(id) {
-    $.get("/php/getProdById.php", { id }, (p) => {
-        var prod = JSON.parse(p);
-        prod.imgs = (JSON.parse(prod["imgs"]));
-        prod.options = (JSON.parse(prod["options"]));
+    $.get("/api/get/getProdById.php", { id }, (prod) => {
         itemWeight = prod.weight;
         $("#MainImage").attr("src", prod["imgs"][1])
         $.each(prod["imgs"], function (i, img) {

@@ -128,47 +128,51 @@ function callProds(query) {
     $(".loadingProducts").css("display", "flex");
 
     searching = 1;
-    $.get("/php/getFiltered.php", query, (prods) => {
-        prodCount = 0;
-        prods = JSON.parse(prods);
-        if (prods["maxPrice"] > 0) {
-            var MaxPriceS = Math.ceil((prods["maxPrice"] / 100) * 100) + 100;
-            console.log(MaxPriceS)
-            $('#slider-range').slider("option", "max", MaxPriceS);
-            $("#SearchMaxVal").val() > (MaxPriceS) ? $("#SearchMaxVal").val(MaxPriceS) : $("#SearchMaxVal").val(parseInt($("#SearchMaxVal").val()));
-            $("#SearchMinVal").val() > (MaxPriceS) ? $("#SearchMinVal").val(0) : $("#SearchMinVal").val(parseInt($("#SearchMinVal").val()));
-            $("#ShowProducts").append("<h1 class='notFound'>Nenhum produto encontrado </h1>")
-        } else if (prods.length == 0) {
-            $("#ShowProducts").append("<h1 class='notFound'>Nenhum produto encontrado </h1>")
-        } else {
+    $.get("/api/get/getFiltered.php", query, (data) => {
 
-            maxPages = Math.ceil(prods.length / numProd);
-            $("#maxPages").html(maxPages);
-            var SlicedProds = prods.slice(page * numProd, (page + 1) * numProd)
-            var MaxPriceS = Math.ceil((prods[0]["maxPrice"] / 100) * 100) + 100;
-            $('#slider-range').slider("option", "max", MaxPriceS);
-            $("#SearchMaxVal").val() > (MaxPriceS) ? $("#SearchMaxVal").val(MaxPriceS) : $("#SearchMaxVal").val(parseInt($("#SearchMaxVal").val()));
-            $("#SearchMinVal").val() > (MaxPriceS) ? $("#SearchMinVal").val(0) : $("#SearchMinVal").val(parseInt($("#SearchMinVal").val()));
+        if (data.status >= 200 && data.status < 300) {
+            prodCount = 0;
+            var prods = data.products
+            if (data["maxPrice"] > 0) {
+                var MaxPriceS = Math.ceil((data["maxPrice"] / 100) * 100) + 100;
+                console.log(MaxPriceS)
+                $('#slider-range').slider("option", "max", MaxPriceS);
+                $("#SearchMaxVal").val() > (MaxPriceS) ? $("#SearchMaxVal").val(MaxPriceS) : $("#SearchMaxVal").val(parseInt($("#SearchMaxVal").val()));
+                $("#SearchMinVal").val() > (MaxPriceS) ? $("#SearchMinVal").val(0) : $("#SearchMinVal").val(parseInt($("#SearchMinVal").val()));
+                $("#ShowProducts").append("<h1 class='notFound'>Nenhum produto encontrado </h1>")
+            } else if (prods.length == 0) {
+                $("#ShowProducts").append("<h1 class='notFound'>Nenhum produto encontrado </h1>")
+            } else {
 
-            $.each(SlicedProds, function (_, prod) {
-                prod.imgs = (JSON.parse(prod["imgs"]));
-                prod.options = (JSON.parse(prod["options"]));
-                //console.log(prod)
-                var prodApend =
-                    "<div class='product " + (prod.totalQuantity == 0 ? "unavailable" : "") + "' " + (prod.totalQuantity == 0 ? "style='order:100;'" : "") + ">"
-                    + "<a class='prodImage' href='/product/?id=" + prod['id'] + "'>"
-                    + "<img src='" + prod['imgs'][1] + "'>"
-                    + ((prod['imgs'][2] != "") ? "<img class='sImage' src='" + prod['imgs'][2] + "'>" : "")
-                    + "<span class='promo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
-                    + "</a>"
-                    + "<span class='prodName'>" + prod['name'] + "</span>"
-                    + "<span class='prodPrice'>R$" + (parseFloat(prod['price']).toFixed(2)).replace(".", ",") + "</span>"
-                    + "<span class='prodPay'>ou em 2x de " + (parseFloat((prod['price']) / 2).toFixed(2)).replace(".", ",") + "</span>"
-                    + "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod['id']) + ", 1)'></i>"
-                    + "</div>";
-                $("#ShowProducts").append(prodApend)
-                prodCount++;
-            })
+                maxPages = Math.ceil(prods.length / numProd);
+                $("#maxPages").html(maxPages);
+                var SlicedProds = prods.slice(page * numProd, (page + 1) * numProd)
+                var MaxPriceS = Math.ceil((prods[0]["maxPrice"] / 100) * 100) + 100;
+                $('#slider-range').slider("option", "max", MaxPriceS);
+                $("#SearchMaxVal").val() > (MaxPriceS) ? $("#SearchMaxVal").val(MaxPriceS) : $("#SearchMaxVal").val(parseInt($("#SearchMaxVal").val()));
+                $("#SearchMinVal").val() > (MaxPriceS) ? $("#SearchMinVal").val(0) : $("#SearchMinVal").val(parseInt($("#SearchMinVal").val()));
+
+                $.each(SlicedProds, function (_, prod) {
+                    prod.imgs = (JSON.parse(prod["imgs"]));
+                    prod.options = (JSON.parse(prod["options"]));
+                    //console.log(prod)
+                    var prodApend =
+                        "<div class='product " + (prod.totalQuantity == 0 ? "unavailable" : "") + "' " + (prod.totalQuantity == 0 ? "style='order:100;'" : "") + ">"
+                        + "<a class='prodImage' href='/product/?id=" + prod['id'] + "'>"
+                        + "<img src='" + prod['imgs'][1] + "'>"
+                        + ((prod['imgs'][2] != "") ? "<img class='sImage' src='" + prod['imgs'][2] + "'>" : "")
+                        + "<span class='promo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
+                        + "</a>"
+                        + "<span class='prodName'>" + prod['name'] + "</span>"
+                        + "<span class='prodPrice'>R$" + (parseFloat(prod['price']).toFixed(2)).replace(".", ",") + "</span>"
+                        + "<span class='prodPay'>ou em 2x de " + (parseFloat((prod['price']) / 2).toFixed(2)).replace(".", ",") + "</span>"
+                        + "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod['id']) + ", 1)'></i>"
+                        + "</div>";
+                    $("#ShowProducts").append(prodApend)
+                    prodCount++;
+                })
+            }
+        }else{
         }
     }).then(() => {
         searching = 0;
@@ -181,23 +185,23 @@ function callProds(query) {
 
 //*  Category
 function getCategory() {
-    $.get("/php/getCategory.php", function (data) {
-        var categories = JSON.parse(data);
+    $.get("/api/get/getCategory.php", function (categories) {
         $.each(categories, function (i, cat) {
             $("#SearchCategory").append("<option value='" + cat["id"] + "'>" + cat["name"] + "</option>");
         })
     })
 }
 
-async function setBanner(el_id, banner_name) {
+function setBanner(el_id, banner_name) {
     //"/api/getBanner.php"
-    return await $.get("/php/getBanner.php", { 'name': banner_name }, function (d) {
-        var data = JSON.parse(d);
-        var images = JSON.parse(data["images"]);
-        $.each(images, function (i, img) {
-            if (img != "")
-                $(el_id).append("<img src='" + img + "'>");
-        });
+    return $.get("/api/get/getBanner.php", { 'name': banner_name }, function (data) {
+        if (data.status >= 200 && data.status < 300) {
+            console.log(data)
+            $.each(data["images"], function (i, img) {
+                if (img != "")
+                    $(el_id).append("<img src='" + img + "'>");
+            });
+        }
     })
         .then((value) => {
             callBanner();

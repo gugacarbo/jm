@@ -39,9 +39,8 @@ $(document).ready(function () {
             var select = selectAutoType;
         }
 
-        $.get("/admin/php/createCarousel.php", { category: category, SelectType: SelectType, select: select }, function (data) {
-            data = JSON.parse(data);
-            if (data.status == "success") {
+        $.post("/admin/api/post/createCarousel.php", { category: category, SelectType: SelectType, select: select }, function (data) {
+            if (data.status >= 200 && data.status < 300) {
                 alert("Carousel created");
                 $("#addCarousel").attr("disabled", false);
                 $("#autoType").attr("disabled", false);
@@ -104,6 +103,8 @@ function getModal(cat_) {
     } else if (cat_ > 0) { //? New
         $("#Categories").val(cat_);
         $("#radioAuto").prop("checked", true);
+        $("#addCarousel").attr("disabled", false);
+
         $("#autoType").val("price");
     } else { // ! Non
         $("#radioAuto").attr("disabled", true);
@@ -114,11 +115,11 @@ function getModal(cat_) {
 }
 
 function editGlider(cat_) {
-    $.get("/admin/php/getAglider.php", { id: cat_ }, function (data) {
-        data = JSON.parse(data);
+    $.get("/admin/api/get/getAglider.php", { id: cat_ }, function (data) {
+
         if (data["SelectType"] == "id") {
             $("#radioId").prop("checked", true);
-            var ids_ = JSON.parse(data["select"]);
+            var ids_ = (data["select"]);
             $.each(ids_, function (index, value) {
                 UsedSelectedItens.push(parseInt(value));
             })
@@ -128,7 +129,7 @@ function editGlider(cat_) {
 
         } else {
             $("#radioAuto").prop("checked", true)
-            JSON.parse(data["select"]).type == "price" ? $("#autoType").val("price") : $("#autoType").val("promo")
+            (data["select"]).type == "price" ? $("#autoType").val("price") : $("#autoType").val("promo")
         }
     })
 }
@@ -136,8 +137,7 @@ function editGlider(cat_) {
 
 
 function callProds(cat_) {
-    $.get("/admin/php/getFiltered.php", { cat: cat_ }, function (r) {
-        r = JSON.parse(r);
+    $.get("/admin/api/get/getFiltered.php", { cat: cat_ }, function (r) {
         $("#prodList").empty();
         $.each(r, function (index, value) {
             var prod = (value);
@@ -159,34 +159,33 @@ function callProds(cat_) {
 function startGliders() {
     UsedGlider = [];
     $("#CarouselList").empty();
-    $.get("/php/getGlider.php", function (data) {
-        var gliders = JSON.parse(data);
-        $.each(gliders, function (index, glider) {
-            UsedGlider.push(glider['category']);
+    $.get("/api/get/getGlider.php", function (gliders) {
+            $.each(gliders, function (index, glider) {
+                UsedGlider.push(glider['category']);
 
-            var prods = JSON.parse(glider['prod_ids']);
-            var carousel = '<div class="carousel" style="order:' + glider['id'] + ';" id="Glider' + glider['id'] + '">'
-                + '<span class="name">' + glider["name"] + '</span>'
-            carousel += '<div class="items"></div>'
-            $("#CarouselList").append(carousel);
-            //Adiciona Carrossel
+                var prods = (glider['prod_ids']);
+                var carousel = '<div class="carousel" style="order:' + glider['id'] + ';" id="Glider' + glider['id'] + '">'
+                    + '<span class="name">' + glider["name"] + '</span>'
+                carousel += '<div class="items"></div>'
+                $("#CarouselList").append(carousel);
+                //Adiciona Carrossel
 
-            $.each(prods, function (index, data) {
-                var images = JSON.parse(data["imgs"]);
-                $("#Glider" + glider['id'] + " .items").append('<div class="item"><img src="' + images[1] + '" alt=""></div>')
-            })
-            //Adiciona Imagens Dos Produtos
+                $.each(prods, function (index, data) {
+                    var images = (data["imgs"]);
+                    $("#Glider" + glider['id'] + " .items").append('<div class="item"><img src="' + images[1] + '" alt=""></div>')
+                })
+                //Adiciona Imagens Dos Produtos
 
-            if (prods.length < 7) {
-                for (let index = 0; index < 7 - prods.length; index++) {
-                    $("#Glider" + glider['id'] + " .items").append('<div class="item"><img src="img/noImage.png" alt=""></div>')
+                if (prods.length < 7) {
+                    for (let index = 0; index < 7 - prods.length; index++) {
+                        $("#Glider" + glider['id'] + " .items").append('<div class="item"><img src="img/noImage.png" alt=""></div>')
+                    }
                 }
-            }
-            //Completa com imagens de noImage
+                //Completa com imagens de noImage
 
-            var sel = glider["SelectType"] == "auto" ? (glider["select"] == "price" ? "Menores Preços" : "Em Promoção") : "";
-            var sType = glider["SelectType"] == "id" ? "Seleção Manual" : "Seleção Automática Por " + sel;
-            $("#Glider" + glider['id']).append(`<div class="info">
+                var sel = glider["SelectType"] == "auto" ? (glider["select"] == "price" ? "Menores Preços" : "Em Promoção") : "";
+                var sType = glider["SelectType"] == "id" ? "Seleção Manual" : "Seleção Automática Por " + sel;
+                $("#Glider" + glider['id']).append(`<div class="info">
                                             <span>Itens Selecionados por:</span>
                                             <span><b>${sType}</b></span>
                                             <span>Quantidade de Itens: <b>${prods.length}</b></span>
@@ -195,13 +194,11 @@ function startGliders() {
                                             <span class="deleteGlider" onclick="deleteGlider(` + glider['id'] + `)"><i class="fa-solid fa-trash-can"></i></span>
                                             </label>
                                             </div>`)
-        })
-        //Adiciona Informaçoes
-
+            })
+            //Adiciona Informaçoes
 
     }).then((value) => {
-        $.get("/php/getCategory.php", function (data) {
-            var category = JSON.parse(data);
+        $.get("/api/get/getCategory.php", function (category) {
             $("#Categories").empty();
             var item = '<option value="0" >Selecionar Categoria</option>';
             $("#Categories").append(item);
@@ -236,7 +233,7 @@ function selectItems(this_, id) {
 
 function deleteGlider(id_) {
     if (confirm("Are you sure you want to delete this glider?")) {
-        $.get("/admin/php/deleteGlider.php", { id: id_ }, function (data) {
+        $.post("/admin/api/delete/deleteGlider.php", { id: id_ }, function (data) {
             startGliders();
         })
     }

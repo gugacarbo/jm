@@ -63,9 +63,9 @@ $(document).ready(function () {
 
 
 function deleteCategory(n) {
-    $.get("/admin/php/deleteMat.php", { cat: n }, function (data) {
-        data = JSON.parse(data);
-        if (data["status"] == "success") {
+    $.post("/admin/api/post/deleteMaterial.php", { cat: n }, function (data) {
+        
+        if (data["status"] >= 200 && data["status"] < 300) {
             alert("Categoria Deletada");
             getCat()
         }
@@ -93,7 +93,7 @@ function addCat() {
         if (categories.includes(newCat)) {
             alert("Categoria Já Existe");
         } else {
-            $.get("/admin/php/addMat.php", { newCat }, function (data) {
+            $.get("/admin/php/createMaterial.php", { newCat }, function (data) {
                 data = JSON.parse(data);
                 if (data["status"] == "success") {
                     getCat()

@@ -62,9 +62,8 @@ $(document).ready(function () {
 
 
 function deleteCategory(n) {
-    $.get("/admin/php/deleteCat.php", { cat: n }, function (data) {
-        data = JSON.parse(data);
-        if (data["status"] == "success") {
+    $.post("/admin/api/post/deleteCategory.php", { cat: n }, function (data) {
+        if (data["status"] >= 200 && data["status"] < 300) {
             alert("Categoria Deletada");
             categories.splice(categories.indexOf(n), 1);
             getCat()
@@ -78,9 +77,8 @@ function edit(c) {
     var oldCat = c;
     if (newCat != "") {
 
-        $.get("/admin/php/editCat.php", { newCat, oldCat: c }, function (data) {
-            data = JSON.parse(data);
-            if (data["status"] == "success") {
+        $.post("/admin/api/post/editCategory.php", { newCat, oldCat: c }, function (data) {
+            if (data["status"] >= 200 && data["status"] < 300) {
                 getCat()
             }
         })
@@ -93,11 +91,9 @@ function addCat() {
         if (categories.includes(newCat)) {
             alert("Categoria Já Existe");
         } else {
-            $.get("/admin/php/addCat.php", { newCat }, function (data) {
-                data = JSON.parse(data);
-                if (data["status"] == "success") {
+            $.post("/admin/api/post/createCategory.php", { newCat }, function (data) {
+                if (data["status"] >= 200 && data["status"] < 300) {
                     getCat()
-
                 }
             })
         }
@@ -105,8 +101,7 @@ function addCat() {
 }
 
 function getCat() {
-    $.get("/admin/php/getCategory.php", function (data) {
-        var category = JSON.parse(data);
+    $.get("/admin/api/get/getCategory.php", function (category) {
         //category foreach
         removeData(myChart);
         $("#CatList").empty();
