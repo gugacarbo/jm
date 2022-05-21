@@ -35,15 +35,21 @@
                     color: #ccc;
                 }
             }
-            i {
+            span{
                 width: 10%;
-                font-size: 12pt;
-                font-weight: bold;
-                transition: 0.1s;
-                text-align: center;
-                color: #ddd;
-                cursor: pointer;
-
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                i {
+                    font-size: 12pt;
+                    font-weight: bold;
+                    transition: 0.1s;
+                    text-align: center;
+                    color: #ddd;
+                    cursor: pointer;
+                    
+                }
             }
             .fa-trash{
                 color: $mainColor;

@@ -22,8 +22,8 @@
 	font-size:14px;
 }
 .jqte_focused {
-	border-color:#00AAE7;
-	box-shadow:0 0 10px #00BDFF; -webkit-box-shadow:0 0 10px #00BDFF; -moz-box-shadow:0 0 10px #00BDFF;
+	border-color:#b66d76;
+	box-shadow:0 0 10px #b66d7611; -webkit-box-shadow:0 0 10px #b66d7655; -moz-box-shadow:0 0 10px #b66d7677;
 }
 /* toolbar */
 .jqte_toolbar {

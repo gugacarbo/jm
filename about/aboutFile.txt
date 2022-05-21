@@ -1,1 +1,1 @@
-<span style="color:rgb(224,102,102);">Eu amo o Gusta,</span>
+<span style="color:rgb(224,102,102);">Eu amo o Gusta,&lt;&gt;console.log("AAABBBCCC");&lt;/&gt;</span>

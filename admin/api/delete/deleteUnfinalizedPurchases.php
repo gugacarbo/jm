@@ -6,7 +6,9 @@ include "../get/getNoFinalizedPurshases.php";
 
 $list = json_decode(getPurchases());
 foreach ($list as $value) {
-    $products = ($value['products']);
+    $products = ($value->products);
+    $sucess = 0;
+    $failed = 0;
 
     foreach ($products as $product) {
         $stmt = $mysqli->prepare("SELECT * FROM products WHERE id = ?");
@@ -32,21 +34,23 @@ foreach ($list as $value) {
         $stmt->execute();
 
         if($stmt->affected_rows == 0){
-            die(json_encode(array('status' => 500)));
+            //die(json_encode(array('status' => 500)));
+            $failed++;
+        }else{
+            $sucess++;
         }
-
         $stmt->close();
     }
 
     $stmt = $mysqli->prepare("DELETE FROM checkout_data WHERE reference = ?");
     $stmt->bind_param("s", $value->reference);
-    $stmt->execute();
+    //$stmt->execute();
     if($stmt->affected_rows == 0){
-        die(json_encode(array('status' => 500)));
+        //die(json_encode(array('status' => 500)));
     }
     $stmt->close();
 }
 
-die(json_encode(array('status' => 202)));
+die(json_encode(array('status' => 202, "sucess" => $sucess . " Produtos Atualizados", "failed" => $failed . " Produtos Não Encontrados")));
 
 

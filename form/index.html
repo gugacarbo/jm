@@ -23,8 +23,19 @@
             <input id="DataSobrenome" name="sobrenome" type="text" placeholder="Sobrenome" maxlength="50" required>
             <input id="DataEmail" name="email" type="email" placeholder="e-mail" maxlength="120" required>
             <input id="DataTelefone" name="telefone" type="text" placeholder="Telefone" required>
+            <label for="">
             <input id="DataCPF" name="cpf" type="text" placeholder="CPF" required>
-            <input id="DataNascimento" name="nascimento" type="date" placeholder="Data de Nascimento" required>
+                <span>Data&nbspde&nbspNasc.</span>
+                <input id="DataNascimento" name="nascimento" type="date" placeholder="Data de Nascimento" required>
+                <span>Genero: </span>
+                <select name="gender">
+                    <option name="gender" value="M">Masculino</option>
+                    <option name="gender" value="F">Feminino</option>
+                    <option name="gender" value="O">Outro</option>
+                    <option name="gender" value="X">Prefiro Não Informar</option>
+
+                </select>
+            </label>
         </div>
         <div class="forms">
             <span class="formHeader">Dados de Envio</span>

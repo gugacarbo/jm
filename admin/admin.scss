@@ -1,7 +1,6 @@
 $deskWidth: calc(100% - 60px);
 $mainColor: #b66d76;
-$containerWidth: $deskWidth;
-
+$containerWidth: 100%;
 
 * {
     margin: 0;
@@ -14,18 +13,16 @@ body {
     flex-direction: column;
     align-items: flex-end;
     width: 100vw;
-    overflow-x: hidden ;
-
-
+    overflow-x: hidden;
 }
-.AllContent{
+.AllContent {
     width: 100vw;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-left: 80px;
-    padding-top: 60px;
+    padding-left: 60px;
+    padding-top: 50px;
 }
 .adminContainer {
     width: $containerWidth;
@@ -33,7 +30,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    button{
+    button {
         border-radius: 30px;
         padding: 6px 0;
         border: none;
@@ -47,7 +44,7 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        text-align:center;
+        text-align: center;
         border: 1px solid #fff;
         &:active {
             filter: brightness(1.1);
@@ -62,19 +59,142 @@ body {
             background-color: #ddd;
             cursor: inherit;
             border: none;
-            &:hover{
+            &:hover {
                 background-color: #ddd;
             }
-            &:active{
+            &:active {
                 background-color: #ddd;
+            }
+        }
 
+        &::after,
+        &::before {
+            font-family: "FontAwesome";
+            margin: 0 10px;
+            animation-fill-mode: forwards;
+            animation-iteration-count: 1;
+            animation: alertButtonAnimation 1.5s;
+            font-size: 14pt;
+            opacity: 0;
+            position: absolute;
+        }
+        &::after{
+            animation: doneButtonAnimation 1.5s;
+            margin-right: -70px;
+        }
+        &::before{
+            margin-left: -70px;
+            animation: alertButtonAnimation 1.5s;
+        }
+
+        @keyframes alertButtonAnimation {
+            1% {
+                opacity: 1;                
+                transform: scale(1);
             }
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 2px #ffffff22;
+            }
+            25% {
+                transform: scale(1.2);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 0 15px rgb(255, 191, 15);
+            }
+            75% {
+                transform: scale(1.1);
+            }
+            99% {
+                text-shadow: 0 0 8px #ffae0022;
+                transform: scale(1);
+                display: flex;
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+                display: none;
+            }
+        }
+        @keyframes doneButtonAnimation {
+            1% {
+                opacity: 1;                
+                transform: scale(1);
+            }
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 2px #ffffff22;
+            }
+            25% {
+                transform: scale(1.2);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 0 15px rgb(26, 182, 26);
+            }
+            75% {
+                transform: scale(1.1);
+            }
+            99% {
+                text-shadow: 0 0 8px #6ad40622;
+                transform: scale(1);
+                display: flex;
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+    }
+    .doneButton{
+        &::after{
+            content: "\f00c";
+        }
+    }
+    .alertButton{
+        &::before{
+            content: "\f071";
         }
     }
 
+    .box{
+        max-width: 800px;
+        min-width: 400px;
+        padding: 20px;
+        border: 1px solid $mainColor;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        column-gap: 0;
+        position: relative;
+        margin-bottom: auto;
+        .boxTitle {
+            width: 100%;
+            font-size: 16pt;
+            color: $mainColor;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    }
+
+
+
 }
 
-
+@keyframes rotateLoadingImage {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 .adminHeader {
     width: 100%;
     height: 50px;
@@ -89,10 +209,10 @@ body {
     padding: 0 30px;
     background-color: #fff;
     z-index: 90;
-    span{
+    span {
         color: $mainColor;
     }
-    .PageTitle{
+    .PageTitle {
         font-size: 16pt;
         font-weight: bold;
     }
@@ -198,8 +318,7 @@ body {
     width: 300px;
     .menuToggleBox .menuToggle {
         align-items: flex-end;
-    } 
-        
+    }
 }
 
 .adminTitle {
@@ -211,10 +330,10 @@ body {
 }
 .adminDescricao {
     width: 75%;
-    margin-bottom: 20px
+    margin-bottom: 20px;
 }
 
-.modal{
+.modal {
     position: fixed;
     background-color: #fff;
     border: 1px solid $mainColor;
@@ -230,11 +349,10 @@ body {
     flex-direction: column;
 }
 
-
-.right{
+.right {
     left: -5px;
 }
-.help{
+.help {
     color: $mainColor;
     font-size: 16pt;
     cursor: pointer;
@@ -244,24 +362,23 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 10pt;
-    top: 10%;
-    i{
-        font-size: 1.3em !important;
+    //top: 10%;
+    i {
+        font-size: 1.2em !important;
         aspect-ratio: 1/1;
         color: rgba(150, 150, 150, 0.9) !important;
-        &:hover{
-            color: rgba(255, 128, 0,0.9) !important;
-
+        &:hover {
+            color: rgba(255, 128, 0, 0.9) !important;
         }
     }
-    &:hover .helpMessage{
-
+    &:hover .helpMessage {
         opacity: 1;
     }
-    &:hover i{
+    &:hover i {
         filter: brightness(1.2);
         animation: q 1s ease-in-out;
     }
+
     @keyframes q {
         0% {
             transform: scale(1);
@@ -279,7 +396,8 @@ body {
             transform: scale(1);
         }
     }
-    .helpMessage{
+
+    .helpMessage {
         padding: 6px;
         max-width: 300px;
         width: fit-content;
@@ -287,27 +405,79 @@ body {
         display: flex;
         min-width: 150px;
         top: 8px;
-        left: 8px;
+        left: 15px;
         border: 1px solid $mainColor;
         border-radius: 10px;
         background-color: #fff;
         pointer-events: none;
         transition: 0.3s;
-        z-index: 100;
+        z-index: 120;
         opacity: 0;
-        box-shadow: 0px 0px 10px -4px #00000024;
+        box-shadow: 0px 0px 10px -4px #74747424;
         height: inherit !important;
-        p{
+        p {
             width: 100%;
             font-size: 1em;
             color: #333;
             text-align: center;
             font-weight: normal;
             position: relative;
-
         }
     }
 }
+
+.deleteConfirm {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 11pt;
+        border: none;
+        color: #fff;
+        border-radius: 20px;
+        padding: 1px 3px;
+        width: 100%;
+        cursor: pointer;
+        background-color: $mainColor;
+        &:hover {
+            background-color: #f00;
+        }
+    }
+}
+
+.loadingImage {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        position: absolute;
+        font-family: "FontAwesome";
+        content: "\f110";
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+
+        background-color: rgba($mainColor, 0.5);
+
+        width: 150%;
+        height: 300%;
+        z-index: 30;
+        font-size: 40pt;
+        color: #fff;
+        animation: rotateLoadingImage 1s infinite;
+    }
+}
+
 @import "scss/home";
 @import "scss/about";
 @import "scss/banner";
@@ -317,4 +487,5 @@ body {
 @import "scss/products";
 @import "scss/purchases";
 @import "scss/reviewPurshases";
-@import "scss/configShipping";
+@import "scss/config";
+@import "scss/configFree";

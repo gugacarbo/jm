@@ -1,0 +1,309 @@
+.purchasesShippingConfig {
+    input[type="text"],
+    input[type="number"] {
+        border: none;
+        background-color: #fff;
+        border: 1px solid $mainColor;
+        border-radius: 30px;
+        padding: 3px 0;
+        text-align: center;
+    }
+    .shipConfigContent {
+        padding-bottom: 80px;
+
+        display: flex;
+        width: 100%;
+        gap: 20px;
+        justify-content: center;
+        align-items: flex-start;
+        .cupom {
+            min-width: 550px;
+            .cuponsList {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                .cuponsListHeader {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: $mainColor;
+                    padding: 5px 10px;
+                    span {
+                        color: #fff;
+                        font-size: 10pt;
+                        font-weight: bold;
+                        width: 100%;
+                        text-align: center;
+                    }
+                }
+            }
+            #CuponsList {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                border: 1px solid $mainColor;
+                width: 100%;
+                div {
+                    padding: 3px 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    span {
+                        font-size: 10pt;
+                        width: 100%;
+                        text-align: center;
+                    }
+                    i{
+                        color: $mainColor;
+                        font-size: 12pt;
+                        cursor: pointer;
+                        &:hover{
+                            color: #aaa;
+                        }
+                    }
+                }
+            }
+        }
+        .freteGratis {
+            button {
+                width: 80%;
+                margin: 20px auto;
+            }
+            width: 30%;
+            * {
+                transition: color 0.5s border-color 0.5s;
+            }
+            div {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: row;
+                margin-bottom: 20px;
+                span {
+                    font-size: 11pt;
+                    font-weight: bold;
+                    color: $mainColor;
+                }
+                .allfreelabel {
+                    margin-left: 100px;
+                }
+                h4 {
+                    font-weight: bold;
+                    color: $mainColor;
+                    font-size: 14pt;
+                }
+
+                label {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+
+                    input[type="checkbox"] {
+                        appearance: none;
+                        &:checked + h4 {
+                            background-color: #fff;
+                            border: 1px solid $mainColor;
+                        }
+                        &:checked + h4::after {
+                            transform: translateX(80%);
+                            background-color: $mainColor;
+                        }
+                    }
+                    h4 {
+                        width: 30px;
+                        height: 18px;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                        background-color: #ccc;
+                        border-radius: 20px;
+                        cursor: pointer;
+                        border: 1px solid #aaa;
+                        transition: 0.6s;
+                        &::after {
+                            transition: 0.6s;
+                            background-color: #999;
+                            content: "";
+                            position: absolute;
+                            border-radius: 20px;
+                            width: 14px;
+                            height: 14px;
+                            left: 2px;
+                            top: 1px;
+                            right: inherit;
+                        }
+                    }
+                }
+            }
+
+            .selectFree {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                row-gap: 5px;
+                div {
+                    width: 40%;
+                    height: 100%;
+
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-between;
+                    &:nth-child(1) {
+                        border-right: 1px solid $mainColor;
+                        padding-right: 20px;
+                    }
+                    h3 {
+                        margin-right: auto;
+
+                        font-size: 13pt;
+                        color: $mainColor;
+                        margin-bottom: 10px;
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                        i {
+                            font-size: 10pt;
+                        }
+                        label {
+                            gap: 0;
+                            span {
+                                color: #333;
+                                font-size: 10pt;
+                                margin-right: 5px;
+                            }
+
+                            input[type="checkbox"] {
+                                appearance: none;
+                                &:checked + h4 {
+                                    background-color: #fff;
+                                    border: 1px solid $mainColor;
+                                }
+                                &:checked + h4::after {
+                                    transform: translateX(90%);
+                                    background-color: $mainColor;
+                                }
+                            }
+                            h4 {
+                                width: 28px;
+                                height: 16px;
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                justify-content: center;
+                                position: relative;
+                                background-color: #ccc;
+                                border-radius: 20px;
+                                cursor: pointer;
+                                border: 1px solid #aaa;
+                                transition: 0.6s;
+                                &::after {
+                                    transition: 0.6s;
+                                    background-color: #999;
+                                    content: "";
+                                    position: absolute;
+                                    border-radius: 20px;
+                                    width: 12px;
+                                    height: 12px;
+                                    left: 1px;
+                                    top: 1px;
+                                    right: inherit;
+                                }
+                            }
+                        }
+                    }
+                    div {
+                        width: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 10px;
+                        label {
+                            width: 85%;
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            text-align: center;
+                            p {
+                                width: 90%;
+                                font-size: 11pt;
+                            }
+                            i {
+                                cursor: pointer;
+                                font-size: 11pt;
+
+                                color: $mainColor;
+                                transition: 0.1s;
+
+                                &:hover {
+                                    color: #f00;
+                                }
+                                &:active {
+                                    filter: brightness(0.8);
+                                }
+                            }
+                        }
+                    }
+                }
+                .addF {
+                    width: 80%;
+
+                    flex-direction: column;
+                    position: relative;
+                    align-items: center;
+
+                    gap: 10px;
+                    padding-top: 10px;
+                    border-top: 1px solid $mainColor;
+
+                    label {
+                        justify-content: flex-end;
+                        width: 90%;
+
+                        p {
+                            font-weight: 11pt;
+                            color: $mainColor;
+                        }
+
+                        &:last-child {
+                            border: none;
+                        }
+                        input {
+                            width: 130px;
+                        }
+                        i {
+                            cursor: pointer;
+                            color: $mainColor;
+                            font-size: 14pt;
+                            transition: 0.1s;
+                            &:hover {
+                                filter: brightness(1.4);
+                            }
+                            &:active {
+                                filter: brightness(0.9);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .noFreteGratis {
+                * {
+                    transition: 0.5s;
+                    color: #ccc !important;
+                    border-color: #ccc !important;
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+}

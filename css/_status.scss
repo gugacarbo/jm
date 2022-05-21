@@ -177,7 +177,7 @@
                 font-size: 11pt;
                 font-weight: bold;
                 color: $mainColor;
-                b{
+                b {
                     font-weight: normal;
                     color: #333;
                 }
@@ -208,7 +208,7 @@
                     color: #878787;
                 }
                 position: relative;
-                i{
+                i {
                     position: absolute;
                     bottom: 10px;
                     right: 20px;
@@ -216,16 +216,17 @@
                     color: $mainColor;
                     cursor: pointer;
                     transition: transform 0.5s, color 0.1s;
-                    &:hover{
-                        transform: translateY(6px);
-                    }
-                    &:active{
+                
+                    &:active {
                         color: #ddd;
                     }
                 }
             }
+            .rotate {
+                transform: rotate(180deg);
+            }
         }
-        .moreTracking{
+        .moreTracking {
             height: inherit;
         }
         button {
@@ -248,11 +249,11 @@
             &:active {
                 filter: brightness(0.9);
             }
-            &:disabled{
+            &:disabled {
                 cursor: initial;
                 background-color: #ddd;
                 color: #aaa;
-                &:hover{
+                &:hover {
                     filter: brightness(1);
                 }
             }

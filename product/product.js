@@ -55,7 +55,7 @@ function takeShipping() {
                     $("#PrazoPac").html(data['prazoPac'][0] + " Dias")
                     $("#PrecoSedex").html("<span style='color: #0f0;'>Frete Grátis</span>")
                     $("#PrazoSedex").html(data['prazoSedex'][0] + " Dias")
-                    $("#SLocal").html("Prox. à " + (Object.keys(data['local']["bairro"]).length === 0 ? "" : data['local']["bairro"]) + " - " + data['local']["cidade"] + " - " + data['local']["uf"]);
+                    $("#SLocal").html("Prox. à " + (Object.keys(data['local']["bairro"]).length === 0 ? "" : data['local']["bairro"]) + " - " + data['local']["localidade"] + " - " + data['local']["uf"]);
                     $(".preco").css("display", "flex");
                     $(".animatedIconShipping").removeClass("animateShipping");
                 } else {
@@ -63,7 +63,7 @@ function takeShipping() {
                     $("#PrazoPac").html(data['prazoPac'][0] + " Dias")
                     $("#PrecoSedex").html("R$ " + parseFloat(data['valorSedex'][0]).toFixed(2).replace('.', ','))
                     $("#PrazoSedex").html(data['prazoSedex'][0] + " Dias")
-                    $("#SLocal").html("Prox. à " + (Object.keys(data['local']["bairro"]).length === 0 ? "" : data['local']["bairro"]) + " - " + data['local']["cidade"] + " - " + data['local']["uf"]);
+                    $("#SLocal").html("Prox. à " + (Object.keys(data['local']["bairro"]).length === 0 ? "" : data['local']["bairro"]) + " - " + data['local']["localidade"] + " - " + data['local']["uf"]);
                     $(".preco").css("display", "flex");
                     $(".animatedIconShipping").removeClass("animateShipping");
                 }

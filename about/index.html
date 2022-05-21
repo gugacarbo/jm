@@ -8,6 +8,9 @@
     <link rel="icon" href="/img/Jm_Logo_Branco.png">
     <link rel="stylesheet" href="../css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -48,9 +51,9 @@
         })
         function setBanner(el_id, banner_name) {
             //"/api/getBanner.php"
-            return $.get("/php/getBanner.php", { 'name': banner_name }, function (d) {
-                var data = JSON.parse(d);
-                var images = JSON.parse(data["images"]);
+            return $.get("/api/get/getBanner.php", { 'name': banner_name }, function (data) {
+            
+                var images = (data["images"]);
                 $.each(images, function (i, img) {
                     if (img != "")
                         $(el_id).append("<img src='" + img + "'>");

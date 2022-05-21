@@ -23,7 +23,32 @@
         margin-bottom: 10px;
         width: 100%;
     }
-    input {
+    label{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        gap: 20px;
+        position: relative;
+        span{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-right: 10px;
+            font-size: 12pt;
+            color: $mainColor;
+            text-align: right;
+            font-weight: bold;
+            position: relative;
+        }
+        input{
+            width: 30%;
+        }
+        select{
+            justify-content: center;
+            width: 30%;
+        }
+    }
+    input, select{
         border: none;
         border: 1px solid $mainColor;
         box-shadow: 0 0 4px -1px $mainColor;

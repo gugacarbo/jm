@@ -47,6 +47,13 @@
         <div class="subTotal">
             <span id="subTotalPrice">R$00,0</span>
         </div>
+        <div class="cupom">
+            <span class="cupomTitle">Cupom de desconto</span>
+            <span class="cupomValid" id="ValidCupom"></span>
+            <i class="fa-solid fa-spinner" id="loadingCupom"></i>
+            <input type="text" id="cupom" placeholder="Código do cupom">
+            <button id="VerifyCumpom">Verificar Cupom</button>
+        </div>
         <div class="shipping">
             <div id="waitingShipping"><i class="fa-solid fa-spinner"></i></div>
             <span class="shipHeader">Envio</span>
@@ -73,8 +80,8 @@
                 <span>Frete: </span>
                 <span id="totalShipping">R$0,00</span>
             </label>
-            <label>
-                <span id="discountDiv">Desconto: </span>
+            <label id="discountDiv">
+                <span>Desconto: </span>
                 <span id="totalDiscount">R$0,00</span>
             </label>
             <label>

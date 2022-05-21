@@ -32,15 +32,14 @@ function addCart(id, qtd = 0, opt = 0) {
   id = parseInt(id);
 
   if (opt == 0) {
-    var scriptUrl = "/php/getProdById.php?id=" + id;
+    var scriptUrl = "/api/get/getProdById.php?id=" + id;
     $.ajax({
       url: scriptUrl,
       type: 'get',
       dataType: 'json',
       async: false,
       success: function (data) {
-        data["options"] = JSON.parse(data["options"]);
-        console.log(data["options"] );
+        data["options"] = (data["options"]);
 
         $.each(data["options"], function (i, item) {
           if (data["options"][i] != 0 && opt == 0) {

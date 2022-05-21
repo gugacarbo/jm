@@ -2,7 +2,7 @@
 //verify if session login is valid
 session_start();
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
-    header("Location: login.php");
+    header("Location: api/login/login.php");
     exit;
 } else {
     $user = $_SESSION['user'];
@@ -32,7 +32,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
 
 <body>
     <div class='adminHeader'>
-        <span>Olá <?php echo $user;?></span>
+        <span>Olá <?php echo $user; ?></span>
         <span class="PageTitle" id="TitleHeader"></span>
         <label>
             <span id="dateH"></span>
@@ -51,6 +51,10 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
             <a onclick="changePage('home')">
                 <label>Home</label>
                 <i class="fas fa-home"></i>
+            </a>
+            <a onclick="changePage('purchases')">
+                <label>Vendas</label>
+                <i class="fas fa-shopping-cart"></i>
             </a>
             <a onclick="changePage('products')">
                 <label>Produtos</label>
@@ -72,25 +76,25 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
                 <label>Carrossel</label>
                 <i class="fa-solid fa-dharmachakra"></i>
             </a>
-
             <a onclick="changePage('about')">
                 <label>Sobre</label>
                 <i class="fas fa-info-circle"></i>
             </a>
-            <a onclick="changePage('purchases')">
-                <label>Compras</label>
-                <i class="fas fa-shopping-cart"></i>
-            </a>
-
-            <a onclick="changePage('configShipping')">
-                <label>Configurações de Frete</label>
-                <i class="fas fa-truck"></i>
+            <a onclick="changePage('configFree')">
+                <label>Cupons e Frete Grátis</label>
+                <i class="fa-solid fa-tags"></i>
             </a>
 
             <a onclick="changePage('reviewPurchases')">
                 <label>Pedidos Incompletos</label>
                 <i class="fa-solid fa-arrow-rotate-left"></i>
             </a>
+
+            <a onclick="changePage('config')">
+                <label>Configurações</label>
+                <i class="fas fa-cog"></i>
+            </a>
+            
             <a href="/admin/logout.php">
                 <label>Sair</label>
                 <i class="fas fa-sign-out-alt"></i>

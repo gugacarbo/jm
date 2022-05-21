@@ -1,0 +1,52 @@
+<?php
+header('Content-Type: application/json; charset=utf-8');
+
+if (isset($_GET['cupom']) && isset($_GET['cpf']) &&  isset($_GET['bornDate'])) {
+    include '../config/db_connect.php';
+    $cupom = $_GET['cupom'];
+    $cpf = str_replace([',', '.', '-'], '', $_GET['cpf']);
+    $bornDate = $_GET['bornDate'];
+
+    $sql = "SELECT * FROM cupom WHERE ticker = ? AND quantity > 0";
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("s", $cupom);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $cupom = $result->fetch_assoc();
+        $stmt->close();
+
+        $Rcupom["ticker"] = $cupom["ticker"];
+        $Rcupom["type"] = $cupom["type"];
+        $Rcupom["value"] = $cupom["value"];
+        $Rcupom["firstPurchase"] = $cupom["firstPurchase"];
+        $Rcupom["clientIds"] = json_decode($cupom["clientIds"]);
+
+        if($cupom["firstPurchase"] == true){
+            $sql = "SELECT id FROM client WHERE cpf = ? AND bornDate = ?";
+    
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param('ss', $cpf, $bornDate);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $Cid = $result->fetch_assoc()["id"];
+            if ($result->num_rows > 0) {
+                if (in_array($Cid, $Rcupom["clientIds"])) {
+                    die(json_encode(array("status" => 403, "message" => "Cupom Já Utilizado.")));
+                } else {
+                    die(json_encode(array('status' => 200, 'cupom' => $Rcupom)));
+                }
+            } else {
+                $stmt->close();
+                die(json_encode(array('status' => 200, 'cupom' => $Rcupom)));
+            }
+        }else{
+            die(json_encode(array('status' => 200, 'cupom' => $Rcupom)));
+        }
+
+
+    } else {
+        die(json_encode(array("status" => 400, "message" => "Cupom inválido ou esgotado.")));
+    }
+}

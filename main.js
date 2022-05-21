@@ -71,53 +71,52 @@ var Gliders = [];
 async function getGliders() {
 
   $.get("/api/get/getGlider.php").then(data => {
-    if (data.status >= 200 && data.status < 300) {
-      $.each(data, function (i, prods) {
+    $.each(data, function (i, prods) {
 
-        var category = "<div class='categoryCarousel'>" +
-          "<div class='carouselTitle'>" + prods["name"] + "</div>" +
-          "<div class='showCarousel' id='Carousel" + prods["name"].replace(" ", "") + "'>" +
-          "<a class='carouselItem moreItens' href='/products/?cat=" + prods["category"] + "'>" +
-          "<span>Exibir Mais Produtos</span>" +
-          "</a>" +
-          "</div>"
-        if (Object.keys((prods["prod_ids"])).length >= 4) {
-          category += "<div class='carouselBtn prev" + prods["name"].replace(" ", "") + "'><i class=' fas fa-chevron-left'></i></div>" +
-            "<div class='carouselBtn next" + prods["name"].replace(" ", "") + "'><i class='fas fa-chevron-right'></i></div>"
+      var category = "<div class='categoryCarousel'>" +
+        "<div class='carouselTitle'>" + prods["name"] + "</div>" +
+        "<div class='showCarousel' id='Carousel" + prods["name"].replace(" ", "") + "'>" +
+        "<a class='carouselItem moreItens' href='/products/?cat=" + prods["category"] + "'>" +
+        "<span>Exibir Mais Produtos</span>" +
+        "</a>" +
+        "</div>"
+      if (Object.keys((prods["prod_ids"])).length >= 4) {
+        category += "<div class='carouselBtn prev" + prods["name"].replace(" ", "") + "'><i class=' fas fa-chevron-left'></i></div>" +
+          "<div class='carouselBtn next" + prods["name"].replace(" ", "") + "'><i class='fas fa-chevron-right'></i></div>"
+      }
+
+      category += "<div role='tablist' class='dots" + prods["name"].replace(" ", "") + "'></div>" +
+        "</div>";
+      $("#Carousel").append(category);
+
+      var prodCount = Object.keys((prods["prod_ids"])).length;
+      var actProdCount = 0;
+
+      $.each((prods["prod_ids"]), function (k, prod) {
+        //console.log(prod)
+        var ProdCarousel =
+          "<div class='carouselItem " + (prod.totalQuantity == 0 ? "unavailable' style='order:5;'" : "'") + ">"
+          + "<a class='carouselImg' href='/product/?id=" + prod['id'] + "'>"
+          + "<img src='" + prod['imgs'][1] + "'>"
+          + "<span class='carouselPromo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
+          + "</a>"
+          + "<span class='carouselItemName'>" + prod['name'] + "</span>"
+          + "<span class='carouselItemPrice'>R$" + (parseFloat(prod['price']).toFixed(2)).replace(".", ",") + "</span>"
+          + "<span class='carouselItemPay'>ou em 2x de " + (parseFloat(prod['price']) / 2).toFixed(2).replace(".", ",") + "</span>"
+          //+ "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod['id']) + ", 1)'></i>"
+          + "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod.id) + ", 1)'></i>"
+          + "</div>";
+        //console.log(ProdCarousel)
+
+        $("#Carousel" + prods["name"].replace(" ", "")).append(ProdCarousel)
+        actProdCount++;
+
+        if (prodCount == actProdCount) {
+          callGliders(prods["name"].replace(" ", ""))
         }
-
-        category += "<div role='tablist' class='dots" + prods["name"].replace(" ", "") + "'></div>" +
-          "</div>";
-        $("#Carousel").append(category);
-
-        var prodCount = Object.keys((prods["prod_ids"])).length;
-        var actProdCount = 0;
-
-        $.each((prods["prod_ids"]), function (k, prod) {
-          //console.log(prod)
-          var ProdCarousel =
-            "<div class='carouselItem " + (prod.totalQuantity == 0 ? "unavailable' style='order:5;'" : "'") + ">"
-            + "<a class='carouselImg' href='/product/?id=" + prod['id'] + "'>"
-            + "<img src='" + prod['imgs'][1] + "'>"
-            + "<span class='carouselPromo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
-            + "</a>"
-            + "<span class='carouselItemName'>" + prod['name'] + "</span>"
-            + "<span class='carouselItemPrice'>R$" + (parseFloat(prod['price']).toFixed(2)).replace(".", ",") + "</span>"
-            + "<span class='carouselItemPay'>ou em 2x de " + (parseFloat(prod['price']) / 2).toFixed(2).replace(".", ",") + "</span>"
-            //+ "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod['id']) + ", 1)'></i>"
-            + "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod.id) + ", 1)'></i>"
-            + "</div>";
-          //console.log(ProdCarousel)
-
-          $("#Carousel" + prods["name"].replace(" ", "")).append(ProdCarousel)
-          actProdCount++;
-
-          if (prodCount == actProdCount) {
-            callGliders(prods["name"].replace(" ", ""))
-          }
-        })
       })
-    }
+    })
+
   })
 }
 

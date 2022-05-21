@@ -47,7 +47,6 @@
                         "cpf": cpf,
                         "code": code
                     }
-                    console.log(data)
                     $.get("/api/get/verifyCode.php", data, (code) => {
 
                         if (code["status"] >= 300 ) {

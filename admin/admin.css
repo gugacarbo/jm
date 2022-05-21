@@ -35,12 +35,12 @@ body {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  padding-left: 80px;
-  padding-top: 60px;
+  padding-left: 60px;
+  padding-top: 50px;
 }
 
 .adminContainer {
-  width: calc(100% - 60px);
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -103,6 +103,251 @@ body {
 
 .adminContainer button:disabled:active {
   background-color: #ddd;
+}
+
+.adminContainer button::after, .adminContainer button::before {
+  font-family: "FontAwesome";
+  margin: 0 10px;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation: alertButtonAnimation 1.5s;
+          animation: alertButtonAnimation 1.5s;
+  font-size: 14pt;
+  opacity: 0;
+  position: absolute;
+}
+
+.adminContainer button::after {
+  -webkit-animation: doneButtonAnimation 1.5s;
+          animation: doneButtonAnimation 1.5s;
+  margin-right: -70px;
+}
+
+.adminContainer button::before {
+  margin-left: -70px;
+  -webkit-animation: alertButtonAnimation 1.5s;
+          animation: alertButtonAnimation 1.5s;
+}
+
+@-webkit-keyframes alertButtonAnimation {
+  1% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    text-shadow: 0 0 2px #ffffff22;
+  }
+  25% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+    text-shadow: 0 0 15px #ffbf0f;
+  }
+  75% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  99% {
+    text-shadow: 0 0 8px #ffae0022;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    display: -webkit-box;
+    display: flex;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes alertButtonAnimation {
+  1% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    text-shadow: 0 0 2px #ffffff22;
+  }
+  25% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+    text-shadow: 0 0 15px #ffbf0f;
+  }
+  75% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  99% {
+    text-shadow: 0 0 8px #ffae0022;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0;
+    display: none;
+  }
+}
+
+@-webkit-keyframes doneButtonAnimation {
+  1% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    text-shadow: 0 0 2px #ffffff22;
+  }
+  25% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+    text-shadow: 0 0 15px #1ab61a;
+  }
+  75% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  99% {
+    text-shadow: 0 0 8px #6ad40622;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    display: -webkit-box;
+    display: flex;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes doneButtonAnimation {
+  1% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    text-shadow: 0 0 2px #ffffff22;
+  }
+  25% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+    text-shadow: 0 0 15px #1ab61a;
+  }
+  75% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  99% {
+    text-shadow: 0 0 8px #6ad40622;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.adminContainer .doneButton::after {
+  content: "\f00c";
+}
+
+.adminContainer .alertButton::before {
+  content: "\f071";
+}
+
+.adminContainer .box {
+  max-width: 800px;
+  min-width: 400px;
+  padding: 20px;
+  border: 1px solid #b66d76;
+  border-radius: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  -webkit-column-gap: 0;
+          column-gap: 0;
+  position: relative;
+  margin-bottom: auto;
+}
+
+.adminContainer .box .boxTitle {
+  width: 100%;
+  font-size: 16pt;
+  color: #b66d76;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+@-webkit-keyframes rotateLoadingImage {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateLoadingImage {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 
 .adminHeader {
@@ -339,11 +584,10 @@ body {
       -ms-flex-align: center;
           align-items: center;
   font-size: 10pt;
-  top: 10%;
 }
 
 .help i {
-  font-size: 1.3em !important;
+  font-size: 1.2em !important;
   aspect-ratio: 1/1;
   color: rgba(150, 150, 150, 0.9) !important;
 }
@@ -421,17 +665,17 @@ body {
   display: flex;
   min-width: 150px;
   top: 8px;
-  left: 8px;
+  left: 15px;
   border: 1px solid #b66d76;
   border-radius: 10px;
   background-color: #fff;
   pointer-events: none;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  z-index: 100;
+  z-index: 120;
   opacity: 0;
-  -webkit-box-shadow: 0px 0px 10px -4px #00000024;
-          box-shadow: 0px 0px 10px -4px #00000024;
+  -webkit-box-shadow: 0px 0px 10px -4px #74747424;
+          box-shadow: 0px 0px 10px -4px #74747424;
   height: inherit !important;
 }
 
@@ -444,14 +688,409 @@ body {
   position: relative;
 }
 
-.adminHomeContainer .Chart {
-  width: 600px;
-  height: 400px;
+.deleteConfirm {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.adminHomeContainer .Chart canvas {
+.deleteConfirm div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 11pt;
+  border: none;
+  color: #fff;
+  border-radius: 20px;
+  padding: 1px 3px;
   width: 100%;
-  height: 100%;
+  cursor: pointer;
+  background-color: #b66d76;
+}
+
+.deleteConfirm div:hover {
+  background-color: #f00;
+}
+
+.loadingImage {
+  position: relative;
+  overflow: hidden;
+}
+
+.loadingImage::after {
+  position: absolute;
+  font-family: "FontAwesome";
+  content: "\f110";
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 32px;
+  background-color: rgba(182, 109, 118, 0.5);
+  width: 150%;
+  height: 300%;
+  z-index: 30;
+  font-size: 40pt;
+  color: #fff;
+  -webkit-animation: rotateLoadingImage 1s infinite;
+          animation: rotateLoadingImage 1s infinite;
+}
+
+.adminHomeContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 10px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow: hidden;
+  aspect-ratio: 2/1;
+  gap: 0.57%;
+}
+
+.adminHomeContainer div {
+  width: 12%;
+  aspect-ratio: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #8b3bd9;
+  -webkit-transform: translateY(100vh);
+          transform: translateY(100vh);
+  -webkit-animation: up 2s;
+          animation: up 2s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+}
+
+.adminHomeContainer div:nth-child(even) {
+  background-color: #c8817f;
+}
+
+.adminHomeContainer div:nth-child(1) {
+  -webkit-animation-delay: 0.05s;
+          animation-delay: 0.05s;
+}
+
+.adminHomeContainer div:nth-child(2) {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
+}
+
+.adminHomeContainer div:nth-child(3) {
+  -webkit-animation-delay: 0.15s;
+          animation-delay: 0.15s;
+}
+
+.adminHomeContainer div:nth-child(4) {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+
+.adminHomeContainer div:nth-child(5) {
+  -webkit-animation-delay: 0.25s;
+          animation-delay: 0.25s;
+}
+
+.adminHomeContainer div:nth-child(6) {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+
+.adminHomeContainer div:nth-child(7) {
+  -webkit-animation-delay: 0.35s;
+          animation-delay: 0.35s;
+}
+
+.adminHomeContainer div:nth-child(8) {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+
+.adminHomeContainer div:nth-child(9) {
+  -webkit-animation-delay: 0.45s;
+          animation-delay: 0.45s;
+}
+
+.adminHomeContainer div:nth-child(10) {
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+}
+
+.adminHomeContainer div:nth-child(11) {
+  -webkit-animation-delay: 0.55s;
+          animation-delay: 0.55s;
+}
+
+.adminHomeContainer div:nth-child(12) {
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+}
+
+.adminHomeContainer div:nth-child(13) {
+  -webkit-animation-delay: 0.65s;
+          animation-delay: 0.65s;
+}
+
+.adminHomeContainer div:nth-child(14) {
+  -webkit-animation-delay: 0.7s;
+          animation-delay: 0.7s;
+}
+
+.adminHomeContainer div:nth-child(15) {
+  -webkit-animation-delay: 0.75s;
+          animation-delay: 0.75s;
+}
+
+.adminHomeContainer div:nth-child(16) {
+  -webkit-animation-delay: 0.8s;
+          animation-delay: 0.8s;
+}
+
+.adminHomeContainer div:nth-child(17) {
+  -webkit-animation-delay: 0.85s;
+          animation-delay: 0.85s;
+}
+
+.adminHomeContainer div:nth-child(18) {
+  -webkit-animation-delay: 0.9s;
+          animation-delay: 0.9s;
+}
+
+.adminHomeContainer div:nth-child(19) {
+  -webkit-animation-delay: 0.95s;
+          animation-delay: 0.95s;
+}
+
+.adminHomeContainer div:nth-child(20) {
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+
+.adminHomeContainer div:nth-child(21) {
+  -webkit-animation-delay: 1.05s;
+          animation-delay: 1.05s;
+}
+
+.adminHomeContainer div:nth-child(22) {
+  -webkit-animation-delay: 1.1s;
+          animation-delay: 1.1s;
+}
+
+.adminHomeContainer div:nth-child(23) {
+  -webkit-animation-delay: 1.15s;
+          animation-delay: 1.15s;
+}
+
+.adminHomeContainer div:nth-child(24) {
+  -webkit-animation-delay: 1.2s;
+          animation-delay: 1.2s;
+}
+
+.adminHomeContainer div:nth-child(25) {
+  -webkit-animation-delay: 1.25s;
+          animation-delay: 1.25s;
+}
+
+.adminHomeContainer div:nth-child(26) {
+  -webkit-animation-delay: 1.3s;
+          animation-delay: 1.3s;
+}
+
+.adminHomeContainer div:nth-child(27) {
+  -webkit-animation-delay: 1.35s;
+          animation-delay: 1.35s;
+}
+
+.adminHomeContainer div:nth-child(28) {
+  -webkit-animation-delay: 1.4s;
+          animation-delay: 1.4s;
+}
+
+.adminHomeContainer div:nth-child(29) {
+  -webkit-animation-delay: 1.45s;
+          animation-delay: 1.45s;
+}
+
+.adminHomeContainer div:nth-child(30) {
+  -webkit-animation-delay: 1.5s;
+          animation-delay: 1.5s;
+}
+
+.adminHomeContainer div:nth-child(31) {
+  -webkit-animation-delay: 1.55s;
+          animation-delay: 1.55s;
+}
+
+.adminHomeContainer div:nth-child(32) {
+  -webkit-animation-delay: 1.6s;
+          animation-delay: 1.6s;
+}
+
+.adminHomeContainer div:nth-child(33) {
+  -webkit-animation-delay: 1.65s;
+          animation-delay: 1.65s;
+}
+
+.adminHomeContainer div:nth-child(34) {
+  -webkit-animation-delay: 1.7s;
+          animation-delay: 1.7s;
+}
+
+.adminHomeContainer div:nth-child(35) {
+  -webkit-animation-delay: 1.75s;
+          animation-delay: 1.75s;
+}
+
+.adminHomeContainer div:nth-child(36) {
+  -webkit-animation-delay: 1.8s;
+          animation-delay: 1.8s;
+}
+
+.adminHomeContainer div:nth-child(37) {
+  -webkit-animation-delay: 1.85s;
+          animation-delay: 1.85s;
+}
+
+.adminHomeContainer div:nth-child(38) {
+  -webkit-animation-delay: 1.9s;
+          animation-delay: 1.9s;
+}
+
+.adminHomeContainer div:nth-child(39) {
+  -webkit-animation-delay: 1.95s;
+          animation-delay: 1.95s;
+}
+
+.adminHomeContainer div:nth-child(40) {
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+}
+
+.adminHomeContainer div:nth-child(41) {
+  -webkit-animation-delay: 2.05s;
+          animation-delay: 2.05s;
+}
+
+.adminHomeContainer div:nth-child(42) {
+  -webkit-animation-delay: 2.1s;
+          animation-delay: 2.1s;
+}
+
+.adminHomeContainer div:nth-child(43) {
+  -webkit-animation-delay: 2.15s;
+          animation-delay: 2.15s;
+}
+
+.adminHomeContainer div:nth-child(44) {
+  -webkit-animation-delay: 2.2s;
+          animation-delay: 2.2s;
+}
+
+.adminHomeContainer div:nth-child(45) {
+  -webkit-animation-delay: 2.25s;
+          animation-delay: 2.25s;
+}
+
+.adminHomeContainer div:nth-child(46) {
+  -webkit-animation-delay: 2.3s;
+          animation-delay: 2.3s;
+}
+
+.adminHomeContainer div:nth-child(47) {
+  -webkit-animation-delay: 2.35s;
+          animation-delay: 2.35s;
+}
+
+.adminHomeContainer div:nth-child(48) {
+  -webkit-animation-delay: 2.4s;
+          animation-delay: 2.4s;
+}
+
+.adminHomeContainer div:nth-child(49) {
+  -webkit-animation-delay: 2.45s;
+          animation-delay: 2.45s;
+}
+
+.adminHomeContainer div:nth-child(50) {
+  -webkit-animation-delay: 2.5s;
+          animation-delay: 2.5s;
+}
+
+.adminHomeContainer .g {
+  width: 23.96%;
+}
+
+.adminHomeContainer .mv {
+  aspect-ratio: 1/2;
+}
+
+.adminHomeContainer .mh {
+  width: 24%;
+  aspect-ratio: 2;
+}
+
+@-webkit-keyframes up {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(100vh);
+            transform: translateY(100vh);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes up {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(100vh);
+            transform: translateY(100vh);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
 }
 
 .aboutAdminContainer .content {
@@ -513,7 +1152,6 @@ body {
 .aboutAdminContainer .content .addImage img {
   width: 100%;
   height: 100%;
-  width: 450;
   position: relative;
   pointer-events: none;
 }
@@ -567,24 +1205,6 @@ body {
           align-items: center;
   font-size: 20px;
   background-color: rgba(255, 255, 255, 0.5);
-}
-
-.aboutAdminContainer .content .loading {
-  position: relative;
-  overflow: hidden;
-}
-
-.aboutAdminContainer .content .loading::after {
-  position: absolute;
-  font-family: "FontAwesome";
-  width: 1000%;
-  height: 1000%;
-  z-index: 30;
-  font-size: 40pt;
-  color: #999;
-  -webkit-animation: rotate 1s infinite;
-          animation: rotate 1s infinite;
-  content: "\f110";
 }
 
 @-webkit-keyframes rotate {
@@ -645,33 +1265,33 @@ body {
 
 .adminBannerContainer {
   padding-bottom: 100px;
-}
-
-.adminBannerContainer .con {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-.adminBannerContainer .preview {
-  width: 28%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  width: 100%;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 40px;
 }
 
-.adminBannerContainer .preview section {
-  width: 90%;
+.adminBannerContainer button {
+  width: 280px;
+  margin-top: 40px;
+  margin-left: 50px;
+}
+
+.adminBannerContainer .bannerShow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #b66d76;
+}
+
+.adminBannerContainer .bannerShow section {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -683,16 +1303,18 @@ body {
       -ms-flex-align: center;
           align-items: center;
   gap: 10px;
+  width: 20%;
 }
 
-.adminBannerContainer .preview section span {
+.adminBannerContainer .bannerShow section span {
   width: 100%;
   text-align: left;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
   color: #b66d76;
 }
 
-.adminBannerContainer .preview section .prev {
+.adminBannerContainer .bannerShow section .prev {
   border: 1px solid #ddd;
   border-top: 20px solid #ddd;
   width: 90%;
@@ -708,7 +1330,7 @@ body {
           align-items: center;
 }
 
-.adminBannerContainer .preview section .prev .images {
+.adminBannerContainer .bannerShow section .prev .images {
   width: 100%;
   background-color: #b66d76;
   position: relative;
@@ -722,7 +1344,7 @@ body {
           justify-content: center;
 }
 
-.adminBannerContainer .preview section .prev .images img {
+.adminBannerContainer .bannerShow section .prev .images img {
   margin: 0 15%;
   width: 70%;
   height: 100%;
@@ -735,7 +1357,7 @@ body {
   transition: 0.8s;
 }
 
-.adminBannerContainer .preview section .prev .images::after {
+.adminBannerContainer .bannerShow section .prev .images::after {
   content: "1100px x 550px";
   width: 100%;
   height: 100%;
@@ -758,7 +1380,7 @@ body {
   position: absolute;
 }
 
-.adminBannerContainer .preview section .simu {
+.adminBannerContainer .bannerShow section .simu {
   width: 70%;
   padding: 5px 0;
   padding: 20px;
@@ -773,68 +1395,35 @@ body {
           justify-content: space-between;
 }
 
-.adminBannerContainer .preview section .simu p {
+.adminBannerContainer .bannerShow section .simu p {
   width: 15%;
   aspect-ratio: 1.4/2;
   background-color: #ddd;
 }
 
-.adminBannerContainer .preview section .simu b {
+.adminBannerContainer .bannerShow section .simu b {
   width: 100%;
   height: 8px;
   background-color: #ddd;
 }
 
-.adminBannerContainer .bannersContent {
-  padding: 0px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  gap: 30px;
-  width: 70%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.adminBannerContainer .bannersContent form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 30px;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  height: 100%;
-}
-
-.adminBannerContainer .bannersContent form .bannerContainer {
+.adminBannerContainer .bannerShow .bannerContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   gap: 30px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  width: 70%;
 }
 
-.adminBannerContainer .bannersContent form .bannerContainer p {
+.adminBannerContainer .bannerShow .bannerContainer p {
   width: 90%;
   color: #666;
   position: relative;
 }
 
-.adminBannerContainer .bannersContent form .bannerContainer .preview {
+.adminBannerContainer .bannerShow .bannerContainer .preview {
   width: 30%;
   height: auto;
   aspect-ratio: 1100/550;
@@ -852,7 +1441,7 @@ body {
   border: 1px solid #b66d76;
 }
 
-.adminBannerContainer .bannersContent form .bannerContainer .preview img {
+.adminBannerContainer .bannerShow .bannerContainer .preview img {
   display: block;
   width: 100%;
   aspect-ratio: 1100/550;
@@ -860,7 +1449,7 @@ body {
   pointer-events: none;
 }
 
-.adminBannerContainer .bannersContent form .bannerContainer .preview input[type="file"] {
+.adminBannerContainer .bannerShow .bannerContainer .preview input[type="file"] {
   position: absolute;
   background-color: #ddd;
   background-image: url("img/plus.png");
@@ -874,11 +1463,11 @@ body {
   cursor: pointer;
 }
 
-.adminBannerContainer .bannersContent form .bannerContainer .preview input[type="file"]::-webkit-file-upload-button {
+.adminBannerContainer .bannerShow .bannerContainer .preview input[type="file"]::-webkit-file-upload-button {
   display: none;
 }
 
-.adminBannerContainer .bannersContent form .bannerContainer .preview i {
+.adminBannerContainer .bannerShow .bannerContainer .preview i {
   position: absolute;
   right: 4px;
   top: 5px;
@@ -887,61 +1476,8 @@ body {
   cursor: pointer;
 }
 
-.adminBannerContainer .bannersContent form .bannerContainer .preview i:hover {
+.adminBannerContainer .bannerShow .bannerContainer .preview i:hover {
   color: #777777;
-}
-
-.adminBannerContainer .bannersContent form .bannerContainer .preview::after {
-  position: absolute;
-  font-family: "FontAwesome";
-  content: '\f110';
-  content: '';
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 20px;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-.adminBannerContainer .bannersContent form .bannerContainer .loading {
-  position: relative;
-  overflow: hidden;
-}
-
-.adminBannerContainer .bannersContent form .bannerContainer .loading::after {
-  font-family: "FontAwesome";
-  width: 1000%;
-  height: 1000%;
-  font-size: 40pt;
-  color: #999;
-  -webkit-animation: rotate 1s infinite;
-          animation: rotate 1s infinite;
-  content: '\f110';
-}
-
-@keyframes rotate {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-
-.adminBannerContainer button {
-  width: 280px;
-  margin-top: 40px;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-  margin-left: 50px;
 }
 
 .adminCarouselContainer button {
@@ -1065,10 +1601,21 @@ body {
   gap: 10px;
 }
 
+.adminCarouselContainer .carouselContent .carousel .info label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminCarouselContainer .carouselContent .carousel .info label span {
+  width: 30%;
+}
+
 .adminCarouselContainer .carouselContent .carousel .info span {
   font-size: 10pt;
   font-weight: bold;
   margin-left: 10px;
+  position: relative;
 }
 
 .adminCarouselContainer .carouselContent .carousel .info span b {
@@ -1412,8 +1959,21 @@ body {
   color: #ccc;
 }
 
-.adminCategoryContainer .content .item i {
+.adminCategoryContainer .content .item span {
   width: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.adminCategoryContainer .content .item span i {
   font-size: 12pt;
   font-weight: bold;
   -webkit-transition: 0.1s;
@@ -1610,8 +2170,21 @@ body {
   color: #ccc;
 }
 
-.adminMaterialContainer .content .item i {
+.adminMaterialContainer .content .item span {
   width: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.adminMaterialContainer .content .item span i {
   font-size: 12pt;
   font-weight: bold;
   -webkit-transition: 0.1s;
@@ -1984,27 +2557,6 @@ body {
   border-right: none;
 }
 
-.productsContainer .products .product .deleteConfirm {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100%;
-}
-
-.productsContainer .products .product .deleteConfirm button {
-  border: none;
-  color: #fff;
-  border-radius: 20px;
-  width: 100%;
-  padding: 2px 10px;
-  cursor: pointer;
-  background-color: #b66d76;
-}
-
-.productsContainer .products .product .deleteConfirm button:hover {
-  background-color: #f00;
-}
-
 .productsContainer .pageCounter {
   width: 100%;
   display: -webkit-box;
@@ -2231,42 +2783,6 @@ body {
   font-size: 13pt;
 }
 
-.productsContainer .modalProduct .productAdd .productInfo section .save button i:nth-child(2) {
-  display: block;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save button i:nth-child(3) {
-  display: none;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save button i:nth-child(4) {
-  display: none;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save .alertButton i:nth-child(2) {
-  display: none;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save .alertButton i:nth-child(3) {
-  display: block;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save .alertButton i:nth-child(4) {
-  display: none;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save .doneButton i:nth-child(2) {
-  display: none;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save .doneButton i:nth-child(3) {
-  display: none;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save .doneButton i:nth-child(4) {
-  display: block;
-}
-
 .productsContainer .modalProduct .productAdd .productInfo .productOptions {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2469,53 +2985,6 @@ body {
 
 .productsContainer .modalProduct .productAdd .productImages .addImage i:hover {
   color: #777777;
-}
-
-.productsContainer .modalProduct .productAdd .productImages .addImage::after {
-  position: absolute;
-  font-family: "FontAwesome";
-  content: "\f110";
-  content: "";
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 20px;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-.productsContainer .modalProduct .productAdd .productImages .loading {
-  position: relative;
-  overflow: hidden;
-}
-
-.productsContainer .modalProduct .productAdd .productImages .loading::after {
-  font-family: "FontAwesome";
-  position: absolute;
-  z-index: 1000;
-  width: 1000px;
-  height: 1000px;
-  font-size: 40pt;
-  color: #999;
-  -webkit-animation: rotate 1s infinite;
-          animation: rotate 1s infinite;
-  content: "\f110";
-}
-
-@keyframes rotate {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
 }
 
 .productsContainer .modalProduct .closeMod {
@@ -2884,6 +3353,7 @@ body {
 .purchasesContainer .modalPurchase {
   position: absolute;
   width: 100%;
+  max-width: 80%;
   padding: 30px 20px;
   background-color: #fff;
   -webkit-box-sizing: border-box;
@@ -2962,7 +3432,6 @@ body {
   gap: 10px;
   border: 1px solid #b66d76;
   border-radius: 10px;
-  overflow: hidden;
 }
 
 .purchasesContainer .modalPurchase section h4 {
@@ -2987,6 +3456,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.purchasesContainer .modalPurchase section label .help i {
+  color: #f5f5f5 !important;
 }
 
 .purchasesContainer .modalPurchase section label span {
@@ -3030,6 +3503,7 @@ body {
   border-radius: 30px;
   text-align: center;
   font-size: 11pt;
+  color: #333;
 }
 
 .purchasesContainer .modalPurchase section label input[type="text"]::-webkit-input-placeholder {
@@ -3046,6 +3520,30 @@ body {
 
 .purchasesContainer .modalPurchase section label input[type="text"]::placeholder {
   color: #ccc;
+}
+
+.purchasesContainer .modalPurchase section label input[type="text"].hasCode::-webkit-input-placeholder {
+  color: #b66d76;
+  font-weight: bold;
+  font-size: 10pt;
+}
+
+.purchasesContainer .modalPurchase section label input[type="text"].hasCode:-ms-input-placeholder {
+  color: #b66d76;
+  font-weight: bold;
+  font-size: 10pt;
+}
+
+.purchasesContainer .modalPurchase section label input[type="text"].hasCode::-ms-input-placeholder {
+  color: #b66d76;
+  font-weight: bold;
+  font-size: 10pt;
+}
+
+.purchasesContainer .modalPurchase section label input[type="text"].hasCode::placeholder {
+  color: #b66d76;
+  font-weight: bold;
+  font-size: 10pt;
 }
 
 .purchasesContainer .modalPurchase section label button {
@@ -3280,44 +3778,57 @@ body {
   text-align: center;
 }
 
-.purchasesShippingConfig input[type="text"],
-.purchasesShippingConfig input[type="number"] {
-  border: none;
-  background-color: #fff;
-  border: 1px solid #b66d76;
-  border-radius: 30px;
-  padding: 3px 0;
-  text-align: center;
-}
-
-.purchasesShippingConfig .saveShip {
-  width: 240px;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-  margin-left: 13%;
-}
-
-.purchasesShippingConfig .shipConfigContent {
-  padding-bottom: 80px;
+.adminConfigContainer .configContent {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   gap: 20px;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  position: relative;
+  padding: 0 30px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-.purchasesShippingConfig .shipConfigContent * {
-  -webkit-transition: color 0.5s border-color 0.5s;
-  transition: color 0.5s border-color 0.5s;
+.adminConfigContainer .configContent .configBox .config {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  -webkit-column-gap: 0;
+          column-gap: 0;
 }
 
-.purchasesShippingConfig .shipConfigContent div {
+.adminConfigContainer .configContent .configBox .config span {
+  color: #b66d76;
+  font-size: 12pt;
+  font-weight: bold;
+  margin-right: auto;
+}
+
+.adminConfigContainer .configContent .configBox .config input[type="text"],
+.adminConfigContainer .configContent .configBox .config input[type="number"] {
+  border: none;
+  border: 1px solid #b66d76;
+  border-radius: 30px;
+  padding: 2px 10px;
+  text-align: center;
+  width: 50%;
+  margin: 0 10px;
+}
+
+.adminConfigContainer .configContent .configBox .config b {
+  color: #b66d76;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3325,42 +3836,104 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  gap: 10px;
+  padding: 10px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  width: 100%;
+  margin-right: 8%;
 }
 
-.purchasesShippingConfig .shipConfigContent div label {
+.adminConfigContainer .configContent .configBox .config .configToggle h2 {
+  font-size: 13pt;
+  color: #b66d76;
+  text-align: center;
+  margin-left: 25%;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 10px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
-.purchasesShippingConfig .shipConfigContent div label span {
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle h4 {
+  color: #333;
   font-size: 11pt;
-  font-weight: bold;
-  color: #b66d76;
+  width: 100%;
+  text-align: right;
 }
 
-.purchasesShippingConfig .shipConfigContent .Frete,
-.purchasesShippingConfig .shipConfigContent .freteGratis {
-  width: 30%;
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 20%;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  min-width: 410px;
-  gap: 20px;
-  border: 1px solid #b66d76;
-  padding: 30px;
-  height: 100%;
-  border-radius: 20px;
-  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2), 0px 0px 5px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2), 0px 0px 5px rgba(0, 0, 0, 0.1);
-  height: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-.purchasesShippingConfig .shipConfigContent .previewSize {
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label input[type="checkbox"] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label input[type="checkbox"]:checked + h3::after {
+  -webkit-filter: grayscale(0);
+          filter: grayscale(0);
+  -webkit-transform: translateX(80%);
+          transform: translateX(80%);
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label h3 {
+  width: 25px;
+  height: 15px;
+  border-radius: 20px;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label h3:hover::after {
+  -webkit-filter: grayscale(0.3);
+          filter: grayscale(0.3);
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label h3::after {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 30px;
+  background-color: #b66d76;
+  -webkit-filter: grayscale(0.6);
+          filter: grayscale(0.6);
+  left: 0;
+}
+
+.adminConfigContainer .configContent .configBox .config .previewSize {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3372,17 +3945,19 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin: 20px;
 }
 
-.purchasesShippingConfig .shipConfigContent .previewSize .box {
+.adminConfigContainer .configContent .configBox .config .previewSize .boxSizesImage {
   width: 120px;
   height: 110px;
   background-image: url("img/caixa.png");
   background-size: 125px;
   background-position: center;
+  border: 1px solid #b66d76;
 }
 
-.purchasesShippingConfig .shipConfigContent .previewSize .shipSizes {
+.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes {
   width: 70%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3390,14 +3965,21 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 10px;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
 
-.purchasesShippingConfig .shipConfigContent .previewSize .shipSizes label {
+.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes label {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -3408,23 +3990,196 @@ body {
           justify-content: space-between;
 }
 
-.purchasesShippingConfig .shipConfigContent .previewSize .shipSizes label input {
-  width: 90px;
+.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes label input {
+  max-width: 60px;
+  text-align: center;
+  margin-right: 0;
+}
+
+.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes label span {
+  font-size: 10pt;
+  width: 75%;
+  text-align: right;
+}
+
+.adminConfigContainer .configContent .configBox .config #aditionalWeight {
+  width: 30%;
+}
+
+.adminConfigContainer .configContent .configBox .pass span {
+  width: 60%;
+}
+
+.adminConfigContainer .configContent .configBox .pass input[type="text"] {
+  width: 40%;
+}
+
+.adminConfigContainer .configContent .configBox .pass input[type="text"]::-webkit-input-placeholder {
+  color: rgba(182, 109, 118, 0.5);
+}
+
+.adminConfigContainer .configContent .configBox .pass input[type="text"]:-ms-input-placeholder {
+  color: rgba(182, 109, 118, 0.5);
+}
+
+.adminConfigContainer .configContent .configBox .pass input[type="text"]::-ms-input-placeholder {
+  color: rgba(182, 109, 118, 0.5);
+}
+
+.adminConfigContainer .configContent .configBox .pass input[type="text"]::placeholder {
+  color: rgba(182, 109, 118, 0.5);
+}
+
+.adminConfigContainer .configContent .configBox .centerC {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.adminConfigContainer .configContent .configBox .centerC span {
+  margin-right: 0;
+}
+
+.adminConfigContainer .configContent .configBox .configEmail {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.adminConfigContainer .configContent .configBox #saveShipingConfig {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.adminConfigContainer .configContent .configBox button {
+  margin-top: 20px;
+}
+
+.purchasesShippingConfig input[type="text"],
+.purchasesShippingConfig input[type="number"] {
+  border: none;
+  background-color: #fff;
+  border: 1px solid #b66d76;
+  border-radius: 30px;
+  padding: 3px 0;
   text-align: center;
 }
 
-.purchasesShippingConfig .shipConfigContent .previewSize .shipSizes label span {
-  font-size: 11pt;
-  width: 60%;
-  text-align: left;
+.purchasesShippingConfig .shipConfigContent {
+  padding-bottom: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
-.purchasesShippingConfig .shipConfigContent .previewSize .shipSizes label b {
+.purchasesShippingConfig .shipConfigContent .cupom {
+  min-width: 550px;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList .cuponsListHeader {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #b66d76;
+  padding: 5px 10px;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList .cuponsListHeader span {
+  color: #fff;
+  font-size: 10pt;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom #CuponsList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border: 1px solid #b66d76;
+  width: 100%;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom #CuponsList div {
+  padding: 3px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom #CuponsList div span {
+  font-size: 10pt;
+  width: 100%;
+  text-align: center;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom #CuponsList div i {
   color: #b66d76;
+  font-size: 12pt;
+  cursor: pointer;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom #CuponsList div i:hover {
+  color: #aaa;
 }
 
 .purchasesShippingConfig .shipConfigContent .freteGratis {
   width: 30%;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis button {
+  width: 80%;
+  margin: 20px auto;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis * {
+  -webkit-transition: color 0.5s border-color 0.5s;
+  transition: color 0.5s border-color 0.5s;
 }
 
 .purchasesShippingConfig .shipConfigContent .freteGratis div {
@@ -3442,6 +4197,17 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis div span {
+  font-size: 11pt;
+  font-weight: bold;
+  color: #b66d76;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis div .allfreelabel {
+  margin-left: 100px;
 }
 
 .purchasesShippingConfig .shipConfigContent .freteGratis div h4 {
@@ -3450,24 +4216,34 @@ body {
   font-size: 14pt;
 }
 
+.purchasesShippingConfig .shipConfigContent .freteGratis div label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .purchasesShippingConfig .shipConfigContent .freteGratis div label input[type="checkbox"] {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
 }
 
-.purchasesShippingConfig .shipConfigContent .freteGratis div label input[type="checkbox"]:checked + .toggleFreteGratis {
+.purchasesShippingConfig .shipConfigContent .freteGratis div label input[type="checkbox"]:checked + h4 {
   background-color: #fff;
   border: 1px solid #b66d76;
 }
 
-.purchasesShippingConfig .shipConfigContent .freteGratis div label input[type="checkbox"]:checked + .toggleFreteGratis::after {
+.purchasesShippingConfig .shipConfigContent .freteGratis div label input[type="checkbox"]:checked + h4::after {
   -webkit-transform: translateX(80%);
           transform: translateX(80%);
   background-color: #b66d76;
 }
 
-.purchasesShippingConfig .shipConfigContent .freteGratis div label .toggleFreteGratis {
+.purchasesShippingConfig .shipConfigContent .freteGratis div label h4 {
   width: 30px;
   height: 18px;
   display: -webkit-box;
@@ -3492,7 +4268,7 @@ body {
   transition: 0.6s;
 }
 
-.purchasesShippingConfig .shipConfigContent .freteGratis div label .toggleFreteGratis::after {
+.purchasesShippingConfig .shipConfigContent .freteGratis div label h4::after {
   -webkit-transition: 0.6s;
   transition: 0.6s;
   background-color: #999;
@@ -3522,7 +4298,7 @@ body {
       flex-wrap: wrap;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  row-gap: 20px;
+  row-gap: 5px;
 }
 
 .purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div {
@@ -3543,6 +4319,11 @@ body {
           justify-content: space-between;
 }
 
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div:nth-child(1) {
+  border-right: 1px solid #b66d76;
+  padding-right: 20px;
+}
+
 .purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 {
   margin-right: auto;
   font-size: 13pt;
@@ -3561,11 +4342,70 @@ body {
   font-size: 10pt;
 }
 
-.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 button {
-  margin-left: 5px;
-  padding: 2px 0;
-  width: 130px;
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 label {
+  gap: 0;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 label span {
+  color: #333;
   font-size: 10pt;
+  margin-right: 5px;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 label input[type="checkbox"] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 label input[type="checkbox"]:checked + h4 {
+  background-color: #fff;
+  border: 1px solid #b66d76;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 label input[type="checkbox"]:checked + h4::after {
+  -webkit-transform: translateX(90%);
+          transform: translateX(90%);
+  background-color: #b66d76;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 label h4 {
+  width: 28px;
+  height: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  background-color: #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1px solid #aaa;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div h3 label h4::after {
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+  background-color: #999;
+  content: "";
+  position: absolute;
+  border-radius: 20px;
+  width: 12px;
+  height: 12px;
+  left: 1px;
+  top: 1px;
+  right: inherit;
 }
 
 .purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div div {
@@ -3620,48 +4460,42 @@ body {
           filter: brightness(0.8);
 }
 
-.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div .add {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  text-align: center;
-  width: 85%;
-  position: relative;
-}
-
-.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree div .add input {
-  width: 90%;
-  margin: auto;
-  text-align: center;
-}
-
 .purchasesShippingConfig .shipConfigContent .freteGratis .selectFree .addF {
-  position: relative;
-  width: 100%;
-  -webkit-box-orient: horizontal;
+  width: 80%;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  margin-top: 20px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #b66d76;
 }
 
-.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree .addF p {
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree .addF label {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  width: 90%;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree .addF label p {
   font-weight: 11pt;
   color: #b66d76;
 }
 
-.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree i {
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree .addF label:last-child {
+  border: none;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree .addF label input {
+  width: 130px;
+}
+
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree .addF label i {
   cursor: pointer;
   color: #b66d76;
   font-size: 14pt;
@@ -3669,12 +4503,12 @@ body {
   transition: 0.1s;
 }
 
-.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree i:hover {
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree .addF label i:hover {
   -webkit-filter: brightness(1.4);
           filter: brightness(1.4);
 }
 
-.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree i:active {
+.purchasesShippingConfig .shipConfigContent .freteGratis .selectFree .addF label i:active {
   -webkit-filter: brightness(0.9);
           filter: brightness(0.9);
 }

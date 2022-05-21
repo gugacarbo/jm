@@ -1,11 +1,11 @@
 <?php
-//header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: application/json; charset=utf-8');
 session_start();
 //unset($_SESSION['checkoutTry']);
 if (isset($_SESSION["checkoutTry"])) {
 
     $checkoutTry = $_SESSION["checkoutTry"];
-    
+
     if ($checkoutTry < 10) {
         $_SESSION["checkoutTry"] = $checkoutTry + 1;
     } else {
@@ -47,7 +47,6 @@ if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
     $data['shippingAddressCountry'] = "BRA";
     $data['shippingAddressRequired'] = "TRUE";
 
-    // ** **    ** **
     //$data['extraAmount'] = "Desconto";
     //$data['redirectURL'] = "";
 
@@ -67,17 +66,34 @@ if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
 
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
+
         $row = $result->fetch_assoc();
+        $stmt->close();
+
         $clientId = $row['id'];
+        $actPurchases = json_decode($row['purchases']) ?? [];
+
+        $actPurchases[] = $data['reference'];
+        $jsonPurch = json_encode($actPurchases);
+
+        $stmt = $mysqli->prepare("UPDATE client SET purchases = ? WHERE id = ?");
+        $stmt->bind_param("si", $jsonPurch, $clientId);
+        $stmt->execute();
+        $stmt->close();
     } else {
-        $stmt = $mysqli->prepare("INSERT INTO client (name, lastname, cpf, email, phone, bornDate) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $sender['nome'], $sender['sobrenome'], $cpf, $sender['email'], $sender['telefone'], $date);
+        $clientPurchases[] = $data['reference'];
+        $jsonPurch = json_encode($clientPurchases);
+        $stmt = $mysqli->prepare("INSERT INTO client (gender, name, lastname, cpf, email, phone, bornDate, purchases) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssss", $sender['gender'], $sender['nome'], $sender['sobrenome'], $cpf, $sender['email'], $sender['telefone'], $date, $jsonPurch);
         $stmt->execute();
         $clientId = $mysqli->insert_id;
         if ($clientId == 0) {
             die(json_encode(array('status' => 400)));
         }
     }
+
+
+
 
     $data['senderName'] = str_replace(" ", "_", $sender['nome']) . " " . str_replace(" ", "_", $sender['sobrenome']);
     $data['senderEmail'] = $sender['email'];
@@ -142,6 +158,48 @@ if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
         }
     }
 
+    // ** ** Cupom Desconto  ** **
+
+    if (isset($_POST['cupom'])) {
+        $sql = "SELECT * FROM cupom WHERE ticker = ? AND quantity > 0";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("s", $_POST['cupom']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $cupom = $result->fetch_assoc();
+            $stmt->close();
+
+            $cupomDiscount = $cupom["type"] == "percent" ? ($totalValue *  $cupom["value"] / 100) : $cupom["value"];
+            $cupomDiscount =  $cupomDiscount >= $totalValue - 1.5 ? $totalValue - 1.5 : $cupomDiscount;
+            $cupomDiscount = "-" . number_format($cupomDiscount, 2, '.', '');
+            //echo $cupomDiscount;
+            $Rcupom["clientIds"] = json_decode($cupom["clientIds"]);
+
+            if ($cupom["firstPurchase"] == true && !in_array($clientId, $Rcupom["clientIds"])) {
+                $sql = "UPDATE cupom SET quantity = quantity - 1, clientIds = ? WHERE ticker = ?";
+                $stmt = $mysqli->prepare($sql);
+                $newCupomIds = json_encode(array_merge($Rcupom["clientIds"], [$clientId]));
+                $stmt->bind_param("ss", $newCupomIds, $cupom["ticker"]);
+                $stmt->execute();
+                $stmt->close();
+                $data['extraAmount'] = $cupomDiscount;
+            } else {
+                $stmt->close();
+                $sql = "UPDATE cupom SET quantity = quantity - 1, clientIds = ? WHERE ticker = ?";
+                $stmt = $mysqli->prepare($sql);
+                $newCupomIds = json_encode(array_merge($Rcupom["clientIds"], [$clientId]));
+                $stmt->bind_param("ss", $newCupomIds, $cupom["ticker"]);
+                $stmt->execute();
+                $stmt->close();
+                $data['extraAmount'] = $cupomDiscount;
+            }
+        }
+    }
+
+
+    // ** ** Fim desconto  ** **
 
 
 
@@ -174,6 +232,7 @@ if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $retorno = curl_exec($ch);
     curl_close($ch);
+    //echo $retorno;  
 
     $xml = simplexml_load_string($retorno, "SimpleXMLElement", LIBXML_NOCDATA);
     $json = json_encode($xml,  JSON_UNESCAPED_UNICODE);
@@ -195,7 +254,7 @@ if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
         die(json_encode(array('status' => 400)));
     }
 } else {
-    die(json_encode(array('status' => 403)));
+    die(json_encode(array('status' => 400)));
 }
 
 

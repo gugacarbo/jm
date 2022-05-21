@@ -1,12 +1,22 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-session_start();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
     die(json_encode(array('status' => 403)));
 } else {
     if (isset($_FILES['file']['name']) && isset($_GET['dir'])) {
+        $validDir = ['/about/', "/img/banners/", "/img/products/"];
         $directory = $_GET['dir'];
+
+        if(!in_array($directory, $validDir)) {
+            die(json_encode(array('status' => 403)));
+        }
+
         $file = $_FILES['file']['tmp_name'];
 
         if (isset($_GET['md5'])) {
@@ -44,14 +54,15 @@ function upload($file_, $dir_, $md5_ = 'true', $valid_extensions = array())
         if (move_uploaded_file($file_, $location)) {
             $path = str_replace($target_path = $_SERVER['DOCUMENT_ROOT'], "", $location);
 
-            return (json_encode(array("status" => "success", "location" => $path)));
+            return (json_encode(array("status" => 202, "location" => $path)));
         } else {
-            return (json_encode(array("status" => "error", "message" => "Erro ao salvar imagem")));
+            return (json_encode(array("status" => 500, "message" => "Erro ao salvar imagem")));
         }
     } else {
-        return (json_encode(array("status" => "error", "message" => $imageFileType . " Extensão inválida")));
+        return (json_encode(array("status" => 400, "message" => $imageFileType . " Extensão inválida")));
     }
 }
+
 /*list($width_orig, $height_orig, $tipo, $atributo) = getimagesize($location);
             if ($height_orig < 0) {
                 //curl post to delete.php

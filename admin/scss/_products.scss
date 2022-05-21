@@ -172,24 +172,7 @@
                 border-right: none;
             }
             position: relative;
-            .deleteConfirm {
-                position: absolute;
-                right: 0;
-                top: 0;
-                width: 100%;
-                button {
-                    border: none;
-                    color: #fff;
-                    border-radius: 20px;
-                    width: 100%;
-                    padding: 2px 10px;
-                    cursor: pointer;
-                    background-color: $mainColor;
-                    &:hover {
-                        background-color: #f00;
-                    }
-                }
-            }
+
         }
         border-bottom: 1px solid $mainColor;
     }
@@ -360,41 +343,7 @@
                             }
                             i {
                                 font-size: 13pt;
-                                &:nth-child(2) {
-                                    display: block;
-                                }
-                                &:nth-child(3) {
-                                    display: none;
-                                }
-                                &:nth-child(4) {
-                                    display: none;
-                                }
-                            }
-                        }
-                        .alertButton {
-                            i {
-                                &:nth-child(2) {
-                                    display: none;
-                                }
-                                &:nth-child(3) {
-                                    display: block;
-                                }
-                                &:nth-child(4) {
-                                    display: none;
-                                }
-                            }
-                        }
-                        .doneButton {
-                            i {
-                                &:nth-child(2) {
-                                    display: none;
-                                }
-                                &:nth-child(3) {
-                                    display: none;
-                                }
-                                &:nth-child(4) {
-                                    display: block;
-                                }
+                              
                             }
                         }
                     }
@@ -528,44 +477,6 @@
                         &:hover {
                             color: rgb(119, 119, 119);
                         }
-                    }
-
-                    &::after {
-                        position: absolute;
-                        font-family: "FontAwesome";
-                        content: "\f110";
-                        content: "";
-
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 20px;
-
-                        background-color: rgba(255, 255, 255, 0.5);
-                    }
-                }
-                .loading {
-                    position: relative;
-                    overflow: hidden;
-
-                    &::after {
-                        font-family: "FontAwesome";
-                        position: absolute;
-                        z-index: 1000;
-                        width: 1000px;
-                        height: 1000px;
-                        font-size: 40pt;
-                        color: #999;
-                        animation: rotate 1s infinite;
-                        content: "\f110";
-                    }
-                }
-                @keyframes rotate {
-                    0% {
-                        transform: rotate(0deg);
-                    }
-                    100% {
-                        transform: rotate(360deg);
                     }
                 }
             }

@@ -47,7 +47,7 @@ $(document).ready(() => {
 
 function moreTracking() {
     $("#TrackingDiv").toggleClass("moreTracking");
-    $("#moreTracking").css("transform", "rotate(+180deg)");
+    $("#moreTracking").toggleClass("rotate");
 
 }
 
@@ -85,9 +85,9 @@ function getData(cpf, code) {
         $("#BuyDate").html("Data da Compra " + d2 + "/" + m2 + "/" + y2);
         
         $("#BuyerBornDate b").html(d + "/" + m + "/" + y);
-        $("#BuyerName b").html("Nome: " + data.name);
-        $("#BuyerCPF b").html("CPF: " + data.cpf);
-        $("#BuyerEmail b").html("email: " + pagData.sender.email);
+        $("#BuyerName b").html(+ data.name);
+        $("#BuyerCPF b").html(data.cpf);
+        $("#BuyerEmail b").html(pagData.sender.email);
         $("#BuyerPhone b").html("(" + pagData.sender.phone.areaCode + ")" + pagData.sender.phone.number);
         $("#BuyerStreet b").html(pagData.shipping.address.street + " " + pagData.shipping.address.number);
         $("#BuyerComplement b").html(pagData.shipping.address.complement);
@@ -96,9 +96,9 @@ function getData(cpf, code) {
         $("#BuyerState b").html(pagData.shipping.address.state);
         $("#BuyerCountry b").html(pagData.shipping.address.country);
         $("#BuyerPostalCode b").html(pagData.shipping.address.postalCode);
-        $("#ShippingValue b").html("Frete: R$" + parseFloat(pagData.shipping.cost).toFixed(2).replace(".", ","));
-        (pagData.discountAmount > 0) ? $("#TotalDiscount").html("Desconto: R$" + parseFloat(pagData.discountAmount).toFixed(2).replace(".", ",")) : $("#TotalDiscount").css("display", "none");
-        $("#TotalAmount b").html("Total: R$" + (parseFloat(data.totalAmount).toFixed(2)).replace(".", ","));
+        $("#ShippingValue b").html(parseFloat(pagData.shipping.cost).toFixed(2).replace(".", ","));
+        (pagData.discountAmount > 0) ? $("#TotalDiscount b").html(parseFloat(pagData.discountAmount).toFixed(2).replace(".", ",")) : $("#TotalDiscount").css("display", "none");
+        $("#TotalAmount b").html((parseFloat(data.totalAmount).toFixed(2)).replace(".", ","));
         $.each(items, function (i, item) {
             var x = $.get("/api/get/getProdById.php", { "id": item.id }, async function (data) {
                 if (data.id != null) {
@@ -262,7 +262,6 @@ function getData(cpf, code) {
                     "trackingCode": trackingCode
                 },
                 success: function (data) {
-                    var data = JSON.parse(data);
                     if (data != null) {
                         console.log(data);
                         //data.eventos for each

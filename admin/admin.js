@@ -1,16 +1,14 @@
 
-
-
 time()
 setInterval(time, 1000);
 $(document).ready(function () {
-
+    
     $("#MenuToggle").on("click", function () {
         $("#MenuContent").toggleClass("active");
     });
     $(document).click(function (e) {
-        if ($(".adminMenu").find(e.target).length > 0 && $("#MenuContent").hasClass("active") &&  $(e.target).find(".bars").length > 0) {
-        }else{
+        if ($(".adminMenu").find(e.target).length > 0 && $("#MenuContent").hasClass("active") && $(e.target).find(".bars").length > 0) {
+        } else {
             $("#MenuContent").removeClass("active");
         }
 
@@ -46,7 +44,9 @@ function changePage(adminPage) {
     var labelIndex = (switchLabels.indexOf(adminPage))
     $("#TitleHeader").html(switchLabelsMirror[labelIndex]);
     $("#AllContainer").html("");
-    $("#AllContainer").load(adminPage + "/index.html");
+    $.get("includes/" + adminPage + "/index.php", function (data) {
+        $("#AllContainer").html(data);
+    })
 }
 
 var switchLabels = ["home", "products",
@@ -57,7 +57,8 @@ var switchLabels = ["home", "products",
     "about",
     "purchases",
     "configShipping",
-    "reviewPurchases"]
+    "reviewPurchases",
+    "config",]
 var switchLabelsMirror = ["Home", "Produtos",
     "Banners",
     "Categorias",
@@ -66,6 +67,7 @@ var switchLabelsMirror = ["Home", "Produtos",
     "Página Sobre",
     "Vendas",
     "Configurações de Frete",
-    "Compras Não Finalizadas"]
-    
+    "Compras Não Finalizadas",
+    "Configurações",]
+
 

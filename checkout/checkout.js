@@ -6,28 +6,81 @@ var totalItens = 0;
 var buyerData;
 var shipData;
 var TotalData = {};
+var ShipPrice = 0;
+var discountType = "";
+var FreteDiscount = 0;
+var CupomDiscount = 0;
+var cupom = "GUGA20";
 $(document).ready(_ => {
     getData();
     callCart()
+
+    $("#VerifyCumpom").click(() => {
+        if ($("#cupom").val() != "") {
+            var url = new URL(window.location.href);
+
+            $.get("/api/get/verifyCupom.php", {
+                "cpf": url.searchParams.get("cpf"),
+                "bornDate": url.searchParams.get("nascimento"),
+                "cupom": $("#cupom").val()
+            }, (data) => {
+                if (data.status >= 200 && data.status < 300) {
+                    cupom = data.cupom.ticker;
+                    var discType = data.discountType;
+                    var discType = data.cupom.type == "percent" ? data.cupom.value + "%" : "R$" + data.cupom.value.toFixed(2).replace(".", ",");
+                    $("#ValidCupom").html("Cupom com <b>" + discType + "</b> de desconto!")
+                    if (data.cupom.type == "percent") {
+                        CupomDiscount = totalPrice * (data.cupom.value / 100);
+                    } else {
+                        CupomDiscount = data.cupom.value;
+                    }
+                    CupomDiscount > totalPrice ? CupomDiscount = totalPrice - 1.5 : CupomDiscount;
+                    var totalPriceALL = (parseFloat(totalPrice)) - (CupomDiscount + FreteDiscount) + ShipPrice;
+                    $('#totalPrice').html("R$" + totalPriceALL.toFixed(2).replace(".", ","));
+
+                    $("#discountDiv").css("display", "flex")
+                    $("#totalDiscount").html("R$ -" + ((CupomDiscount + FreteDiscount).toFixed(2).replace(".", ",")))
+                } else {
+                    $("#discountDiv").css("display", "none")
+                    cupom = "";
+                    CupomDiscount = 0;
+                    $("#ValidCupom").html(data.message)
+                    setTimeout(() => {
+                        $("#ValidCupom").html('')
+
+                    }, 1800);
+                }
+                $("#cupom").val("")
+
+            })
+        }
+    })
+
     $('input.sinput').on('input', function (e) {
         var shipping = $(this).val();
         var shippingPrice = 0;
         if (shipping == "PAC") {
             shippingPrice = parseFloat(shipData.valorPac[0].replace(",", "."));
-            shipData.price =  parseFloat(shipData.valorPac[0].replace(",", "."));
+            shipData.price = parseFloat(shipData.valorPac[0].replace(",", "."));
             shipData.selected = "PAC";
             $("#totalShipping").html("R$" + shipData.valorPac[0]);
         } else if (shipping == "SEDEX") {
             $("#totalShipping").html("R$" + shipData.valorSedex[0]);
-            shippingPrice =  parseFloat(shipData.valorSedex[0].replace(",", "."));
-            shipData.price =  parseFloat(shipData.valorSedex[0].replace(",", "."));
+            shippingPrice = parseFloat(shipData.valorSedex[0].replace(",", "."));
+            shipData.price = parseFloat(shipData.valorSedex[0].replace(",", "."));
             shipData.selected = "SEDEX";
         }
         if (shipData.freteGratis == true) {
-            $('#totalDiscount').html("-" + "R$" + (parseFloat(shippingPrice).toFixed(2).replace(".", ",")));
+            FreteDiscount = parseFloat(shippingPrice);
+            $("#discountDiv").css("display", "flex")
+            $('#totalDiscount').html("-" + "R$" + ((CupomDiscount + FreteDiscount).toFixed(2).replace(".", ",")));
         }
+        ShipPrice = parseFloat(shippingPrice);
         $('#totalBoxOn').remove();
-        var totalPriceALL = shipData.freteGratis == true ? (parseFloat(totalPrice)) : (parseFloat(totalPrice) + parseFloat(shippingPrice))
+        CupomDiscount > totalPrice ? CupomDiscount = totalPrice - 1.5 : CupomDiscount;
+
+        var totalPriceALL = (parseFloat(totalPrice)) - (CupomDiscount + FreteDiscount) + ShipPrice;
+
         $('#totalPrice').html("R$" + totalPriceALL.toFixed(2).replace(".", ","));
         $("#checkoutButton").removeClass("off")
     });
@@ -35,16 +88,17 @@ $(document).ready(_ => {
         $("#checkoutButton").addClass("off")
         $("#redirectM div").fadeOut(1);
         TotalData.buyer = buyerData;
+        if (cupom != "") {
+            TotalData.cupom = cupom;
+        }
         TotalData.ship = shipData;
         TotalData.cart = JSON.parse(localStorage.getItem("JM_CART"));
         $.ajax({
             url: "/api/post/checkout.php",
             type: "POST",
-            data: {
-                buyer: TotalData.buyer,
-                ship: TotalData.ship,
-                cart: TotalData.cart
-            },
+            data:
+                TotalData
+            ,
             success: function (data) {
                 if (data["status"] == 202) {
                     $("body").toggleClass("blockBody");
@@ -53,8 +107,8 @@ $(document).ready(_ => {
                     $("#redirectM").css("display", "flex");
                     $("#redirectM div").fadeIn(1000);
                     setTimeout(() => {
-                        deleteList();
-                        window.location.href = data["url"];
+                        //xdeleteList();
+                        //xwindow.location.href = data["url"];
                     }, 1500);
                 } else {
                     $("body").toggleClass("blockBody");
@@ -66,7 +120,7 @@ $(document).ready(_ => {
                     $("#redirectM").css("display", "flex");
                     $("#redirectM div").fadeIn(1000);
                     setTimeout(() => {
-                        window.location.href = "/";
+                        //xwindow.location.href = "/";
                     }, 2500);
                 }
             }
@@ -76,6 +130,7 @@ $(document).ready(_ => {
 function getData() {
     var url = new URL(window.location.href);
     buyerData = {
+        'gender': url.searchParams.get("gender"),
         'nome': url.searchParams.get("nome"),
         'sobrenome': url.searchParams.get("sobrenome"),
         'email': url.searchParams.get("email"),
@@ -117,7 +172,8 @@ async function callCart() {
         $.ajax({
             url: "/api/get/getProdById.php?id=" + cart_[p].id,
             method: "GET",
-            success: function (prod) {;
+            success: function (prod) {
+                ;
                 var checkoutProd = '<div class="product">' +
                     '<a class="pImage" href="/product/?id=' + cart_[p].id + '">' +
                     '<img src="' + prod['imgs'][1] + '" alt="">' +
@@ -158,7 +214,7 @@ async function callCart() {
 async function takeShipping(totalW) {
     var config = {
         "sCepDestino": buyerData.cep,
-        "nVlPeso": totalW 
+        "nVlPeso": totalW
     }
     var ship = $.get("/api/get/frete.php", config, (data) => {
         if (data["erro"][0] > 0 || data["erro2"][0] > 0) {

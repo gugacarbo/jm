@@ -2886,7 +2886,48 @@ body {
   width: 100%;
 }
 
-#buyerForm .forms input {
+#buyerForm .forms label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+#buyerForm .forms label span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-right: 10px;
+  font-size: 12pt;
+  color: #b66d76;
+  text-align: right;
+  font-weight: bold;
+  position: relative;
+}
+
+#buyerForm .forms label input {
+  width: 30%;
+}
+
+#buyerForm .forms label select {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 30%;
+}
+
+#buyerForm .forms input, #buyerForm .forms select {
   border: none;
   border: 1px solid #b66d76;
   -webkit-box-shadow: 0 0 4px -1px #b66d76;
@@ -2898,13 +2939,13 @@ body {
   width: 100%;
 }
 
-#buyerForm .forms input:focus {
+#buyerForm .forms input:focus, #buyerForm .forms select:focus {
   -webkit-box-shadow: 0 0 4px 1px #b87079;
           box-shadow: 0 0 4px 1px #b87079;
   outline: none;
 }
 
-#buyerForm .forms input:disabled {
+#buyerForm .forms input:disabled, #buyerForm .forms select:disabled {
   background-color: #fff5f5;
 }
 
@@ -3256,7 +3297,8 @@ body {
 
 .checkoutPage .shipping,
 .checkoutPage .subTotal,
-.checkoutPage .total {
+.checkoutPage .total,
+.checkoutPage .cupom {
   width: 100%;
   border-radius: 20px;
   border: 1px solid #b66d76;
@@ -3272,7 +3314,8 @@ body {
 
 .checkoutPage .shipping span,
 .checkoutPage .subTotal span,
-.checkoutPage .total span {
+.checkoutPage .total span,
+.checkoutPage .cupom span {
   margin: 10px 0;
   font-size: 13pt;
 }
@@ -3281,6 +3324,86 @@ body {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+}
+
+.checkoutPage .cupom {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px 40px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  gap: 30px;
+}
+
+.checkoutPage .cupom .cupomTitle {
+  color: #b66d76;
+  margin-right: auto;
+  font-weight: bold;
+}
+
+.checkoutPage .cupom button {
+  font-size: 12pt;
+  margin: 0;
+  padding: 3px 10px;
+  height: inherit;
+  width: 220px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.checkoutPage .cupom input {
+  font-size: 12pt;
+  margin: 0;
+  padding: 3px 10px;
+  height: inherit;
+  width: 220px;
+  border: none;
+  border-radius: 30px;
+  border: 1px solid #b66d76;
+}
+
+.checkoutPage .cupom .cupomValid {
+  color: #333;
+  font-size: 12pt;
+}
+
+.checkoutPage .cupom .cupomValid b {
+  font-size: 13spt;
+  color: #b66d76;
+}
+
+.checkoutPage .cupom i {
+  font-size: 14pt;
+  color: #999;
+  -webkit-animation: rotate 1s infinite;
+          animation: rotate 1s infinite;
+  display: none;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 
 .checkoutPage .total {
@@ -3294,6 +3417,10 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   padding: 10px;
+}
+
+.checkoutPage .total #discountDiv {
+  display: none;
 }
 
 .checkoutPage .total label {
@@ -3386,10 +3513,13 @@ body {
   margin-top: 10px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  border: 1px solid #fff;
 }
 
 .checkoutPage button:hover {
-  background-color: #994d56;
+  background-color: #fff;
+  color: #b66d76;
+  border: 1px solid #b66d76;
 }
 
 .checkoutPage .off {
@@ -4026,13 +4156,13 @@ body {
   transition: transform 0.5s, color 0.1s, -webkit-transform 0.5s;
 }
 
-.status .buyer .TrackingDiv section i:hover {
-  -webkit-transform: translateY(6px);
-          transform: translateY(6px);
-}
-
 .status .buyer .TrackingDiv section i:active {
   color: #ddd;
+}
+
+.status .buyer .TrackingDiv .rotate {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
 .status .buyer .moreTracking {

@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
 
 function getModel($notification)
 {
@@ -90,7 +91,7 @@ function getModel($notification)
                 <span color="white"
                     style="font-family: Arial, Helvetica, sans-serif;  text-align: center; color: #ffffff; width: 100%;">Visualize <a
                         href="' .
-        "http://jmacessoriosdeluxo.com.br/login/?code=" . $notification["code"]
+        "http://jmacessoriosdeluxo.com.br/checkStatus/?code=" . $notification["code"]
         . '" style="font-weight: bold; color:#fff; ">Aqui</a> Seu Pedido
                 </span>
             </td>
@@ -151,5 +152,5 @@ function getModel($notification)
     </body>
 </html>
 ';
-    return ((array('status' => 'success', "content" => $ContentMail, "subject" => $subject, "AltBody" => $AltBody)));
+    return ((array('status' => 200, "content" => $ContentMail, "subject" => $subject, "AltBody" => $AltBody, "purchaseStatusCode" => $statusCode)));
 }

@@ -20,12 +20,21 @@ function getById($id_)
     $id = preg_replace('/[a-z\|\,\;\@\:"]+/', '', $id_);
     $id = mysqli_real_escape_string($mysqli, $id);
 
+    $ret["status"] = 200;
+
     $stmt = $mysqli->prepare("SELECT * FROM products WHERE id = ?");
     $stmt->bind_param("s", $id);
     $stmt->execute();
     $result = $stmt->get_result();
     $itens = $result->fetch_assoc();
     $stmt->close();
+    if ($itens) {
+        $ret["status"] = 200;
+        $ret["data"] = $itens;
+    } else {
+        $ret["status"] = 404;
+        $ret["data"] = "Nenhum produto encontrado";
+    }
 
     $materialId = $itens['material'];
     $categoryId = $itens['category'];

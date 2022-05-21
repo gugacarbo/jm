@@ -29,7 +29,7 @@ function sendMail($notification)
 
     $model = getModel($notification);
     //print_r($model);
-    if ($model['status'] == "success") {
+    if ($model['status'] >= 200 && $model['status'] < 300) {
         $html = $model["content"];
         $subject = $model["subject"];
         $AltBody = $model["AltBody"];
@@ -48,8 +48,8 @@ function sendMail($notification)
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->SMTPAuth = true;
 
-
-        $mail->addCustomHeader("List-Unsubscribe", $config["contactMail"] . ', <http://jmacessoriosdeluxo.com.br/unsubscribe/?email=aaa>');
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $mail->addCustomHeader("List-Unsubscribe", $config["contactMail"] . ', <'.$actual_link.'/unsubscribe/?email=aaa>');
         $mail->Username = $config["automaticMail"];
         $mail->Password = $config["automaticMailPass"];
 
@@ -61,18 +61,20 @@ function sendMail($notification)
         $mail->msgHTML($html);
         $mail->AltBody = $AltBody;
         if (!$mail->send()) {
-            return ((array("status" => "error", "message" => $mail->ErrorInfo)));
+            return ((array("status" => 500, "message" => $mail->ErrorInfo)));
         } else {
-            $mail->addAddress($config["adminMail"], $Name);
-            if ($config['sendToAdminMail'] == "true") {
-                if (!$mail->send()) {
+            $statusCode = $model["purchaseStatusCode"];
+            $listSend = json_decode($config['sendToAdminMail']);
+            $statusCode == 6 ? $statusCode = 9 :  $statusCode = $statusCode;
+            $statusCode > 7 ? $statusCode = 9 : $statusCode = $statusCode;
 
-                } else {
-                }
+            if (in_array($statusCode, $listSend)) {
+                $mail->addAddress($config["adminMail"], $Name);
+                if (!$mail->send()) {}
             }
-            return ((array("status" => "success", "message" => "Email enviado com sucesso!")));
+            return ((array("status" => 200, "message" => "Email enviado com sucesso!")));
         }
     } else {
-        return ((array("status" => "error", "message" => $model['status'])));
+        return ((array("status" => 500, "message" => $model['status'])));
     }
 }

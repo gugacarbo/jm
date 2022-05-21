@@ -47,6 +47,9 @@ if ($_GET["filter"]) {
         case "qtd":
             $sql .= " ORDER BY totalQuantity " . $orderBy;
             break;
+        case "sold":
+            $sql .= " ORDER BY sold " . $orderBy;
+            break;
         case "id":
             $sql .= " ORDER BY id " . $orderBy;
             break;

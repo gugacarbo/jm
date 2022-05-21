@@ -71,10 +71,17 @@
                 justify-content: center;
                 flex-wrap: wrap;
                 gap: 10px;
+                label{
+                    display: flex;
+                    span{
+                        width: 30%;
+                    }
+                }
                 span {
                     font-size: 10pt;
                     font-weight: bold;
                     margin-left: 10px;
+                    position: relative;
                     b {
                         font-size: 9pt;
                         color: $mainColor;

@@ -1,26 +1,32 @@
 .adminBannerContainer {
-
     padding-bottom: 100px;
-    .con{
-        display: flex;
-        flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+    button {
+        width: 280px;
+        margin-top: 40px;
+        //align-self: flex-start;
+        margin-left: 50px;
     }
-    .preview {
-        width: 28%;
+    .bannerShow {
         display: flex;
-        flex-direction: column;
+        width: 100%;
         align-items: center;
-        gap: 40px;
+        justify-content: space-around;
+
+        padding-bottom: 20px;
+        border-bottom: 1px solid $mainColor;
         section {
-            width: 90%;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
+            width: 20%;
             span {
                 width: 100%;
                 text-align: left;
-                font-size: 1rem;
+                font-size: 1.2rem;
+                font-weight: bold;
                 color: $mainColor;
             }
             .prev {
@@ -38,7 +44,7 @@
                     aspect-ratio: 2.5/1;
                     display: flex;
                     justify-content: center;
-                    img{
+                    img {
                         margin: 0 15%;
                         width: 70%;
                         height: 100%;
@@ -85,128 +91,65 @@
                 }
             }
         }
-    }
 
-    .bannersContent{
-        padding: 0px 0;
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        width: 70%;
-        justify-content: space-between;
-        form {
-            display: flex; // !
-            align-items: center;
+        .bannerContainer {
+            display: flex;
             gap: 30px;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            .bannerContainer {
-                display: flex;
-                gap: 30px;
-                flex-wrap: wrap;
-                
-
-                p {
-                    width: 90%;
-                    color: #666;
-                    position: relative;
-                }
-                .preview {
-                    //2.2 / 1
-                    width: 30%;
-                    height: auto;
-                    aspect-ratio: 1100/550;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: relative;
-                    overflow: hidden;
-                    border: 1px solid $mainColor;
-
-                    img {
-                        display: block;
-                        width: 100%;
-                        aspect-ratio: 1100/550;
-                        position: relative;
-                        pointer-events: none;
-                    }
-                    input[type="file"] {
-                        position: absolute;
-                        background-color: #ddd;
-                        background-image: url("img/plus.png");
-                        background-repeat: no-repeat;
-                        background-position: center;
-                        background-size: 30%;
-                        width: 100%;
-                        aspect-ratio: 1100/550;
-
-                        font-size: 0pt;
-                        //opacity: 0;
-                        color: transparent;
-                        cursor: pointer;
-                        &::-webkit-file-upload-button {
-                            display: none;
-                        }
-                    }
-                    i {
-                        position: absolute;
-                        right: 4px;
-                        top: 5px;
-                        color: #ff0220;
-                        font-size: 10pt;
-                        cursor: pointer;
-                        &:hover {
-                            color: rgb(119, 119, 119);
-                        }
-                    }
-
-                    &::after {
-                        position: absolute;
-                        font-family: "FontAwesome";
-                        content: '\f110';
-                        content: '';
-                        
-
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        font-size: 20px;
-             
-                        background-color: rgba(255,255,255,0.5);
-                    }
-                }
-                .loading{
-                    position: relative;
-                    overflow: hidden;
-              
-                    &::after{
-                        font-family: "FontAwesome";
-                        width: 1000%;
-                        height: 1000%;
-                        font-size: 40pt;
-                        color: #999;
-                        animation: rotate 1s infinite;
-                        content: '\f110';
-
-                    }
-                }
+            flex-wrap: wrap;
+            width: 70%;
+            p {
+                width: 90%;
+                color: #666;
+                position: relative;
             }
-            @keyframes rotate {
-                0% {
-                    transform: rotate(0deg);
+            .preview {
+                //2.2 / 1
+                width: 30%;
+                height: auto;
+                aspect-ratio: 1100/550;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+                border: 1px solid $mainColor;
+
+                img {
+                    display: block;
+                    width: 100%;
+                    aspect-ratio: 1100/550;
+                    position: relative;
+                    pointer-events: none;
                 }
-                100% {
-                    transform: rotate(360deg);
+                input[type="file"] {
+                    position: absolute;
+                    background-color: #ddd;
+                    background-image: url("img/plus.png");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: 30%;
+                    width: 100%;
+                    aspect-ratio: 1100/550;
+
+                    font-size: 0pt;
+                    color: transparent;
+                    cursor: pointer;
+                    &::-webkit-file-upload-button {
+                        display: none;
+                    }
                 }
-              
+                i {
+                    position: absolute;
+                    right: 4px;
+                    top: 5px;
+                    color: #ff0220;
+                    font-size: 10pt;
+                    cursor: pointer;
+                    &:hover {
+                        color: rgb(119, 119, 119);
+                    }
+                }
             }
         }
-    }
-    button{
-        width: 280px;
-        margin-top: 40px;
-        align-self: flex-start;
-        margin-left: 50px;
     }
 }
