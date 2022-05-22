@@ -134,11 +134,9 @@ if (isset($_GET["error"])) {
             <input type="text" name="username" placeholder="Usuário" required>
             <input type="password" name="password" placeholder="Senha" required>
             <input type="submit" name="submit" value="Entrar">
-            <small>&nbsp<?php if (isset($erro) && $erro == 1) {
-                            echo "Excesso de tentativas, tente novamente em " . $time . " segundos";
-                        } else if (isset($erro) && $erro == 0) {
-                            echo "usuário ou senha incorretos";
-                        }   ?></small>
+            <small>&nbsp<?php if (isset($erro)) {
+                            echo $erro;
+                        }?></small>
         </div>
     </form>
 </body>

@@ -9,6 +9,9 @@ $(document).ready(function () {
     $("#freteGratisCheck").on("change", () => {
         $(".selectFree").toggleClass("noFreteGratis", !$("#freteGratisCheck").prop("checked"));
     })
+    $("#SaveCupom").on("click", () => {
+
+    })
 
     var timerShipSizes;
     $("input[type='number']").on("paste, focusout", function () {
@@ -28,24 +31,7 @@ $(document).ready(function () {
         }, 200);
     })
 
-    $.get("/admin/api/get/getCupons.php", function (data) {
-        if (data.status >= 200 && data.status < 300) {
-            $.each(data.cupons, function (i, cupom) {
-                $("#CuponsList").append(`
-                                    <div>
-                                        <span>${cupom.ticker}</span>
-                                        <span>${cupom.type == "percent" ? "" : 'R$'}${cupom.value}${cupom.type == "percent" ? "%" : ''}</span>
-                                        <span>${cupom.quantity}</span>
-                                        <span>${cupom.firstPurchase ? "Sim" : "Não"}</span>
-                                        <span>${cupom.clientIds.length}</span>
-                                        <span>
-                                            <i class="fa fa-cog"></i>
-                                        </span>
-                                    </div>
-                                    `)
-            })
-        }
-    })
+    takeCupons()
 
     $.get("/admin/api/get/getFreeShipConfig.php", (data) => {
 
@@ -178,7 +164,105 @@ $(document).ready(function () {
             addState(newState);
         }
     })
+    $("#SaveCupom").click(function () {
+        var id = $(this).attr("data-id");
+        var type = $("#CupomRelType").prop("checked") == true ? "percent" : "absolute";
+        var newCupom = {
+            'id': id || 0,
+            "ticker": $("#NewCupomTicker").val(),
+            "value": $("#NewCupomValue").val(),
+            "type": type,
+            "quantity": $("#NewCupomQuantity").val(),
+            "firstPurchase": $("#singleUseCumpom").prop("checked") == true ? 1 : 0,
+        }
+        $.post("/admin/api/post/editCupom.php", newCupom, function (data) {
+            if (data.status >= 200 && data.status < 300) {
+                $(".doneButton").removeClass("doneButton")
+                $(".alertButton").removeClass("alertButton")
+                $("#SaveCupom").addClass("doneButton")
+                setTimeout(() => {
+                    closeCupomModal()
+                }, 800);
+                setTimeout(() => {
+                    $(".doneButton").removeClass("doneButton")
+                    takeCupons();
+                }, 1500);
+                
+            } else {
+                $(".doneButton").removeClass("doneButton")
+                $(".alertButton").removeClass("alertButton")
+                $("#SaveCupom").addClass("alertButton")
+                setTimeout(() => {
+                    $(".alertButton").removeClass("alertButton")
+                }, 1500);
+            }
+
+        })
+    })
+
+
+    $("#closeModalCupom").on("click", () => {
+        closeCupomModal()
+
+    
+    })
+
+    $("#newCupom").on("click", () => {
+        cupomModal()
+        openCupomModal()
+    })
 })
+function closeCupomModal() {
+    $("#CupomModal").removeClass("modalCupomActive");
+    $("#SaveCupom").attr("data-id", '');
+
+    setTimeout(() => {
+        $("#CupomModal").css('display', 'none');
+    }, 900);
+
+}
+
+function openCupomModal() {
+    $("#CupomModal").css('display', 'flex');
+    setTimeout(() => {
+        $("#CupomModal").addClass("modalCupomActive");
+    }, 10);
+}
+
+
+function cupomModal(id_ = 0) {
+    if (id_ == 0) {
+        $("#modalCupomHeader").html("Adicionar Cupom");
+        $("#CupomAbsType").prop("selected", true);
+        $("#singleUseCumpom").prop("checked", true);
+        $("#NewCupomQuantity").val('');
+        $("#NewCupomValue").val('');
+        $("#NewCupomTicker").val('');
+        $("#SaveCupom").attr("data-id", '');
+        $("#NewCupomTicker").attr("disabled", false);
+        openCupomModal()
+    } else {
+        $.get("/admin/api/get/getCupom.php", { id: id_ }, function (data) {
+            if (data.status >= 200 && data.status < 300) {
+                var cup = data.cupom
+                $("#modalCupomHeader").html("Editar Cupom");
+                cup.type == "percent" ? $("#CupomAbsType").prop("selected", true) : $("#CupomRelType").prop("selected", true);
+                $("#singleUseCumpom").prop("checked", cup.firstPurchase);
+                $("#NewCupomQuantity").val(cup.quantity);
+                $("#NewCupomValue").val(cup.value);
+                $("#SaveCupom").attr("data-id", id_);
+                $("#NewCupomTicker").val(cup.ticker);
+                $("#NewCupomTicker").attr("disabled", true);
+
+            } else {
+                closeCupomModal()
+            }
+        }).then((value) => {
+            openCupomModal()
+
+        })
+    }
+}
 
 function ifAllState() {
     var allIn = 1;
@@ -228,8 +312,48 @@ function addState(newState) {
 
 
 
+function takeCupons() {
+    $("#CuponsList").html("");
 
+    $.get("/admin/api/get/getCupons.php", function (data) {
+        if (data.status >= 200 && data.status < 300) {
+            $.each(data.cupons, function (i, cupom) {
+                $("#CuponsList").append(`
+                                        <div class="showCupom">
+                                        <span class="ticker">${cupom.ticker}</span>
+                                        <span class="useTimes">${cupom.firstPurchase ? "Uso Único" : "Uso Livre"}</span>
+                                        <span class="edit" onclick="cupomModal(${cupom.id})"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                                        <span class="edit delete" onclick="deleteCupom(${cupom.id}, this)"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                        <div class="quantityBox">
+                                            <div class="loading" style="--L:${cupom.clientIds.length / (cupom.quantity + cupom.clientIds.length) * 100}%">
+                                            </div>
+                                            <span class="used">Usados: <b>${cupom.clientIds.length}</b></span>
+                                            <span class="total">Total: <b>${cupom.clientIds.length + cupom.quantity}</b></span>
+                                        </div>
+                                        <span class="value">${cupom.type == "percent" ? "" : 'R$'}${cupom.value}${cupom.type == "percent" ? "%" : ''}</span>
+                                    </div>
+                                    `)
+            })
+        }
+    })
+}
 
+function deleteCupom(id, el) {
+
+    $(el).append(`<div class="deleteConfirm" onclick="deleteCupomConfirmed(${id})"><div>Deletar</div></div>`);
+    setTimeout(() => {
+        $(".deleteConfirm").fadeOut(500, () => {
+            $(".deleteConfirm").remove();
+        });
+    }, 3000);
+}
+function deleteCupomConfirmed(id){
+    $.post("/admin/api/delete/deleteCupom.php", { id: id }, function (data) {
+        if (data.status >= 200 && data.status < 300) {
+            takeCupons()
+        }
+    })
+}
 
 function del(this_, cs) {
     var p = $(this_).parent().find("p").text();

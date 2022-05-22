@@ -16,54 +16,243 @@
         gap: 20px;
         justify-content: center;
         align-items: flex-start;
+        position: relative;
         .cupom {
-            min-width: 550px;
+            min-width: 450px;
+            .boxTitle {
+                margin-bottom: 0;
+                
+                #newCupom{
+                    font-size: 14pt;
+                    margin-left: 20px;
+                    cursor: pointer;
+                    &:hover{
+                        color: #999;
+                    }
+                }
+            }
             .cuponsList {
                 width: 100%;
                 display: flex;
                 align-items: center;
                 flex-direction: column;
-                .cuponsListHeader {
-                    width: 100%;
+
+                #CuponsList {
                     display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    background-color: $mainColor;
-                    padding: 5px 10px;
-                    span {
-                        color: #fff;
-                        font-size: 10pt;
-                        font-weight: bold;
+                    flex-direction: column;
+                    width: 100%;
+                    gap: 10px;
+                    .showCupom {
                         width: 100%;
-                        text-align: center;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        padding: 10px 0;
+                        border-bottom: 1px solid $mainColor;
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                        .ticker {
+                            width: 50%;
+                            display: flex;
+                            align-items: center;
+                            font-size: 15pt;
+                            color: $mainColor;
+                            font-weight: bold;
+                        }
+                        .useTimes {
+                            width: 25%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 10pt;
+                            text-align: center;
+                            color: #333;
+                        }
+                        .edit {
+                            display: flex;
+                            align-items: center;
+                            font-size: 13pt;
+                            color: $mainColor;
+                            cursor: pointer;
+                            &:hover {
+                                color: #9a9a9a;
+                            }
+                        }
+                        .delete{
+                            position: relative;
+                        }
+                        .quantityBox {
+                            width: 80%;
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: space-between;
+                            .loading {
+                                width: 90%;
+                                height: 1em;
+                                border: 1px solid $mainColor;
+                                background-color: #fff;
+                                border-radius: 40px;
+                                overflow: hidden;
+                                position: relative;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                margin-right: auto;
+                                &::after {
+                                    content: "";
+                                    position: absolute;
+                                    width: 100%;
+                                    height: 1em;
+                                    background-color: rgba($mainColor, 0.9);
+                                    border-radius: 40px;
+                                    background-size: 4%;
+                                    transform: translateX(calc(var(--L) - 100%));
+                                }
+                            }
+                            .used,
+                            .remain,
+                            .total {
+                                width: 20%;
+                                display: flex;
+                                align-items: center;
+                                color: #333;
+                                text-align: center;
+                                font-size: 11pt;
+                                b {
+                                    margin: 0 5px;
+                                    color: $mainColor;
+                                }
+                            }
+                            .remain {
+                                font-size: 12pt;
+                                color: $mainColor;
+                                font-weight: bold;
+                            }
+                        }
+                        .value {
+                            width: 20%;
+                            text-align: center;
+                            font-size: 16pt;
+                            color: $mainColor;
+                        }
                     }
                 }
             }
-            #CuponsList {
-                display: flex;
-                align-items: center;
-                flex-direction: column;
-                border: 1px solid $mainColor;
+            //overflow: hidden;
+
+            .modalCupom {
+                position: absolute;
+                opacity: 0;
+                transition: 1s;
                 width: 100%;
-                div {
-                    padding: 3px 10px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+
+                display: none;
+                top: 0;
+                left: 0;
+                overflow: hidden;
+                background-color: rgba($mainColor, 0.8);
+                backdrop-filter: blur(10px);
+                border-radius: 30px;
+
+                min-height: 280px;
+                #closeModalCupom{
+                    position: absolute;
+                    top: 15px;
+                    right: 15px;
+                    z-index: 99;
+                    font-size: 15pt;
+                    color: #fff;
+                    cursor: pointer;
+                }
+                .modalCupomShow {
+                    transition: 1s;
+
                     width: 100%;
-                    span {
-                        font-size: 10pt;
-                        width: 100%;
-                        text-align: center;
+                    //height: 100%;
+                  
+                    top: 0;
+                    display: flex;
+                    left: 0;
+                    max-height: 350px;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    color: #fff;
+                    padding: 10px;
+                    gap: 10px;
+                    min-height: 280px;
+                    transform: translateY(-100%);
+                    .modalCupomHeader {
+                        font-size: 13pt;
                     }
-                    i{
-                        color: $mainColor;
-                        font-size: 12pt;
-                        cursor: pointer;
-                        &:hover{
-                            color: #aaa;
+                    #SaveCupom {
+                        width: 80%;
+                        margin-top: 20px;
+                    }
+
+                    label {
+                        display: flex;
+                        align-items: center;
+                        span {
+                            font-size: 11pt;
+                            margin-right: 10px;
+                        }
+                        input[type="text"],
+                        input[type="number"] {
+                            border: none;
+                            background-color: #ffffff00;
+                            border-radius: 0;
+                            font-size: 15pt;
+                            color: #fff;
+                            border-bottom: 1px solid #fff;
+                            width: 160px;
+                            text-align: center;
+                            outline: none;
+                            &::placeholder {
+                                color: #ffffff86;
+                                font-size: 13pt;
+                            }
+                        }
+                        input[type="number"] {
+                            width: 100px;
+                            &::-webkit-outer-spin-button,
+                            &::-webkit-inner-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
+                            }
+
+                            &::placeholder {
+                                color: #ffffff86;
+                                font-size: 15pt;
+                            }
+                        }
+
+                        input[type="radio"] {
+                            accent-color: $mainColor;
+                            margin: 0 5px;
+                        }
+
+                        b {
+                            font-size: 12pt;
+                            i {
+                                font-size: 11pt;
+                                &:last-child {
+                                    margin-right: 10px;
+                                }
+                            }
                         }
                     }
+                }
+            }
+            .modalCupomActive {
+                opacity: 1;
+                .modalCupomShow {
+                    transform: translateY(0%);
                 }
             }
         }

@@ -1,6 +1,5 @@
 .purchasesContainer {
-
-    .purchasesContent{
+    .purchasesContent {
         display: flex;
         flex-direction: column;
         width: 90%;
@@ -28,7 +27,7 @@
             margin-top: 10px;
             margin-bottom: 8px;
             padding: 2px 0;
-            b{
+            b {
                 color: $mainColor;
             }
         }
@@ -320,8 +319,12 @@
                 gap: 25px;
                 padding: 10px 0;
                 align-items: center;
-                .help{
-                    i{
+                height: 100%;
+                max-height: 50px;
+                border-radius: 5px;
+
+                .help {
+                    i {
                         color: #f5f5f5 !important;
                     }
                 }
@@ -329,7 +332,7 @@
                     font-size: 11pt;
                     color: #fff;
                 }
-                #StatusSelect{
+                #StatusSelect {
                     font-weight: bold;
                 }
                 select {
@@ -366,7 +369,7 @@
                         color: #ccc;
                     }
                 }
-                input[type="text"].hasCode{
+                input[type="text"].hasCode {
                     &::placeholder {
                         color: $mainColor;
                         font-weight: bold;

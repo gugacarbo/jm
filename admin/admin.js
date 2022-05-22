@@ -56,7 +56,7 @@ var switchLabels = ["home", "products",
     "carousel",
     "about",
     "purchases",
-    "configShipping",
+    "configFree",
     "reviewPurchases",
     "config",]
 var switchLabelsMirror = ["Home", "Produtos",
@@ -66,7 +66,7 @@ var switchLabelsMirror = ["Home", "Produtos",
     "Carrosséis de Produtos",
     "Página Sobre",
     "Vendas",
-    "Configurações de Frete",
+    "Configurações de Descontos",
     "Compras Não Finalizadas",
     "Configurações",]
 

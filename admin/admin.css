@@ -4,7 +4,7 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-family: "roboto", sans-serif;
+  font-family: "Myriad Pro";
 }
 
 body {
@@ -58,12 +58,12 @@ body {
   border-radius: 30px;
   padding: 6px 0;
   border: none;
-  color: #fff;
   font-weight: bold;
   font-size: 11pt;
+  color: #fff;
   background-color: #b66d76;
-  cursor: pointer;
   border: 1px solid #fff;
+  cursor: pointer;
   -webkit-transition: 0.25s;
   transition: 0.25s;
   display: -webkit-box;
@@ -76,7 +76,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
-  border: 1px solid #fff;
 }
 
 .adminContainer button:active {
@@ -297,6 +296,18 @@ body {
 
 .adminContainer .alertButton::before {
   content: "\f071";
+}
+
+.adminContainer .inverted {
+  color: #b66d76;
+  background-color: #fff;
+  border: 1px solid #b66d76;
+}
+
+.adminContainer .inverted:hover {
+  background-color: #b66d76;
+  color: #fff;
+  border: 1px solid #fff;
 }
 
 .adminContainer .box {
@@ -548,7 +559,7 @@ body {
   border-radius: 20px;
   overflow: hidden;
   width: 100%;
-  max-width: 1100px;
+  max-width: 900px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding: 20px;
@@ -562,6 +573,8 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-transition: 1s;
+  transition: 1s;
 }
 
 .right {
@@ -589,11 +602,15 @@ body {
 .help i {
   font-size: 1.2em !important;
   aspect-ratio: 1/1;
-  color: rgba(150, 150, 150, 0.9) !important;
+  color: rgba(194, 194, 194, 0.9) !important;
+  border-radius: 50%;
+  border: 1px solid #999;
 }
 
 .help i:hover {
+  border-color: rgba(150, 93, 36, 0.9);
   color: rgba(255, 128, 0, 0.9) !important;
+  background-color: #fff;
 }
 
 .help:hover .helpMessage {
@@ -688,6 +705,59 @@ body {
   position: relative;
 }
 
+label.hasCheckboxToggle input[type="checkbox"] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+label.hasCheckboxToggle input[type="checkbox"]:checked + h3::after {
+  -webkit-filter: grayscale(0);
+          filter: grayscale(0);
+  -webkit-transform: translateX(80%);
+          transform: translateX(80%);
+}
+
+label.hasCheckboxToggle h3 {
+  width: 25px;
+  height: 15px;
+  border-radius: 20px;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+label.hasCheckboxToggle h3:hover::after {
+  -webkit-filter: grayscale(0.3);
+          filter: grayscale(0.3);
+}
+
+label.hasCheckboxToggle h3::after {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 30px;
+  background-color: #b66d76;
+  -webkit-filter: grayscale(0.6);
+          filter: grayscale(0.6);
+  left: 0;
+}
+
 .deleteConfirm {
   position: absolute;
   right: 0;
@@ -715,12 +785,13 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 11pt;
+  font-size: 10pt;
   border: none;
   color: #fff;
   border-radius: 20px;
   padding: 1px 3px;
   width: 100%;
+  min-width: 60px;
   cursor: pointer;
   background-color: #b66d76;
 }
@@ -789,7 +860,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: #8b3bd9;
+  background-color: #9388f6;
   -webkit-transform: translateY(100vh);
           transform: translateY(100vh);
   -webkit-animation: up 2s;
@@ -801,7 +872,7 @@ body {
 }
 
 .adminHomeContainer div:nth-child(even) {
-  background-color: #c8817f;
+  background-color: #86c9e1;
 }
 
 .adminHomeContainer div:nth-child(1) {
@@ -3456,6 +3527,9 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: 100%;
+  max-height: 50px;
+  border-radius: 5px;
 }
 
 .purchasesContainer .modalPurchase section label .help i {
@@ -4080,10 +4154,25 @@ body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  position: relative;
 }
 
 .purchasesShippingConfig .shipConfigContent .cupom {
-  min-width: 550px;
+  min-width: 450px;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .boxTitle {
+  margin-bottom: 0;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .boxTitle #newCupom {
+  font-size: 14pt;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .boxTitle #newCupom:hover {
+  color: #999;
 }
 
 .purchasesShippingConfig .shipConfigContent .cupom .cuponsList {
@@ -4100,72 +4189,343 @@ body {
           flex-direction: column;
 }
 
-.purchasesShippingConfig .shipConfigContent .cupom .cuponsList .cuponsListHeader {
-  width: 100%;
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #b66d76;
-  padding: 5px 10px;
-}
-
-.purchasesShippingConfig .shipConfigContent .cupom .cuponsList .cuponsListHeader span {
-  color: #fff;
-  font-size: 10pt;
-  font-weight: bold;
-  width: 100%;
-  text-align: center;
-}
-
-.purchasesShippingConfig .shipConfigContent .cupom #CuponsList {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border: 1px solid #b66d76;
   width: 100%;
+  gap: 10px;
 }
 
-.purchasesShippingConfig .shipConfigContent .cupom #CuponsList div {
-  padding: 3px 10px;
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #b66d76;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom:last-child {
+  border-bottom: none;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .ticker {
+  width: 50%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  width: 100%;
-}
-
-.purchasesShippingConfig .shipConfigContent .cupom #CuponsList div span {
-  font-size: 10pt;
-  width: 100%;
-  text-align: center;
-}
-
-.purchasesShippingConfig .shipConfigContent .cupom #CuponsList div i {
+  font-size: 15pt;
   color: #b66d76;
-  font-size: 12pt;
+  font-weight: bold;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .useTimes {
+  width: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 10pt;
+  text-align: center;
+  color: #333;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .edit {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 13pt;
+  color: #b66d76;
   cursor: pointer;
 }
 
-.purchasesShippingConfig .shipConfigContent .cupom #CuponsList div i:hover {
-  color: #aaa;
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .edit:hover {
+  color: #9a9a9a;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .delete {
+  position: relative;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .quantityBox {
+  width: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .quantityBox .loading {
+  width: 90%;
+  height: 1em;
+  border: 1px solid #b66d76;
+  background-color: #fff;
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: auto;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .quantityBox .loading::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1em;
+  background-color: rgba(182, 109, 118, 0.9);
+  border-radius: 40px;
+  background-size: 4%;
+  -webkit-transform: translateX(calc(var(--L) - 100%));
+          transform: translateX(calc(var(--L) - 100%));
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .quantityBox .used,
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .quantityBox .remain,
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .quantityBox .total {
+  width: 20%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #333;
+  text-align: center;
+  font-size: 11pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .quantityBox .used b,
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .quantityBox .remain b,
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .quantityBox .total b {
+  margin: 0 5px;
+  color: #b66d76;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .quantityBox .remain {
+  font-size: 12pt;
+  color: #b66d76;
+  font-weight: bold;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .cuponsList #CuponsList .showCupom .value {
+  width: 20%;
+  text-align: center;
+  font-size: 16pt;
+  color: #b66d76;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom {
+  position: absolute;
+  opacity: 0;
+  -webkit-transition: 1s;
+  transition: 1s;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  display: none;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background-color: rgba(182, 109, 118, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  border-radius: 30px;
+  min-height: 280px;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom #closeModalCupom {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 99;
+  font-size: 15pt;
+  color: #fff;
+  cursor: pointer;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow {
+  -webkit-transition: 1s;
+  transition: 1s;
+  width: 100%;
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  left: 0;
+  max-height: 350px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #fff;
+  padding: 10px;
+  gap: 10px;
+  min-height: 280px;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow .modalCupomHeader {
+  font-size: 13pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow #SaveCupom {
+  width: 80%;
+  margin-top: 20px;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label span {
+  font-size: 11pt;
+  margin-right: 10px;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="text"],
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"] {
+  border: none;
+  background-color: #ffffff00;
+  border-radius: 0;
+  font-size: 15pt;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  width: 160px;
+  text-align: center;
+  outline: none;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="text"]::-webkit-input-placeholder,
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"]::-webkit-input-placeholder {
+  color: #ffffff86;
+  font-size: 13pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="text"]:-ms-input-placeholder,
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"]:-ms-input-placeholder {
+  color: #ffffff86;
+  font-size: 13pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="text"]::-ms-input-placeholder,
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"]::-ms-input-placeholder {
+  color: #ffffff86;
+  font-size: 13pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="text"]::placeholder,
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"]::placeholder {
+  color: #ffffff86;
+  font-size: 13pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"] {
+  width: 100px;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"]::-webkit-outer-spin-button, .purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"]::-webkit-input-placeholder {
+  color: #ffffff86;
+  font-size: 15pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"]:-ms-input-placeholder {
+  color: #ffffff86;
+  font-size: 15pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"]::-ms-input-placeholder {
+  color: #ffffff86;
+  font-size: 15pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="number"]::placeholder {
+  color: #ffffff86;
+  font-size: 15pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label input[type="radio"] {
+  accent-color: #b66d76;
+  margin: 0 5px;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label b {
+  font-size: 12pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label b i {
+  font-size: 11pt;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupom .modalCupomShow label b i:last-child {
+  margin-right: 10px;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupomActive {
+  opacity: 1;
+}
+
+.purchasesShippingConfig .shipConfigContent .cupom .modalCupomActive .modalCupomShow {
+  -webkit-transform: translateY(0%);
+          transform: translateY(0%);
 }
 
 .purchasesShippingConfig .shipConfigContent .freteGratis {

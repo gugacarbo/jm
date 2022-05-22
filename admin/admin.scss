@@ -6,7 +6,7 @@ $containerWidth: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "roboto", sans-serif;
+    font-family: "Myriad Pro";
 }
 body {
     display: flex;
@@ -34,18 +34,17 @@ body {
         border-radius: 30px;
         padding: 6px 0;
         border: none;
-        color: #fff;
         font-weight: bold;
         font-size: 11pt;
+        color: #fff;
         background-color: $mainColor;
-        cursor: pointer;
         border: 1px solid #fff;
+        cursor: pointer;
         transition: 0.25s;
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
-        border: 1px solid #fff;
         &:active {
             filter: brightness(1.1);
         }
@@ -78,18 +77,18 @@ body {
             opacity: 0;
             position: absolute;
         }
-        &::after{
+        &::after {
             animation: doneButtonAnimation 1.5s;
             margin-right: -70px;
         }
-        &::before{
+        &::before {
             margin-left: -70px;
             animation: alertButtonAnimation 1.5s;
         }
 
         @keyframes alertButtonAnimation {
             1% {
-                opacity: 1;                
+                opacity: 1;
                 transform: scale(1);
             }
             0% {
@@ -120,7 +119,7 @@ body {
         }
         @keyframes doneButtonAnimation {
             1% {
-                opacity: 1;                
+                opacity: 1;
                 transform: scale(1);
             }
             0% {
@@ -148,20 +147,29 @@ body {
                 opacity: 0;
             }
         }
-
     }
-    .doneButton{
-        &::after{
+    .doneButton {
+        &::after {
             content: "\f00c";
         }
     }
-    .alertButton{
-        &::before{
+    .alertButton {
+        &::before {
             content: "\f071";
         }
     }
+    .inverted{
+        color: $mainColor;
+        background-color: #fff;
+        border: 1px solid $mainColor;
+        &:hover {
+            background-color: $mainColor;
+            color: #fff;
+            border: 1px solid #fff;
+        }
+    }
 
-    .box{
+    .box {
         max-width: 800px;
         min-width: 400px;
         padding: 20px;
@@ -182,9 +190,6 @@ body {
             margin-bottom: 20px;
         }
     }
-
-
-
 }
 
 @keyframes rotateLoadingImage {
@@ -340,18 +345,20 @@ body {
     border-radius: 20px;
     overflow: hidden;
     width: 100%;
-    max-width: 1100px;
+    max-width: 900px;
     box-sizing: border-box;
     padding: 20px;
     box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
     display: flex;
     display: none;
     flex-direction: column;
+    transition: 1s;
 }
-
 .right {
     left: -5px;
 }
+
+
 .help {
     color: $mainColor;
     font-size: 16pt;
@@ -366,9 +373,13 @@ body {
     i {
         font-size: 1.2em !important;
         aspect-ratio: 1/1;
-        color: rgba(150, 150, 150, 0.9) !important;
+        color: rgba(194, 194, 194, 0.9) !important;
+        border-radius: 50%;
+        border: 1px solid #999;
         &:hover {
+            border-color: rgba(150, 93, 36, 0.9);
             color: rgba(255, 128, 0, 0.9) !important;
+            background-color: #fff;
         }
     }
     &:hover .helpMessage {
@@ -426,6 +437,48 @@ body {
     }
 }
 
+label.hasCheckboxToggle {
+    input[type="checkbox"] {
+        appearance: none;
+        &:checked + h3::after {
+            filter: grayscale(0);
+            transform: translateX(80%);
+        }
+    }
+    h3 {
+        width: 25px;
+        height: 15px;
+        border-radius: 20px;
+        background-color: #ddd;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.5s;
+
+        &:hover {
+            &::after {
+                filter: grayscale(0.3);
+            }
+        }
+        &::after {
+            transition: 0.5s;
+            content: "";
+            position: absolute;
+            width: 13px;
+            height: 13px;
+            border-radius: 30px;
+            background-color: $mainColor;
+            filter: grayscale(0.6);
+            left: 0;
+        }
+    }
+}
+
+
+
 .deleteConfirm {
     position: absolute;
     right: 0;
@@ -439,12 +492,13 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 11pt;
+        font-size: 10pt;
         border: none;
         color: #fff;
         border-radius: 20px;
         padding: 1px 3px;
         width: 100%;
+        min-width: 60px;
         cursor: pointer;
         background-color: $mainColor;
         &:hover {

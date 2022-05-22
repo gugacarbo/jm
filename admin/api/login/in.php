@@ -2,12 +2,21 @@
 header('Content-Type: application/json; charset=utf-8');
 date_default_timezone_set('America/Sao_Paulo');
 session_start();
+
+$adminPass = "admin";
+$adminHashCode = md5($adminPass);
+$difficult = isset($_SESSION["dif"]) ? $_SESSION["dif"] : 0;
+
+
 if (isset($_SESSION["loginTry"]) && $_SESSION["loginTry"] >= 10) {
     $interval = time() -  $_SESSION["lastLoginTry"];
-    if ($interval > 60) {
+    if ($interval > (60 * pow(2, $difficult))) {
+
         $_SESSION["loginTry"] = 0;
+        $_SESSION["dif"] = isset($_SESSION["dif"]) ? $_SESSION["dif"] + 1 : 2;
     }
-    die(json_encode(array('status' => 401, 'message' => 'Too many login attempts. Please try again in ' . (60 - $interval) . ' seconds.')));
+    header("Location: login.php?error=Muitas tentativas, tente novamente em " . ((60 * pow(2, $difficult)) - $interval) . " segundos.");
+    die(json_encode(array('status' => 401, 'message' => 'Too many login attempts. Please try again in ' . ((60 * pow(2, $difficult)) - $interval) . ' seconds.')));
 } else {
     $_SESSION["loginTry"] = isset($_SESSION["loginTry"]) ? $_SESSION["loginTry"] + 1 : 1;
     $_SESSION["lastLoginTry"] = time();
@@ -33,8 +42,11 @@ if (isset($_SESSION["loginTry"]) && $_SESSION["loginTry"] >= 10) {
             $tries = $row["loginTry"] + 1;
             if ($tries < 4) {
                 if ($row['password'] == $password) {
+
                     $_SESSION['user'] = $username;
                     $_SESSION['admin'] = $row['admin'];
+                    $_SESSION['hashCode'] = $adminHashCode;
+
                     $stmt = $mysqli->prepare("UPDATE admin SET loginTry = 0, lastTry = NOW() WHERE user = ?");
                     $stmt->bind_param("s", $username);
                     $stmt->execute();
@@ -45,7 +57,7 @@ if (isset($_SESSION["loginTry"]) && $_SESSION["loginTry"] >= 10) {
                     $stmt = $mysqli->prepare("UPDATE admin SET loginTry = ?, lastTry = NOW() WHERE user = ?");
                     $stmt->bind_param("is", $tries, $username);
                     $stmt->execute();
-
+                    header("Location: login.php?error=Usuário ou senha inválidos.");
                     die(json_encode(array('status' => 403, 'message' => 'Invalid username or password.')));
                 }
             } else {
@@ -55,6 +67,7 @@ if (isset($_SESSION["loginTry"]) && $_SESSION["loginTry"] >= 10) {
                     $stmt->bind_param("s", $username);
                     $stmt->execute();
                 }
+                header("Location: login.php?error=Muitas tentativas, tente novamente em " . ((60 * pow(2, $difficult)) - $interval2) . " segundos.");
                 die(json_encode(array('status' => 401, 'message' => 'Too many login attempts. Please try again in ' . (60 - $interval2) . ' seconds.')));
             }
         }

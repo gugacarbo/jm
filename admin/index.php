@@ -95,7 +95,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
                 <i class="fas fa-cog"></i>
             </a>
             
-            <a href="/admin/logout.php">
+            <a href="/admin/api/login/logout.php">
                 <label>Sair</label>
                 <i class="fas fa-sign-out-alt"></i>
             </a>
