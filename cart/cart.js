@@ -34,63 +34,65 @@ async function callCart() {
     $("#CartProds").html("");
 
 
-    $.each(cart_, async (p, item) => {
 
-         $.ajax({
-            url: "/api/get/getProdById.php?id=" + cart_[p].id,
+    const promises = cart_.map(async item => {
+        const d = await $.ajax({
+            url: "/api/get/getProdById.php?id=" + item.id,
             method: "GET",
-            success:  function (prod) {
-
-
-                if ((prod['options'][cart_[p].opt] == 0) || (!parseInt(prod['options'][cart_[p].opt]))) {
-                    invalidProd = 1;
-                }
-
-                var cartProd = '<div class="cartP">' +
-                    '<a class="pImage" href="/product/?id=' + cart_[p].id + '">' +
-                    '<img src="' + prod['imgs'][1] + '" alt="">' +
-                    '</a>' +
-                    '<div class="pInfo">' +
-                    '<span class="pName">' + prod['name'] + '</span>' +
-                    (prod['options'][cart_[p].opt] > 0 ? "<span class='pAvailable'>Em Estoque" : "<span class='pAvailable' style='color:#922'>Indisponível") + '</span>' +
-                
-                    '<div class="pQuantity"><span>Qtd.:</span>' +
-
-                    '<select onchange="changeQtd(this,' + cart_[p].id + ',' + "'" + [cart_[p].opt] + "'" + ')">  ';
-                (prod['options'][cart_[p].opt] == 0) ? $("#goForm").addClass("off") : "";
-
-                for (var x = 0; x < prod['options'][cart_[p].opt]; x++) {
-                    cartProd += "<option value='" + (x + 1) + "'" + ((x + 1) == cart_[p].qtd ? "selected" : "") + ">" + (x + 1) + "</option>"
-                }
-
-                cartProd += '</select>' +
-                    
-                    '<span class="delProd" onclick="delProd(' + (cart_[p].id + ",\'" + [cart_[p].opt]) + '\')">Excluir</span>' +
-                    '</div>' +
-                    '<span class="vari">Variação: ' + cart_[p].opt + '</span>' +
-                    '</div>' +
-                    '<div class="pPrice">' +
-                    '<span>R$ ' + ((parseFloat(prod['price'])).toFixed(2)).replace(".", ",") + '</span>' +
-                   
-                    '</div></div>';
-                $("#CartProds").append(cartProd);
-                if (invalidProd == 1) {
-                    $("#goForm").addClass("off")
-                } else {
-                    $("#goForm").removeClass("off")
-                }
-                totalPrice += (parseFloat((parseFloat(prod.price) * cart_[p].qtd)));
-                totalItens += parseInt(cart_[p].qtd);
-
-                $("#totalPrice").html("Subtotal (" + totalItens + " Itens) : R$ " + totalPrice.toFixed(2).replace(".", ",") + "")
-               
-            }
         })
-
+        return d
     })
 
+    const prods = await Promise.all(promises)
+    $.each(prods, (i, item) => {
+
+
+        if ((item['options'][cart_[i].opt] == 0) || (!parseInt(item['options'][cart_[i].opt]))) {
+            invalidProd = 1;
+        }
+
+        var cartProd = '<div class="cartP">' +
+            '<a class="pImage" href="/product/?id=' + cart_[i].id + '">' +
+            '<img src="' + item['imgs'][1] + '" alt="">' +
+            '</a>' +
+            '<div class="pInfo">' +
+            '<span class="pName">' + item['name'] + '</span>' +
+            (item['options'][cart_[i].opt] > 0 ? "<span class='pAvailable'>Em Estoque" : "<span class='pAvailable' style='color:#922'>Indisponível") + '</span>' +
+
+            '<div class="pQuantity"><span>Qtd.:</span>' +
+
+            '<select onchange="changeQtd(this,' + cart_[i].id + ',' + "'" + [cart_[i].opt] + "'" + ')">  ';
+        (item['options'][cart_[i].opt] == 0) ? $("#goForm").addClass("off") : "";
+
+        for (var x = 0; x < item['options'][cart_[i].opt]; x++) {
+            cartProd += "<option value='" + (x + 1) + "'" + ((x + 1) == cart_[i].qtd ? "selected" : "") + ">" + (x + 1) + "</option>"
+        }
+
+        cartProd += '</select>' +
+
+            '<span class="delProd" onclick="delProd(' + (cart_[i].id + ",\'" + [cart_[i].opt]) + '\')">Excluir</span>' +
+            '</div>' +
+            '<span class="vari">Variação: ' + cart_[i].opt + '</span>' +
+            '</div>' +
+            '<div class="pPrice">' +
+            '<span>R$ ' + ((parseFloat(item['price'])).toFixed(2)).replace(".", ",") + '</span>' +
+
+            '</div></div>';
+        $("#CartProds").append(cartProd);
+        if (invalidProd == 1) {
+            $("#goForm").addClass("off")
+        } else {
+            $("#goForm").removeClass("off")
+        }
+        totalPrice += (parseFloat((parseFloat(item.price) * cart_[i].qtd)));
+        totalItens += parseInt(cart_[i].qtd);
+
+        $("#totalPrice").html("Subtotal (" + totalItens + " Itens) : R$ " + totalPrice.toFixed(2).replace(".", ","))
+    })
+
+
     if (cart_.length == 0) {
-        $(".chechoutBtns").css("display", "none");
+        $(".cartButtons").css("display", "none");
         $("#totalPrice").html("");
         $("#CartProds").append("<div class='noProds'><span>Carrinho de Compras Vazio</span><i class='fa-solid fa-cart-shopping'></i></div>");
     } else {
@@ -99,7 +101,7 @@ async function callCart() {
 }
 
 function changeQtd(select, id, opt) {
-    addCart(id, $(select).val(), opt);
+    addCart(id, $(select).val(), opt, 0);
     callCart();
 }
 

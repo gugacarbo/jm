@@ -2,7 +2,7 @@
 time()
 setInterval(time, 1000);
 $(document).ready(function () {
-    
+
     $("#MenuToggle").on("click", function () {
         $("#MenuContent").toggleClass("active");
     });
@@ -18,6 +18,8 @@ $(document).ready(function () {
 
     changePage("home");
 })
+
+
 
 function time() {
     var date = new Date();
@@ -39,6 +41,27 @@ function time() {
     $("#dateT").text(h + ":" + min + ":" + sec);
 
 }
+
+function getHomeInfo(){
+    $.get("/admin/api/get/getHomeInfo.php", function (data) {
+        if(data.status >= 200 && data.status < 300){
+            $("#HomeInfoAprovadas").text(data.Aprovadas)
+            $("#HomeInfoCanceladas").text(data.Canceladas)
+            $("#HomeInfoAguardandoEnvio").text(data.AguardandoEnvio)
+            $("#HomeInfoNaoFinalizados").text(data.NaoPagos)
+            $("#HomeInfoAguardandoPagamento").text(data.AguardandoPagamento)
+        }
+    })
+}
+
+$.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+       return null;
+    }
+    return decodeURI(results[1]) || 0;
+}
+
 
 function changePage(adminPage) {
     var labelIndex = (switchLabels.indexOf(adminPage))

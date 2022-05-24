@@ -157,15 +157,15 @@ function callProds(query) {
                     prod.options = (JSON.parse(prod["options"]));
                     //console.log(prod)
                     var prodApend =
-                        "<div class='product " + (prod.totalQuantity == 0 ? "unavailable" : "") + "' " + (prod.totalQuantity == 0 ? "style='order:100;'" : "") + ">"
-                        + "<a class='prodImage' href='/product/?id=" + prod['id'] + "'>"
+                        "<div class='productModel " + (prod.totalQuantity == 0 ? "unavailable" : "") + "' " + (prod.totalQuantity == 0 ? "style='order:100;'" : "") + ">"
+                        + "<a class='productModelImg' href='/product/?id=" + prod['id'] + "'>"
                         + "<img src='" + prod['imgs'][1] + "'>"
-                        + ((prod['imgs'][2] != "") ? "<img class='sImage' src='" + prod['imgs'][2] + "'>" : "")
-                        + "<span class='promo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
+                        + ((prod['imgs'][2] != "") ? "<img class='productModelSecImg' src='" + prod['imgs'][2] + "'>" :  "<img class='productModelSecImg' src='" + prod['imgs'][1] + "'>")
+                        + "<span class='productModelPromo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
                         + "</a>"
-                        + "<span class='prodName'>" + prod['name'] + "</span>"
-                        + "<span class='prodPrice'>R$" + (parseFloat(prod['price']).toFixed(2)).replace(".", ",") + "</span>"
-                        + "<span class='prodPay'>ou em 2x de " + (parseFloat((prod['price']) / 2).toFixed(2)).replace(".", ",") + "</span>"
+                        + "<span class='productModelName'>" + prod['name'] + "</span>"
+                        + "<span class='productModelPrice'>R$" + (parseFloat(prod['price']).toFixed(2)).replace(".", ",") + "</span>"
+                        + "<span class='productModelPay'>ou em 2x de " + (parseFloat((prod['price']) / 2).toFixed(2)).replace(".", ",") + "</span>"
                         + "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod['id']) + ", 1)'></i>"
                         + "</div>";
                     $("#ShowProducts").append(prodApend)

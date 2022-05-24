@@ -19,14 +19,14 @@ $(document).ready(() => {
 
         if (data["status"] >= 200 && data["status"] < 300) {
           $("#NewsletterErrorDisplay").css("display", "flex");
-          $("#NewsletterErrorDisplay").css("color", "#0f0");
+          $("#NewsletterErrorDisplay").css("color", "#fff");
           $("#NewsletterErrorDisplay").html("Cadastro realizado com sucesso!");
           setTimeout(() => {
             $("#NewsletterErrorDisplay").css("display", "none");
           }, 1300);
         } else {
           $("#NewsletterErrorDisplay").css("display", "flex");
-          $("#NewsletterErrorDisplay").css("color", "#F00").css("text-shadow", "0 0 3px #fff");
+          $("#NewsletterErrorDisplay").css("color", "#fff")
           $("#NewsletterErrorDisplay").html(data.status == 403 ? "Tente Novamente Mais Tarde" : "Erro ao cadastrar");
           setTimeout(() => {
             $("#NewsletterErrorDisplay").css("display", "none");
@@ -95,14 +95,14 @@ async function getGliders() {
       $.each((prods["prod_ids"]), function (k, prod) {
         //console.log(prod)
         var ProdCarousel =
-          "<div class='carouselItem " + (prod.totalQuantity == 0 ? "unavailable' style='order:5;'" : "'") + ">"
-          + "<a class='carouselImg' href='/product/?id=" + prod['id'] + "'>"
+          "<div class='productModel " + (prod.totalQuantity == 0 ? "unavailable' style='order:5;'" : "'") + ">"
+          + "<a class='productModelImg' href='/product/?id=" + prod['id'] + "'>"
           + "<img src='" + prod['imgs'][1] + "'>"
-          + "<span class='carouselPromo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
+          + "<span class='productModelPromo'" + (prod['promo'] > 0 ? ">" + Math.trunc((1 - (prod['price'] / prod['promo'])) * 100) + "% OFF" : "style='display:none;'>") + "</span>"
           + "</a>"
-          + "<span class='carouselItemName'>" + prod['name'] + "</span>"
-          + "<span class='carouselItemPrice'>R$" + (parseFloat(prod['price']).toFixed(2)).replace(".", ",") + "</span>"
-          + "<span class='carouselItemPay'>ou em 2x de " + (parseFloat(prod['price']) / 2).toFixed(2).replace(".", ",") + "</span>"
+          + "<span class='productModelName'>" + prod['name'] + "</span>"
+          + "<span class='productModelPrice'>R$" + (parseFloat(prod['price']).toFixed(2)).replace(".", ",") + "</span>"
+          + "<span class='productModelPay'>ou em 2x de " + (parseFloat(prod['price']) / 2).toFixed(2).replace(".", ",") + "</span>"
           //+ "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod['id']) + ", 1)'></i>"
           + "<i class='fas fa-shopping-cart' onclick='addCart(" + (prod.id) + ", 1)'></i>"
           + "</div>";

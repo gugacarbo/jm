@@ -43,6 +43,24 @@
             cursor: pointer;
             margin-left: auto;
         }
+        .selectStatus{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            span{
+                font-size: 12pt;
+                color: $mainColor;
+            }
+            select{
+                border: none;
+                border: 1px solid $mainColor;
+                border-radius: 30px;
+                background-color: #fff;
+                color: #333;
+                text-align: center;
+                padding: 3px 10px;
+            }
+        }
 
         label {
             margin-left: 20px;
@@ -92,7 +110,7 @@
                 color: $mainColor;
                 border-bottom: 1px solid #fff;
                 border-left: none;
-                font-size: 13pt;
+                font-size: 12pt;
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
                 transition: 0.3s;

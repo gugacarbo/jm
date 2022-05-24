@@ -22,7 +22,22 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
                     <input type="text" id="textSearch">
                     <i class="fas fa-search" id="btnSearch"></i>
                 </label>
+                <div class="selectStatus">
+                <span>Selecionar Por Status</span>
+                    <select id="SelectByStatus">
+                        <option value="0">Todas</option>
+                        <option value="1">Aguardando Pagamento</option>
+                        <option value="2">Pagamento Em Análise</option>
+                        <option value="3">Pagamento Aprovado</option>
+                        <option value="4">Compras Finalizada</option>
+                        <option value="7">Pagamento Não Aprovado</option>
+                        <option value="9">Compras Canceladas</option>
+
+                    </select>
+                
+                </div>
                 <span id="totalPurchases">Total <b></b> Vendas encontradas</span>
+                
             </div>
             <div class="purchasesHeader">
                 <label name="id" class="filterI selected ">Id<i class="fa-solid fa-chevron-down up">

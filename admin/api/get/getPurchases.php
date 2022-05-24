@@ -14,7 +14,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
     $orderBy = "";
     $sql = "SELECT * FROM vendas";
 
-    if ($_GET["text"] && $_GET["text"] != "") {
+    if (isset($_GET["text"]) && $_GET["text"] != "") {
         $sql = "SELECT a.* FROM vendas as A INNER JOIN client as B ON b.id = a.clientId AND (b.name LIKE ? OR b.lastName LIKE ? OR a.code LIKE ?) ";
         array_push($params, "%" . $_GET["text"] . "%");
         array_push($params, "%" . $_GET["text"] . "%");
@@ -23,6 +23,56 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
     } else {
     }
 
+    if (isset($_GET["getStatus"]) && $_GET["getStatus"] != "" && $_GET["getStatus"] > 0 && $_GET["getStatus"] <= 9) {
+        $status = $_GET["getStatus"];
+
+        switch ($status) {
+            case '1':
+                if ($labels != "") {
+                    $sql .= " AND (a.status = 1 OR a.status = 2) ";
+                } else {
+                    $sql .= " WHERE (status = 1 OR status = 2) ";
+                }
+                break;
+            case '2':
+                if ($labels != "") {
+                    $sql .= " AND (a.status = 1 OR a.status = 2)  ";
+                } else {
+                    $sql .= " WHERE status = 1 OR status = 2  ";
+                }
+                break;
+            case '3':
+                if ($labels != "") {
+                    $sql .= " AND a.status = 3 ";
+                } else {
+                    $sql .= " WHERE status = 3 ";
+                }
+                break;
+            case '4':
+                if ($labels != "") {
+                    $sql .= " AND a.status = 4 ";
+                } else {
+                    $sql .= " WHERE status = 4 ";
+                }
+                break;
+            case '7':
+                if ($labels != "") {
+                    $sql .= " AND a.status = 7 ";
+                } else {
+                    $sql .= " WHERE status = 7 ";
+                }
+                break;
+
+            default:
+                if ($labels != "") {
+                    $sql .= " AND (a.status = 5 OR a.status = 6 OR a.status = 8 OR a.status = 9)";
+                } else {
+                    $sql .= " WHERE (status = 5 OR status = 6 OR status = 8 OR status = 9) ";
+                }
+
+                break;
+        }
+    }
     if ($_GET["filter"]) {
         $filter = $_GET["filter"];
 

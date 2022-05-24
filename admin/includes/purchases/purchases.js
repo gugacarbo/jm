@@ -4,11 +4,30 @@ var filterG = 'id'
 var textSearch = ''
 var maxpPage = 20;
 var PurchasesPage = 0;
+var getStatus = 0;
 
 $(document).ready(function () {
 
     PurchasesPage = 0;
+    if($.urlParam("status")){
+        getStatus = $.urlParam("status");
+        $("#SelectByStatus").val($.urlParam("status"));
+        goToSearch('');
+    }
+    if($.urlParam("tracking") && $.urlParam("tracking") == 1){
+        $(".up").removeClass("up")
+        $(".selected").removeClass("selected")
+        $("label:nth-child(6)").addClass("selected")
+        search(false, 'sended')
+        goToSearch('');
+
+    }
     search();
+    $("#SelectByStatus").on("change", function () {
+        PurchasesPage = 0;
+        search();
+    })
+
     $("#btnSearch").click(function () {
         PurchasesPage = 0;
         search();
@@ -69,15 +88,17 @@ $(document).ready(function () {
 })
 
 
-function search(order_ = orderG, filter_ = filterG,) {
+function search(order_ = orderG, filter_ = filterG, getStatus_ = getStatus) {
     var textSearch = $("#textSearch").val() || '';
     orderG = order_;
     filterG = filter_;
+    getStatus = $("#SelectByStatus").val();
 
     var c = {
         "filter": filterG,
         "order": orderG,
-        "text": textSearch
+        "text": textSearch,
+        "getStatus" : getStatus,
     }
 
     $("#purchasesList").fadeOut(400, function () {
@@ -141,7 +162,7 @@ function createPurchase(compra) {
             status = "Devolvida";
             break;
         case 7:
-            status = "Cancelada";
+            status = "Pagamento Não Aprovado";
             break;
         case 8:
             status = "Debitado";
@@ -165,7 +186,7 @@ function createPurchase(compra) {
         <span onclick="modalPurchase(${compra.id})">${compra.client.name + " " + compra.client.lastName}</span>
         <span>R$ ${compra.totalAmount.toFixed(2).replace(".", ",")}</span>
         <span>${status}</span>
-        <span><i class="fa-solid fa-truck" onclick="modalPurchase(${compra.id})" ${compra.trackingCode == "" ? compra.status > 4 ?  "style='color:#aaa'" : "style='color:#e3b10a'" : "style='color:#6db67b'"}> </i></span>
+        <span><i class="fa-solid fa-truck" onclick="modalPurchase(${compra.id})" ${compra.trackingCode == "" ? parseInt(compra.status) > 4 || parseInt(compra.status) < 3 ?  "style='color:#aaa'" : "style='color:#e3b10a'" : "style='color:#6db67b'"}> </i></span>
         <span>${compra.code}</span>
         <span><i class="fas fa-ellipsis-h" onclick="modalPurchase(${compra.id})"></i></span>
 </div>`
