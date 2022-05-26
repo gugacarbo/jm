@@ -12,7 +12,8 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
 <div class="adminCarouselContainer adminContainer">
     <span class="adminTitle">Carrosséis</span>
     <p class="adminDescricao">
-        Nesta página você pode inserir, alterar e excluir os carrosséis que aaparecerão na página inicial do site. <br>
+        Nesta página você pode inserir, alterar e excluir os carrosséis que aparecerão na página inicial do site. 
+        <br><br>
         Pode-se ser inserido um carrosél de cada categoria.
     </p>
     <button id="OpenCaroselModal">

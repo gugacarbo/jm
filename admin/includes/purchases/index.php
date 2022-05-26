@@ -27,9 +27,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
                     <select id="SelectByStatus">
                         <option value="0">Todas</option>
                         <option value="1">Aguardando Pagamento</option>
-                        <option value="2">Pagamento Em Análise</option>
                         <option value="3">Pagamento Aprovado</option>
-                        <option value="4">Compras Finalizada</option>
                         <option value="7">Pagamento Não Aprovado</option>
                         <option value="9">Compras Canceladas</option>
 

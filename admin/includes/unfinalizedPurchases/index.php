@@ -32,7 +32,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
         </div>
     </div>
 
-    <script src="includes/reviewPurchases/reviewPurchases.js"></script>';
+    <script src="includes/unfinalizedPurchases/unfinalizedPurchases.js"></script>';
 
     die($content);
 }

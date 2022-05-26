@@ -203,7 +203,7 @@
     }
     position: relative;
     .modalProduct {
-        position: absolute;
+        position: fixed;
         background-color: #fff;
         border: 1px solid $mainColor;
         border-radius: 20px;
@@ -216,6 +216,7 @@
         display: flex;
         display: none;
         flex-direction: column;
+        top: 15%;
         .modalTitle {
             font-size: 12pt;
             font-weight: bold;

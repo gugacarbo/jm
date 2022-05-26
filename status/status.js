@@ -19,25 +19,53 @@ $(document).ready(() => {
             $("#cancelBox").css("display", "none");
         }, 800);
     })
+
+
+    //x Cancelar Compra
     $("#cancelButton").click(() => {
         var reason = ($("#cancelText").val());
-        var message = "Solicitação de Cancelamento: \n"
+
+        if (reason) {
+
+            $.post("/api/post/requestPurchaseCancel.php", {
+                'code': $.urlParam("code"),
+                'reason': reason
+            }, (data) => {
+                if (data.status >= 200 && data.status < 300) {
+                    $("#requestCancel").prop("disabled", 'disabled');
+                    $("#requestCancel").prop("id", '')
+
+                    alert("Compra cancelada com sucesso")
+                    setTimeout(() => {
+                        $(".cancel").removeClass("show")
+                        setTimeout(() => {
+                            $("#cancelBox").css("display", "none");
+                        }, 800);
+                    }, 200);
+                } else {
+                    alert("Erro ao cancelar compra")
+                }
+            })
+
+
+            /*
+            var message = "Solicitação de Cancelamento: \n"
             + "Telefone: " + $("#BuyerPhone").html() + "\n"
             + "Nome: " + $("#BuyerName").html() + "\n"
             + "Código da Compra: " + $.urlParam("code") + "\n"
             + "Motivo: " + reason + "\n"
 
-        if (reason) {
-            //var sendToDb = $.get("/php/sendContact.php", { name: nome, phone, message }, data => {
-            //})
-
+            * Whatsapp
             let url = "https://wa.me/+5549999604384?text=";
-            console.log(url + encodeURI(message))
-
+    
             window.open(
                 url + encodeURI(message),
                 '_blank'
-            )
+            )*/
+
+
+        } else {
+            alert("Por favor, preencha o motivo do cancelamento")
         }
     })
 
@@ -54,11 +82,11 @@ function moreTracking() {
 function getData(cpf, code) {
     //ajax get to getProductStatus
     $.get("/api/get/ProductStatus.php", { "cpf": cpf, "code": code }, function (data) {
-        
+        console.log(data)
         var pagData = data.rawPayload;
         //var prods = ((typeof(pagData.items.item) != "object") ? pagData.items.item:  [pagData.items.item]);
         var items = pagData.items.item;
-        
+
         items = Object.prototype.toString.call(items) === '[object Array]' ? items : [items];
 
         var date = new Date(data.bornDate.replace(/-/g, '\/'));
@@ -71,19 +99,24 @@ function getData(cpf, code) {
         var dd = new Date(data.buyDate.replace(/-/g, '\/'));
         var timeDiff = Math.abs(dd.getTime() - today.getTime());
         var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        if(diffDays > 8){
-            $("#requestCancel").css("display", "none");
 
+        if (diffDays > 30 || data.internalStatus == 5 || data.status > 4) { //! asdasd
+            $("#requestCancel").prop("disabled", 'disabled')
+            $("#requestCancel").prop("id", '')
+        }
+        if(data.status < 3){
+            $("#requestCancel").css("display", "none")
+            $("#requestCancel").prop("id", '')
         }
 
         var date2 = new Date(data.buyDate.replace(/-/g, '\/'));
         var d2 = date2.getDate();
-        var m2= date2.getMonth();
+        var m2 = date2.getMonth();
         m2 += 1;  // JavaScript months are 0-11
         var y2 = date2.getFullYear();
 
         $("#BuyDate").html("Data da Compra " + d2 + "/" + m2 + "/" + y2);
-        
+
         $("#BuyerBornDate b").html(d + "/" + m + "/" + y);
         $("#BuyerName b").html(+ data.name);
         $("#BuyerCPF b").html(data.cpf);
@@ -114,18 +147,18 @@ function getData(cpf, code) {
                         '</div>' +
                         '</div>';
                     $("#StatusProdShow").append(pAppend);
-                }else{
+                } else {
                     var pAppend = '<div class="prod">' +
-                    '<div class="image">' +
-                    '<img src="noImage.png">' +
-                    '</div>' +
-                    '<div class="info">' +
-                    '<span class="prodName">' + item.description + '</span>' +
-                    '<span class="prodQuantity">Qtd ' + item.quantity + '</span>' +
-                    '<span class="prodTotalPrice">R$ ' + (parseFloat(item.amount).toFixed(2)).replace(".", ",") + '</span>' +
-                    '</div>' +
-                    '</div>';
-                $("#StatusProdShow").append(pAppend);
+                        '<div class="image">' +
+                        '<img src="noImage.png">' +
+                        '</div>' +
+                        '<div class="info">' +
+                        '<span class="prodName">' + item.description + '</span>' +
+                        '<span class="prodQuantity">Qtd ' + item.quantity + '</span>' +
+                        '<span class="prodTotalPrice">R$ ' + (parseFloat(item.amount).toFixed(2)).replace(".", ",") + '</span>' +
+                        '</div>' +
+                        '</div>';
+                    $("#StatusProdShow").append(pAppend);
                 }
             })
         });
@@ -171,6 +204,8 @@ function getData(cpf, code) {
                 statusS = "Em análise";
                 $("#WaitingPayment").addClass("doing")
                 $("#preparingText").html(statusS)
+
+
                 break;
             case "3":
                 statusS = "Paga";

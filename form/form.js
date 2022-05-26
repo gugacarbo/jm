@@ -6,6 +6,7 @@ $('#DataCPF').mask('000.000.000-00');
 $('#ShippingCEP').mask('00.000-000');
 $('#ShippingNumero').mask('00000');
 $(document).ready(() => {
+    getBuyerLocalData();
     $("#ShippingCEP").on('keyup', () => {
         if ($("#ShippingCEP").val().length == 10) {
             var cep = $("#ShippingCEP").val();
@@ -48,6 +49,8 @@ $(document).ready(() => {
     $("#buyerForm input").on("focus", function () {
         $(this).removeClass('vazio');
     })
+
+
 })
 function validarCPF(cpf) {
     cpf = cpf.replace(/[^\d]+/g, '');
@@ -133,3 +136,50 @@ function formatDate(input) {
         month = datePart[1], day = datePart[2];
     return day + '/' + month + '/' + year;
 }
+
+var buyerLocalData;
+function getBuyerLocalData() {
+
+    var buyerLocalData_ = localStorage.getItem("buyerLocalData");
+    if (buyerLocalData_) {
+        buyerLocalData = JSON.parse(buyerLocalData_)
+        console.log(buyerLocalData);
+
+        $("#DataNome").val(buyerLocalData.nome);
+        $("#DataSobrenome").val(buyerLocalData.sobrenome);
+        $("#DataCPF").val(buyerLocalData.cpf);
+        $("#DataNascimento").val(buyerLocalData.nascimento);
+        $("#DataTelefone").val(buyerLocalData.telefone);
+        $("#DataEmail").val(buyerLocalData.email);
+        $("#ShippingNumero").val(buyerLocalData.numero);
+        $("#ShippingComplemento").val(buyerLocalData.complemento);
+        $("#SelectGender").val(buyerLocalData.gender);
+        $("#ShippingBairro").val(buyerLocalData.bairro);
+        $("#ShippingCidade").val(buyerLocalData.cidade);
+        $("#ShippingUF").val(buyerLocalData.UF);
+        $("#ShippingCEP").val(buyerLocalData.cep);
+        $("#ShippingRua").val(buyerLocalData.rua);
+
+     
+
+
+    } else {
+        console.log("noBuyer");
+
+    }
+}
+
+/**UF: "SC"
+bairro: "Copacabana"
+cep: "88.504-110"
+cidade: "Lages"
+complemento: "33333"
+cpf: "011.894.469-01"
+email: "guga_carbo@hotmail.com"
+gender: "M"
+nascimento: "2000-02-12"
+nome: "aaa"
+numero: "643"
+rua: "Rua Visconde de Maua"
+sobrenome: "bbb"
+telefone: "(55) 4.9999-0149" */

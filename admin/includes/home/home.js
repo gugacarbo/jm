@@ -1,22 +1,25 @@
 
 
 
-    var HomeChart = new Chart(
-        document.getElementById('HomeChart'),
-        {
-            type: 'line',
-            data: {
-                labels: null,
-                datasets: [{
-                    label: 'Faturamento',
-                    data: null,
-                    fill: false,
-                    borderColor: 'rgb(7, 158, 57)',
-                    tension: 0.15
-                }]
-            },
-        }
-    );
+var HomeChart = new Chart(
+    document.getElementById('HomeChart'),
+    {
+        type: 'line',
+        data: {
+            labels: null,
+            datasets: [{
+                label: 'Faturamento',
+                data: null,
+                fill: {
+                    target: 'origin',
+                    above: 'rgba(7, 158, 57, 0.15)'
+                },
+                borderColor: 'rgb(7, 158, 57)',
+                tension: 0.15
+            }]
+        },
+    }
+);
 
 
 $(document).ready(function () {
@@ -24,12 +27,12 @@ $(document).ready(function () {
 
 
     getHomeChart("month")
-    getHomeInfo()  
+    getHomeInfo()
 })
 
 
 function goToSearch(search) {
-    window.history.pushState("object or string", "Title", "?"+search);
+    window.history.pushState("object or string", "Title", "?" + search);
 }
 
 
@@ -43,8 +46,8 @@ function getHomeChart(interval, el = "#monthFirst") {
                 addData(HomeChart, data.labels[key], data.data[key]);
 
             })
-        }else{
-           
+        } else {
+
         }
     })
 }

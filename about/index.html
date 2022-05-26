@@ -15,10 +15,11 @@
 </head>
 <body>
     <header></header>
-    <div class="aboutSlider">
-        <div id="AboutSlider">
+
+    <div class="Banner">
+        <div id="AboutSlider" class="bannerShow">
         </div>
-        <div role="tablist" class="AboutDotsBanner"></div>
+        <div role="tablist" class="dotsBanner"></div>
     </div>
     <div class="about">
         <p id="aboutText">
@@ -37,9 +38,21 @@
         $(document).ready(() => {
             $("header").load("/includes/header.html");
             $("footer").load("/includes/footer.html");
-            $("#aboutText").load("aboutFile.txt");
-            $("#mapL").load("mapLink.txt");
+            
             setBanner("#AboutSlider", "ABOUT_BANNER");
+            
+
+
+            var http = new XMLHttpRequest();
+            http.open('HEAD', "aboutFile.txt", false);
+            http.send();
+            if (http.status == 404) {
+                $("#aboutText").html("<span>Ocorreu um erro ao carregar o conteúdo da página.</span>");
+            }else{
+                $("#aboutText").load("aboutFile.txt?nocache=" + (new Date()).getTime());
+            }
+            
+        
             var http = new XMLHttpRequest();
             http.open('HEAD', "aboutImage.jpg", false);
             http.send();
@@ -47,6 +60,21 @@
                 $("#aboutImg").parent().remove()
                 $("#mapL").css("width", "100%")
                 $("#mapL").css("height", "500px")
+            }else{
+                $("#aboutImg").attr("src", "aboutImage.jpg?nocache=" + Math.random());
+            }
+
+
+            var http = new XMLHttpRequest();
+            http.open('HEAD', "mapLink.txt", false);
+            http.send();
+            if (http.status == 404) {
+                $("#mapL").remove()
+                //$("#aboutImg").parent().css("width", "100%")
+                $("#aboutImg").parent().css("width", "100%")
+                $("#aboutImg").css("width", "100%")
+            }else{
+                $("#mapL").load("mapLink.txt?nocache=" + Math.random());
             }
         })
         function setBanner(el_id, banner_name) {
@@ -68,7 +96,7 @@
                 slidesToScroll: 1,
                 draggable: false,
                 dragVelocity: 2,
-                dots: '.AboutDotsBanner',
+                dots: '.dotsBanner',
                 duration: 3,
                 rewind: true,
             });
@@ -97,6 +125,8 @@
             slide();
         }
     </script>
+
+    
 </body>
 
 </html>

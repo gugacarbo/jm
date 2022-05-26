@@ -1,7 +1,12 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-session_start();
-//unset($_SESSION['checkoutTry']);
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+//! Verificação de Excesso de Tentativas
+unset($_SESSION['checkoutTry']);
 if (isset($_SESSION["checkoutTry"])) {
 
     $checkoutTry = $_SESSION["checkoutTry"];
@@ -9,7 +14,6 @@ if (isset($_SESSION["checkoutTry"])) {
     if ($checkoutTry < 10) {
         $_SESSION["checkoutTry"] = $checkoutTry + 1;
     } else {
-
         $lastTry = date($_SESSION['checkoutLastTry']);
         $interval = strtotime(date('Y-m-d H:i:s')) - strtotime($lastTry);
 
@@ -20,11 +24,11 @@ if (isset($_SESSION["checkoutTry"])) {
 
         die(json_encode(array("status" => 403, "message" => "Tente novamente mais tarde")));
     }
-    //echo $_SESSION["checkoutTry"];
 } else {
     $_SESSION["checkoutTry"] = 1;
     $_SESSION["checkoutLastTry"] = date("Y-m-d H:i:s");
 }
+//! Fim da Verificação de Excesso de Tentativas
 
 
 if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
@@ -38,26 +42,24 @@ if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
     $cart = ($_POST["cart"]);
 
     if (count($cart) > 50) {
-        die(json_encode(array('status' => 405)));
+        die(json_encode(array('status' => 400)));
     }
 
     $JsonSender = json_encode($sender,  JSON_UNESCAPED_UNICODE);
-    /** CONST */
+
+    //=CONST
     $data['currency'] = "BRL";
     $data['shippingAddressCountry'] = "BRA";
     $data['shippingAddressRequired'] = "TRUE";
 
-    //$data['extraAmount'] = "Desconto";
-    //$data['redirectURL'] = "";
-
-
     //? ************ Referencia ************
 
     $data['reference'] = md5((str_replace(["-", "."], "", $sender['cpf'])) . date(DATE_RFC822));
+
     //? ***************************************/
 
-    //verify if buyer already exists in database cleient by cpf and born date
-    $cpf = str_replace(["-", "."], "", $sender['cpf']);
+    //* Verifica e Insere ou atualiza cliente
+    $cpf = str_replace(["-", ".", " ", "_", "-"], "", $sender['cpf']);
     $date = date('Y-m-d H:i:s', strtotime($sender["nascimento"]));
 
     $stmt = $mysqli->prepare("SELECT * FROM client WHERE cpf = ? AND bornDate = ?");
@@ -81,18 +83,39 @@ if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
         $stmt->execute();
         $stmt->close();
     } else {
+
+        $stmt->close();
         $clientPurchases[] = $data['reference'];
         $jsonPurch = json_encode($clientPurchases);
         $stmt = $mysqli->prepare("INSERT INTO client (gender, name, lastname, cpf, email, phone, bornDate, purchases) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssssss", $sender['gender'], $sender['nome'], $sender['sobrenome'], $cpf, $sender['email'], $sender['telefone'], $date, $jsonPurch);
         $stmt->execute();
         $clientId = $mysqli->insert_id;
-        if ($clientId == 0) {
-            die(json_encode(array('status' => 400)));
-        }
+        $stmt->close();
+    }
+
+    if ($clientId == 0) {
+        die(json_encode(array('status' => 500, 'message' => 'Erro ao inserir ou atualizar o cliente')));
     }
 
 
+
+    //? Caso Desejado insere cliente na lista de newsletter
+    if (isset($_POST['newsletter'])) {
+        $stmt = $mysqli->prepare("SELECT id FROM newsletter WHERE email = ?");
+        $stmt->bind_param("s", $sender['email']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $stmt->close();
+        } else {
+            $stmt->close();
+            $stmt = $mysqli->prepare("INSERT INTO newsletter (name, email) VALUES (?,?)");
+            $stmt->bind_param("ss", $sender['nome'], $sender['email']);
+            $stmt->execute();
+            $stmt->close();
+        }
+    }
 
 
     $data['senderName'] = str_replace(" ", "_", $sender['nome']) . " " . str_replace(" ", "_", $sender['sobrenome']);
@@ -113,6 +136,11 @@ if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
     $totalValue = 0;
     $totalWeight = 0;
 
+    //? Verifica a disponibilidade dos produtos no estoque
+    $newOptionsG = [];
+    $newTotalQuantityG = [];
+    $newIdG = [];
+
     foreach ($cart as $n => $p) {
         $id = preg_replace('/[|\,\;\\\:"]+/', '', $p["id"]);
         $qtd = preg_replace('/[|\,\;\\\:"]+/', '', $p["qtd"]);
@@ -126,87 +154,55 @@ if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
         $totalWeight += $item['weight'];
         $totalValue += $item['price'] * $qtd;
 
-        $newOptionsG = [];
-        $newTotalQuantityG = [];
-        $newIdG = [];
-
-
         $options = json_encode($item['options']);
         $options = json_decode($options, true);
 
         $options[$opt] = $options[$opt] - $qtd;
+        //! Verifica se há a quantidade solicitada
         ($options[$opt] < 0) ? die(json_encode(array('status' => 500, "message" => "Itens Indisponíveis"))) : $newOptions = json_encode($options);
 
-
         $totalQuantityOpt = 0;
+
         foreach ($options as $n => $op) {
             $totalQuantityOpt += $options[$n];
         }
-        $newOptionsG[$id] = $newOptions;
-        $newTotalQuantityG[$id] = $totalQuantityOpt;
+
+        $newOptionsG[] = $newOptions;
+        $newTotalQuantityG[] = $totalQuantityOpt;
         $newIdG[] = $id;
-    }
-    foreach ($newIdG as $n => $i) {
-        $stmtU = $mysqli->prepare("UPDATE products SET options = ?, totalQuantity = ? WHERE id = ?");
-        $stmtU->bind_param("sis", $newOptionsG[$i], $newTotalQuantityG[$i], $i);
-        $stmtU->execute();
-        if ($stmtU->affected_rows > 0) {
-            $stmtU->close();
-        } else {
-            $stmtU->close();
-            die(json_encode(array('status' => 500)));
-        }
     }
 
     // ** ** Cupom Desconto  ** **
-
     if (isset($_POST['cupom'])) {
-        $sql = "SELECT * FROM cupom WHERE ticker = ? AND quantity > 0";
+        $sql = "SELECT * FROM cupom WHERE ticker = ? AND quantity > 0"; // ? Verifica se o cupom existe
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("s", $_POST['cupom']);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) { //> Há o Cumpom Solicitado
             $cupom = $result->fetch_assoc();
             $stmt->close();
-
             $cupomDiscount = $cupom["type"] == "percent" ? ($totalValue *  $cupom["value"] / 100) : $cupom["value"];
             $cupomDiscount =  $cupomDiscount >= $totalValue - 1.5 ? $totalValue - 1.5 : $cupomDiscount;
             $cupomDiscount = "-" . number_format($cupomDiscount, 2, '.', '');
             //echo $cupomDiscount;
             $Rcupom["clientIds"] = json_decode($cupom["clientIds"]);
 
+            //- Verifica se o cupom é de uso unico e se o cliente já utilizou o cupom
             if ($cupom["firstPurchase"] == true && !in_array($clientId, $Rcupom["clientIds"])) {
-                $sql = "UPDATE cupom SET quantity = quantity - 1, clientIds = ? WHERE ticker = ?";
-                $stmt = $mysqli->prepare($sql);
-                $newCupomIds = json_encode(array_merge($Rcupom["clientIds"], [$clientId]));
-                $stmt->bind_param("ss", $newCupomIds, $cupom["ticker"]);
-                $stmt->execute();
-                $stmt->close();
                 $data['extraAmount'] = $cupomDiscount;
-            } else {
-                $stmt->close();
-                $sql = "UPDATE cupom SET quantity = quantity - 1, clientIds = ? WHERE ticker = ?";
-                $stmt = $mysqli->prepare($sql);
-                $newCupomIds = json_encode(array_merge($Rcupom["clientIds"], [$clientId]));
-                $stmt->bind_param("ss", $newCupomIds, $cupom["ticker"]);
-                $stmt->execute();
-                $stmt->close();
+            } else { //= Cupom não é de uso único
                 $data['extraAmount'] = $cupomDiscount;
             }
         }
     }
-
-
-    // ** ** Fim desconto  ** **
-
+    // ** ** Fim Cupom  ** **
 
 
 
-
+    //> Verifica o Tipo de Frete Solicitado
     $newShip = getfrete(str_replace(["‑", ".", "-", " "], "", $sender["cep"]), $totalWeight);
-
     if ($shipping["selected"] == "PAC") {
         $data['shippingType'] = 1;
         $sprice = str_replace(",", ".", $newShip["valorPac"][0]);
@@ -217,11 +213,12 @@ if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
         $data['shippingCost'] = $sprice;
     }
 
-    if (isset($shipping["freteGratis"])) {
+    //| Frete grátis
+    if (isset($newShip["freteGratis"])) {
         $data['shippingCost'] =  '0.00';
     }
 
-
+    //* Solicita Link de Checkout no PagSeguro *//
     $url = "https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?email=guga_carbo@hotmail.com&token=8BE1A0DF1DAD40D99949834093F21AB8";
     $ch = curl_init();
 
@@ -232,26 +229,61 @@ if (isset($_POST['buyer']) && isset($_POST['ship']) && isset($_POST['cart'])) {
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $retorno = curl_exec($ch);
     curl_close($ch);
-    //echo $retorno;  
 
     $xml = simplexml_load_string($retorno, "SimpleXMLElement", LIBXML_NOCDATA);
     $json = json_encode($xml,  JSON_UNESCAPED_UNICODE);
     $array = json_decode($json, TRUE);
-    if ($array["code"]) {
 
+    if ($array["code"]) { //* Código de Cehckout Bem sucedido
         $JsonCart = json_encode($cart);
 
+        //- Insere Pedido no Banco de Dados
         $stmt = $mysqli->prepare("INSERT INTO checkout_data (products, totalValue, clientId, buyer, reference) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $JsonCart, $totalValue, $clientId, $JsonSender, $data['reference']);
         $stmt->execute();
-        if ($stmt->affected_rows > 0) {
-            die(json_encode(array('status' => 202, 'url' => "https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=" . $array['code'])));
-        } else {
-            die(json_encode(array('status' => 400)));
+        $stmt->close();
+
+        // > Atualiza Quantidade dos Produtos
+        echo "\n";
+        print_r($newTotalQuantityG);
+        echo "\n";
+        print_r($newOptionsG);
+        echo "\n";
+        print_r($newIdG);
+        echo "\n";
+        foreach ($newIdG as $n => $i) {
+
+            $stmtU = $mysqli->prepare("UPDATE products SET options = ?, totalQuantity = ? WHERE id = ?");
+            $stmtU->bind_param("sis", $newOptionsG[$i], $newTotalQuantityG[$i], $i);
+            $stmtU->execute();
+            if ($stmtU->affected_rows > 0) {
+                $stmtU->close();
+            } else {
+                die(json_encode(array('status' => 500, "message" => "Erro ao Atualizar Produtos", "error" => $stmtU->error)));
+                $stmtU->close();
+            }
         }
+
+        // > Atualiza Quantidade do Cupom
+        if (isset($data['extraAmount']) && $data['extraAmount'] > 0) {
+            $sql = "UPDATE cupom SET quantity = quantity - 1, clientIds = ? WHERE ticker = ?";
+            $stmt = $mysqli->prepare($sql);
+            $newCupomIds = json_encode(array_merge($Rcupom["clientIds"], [$clientId]));
+            $stmt->bind_param("ss", $newCupomIds, $cupom["ticker"]);
+            $stmt->execute();
+            $stmt->close();
+            if ($stmt->affected_rows > 0) {
+                $stmt->close();
+            } else {
+                $stmt->close();
+                //die(json_encode(array('status' => 500)));
+            }
+        }
+
+        die(json_encode(array('status' => 202, 'url' => "https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=" . $array['code'])));
     } else {
         //die json
-        die(json_encode(array('status' => 400)));
+        die(json_encode(array('status' => 500)));
     }
 } else {
     die(json_encode(array('status' => 400)));

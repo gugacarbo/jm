@@ -186,7 +186,7 @@ function createPurchase(compra) {
         <span onclick="modalPurchase(${compra.id})">${compra.client.name + " " + compra.client.lastName}</span>
         <span>R$ ${compra.totalAmount.toFixed(2).replace(".", ",")}</span>
         <span>${status}</span>
-        <span><i class="fa-solid fa-truck" onclick="modalPurchase(${compra.id})" ${compra.trackingCode == "" ? parseInt(compra.status) > 4 || parseInt(compra.status) < 3 ?  "style='color:#aaa'" : "style='color:#e3b10a'" : "style='color:#6db67b'"}> </i></span>
+        <span><i class="fa-solid fa-truck" onclick="modalPurchase(${compra.id})" ${compra.trackingCode == "" ? parseInt(compra.status) > 4 || parseInt(compra.status) < 3 ?  "style='color:#aaa'" : "style='color:#ff7e00'" : "style='color:#6db67b'"}> </i></span>
         <span>${compra.code}</span>
         <span><i class="fas fa-ellipsis-h" onclick="modalPurchase(${compra.id})"></i></span>
 </div>`

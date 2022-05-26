@@ -14,6 +14,7 @@ var cupom = "GUGA20";
 $(document).ready(_ => {
     getData();
     callCart()
+    saveBuyerInfo();
 
     $("#VerifyCumpom").click(() => {
         if ($("#cupom").val() != "") {
@@ -84,15 +85,20 @@ $(document).ready(_ => {
         $('#totalPrice').html("R$" + totalPriceALL.toFixed(2).replace(".", ","));
         $("#checkoutButton").removeClass("off")
     });
+
+
     $("#checkoutButton").on("click", () => {
         $("#checkoutButton").addClass("off")
         $("#redirectM div").fadeOut(1);
+        TotalData.newsletter = $("#newsletter").prop("checked") ? 1 : 0;
         TotalData.buyer = buyerData;
         if (cupom != "") {
             TotalData.cupom = cupom;
         }
         TotalData.ship = shipData;
         TotalData.cart = JSON.parse(localStorage.getItem("JM_CART"));
+        $("#checkoutButton").addClass("loading")
+        
         $.ajax({
             url: "/api/post/checkout.php",
             type: "POST",
@@ -238,4 +244,11 @@ async function takeShipping(totalW) {
 }
 function removeAcento(str) {
     return semAcento = str.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+}
+
+
+function saveBuyerInfo() {
+    var buyerLocalData = JSON.stringify(buyerData);
+    localStorage.setItem("buyerLocalData", buyerLocalData);
+    console.log("saved")
 }

@@ -6,12 +6,49 @@ $("#addStateInput").mask("AA");
 
 $(document).ready(function () {
 
-    $("#freteGratisCheck").on("change", () => {
-        $(".selectFree").toggleClass("noFreteGratis", !$("#freteGratisCheck").prop("checked"));
-    })
-    $("#SaveCupom").on("click", () => {
+    $.get("/admin/api/get/getFreeShipConfig.php", (data) => {
+
+        var freteGratis = JSON.parse(data.data.freteGratis);
+        $("#freteGratisCheck").prop("checked", freteGratis.use == "true");
+        $(".selectFree").toggleClass("noFreteGratis", freteGratis.use == "false");
+
+        $.each(freteGratis.cidades, (i, v) => {
+            $("#freeCity").append(`<label><i class="fa-solid fa-trash-can" onclick="del(this, 'city')"></i><p>${v}</p></label>`);
+            cities.push(v);
+        })
+
+        $.each(freteGratis.estados, (i, v) => {
+            $("#freeState").append(`<label><i class="fa-solid fa-trash-can" onclick="del(this, 'state')"></i><p>${v}</p></label>`);
+            states.push(v);
+            if (freteGratis.estados.length == 27) {
+                $("#freeStateAll").prop("checked", "true")
+                $("#freeState").css("display", "none")
+            }
+        })
 
     })
+    $("#freeStateAll").change(function () {
+        if ($(this).prop("checked")) {
+            states = StatesList;
+            $.each(StatesList, (i, v) => {
+                $("#freeState").append(`<label><i class="fa-solid fa-trash-can" onclick="del(this, 'state')"></i><p>${v}</p></label>`);
+                $("#freeStateAll").prop("checked", "true")
+                $("#freeState").css("display", "none")
+                $("#TextTodosEstados").css("display", "flex")
+            })
+            $("#freeState").css("display", "none")
+        } else {
+            $("#TextTodosEstados").css("display", "none")
+            $("#freeState").css("display", "flex")
+        }
+    })
+
+
+    $("#freteGratisCheck").on("change", () => {
+        $(".selectFree").toggleClass("noFreteGratis", !$("#freteGratisCheck").prop("checked"));
+
+    })
+
 
     var timerShipSizes;
     $("input[type='number']").on("paste, focusout", function () {
@@ -33,25 +70,6 @@ $(document).ready(function () {
 
     takeCupons()
 
-    $.get("/admin/api/get/getFreeShipConfig.php", (data) => {
-
-        var freteGratis = JSON.parse(data.data.freteGratis);
-        $("#freteGratisCheck").prop("checked", freteGratis.use == "true");
-        $(".selectFree").toggleClass("noFreteGratis", freteGratis.use == "false");
-
-        $.each(freteGratis.cidades, (i, v) => {
-            $("#freeCity").append(`<label><p>${v}</p><i class="fa-solid fa-trash-can" onclick="del(this, 'city')"></i></label>`);
-            cities.push(v);
-        })
-        if (freteGratis.estados.length == 27) {
-            $("#freeStateAll").prop("checked", "true")
-        } else {
-            $.each(freteGratis.estados, (i, v) => {
-                $("#freeState").append(`<label><p>${v}</p><i class="fa-solid fa-trash-can" onclick="del(this, 'state')"></i></label>`);
-                states.push(v);
-            })
-        }
-    })
 
     $("#addCepInput").mask("99.999-999");
 
@@ -187,7 +205,7 @@ $(document).ready(function () {
                     $(".doneButton").removeClass("doneButton")
                     takeCupons();
                 }, 1500);
-                
+
             } else {
                 $(".doneButton").removeClass("doneButton")
                 $(".alertButton").removeClass("alertButton")
@@ -204,7 +222,7 @@ $(document).ready(function () {
     $("#closeModalCupom").on("click", () => {
         closeCupomModal()
 
-    
+
     })
 
     $("#newCupom").on("click", () => {
@@ -347,7 +365,7 @@ function deleteCupom(id, el) {
         });
     }, 3000);
 }
-function deleteCupomConfirmed(id){
+function deleteCupomConfirmed(id) {
     $.post("/admin/api/delete/deleteCupom.php", { id: id }, function (data) {
         if (data.status >= 200 && data.status < 300) {
             takeCupons()
@@ -362,7 +380,9 @@ function del(this_, cs) {
     } else {
         states.splice(states.indexOf(p), 1);
     }
-    $(this_).parent().remove();
+    $(this_).parent().fadeOut(300, function () {
+        $(this).remove();
+    });
 
 }
 

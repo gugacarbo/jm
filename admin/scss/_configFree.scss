@@ -13,7 +13,7 @@
 
         display: flex;
         width: 100%;
-        gap: 20px;
+        gap: 60px;
         justify-content: center;
         align-items: flex-start;
         position: relative;
@@ -21,12 +21,12 @@
             min-width: 450px;
             .boxTitle {
                 margin-bottom: 0;
-                
-                #newCupom{
+
+                #newCupom {
                     font-size: 14pt;
                     margin-left: 20px;
                     cursor: pointer;
-                    &:hover{
+                    &:hover {
                         color: #999;
                     }
                 }
@@ -79,7 +79,7 @@
                                 color: #9a9a9a;
                             }
                         }
-                        .delete{
+                        .delete {
                             position: relative;
                         }
                         .quantityBox {
@@ -154,13 +154,13 @@
                 display: none;
                 top: 0;
                 left: 0;
-                overflow: hidden;
+               
                 background-color: rgba($mainColor, 0.8);
                 backdrop-filter: blur(10px);
                 border-radius: 30px;
 
                 min-height: 280px;
-                #closeModalCupom{
+                #closeModalCupom {
                     position: absolute;
                     top: 15px;
                     right: 15px;
@@ -174,7 +174,7 @@
 
                     width: 100%;
                     //height: 100%;
-                  
+
                     top: 0;
                     display: flex;
                     left: 0;
@@ -256,241 +256,153 @@
                 }
             }
         }
+
         .freteGratis {
-            button {
-                width: 80%;
-                margin: 20px auto;
-            }
-            width: 30%;
-            * {
-                transition: color 0.5s border-color 0.5s;
-            }
+            max-width: 500px;
             div {
                 width: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 flex-direction: row;
-                margin-bottom: 20px;
-                span {
-                    font-size: 11pt;
-                    font-weight: bold;
-                    color: $mainColor;
-                }
-                .allfreelabel {
-                    margin-left: 100px;
-                }
-                h4 {
-                    font-weight: bold;
-                    color: $mainColor;
+                .freteGratisHeader {
+                    margin-right: 20px;
                     font-size: 14pt;
+                    color: $mainColor;
+                    margin-left: auto;
                 }
-
+                #SaveFreeShipConfig{
+                    width: 30%;
+                    margin-left: auto;
+                }
                 label {
                     display: flex;
-                    gap: 10px;
+                    justify-content: center;
                     align-items: center;
-
-                    input[type="checkbox"] {
-                        appearance: none;
-                        &:checked + h4 {
-                            background-color: #fff;
-                            border: 1px solid $mainColor;
-                        }
-                        &:checked + h4::after {
-                            transform: translateX(80%);
-                            background-color: $mainColor;
-                        }
-                    }
-                    h4 {
-                        width: 30px;
-                        height: 18px;
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        justify-content: center;
-                        position: relative;
-                        background-color: #ccc;
-                        border-radius: 20px;
-                        cursor: pointer;
-                        border: 1px solid #aaa;
-                        transition: 0.6s;
-                        &::after {
-                            transition: 0.6s;
-                            background-color: #999;
-                            content: "";
-                            position: absolute;
-                            border-radius: 20px;
-                            width: 14px;
-                            height: 14px;
-                            left: 2px;
-                            top: 1px;
-                            right: inherit;
-                        }
-                    }
+                    flex-direction: row;
                 }
             }
-
             .selectFree {
                 width: 100%;
                 display: flex;
                 flex-direction: row;
-                align-items: flex-start;
                 flex-wrap: wrap;
-                justify-content: space-around;
-                row-gap: 5px;
-                div {
-                    width: 40%;
-                    height: 100%;
 
+                .allStates {
+                    justify-content: flex-end;
+                    width: 100%;
+                    margin: 15px 0;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid rgba($mainColor, 0.5);
+                    .allfreelabel {
+                        font-size: 10pt;
+                        font-weight: bold;
+                        margin-right: 10px;
+                        color: #555;
+                    }
+                }
+                .freeList {
+                    width: 50%;
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
-                    justify-content: space-between;
-                    &:nth-child(1) {
-                        border-right: 1px solid $mainColor;
-                        padding-right: 20px;
-                    }
-                    h3 {
-                        margin-right: auto;
+                    align-items: flex-start;
+                    margin-bottom: auto;
 
-                        font-size: 13pt;
-                        color: $mainColor;
-                        margin-bottom: 10px;
+                    .listTitle {
                         display: flex;
-                        align-items: center;
-                        gap: 5px;
-                        i {
-                            font-size: 10pt;
-                        }
-                        label {
-                            gap: 0;
-                            span {
-                                color: #333;
-                                font-size: 10pt;
-                                margin-right: 5px;
-                            }
-
-                            input[type="checkbox"] {
-                                appearance: none;
-                                &:checked + h4 {
-                                    background-color: #fff;
-                                    border: 1px solid $mainColor;
-                                }
-                                &:checked + h4::after {
-                                    transform: translateX(90%);
-                                    background-color: $mainColor;
-                                }
-                            }
-                            h4 {
-                                width: 28px;
-                                height: 16px;
-                                display: flex;
-                                flex-direction: row;
-                                align-items: center;
-                                justify-content: center;
-                                position: relative;
-                                background-color: #ccc;
-                                border-radius: 20px;
-                                cursor: pointer;
-                                border: 1px solid #aaa;
-                                transition: 0.6s;
-                                &::after {
-                                    transition: 0.6s;
-                                    background-color: #999;
-                                    content: "";
-                                    position: absolute;
-                                    border-radius: 20px;
-                                    width: 12px;
-                                    height: 12px;
-                                    left: 1px;
-                                    top: 1px;
-                                    right: inherit;
-                                }
-                            }
-                        }
-                    }
-                    div {
-                        width: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
                         gap: 10px;
-                        label {
-                            width: 85%;
-                            display: flex;
-                            flex-direction: row;
-                            justify-content: space-between;
-                            text-align: center;
-                            p {
-                                width: 90%;
-                                font-size: 11pt;
-                            }
-                            i {
-                                cursor: pointer;
-                                font-size: 11pt;
-
-                                color: $mainColor;
-                                transition: 0.1s;
-
-                                &:hover {
-                                    color: #f00;
-                                }
-                                &:active {
-                                    filter: brightness(0.8);
-                                }
-                            }
+                        font-size: 12pt;
+                        color: $mainColor;
+                        padding-bottom: 10px;
+                        margin-bottom: auto;
+                    }
+                    i {
+                        font-size: 10pt;
+                        color: rgb(83, 80, 80);
+                        cursor: pointer;
+                        transition: 0.2s;
+                        margin: 0 10px;
+                        &:hover {
+                            color: rgb(209, 24, 24);
                         }
                     }
                 }
-                .addF {
-                    width: 80%;
-
+                .list {
+                    width: 100%;
+                    display: flex;
                     flex-direction: column;
-                    position: relative;
-                    align-items: center;
+                    align-items: flex-start;
+                    gap: 5px;
+                }
+                #TextTodosEstados {
+                    font-size: 10pt;
+                    font-weight: bold;
+                    color: $mainColor;
+                    text-align: center;
+                }
+                .addF {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 20px;
+                    padding: 30px 0;
+                    border-top: 1px solid rgba($mainColor, 0.5);
+                    gap: 20px;
+                    .addTitle{
+                        width: 100%;
+                        text-align: left;
+                        color: rgba($mainColor, 0.7);
+                        font-weight: bold;
+                    }
 
-                    gap: 10px;
-                    padding-top: 10px;
-                    border-top: 1px solid $mainColor;
-
-                    label {
-                        justify-content: flex-end;
-                        width: 90%;
-
-                        p {
-                            font-weight: 11pt;
+                    section {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        //justify-content: space-between;
+                        position: relative;
+                        .addFTitle {
+                            width: 35%;
+                            text-align: left;
                             color: $mainColor;
                         }
-
-                        &:last-child {
-                            border: none;
+                        input{
+                            width: 30%;
                         }
-                        input {
-                            width: 130px;
-                        }
-                        i {
-                            cursor: pointer;
-                            color: $mainColor;
+                        .fa-plus{
+                            margin-right: 20px;
+                            display: flex;
+                            align-items: center;
+                            padding-left: 20px;
                             font-size: 14pt;
-                            transition: 0.1s;
-                            &:hover {
-                                filter: brightness(1.4);
-                            }
-                            &:active {
-                                filter: brightness(0.9);
+                            cursor: pointer;
+                            transition: 0.3s;
+                            color: rgba($mainColor, 0.8);
+                            &:hover{
+                                color: $mainColor;
                             }
                         }
                     }
                 }
             }
-
             .noFreteGratis {
                 * {
                     transition: 0.5s;
                     color: #ccc !important;
                     border-color: #ccc !important;
                     pointer-events: none;
+                    input[type="text"]::placeholder {
+                        color: #ccc !important;
+                    }
+                    input[type="checkbox"] {
+                        appearance: none;
+                        &:checked + h3 {
+                            &::after {
+                                transform: translateX(0);
+                                background-color: #9a9a9a !important;
+                            }
+                        }
+                    }
                 }
             }
         }

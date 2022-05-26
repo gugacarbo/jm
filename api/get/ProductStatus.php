@@ -17,7 +17,6 @@ if (isset($_GET['cpf']) && isset($_GET['code']) && is_numeric($_GET['cpf']) && s
 
     if ($result_->num_rows > 0) {
         $purchase = $result_->fetch_assoc();
-        $purchase["status"] = 200;
         $purchase["rawPayload"] = json_decode($purchase["rawPayload"]);
         $clientId = $purchase['clientId'];
 

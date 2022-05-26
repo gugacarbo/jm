@@ -30,8 +30,12 @@ $(document).ready(function () {
         })
     }).then((value) => {
         setTimeout(() => {
+            preview()
+            preview()
+            preview()
+            preview()
             setInterval(preview, 2000);
-        }, 2000);
+        }, 300);
     })
 
 

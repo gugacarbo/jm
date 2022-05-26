@@ -253,11 +253,36 @@
                 cursor: initial;
                 background-color: #ddd;
                 color: #aaa;
+                position: relative;
+                &:after {
+                    content: "Você já solicitou as instruções de cancelamento ou o prazo de cancelamento já expirou";
+                    position: absolute;
+                    pointer-events: none;
+                    left: 80%;
+                    top: 90%;
+                    opacity: 0;
+                    box-sizing: border-box;
+                    padding: 5px 10px;
+                    width: fit-content;
+                    background-color: #fff;
+                    color: #333;
+                    border: 1px solid $mainColor;
+                    border-radius: 10px;
+                    z-index: 100;
+                    transition: opacity 0.5s;
+                }
                 &:hover {
-                    filter: brightness(1);
+                    &:after {
+                        opacity: 1;
+                    }
                 }
             }
         }
+    }
+    .termsLink{
+        text-decoration: none;
+        color: $mainColor;
+        justify-self: flex-start;
     }
 }
 #cancelBox {

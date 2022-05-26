@@ -109,7 +109,7 @@ if (empty($_POST['notificationCode'])) {
         }
 
         //> Pagamento Aprovado
-        //> ["status" = 7, "Value" : "Cancelada"], ["internalStatus" = 8, "Review Products Of Canceled Purchase"]
+        //> ["status" = 3, "Value" : "Pagamento Efetuado"], ["internalStatus" = 3, "Review Products Of Canceled Purchase"]
         //> Atualiza quantidade Vendida dos Produtos
         if (intval($Payload['status']) == 3 && intval($Purshcase_InternalStatus) < 3) {
             $successP = 0;

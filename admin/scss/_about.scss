@@ -1,7 +1,11 @@
-
 .aboutAdminContainer {
+    button {
+        width: 240px;
+        margin-right: auto;
+        margin-left: 10%;
+    }
     .content {
-        width: 90%;
+        width: 80%;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -9,6 +13,7 @@
         .jqte {
             width: 100%;
             height: 100%;
+            margin: 20px auto;
             .jqte_editor {
                 height: 100%;
                 resize: none;
@@ -16,109 +21,143 @@
                 border: 2px dashed #bbb;
             }
         }
-        .addImage {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            width: 38%;
-            aspect-ratio: 1.5/1;
-            margin: auto;
-            #DeleteAboutImage {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                font-size: 14pt;
-                color: $mainColor;
-                cursor: pointer;
-                z-index: 20;
-                &:hover {
-                    color: #f00;
-                }
-            }
-            img {
-                width: 100%;
-                height: 100%;
-                position: relative;
-                pointer-events: none;
-            }
-            input[type="file"] {
-                position: absolute;
-                background-color: #fff;
-                background-image: url("img/plus.png");
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: 50%;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                font-size: 0pt;
-                //opacity: 0;
-                color: transparent;
-                cursor: pointer;
-                &::-webkit-file-upload-button {
-                    display: none;
-                }
-            }
-            i {
-                position: absolute;
-                right: 4px;
-                bottom: 2px;
-                color: rgb(126, 44, 44);
-                font-size: 10pt;
-                cursor: pointer;
-                &:hover {
-                    color: rgb(119, 119, 119);
-                }
-            }
-            &::after {
-                position: absolute;
-                font-family: "FontAwesome";
-                content: '\f110';
-                content: '';
-                
 
+        section {
+            width: 100%;
+            display: flex;
+            div {
+                width: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 20px;
-     
-                background-color: rgba(255,255,255,0.5);
-            }
-        }
+                gap: 30px;
+                transition: 1.5s;
+                span {
+                    font-size: 14pt;
+                    font-weight: bold;
+                    color: $mainColor;
+                    margin-left: 20px;
+                }
+                label {
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
 
+                }
+                small {
+                    font-size: 10pt;
+                    color: #333;
+                }
+                input[type="text"] {
+                    flex: 1;
+                    border: 1px solid $mainColor;
+                    border-radius: 2px;
+                    padding: 3px 10px;
+                    font-size: 10pt;
+                    color: #333;
+                    max-width: 10%;
+                    transition: 1s;
+                    outline: none;
+                    &:focus {
+                        transition: 1.6s;
+                        max-width: 100%;
+                    }
+                }
+                .deleteLink {
+                    font-size: 12pt;
+                    color: $mainColor;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    &:hover {
+                        color: #f00;
+                    }
+                }
+            }
+            .aboutSelectHeader {
+                justify-content: flex-start;
+                margin: 25px 0;
+                label{
+                    input[type="checkbox"] {
+                        &:not(:checked) + h3 + *,
+                        &:not(:checked) + h3 + * + *,
+                        &:not(:checked) + h3 + * + * + * {
+                            filter: grayscale(100%);
+                            pointer-events: none;
+                            color: #aaa;
+                        }
+                    }
+                }
+            }
 
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
+            .aboutImgBox {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+                min-height: 300px;
+                border: 2px solid #bbb;
+                
+                #DeleteAboutImage {
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                    padding: 10px;
+                    font-size: 14pt;
+                    color: $mainColor;
+                    cursor: pointer;
+                    z-index: 20;
+                    &:hover {
+                        color: #f00;
+                    }
+                }
+                img {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    pointer-events: none;
+                }
+                input[type="file"] {
+                    position: absolute;
+                    background-color: #fff;
+                    background-image: url("img/plus.png");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: 25%;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    font-size: 0pt;
+                    //opacity: 0;
+                    color: transparent;
+                    cursor: pointer;
+                    &::-webkit-file-upload-button {
+                        display: none;
+                    }
+                }
+                i {
+                    position: absolute;
+                    right: 4px;
+                    bottom: 2px;
+                    color: rgb(126, 44, 44);
+                    font-size: 10pt;
+                    cursor: pointer;
+                    &:hover {
+                        color: rgb(119, 119, 119);
+                    }
+                }
             }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        label {
-            width: 48%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            padding: 10px 0;
-            span {
-                font-size: 14pt;
-                color: $mainColor;
-            }
-            input {
-                width: 80%;
-                font-size: 11pt;
-                padding: 3px 0;
-                border-radius: 20px;
-                border: 1px solid $mainColor;
-                text-align: center;
-            }
-            button {
-                width: 50%;
+            .aboutMap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                min-height: 400px;
+                iframe {
+                    width: 100%;
+                    height: 100%;
+                }
             }
         }
     }

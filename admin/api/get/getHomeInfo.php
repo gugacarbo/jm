@@ -8,7 +8,7 @@ $stmt->execute();
 $stmt->bind_result($totalAprovadas);
 $stmt->fetch();
 $stmt->close();
-$stmt = $mysqli->prepare("SELECT COUNT(*) FROM vendas WHERE status = 6 || status = 5");
+$stmt = $mysqli->prepare("SELECT COUNT(*) FROM vendas WHERE status = 6 || status = 5 || status = 8");
 $stmt->execute();
 $stmt->bind_result($totalCanceladas);
 $stmt->fetch();

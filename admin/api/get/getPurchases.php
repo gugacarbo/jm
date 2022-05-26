@@ -43,16 +43,16 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
                 break;
             case '3':
                 if ($labels != "") {
-                    $sql .= " AND a.status = 3 ";
+                    $sql .= " AND (a.status = 3 OR a.status = 4) ";
                 } else {
-                    $sql .= " WHERE status = 3 ";
+                    $sql .= " WHERE status = 3 OR status = 4";
                 }
                 break;
             case '4':
                 if ($labels != "") {
-                    $sql .= " AND a.status = 4 ";
+                    $sql .= " AND (a.status = 3 OR a.status = 4) ";
                 } else {
-                    $sql .= " WHERE status = 4 ";
+                    $sql .= " WHERE status = 3 OR status = 4";
                 }
                 break;
             case '7':

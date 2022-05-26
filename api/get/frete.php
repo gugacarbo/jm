@@ -6,32 +6,29 @@ header('Content-Type: application/json; charset=utf-8');
 if (isset($_GET['sCepDestino']) && isset($_GET['nVlPeso'])) {
 
     $nVlPeso = ($_GET['nVlPeso']);
-    $sCepDestino =  $_GET['sCepDestino'];
-    $nVlPeso = $_GET['nVlPeso'];
-
-
-
+    $sCepDestino = $_GET['sCepDestino'];
+    $nVlPeso = floatval($_GET['nVlPeso']);
     $frete = getFrete($sCepDestino, $nVlPeso);
     die(json_encode($frete));
-} else {
-    //echo json_encode(array("status" => "400", "message" => "Bad Request"));
 }
 
 
+// * Busca Frete Por Cep e Peso * //
 function getfrete($CepDestino, $nVlPeso)
 {
     $replace = array("‑", ".", " ", "," . "-", "-", "-");
 
     $sCepDestino =  str_replace($replace, "", $CepDestino);
     $nVlPeso = floatval($nVlPeso);
-    //only 3 decimal places
     $nVlPeso = round($nVlPeso, 3);
+
+    //- Solicita Configurações de Frete -//
+
     include "../config/db_connect.php";
     $GconfigTake = ["cepOrigemFrete", "aditionalWeight", "alturaFrete", "larguraFrete", "comprimentoFrete", "freteGratis"];
     $config = array();
 
     foreach ($GconfigTake as $key => $value) {
-
         $sql = "SELECT value FROM generalConfig WHERE config = ?";
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("s", $value);
@@ -44,7 +41,8 @@ function getfrete($CepDestino, $nVlPeso)
     $config['cepOrigemFrete'] = str_replace($replace, "", $config['cepOrigemFrete']);
     
 
-    $frete = array();
+    $frete = array(); // ? Array de Retorno
+
     $local = getCidade($sCepDestino);
 
     $freteGratis = json_decode($config['freteGratis'], TRUE);
@@ -66,7 +64,7 @@ function getfrete($CepDestino, $nVlPeso)
     $query = array(
         'nCdEmpresa' => '',
         'sDsSenha' => '',
-        'nCdServico' => '04510', // * 04510 pac
+        'nCdServico' => '04510', // > 04510 pac
         'sCepOrigem' => $config["cepOrigemFrete"],
         'sCepDestino' => str_replace($replace, "", $sCepDestino),
         'nVlPeso' => $nVlPeso + $config["aditionalWeight"],
@@ -92,7 +90,9 @@ function getfrete($CepDestino, $nVlPeso)
     $frete["erro"] =  $xml->cServico->Erro;
 
 
-    $query['nCdServico'] = '04014'; // * 04014 sedex
+    
+    // | 04014 sedex
+    $query['nCdServico'] = '04014'; 
     $url2 = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?" .  http_build_query($query);
 
     $xml2 = simplexml_load_file($url2);
@@ -105,11 +105,10 @@ function getfrete($CepDestino, $nVlPeso)
 
 function getCidade($cep)
 {
-    $cep = str_replace(["-", ".", " "], "", $cep);
+    $cep = $cep;
     $url = "https://viacep.com.br/ws/$cep/xml/";
     $xml = simplexml_load_file($url);
     $cidade = $xml;
-
     return $cidade;
 }
 
