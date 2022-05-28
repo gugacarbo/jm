@@ -88,7 +88,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
 
             <a onclick="changePage('unfinalizedPurchases')">
                 <label>Pedidos Incompletos</label>
-                <i class="fa-solid fa-arrow-rotate-left"></i>
+                <i class="fa-solid fa-dolly"></i>
             </a>
 
             <a onclick="changePage('config')">

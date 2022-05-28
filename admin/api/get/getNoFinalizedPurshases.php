@@ -2,13 +2,13 @@
 header('Content-Type: application/json; charset=utf-8');
 
 if(isset($_GET['get'])){
-    die((getPurchases()));
+    die((getNoFinalizedPurchases()));
 }
 
-function getPurchases()
+function getNoFinalizedPurchases()
 {
     include "../config/db_connect.php";
-    $sql = "SELECT * from checkout_data WHERE payload = '{}'";
+    $sql = "SELECT * FROM checkout_data WHERE payload = '{}' AND NOW() >= DATE_ADD(buy_date, INTERVAL 1 DAY)";
     $stmt = $mysqli->prepare($sql);
     $stmt->execute();
     $result = $stmt->get_result();

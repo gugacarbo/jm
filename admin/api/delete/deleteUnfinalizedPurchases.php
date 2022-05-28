@@ -4,7 +4,7 @@ header('Content-Type: application/json; charset=utf-8');
 include "../config/db_connect.php";
 include "../get/getNoFinalizedPurshases.php";
 
-$list = json_decode(getPurchases());
+$list = json_decode(getNoFinalizedPurchases());
 
 // > Todas as Vendas Não Finalizadas
 foreach ($list as $value) {

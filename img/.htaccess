@@ -1,0 +1,6 @@
+SetEnvIf Referer localhost localreferer
+<FilesMatch \.(jpg|jpeg|png|gif)$>
+#Order deny,allow
+#Deny from all
+#Allow from env=localreferer
+</FilesMatch>

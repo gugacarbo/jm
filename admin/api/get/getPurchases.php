@@ -55,6 +55,13 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
                     $sql .= " WHERE status = 3 OR status = 4";
                 }
                 break;
+            case '5':
+                if ($labels != "") {
+                    $sql .= " AND a.status = 5 ";
+                } else {
+                    $sql .= " WHERE status = 5";
+                }
+                break;
             case '7':
                 if ($labels != "") {
                     $sql .= " AND a.status = 7 ";

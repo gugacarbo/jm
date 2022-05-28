@@ -1,3 +1,13 @@
+$.urlParam = function (name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results == null) {
+        return null;
+    } else {
+        return results[1] || 0;
+    }
+}
+
+
 var minVal = 0;
 var MaxVal = 20000;
 var sTimer
@@ -7,14 +17,19 @@ $(document).ready(() => {
 
     setBanner("#ProdsSlider", "PRODUCTS_BANNER");
     getCategory()
+    
     search();
+
+
+
+
 
     $("#Search i").on('click', () => {
         search();
     })
 
     $("#toggleFilter").on("click", () => {
-        $(".filterBox").toggleClass("off");
+        $(".filterBox").toggleClass("toggleFilterOff");
     })
     //SearchMaxRange on change
     $("#SearchMaxRange").on("change", () => {
@@ -102,7 +117,7 @@ async function search(n = 1) {
         searching = 1;
 
         $("#ShowProducts").empty();
-        
+
 
         var category = $("#SearchCategory").val();
         var order = $("#SearchOrderBy").val();
@@ -121,11 +136,11 @@ async function search(n = 1) {
         sw = await $.get("/api/get/getFiltered.php", searchQuery).then((data) => {
             SearchProdList = data;
             searching = 0;
-            
+
         })
-        
+
         callProds();
-    }else{
+    } else {
         console.log("con")
         callProds();
     }
@@ -135,7 +150,7 @@ async function search(n = 1) {
  * *Produtos
  */
 var page = 0;
-var numProd = 4;
+var numProd = 15;
 var maxPages = 0;
 var prodCount = 0;
 
@@ -195,6 +210,8 @@ function getCategory() {
         $.each(categories, function (i, cat) {
             $("#SearchCategory").append("<option value='" + cat["id"] + "'>" + cat["name"] + "</option>");
         })
+    }).then(() => {
+        $("#SearchCategory").val($.urlParam("cat"));
     })
 }
 
@@ -271,6 +288,6 @@ function pageDown() {
         page++;
         search(0);
     } else {
-       //console.log("Produtos em busca")
+        //console.log("Produtos em busca")
     }
 }

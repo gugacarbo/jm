@@ -104,6 +104,12 @@ function getData(cpf, code) {
             $("#requestCancel").prop("disabled", 'disabled')
             $("#requestCancel").prop("id", '')
         }
+
+        if(diffDays < 2){
+            $("#requestCancel").css("display", "none")
+            $("#requestCancel").prop("id", '')
+        }
+        
         if(data.status < 3){
             $("#requestCancel").css("display", "none")
             $("#requestCancel").prop("id", '')
@@ -118,7 +124,7 @@ function getData(cpf, code) {
         $("#BuyDate").html("Data da Compra " + d2 + "/" + m2 + "/" + y2);
 
         $("#BuyerBornDate b").html(d + "/" + m + "/" + y);
-        $("#BuyerName b").html(+ data.name);
+        $("#BuyerName b").html(data.name);
         $("#BuyerCPF b").html(data.cpf);
         $("#BuyerEmail b").html(pagData.sender.email);
         $("#BuyerPhone b").html("(" + pagData.sender.phone.areaCode + ")" + pagData.sender.phone.number);

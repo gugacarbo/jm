@@ -7,48 +7,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compra Realizada! - JM Acessórios de Luxo</title>
     <link rel="icon" href="/img/Jm_Logo_Branco.png">
-    <link rel="stylesheet" href="retorno.css">
+    <link rel="stylesheet" href="/css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="buyCode">
-        <h1>Compra Concluída com Sucesso!</h1>
-        <span class="code"><?php echo ($_GET["code"]); ?></span>
-        <p>Use esse código Para rastrear sua compra</p>
-    </div>
-    <div class="nps">
-        <h1>Avalie Sua Compra!</h1>
-        <div class="type">
-            <span>Sua nota para nosso Serviço</span>
-            <div class="stars">
-                <input type="radio" name="nps1" id="nStar1" value="5">
-                <label for="nStar1">
-                    <i class="fa-solid fa-star"></i>
-                </label>
-                <input type="radio" name="nps1" id="nStar2" value="4">
-                <label for="nStar2">
-                    <i class="fa-solid fa-star"></i>
-                </label>
-                <input type="radio" name="nps1" id="nStar3" value="3">
-                <label for="nStar3">
-                    <i class="fa-solid fa-star"></i>
-                </label>
-                <input type="radio" name="nps1" id="nStar4" value="2">
-                <label for="nStar4">
-                    <i class="fa-solid fa-star"></i>
-                </label>
-                <input type="radio" name="nps1" id="nStar5" value="1">
-                <label for="nStar5">
-                    <i class="fa-solid fa-star"></i>
-                </label>
+    <div class="returnPage">
+        <div class="returnContent">
+            <h1>Compra Concluída com Sucesso!</h1>
+            <p>Use esse código para rastrear sua compra</p>
+            <span class="code"><?php echo ($_GET["code"]); ?></span>
+            <i style="color: '#bbb'; font-size: 10pt;">Ele será enviado para seu e-mail</i>
+            <div class="nps">
+                <h2>Avalie Sua Compra!</h2>
+                <div class="stars">
+                    <input type="radio" name="nps1" id="nStar1" value="5">
+                    <label for="nStar1">
+                        <i class="fa-solid fa-star"></i>
+                    </label>
+                    <input type="radio" name="nps1" id="nStar2" value="4">
+                    <label for="nStar2">
+                        <i class="fa-solid fa-star"></i>
+                    </label>
+                    <input type="radio" name="nps1" id="nStar3" value="3">
+                    <label for="nStar3">
+                        <i class="fa-solid fa-star"></i>
+                    </label>
+                    <input type="radio" name="nps1" id="nStar4" value="2">
+                    <label for="nStar4">
+                        <i class="fa-solid fa-star"></i>
+                    </label>
+                    <input type="radio" name="nps1" id="nStar5" value="1">
+                    <label for="nStar5">
+                        <i class="fa-solid fa-star"></i>
+                    </label>
+                </div>
+                <span id="rateMsg">&nbsp</span>
             </div>
-            <span id="rateMsg">&nbsp</span>
+            <span>Deixe uma Mensagem <i style="color: '#ddd'; font-size: 10pt;">opcional</i></span>
+            <textarea></textarea>
+            <button id="send">Enviar e Voltar a Loja</button>
+
         </div>
-        <span>Deixe uma Mensagem <i style="color: '#aaa';">opicional</i></span>
-        <textarea></textarea>
-        <button id="send">Enviar e Voltar a Loja</button>
     </div>
     <script>
         $("input").on("change", () => {
@@ -72,17 +73,16 @@
             }
         })
         $("#send").on("click", () => {
-            $("#send").css("pointer-events", "none");
+            //$("#send").css("pointer-events", "none");
             var rate = $("input[name='nps1']:checked").val();
             var message = $("textarea").val();
             var code = "<?php echo ($_GET["code"]); ?>";
-            $.get("sendRating.php", {
+            $.post("/api/post/sendRating.php", {
                 "rate": rate,
                 "message": message,
                 "code": code
             }, (data) => {
-                console.log(data);
-                window.location.href = "/";
+               window.location.href = "/";
             })
         })
     </script>

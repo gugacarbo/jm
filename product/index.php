@@ -1,10 +1,15 @@
+<?php
+include "../verifyVisitor.php";
+$Visitor = new Visitante();
+$Visitor->VerificaUsuario();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Jm Acessórios de Luxo</title>
     <link rel="icon" href="/img/Jm_Logo_Branco.png">
     <link rel="stylesheet" href="../css/main.css">
@@ -13,8 +18,9 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.min.js" integrity="sha512-hAJgR+pK6+s492clbGlnrRnt2J1CJK6kZ82FZy08tm6XG2Xl/ex9oVZLE6Krz+W+Iv4Gsr8U2mGMdh0ckRH61Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+
 </head>
+
 <body>
     <header>
     </header>
@@ -38,8 +44,7 @@
                 </span>
             </div>
             <div class="payments">
-                <img
-                    src="/img/pag_seguro.png">
+                <img src="/img/pag_seguro.png">
             </div>
             <div class="buyBox">
                 <button class="cartBtn">Adicionar ao carrinho</button>

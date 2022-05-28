@@ -23,65 +23,6 @@
         gap: 10px;
         flex-direction: row-reverse;
 
-        &:nth-child(1) {
-            .infoHeader {
-                color: rgb(33, 209, 33);
-                .infoHeaderIcon {
-                    border-color: rgb(33, 209, 33);
-                    i {
-                        font-size: 24pt;
-                    }
-                }
-            }
-        }
-        &:nth-child(2) {
-            .infoHeader {
-                color: rgb(230, 29, 29);
-                .infoHeaderIcon {
-                    border-color: rgb(230, 29, 29);
-
-                    i {
-                        font-size: 23pt;
-                    }
-                }
-            }
-        }
-
-        &:nth-child(3) {
-            .infoHeader {
-                color: #ff7e00;
-                .infoHeaderIcon {
-                    border-color: #ff7e00;
-                    i {
-                        font-size: 17pt;
-                    }
-                }
-            }
-        }
-
-        &:nth-child(4) {
-            .infoHeader {
-                color: #5300da;
-                .infoHeaderIcon {
-                    border-color: #5300da;
-                    i {
-                        font-size: 16pt;
-                    }
-                }
-            }
-        }
-
-        &:nth-child(5) {
-            .infoHeader {
-                color: #01ff9e;
-                .infoHeaderIcon {
-                    border-color: #01ff9e;
-                    i {
-                        font-size: 18pt;
-                    }
-                }
-            }
-        }
         .infoHeader {
             width: 100%;
             display: flex;
@@ -137,6 +78,100 @@
                 padding: 3px 0;
                 margin: auto;
                 font-size: 10pt;
+            }
+        }
+    }
+
+    .infoAprovados{
+        .infoHeader {
+            color: rgb(33, 209, 33);
+            .infoHeaderIcon {
+                border-color: rgb(33, 209, 33);
+                i {
+                    font-size: 24pt;
+                }
+            }
+        }
+    }
+    .infoCancelados{
+        .infoHeader {
+            color: rgb(230, 29, 29);
+            .infoHeaderIcon {
+                border-color: rgb(230, 29, 29);
+
+                i {
+                    font-size: 23pt;
+                }
+            }
+        }
+    }
+
+    .infoEnvio{
+        .infoHeader {
+            color: #ff7e00;
+            .infoHeaderIcon {
+                border-color: #ff7e00;
+                i {
+                    font-size: 17pt;
+                }
+            }
+        }
+    }
+
+    .infoVisitantes {
+        .infoHeader {
+            color: #00cbda;
+            .infoHeaderIcon {
+                border-color: #00cbda;
+                i {
+                    font-size: 16pt;
+                }
+            }
+        }
+    }
+    .infoNaoFinalizadas {
+        .infoHeader {
+            color: #5300da;
+            .infoHeaderIcon {
+                border-color: #5300da;
+                i {
+                    font-size: 16pt;
+                }
+            }
+        }
+    }
+
+    .infoAguardando {
+        .infoHeader {
+            color: #01ff9e;
+            .infoHeaderIcon {
+                border-color: #01ff9e;
+                i {
+                    font-size: 18pt;
+                }
+            }
+        }
+    }
+
+    .infoNps {
+        .infoHeader {
+            color: #dbcd00;
+            .infoHeaderIcon {
+                border-color: #fbff25;
+                i {
+                    font-size: 18pt;
+                }
+            }
+        }
+    }
+    .infoCanceling {
+        .infoHeader {
+            color: #db0054;
+            .infoHeaderIcon {
+                border-color: #db0054;
+                i {
+                    font-size: 18pt;
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
 .productModel {
-    height: 270px;
-    width: 200px;
+    height: 300px;
+    width: 220px;
     border: 1px solid $mainColor;
     display: flex;
     flex-direction: column;
@@ -17,17 +17,17 @@
         justify-content: center;
         align-items: center;
         position: relative;
-        margin: auto;
+        margin-bottom: auto;
         img {
-            width: 95%;
-            height: 95%;
+            width: 100%;
+            height: 100%;
         }
 
         
         .productModelSecImg {
             position: absolute;
             z-index: 4;
-            width: 95%;
+            width: 100%;
             aspect-ratio: 1/1;
             overflow: hidden;
             background-color: transparent;
@@ -62,8 +62,9 @@
         font-size: 14pt;
         font-weight: bold;
         text-align: center;
+        margin: auto;
+        text-align: center;
         overflow: hidden;
-        max-height: 45px;
     }
     .productModelPrice {
         color: $mainColor;
@@ -109,4 +110,6 @@
         color: #ccc;
         pointer-events: none;
     }
+}
+@media (max-width: 400px) {
 }

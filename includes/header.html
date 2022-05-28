@@ -51,12 +51,13 @@
         <div class="menu">
             <span class="menuItem"><a href="/">Home</a></span>
             <span class="menuItem"><a href="/products">Produtos</a></span>
-            <span class="menuItem"><a href="/login">Buscar Por Pedido</a></span>
             <span class="menuItem"><a href="/cart">Carrinho de Compras</a></span>
+            <span class="menuItem"><a href="/login">Buscar por Pedido</a></span>
             <span class="menuItem"><a href="/#contactDiv">Contato</a></span>
             <span class="menuItem"><a href="/about">Sobre</a></span>
         </div>
     </div>
+    
     <div id="addCartMessage">
         <div>
             <i class="fa-solid fa-cart-plus"></i>
@@ -66,6 +67,7 @@
         </div>
     </div>
 <script>
+
     $(".menuToggle").on("click", ()=>{
        $(".mobileMenu").toggleClass("menuOpen");
        $(".menuToggle").toggleClass("toggleOn");

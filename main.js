@@ -76,7 +76,7 @@ async function getGliders() {
       var category = "<div class='categoryCarousel'>" +
         "<div class='carouselTitle'>" + prods["name"] + "</div>" +
         "<div class='showCarousel' id='Carousel" + prods["name"].replace(" ", "") + "'>" +
-        "<a class='carouselItem moreItens' href='/products/?cat=" + prods["category"] + "'>" +
+        "<a class='productModel moreItens' href='/products/?cat=" + prods["category"] + "'>" +
         "<span>Exibir Mais Produtos</span>" +
         "</a>" +
         "</div>"
@@ -141,35 +141,42 @@ async function callGliders(i) {
       {
         breakpoint: 000,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1.6,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 280,
         settings: {
-          slidesToShow: 1.5,
+          slidesToShow: 2.5,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 2.5,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2.5,
+          slidesToShow: 3.5,
           slidesToScroll: 2,
         },
       },
       {
         breakpoint: 700,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 4,
           slidesToScroll: 2,
         },
       },
       {
         breakpoint: 800,
         settings: {
-          slidesToShow: 3.5,
+          slidesToShow: 4.5,
           slidesToScroll: 3,
         },
       },
@@ -214,7 +221,7 @@ function callBanner() {
     slidesToScroll: 1,
     draggable: false,
     dragVelocity: 2,
-    dots: '.dotsBanner',
+    //dots: '.dotsBanner',
     duration: 3,
     rewind: true,
     arrows: {

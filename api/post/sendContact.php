@@ -1,11 +1,44 @@
 <?php
-//send contact form data to database
-//connect to database
 header('Content-Type: application/json; charset=utf-8');
-session_start();
+header('Access-Control-Allow-Methods: POST');
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+include '../config/db_connect.php';
+
+class Contact extends dbConnect
+{
+    private $name_, $message_, $phone_;
+
+    public function __construct($name, $message, $phone)
+    {
+        $this->name_  = preg_replace('/[|\,\;\@\:"]+/', '', $name);
+        $this->message_  = preg_replace('/[|\,\;\\\:"]+/', '', $message);
+        $this->phone_  = preg_replace('/[|\,\;\\\:"]+/', '', $phone);
+    }
+    
+    public function send()
+    {
+        $mysqli = $this->Conectar();
+
+        $name = mysqli_real_escape_string($mysqli, $this->name_);
+        $message = mysqli_real_escape_string($mysqli, $this->message_);
+        $phone = mysqli_real_escape_string($mysqli, $this->phone_);
+
+        //inserting data to database
+        $mysqli->query("INSERT INTO contact (name, phone, message) VALUES ('$name', '$phone', '$message')");
+        //close connection
+        $mysqli->close();
+        return(json_encode(array('status' => 201)));
+    }
+}
+
+
 if (isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['message'])) {
 
-    if (isset($_SESSION['contactTry']) && $_SESSION['contactTry'] > 5) {
+    if (isset($_SESSION['contactTry']) && $_SESSION['contactTry'] > 2) {
         $lastTry = date($_SESSION['contactLastTry']);
         $interval = strtotime(date('Y-m-d H:i:s')) - strtotime($lastTry);
         if ($interval > 60) {
@@ -19,29 +52,11 @@ if (isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['message']))
         $_SESSION['contactTry'] = isset($_SESSION['contactTry']) ? $_SESSION['contactTry'] + 1 : 1;
         $_SESSION['contactLastTry'] = date("Y-m-d H:i:s");
 
-
-        //verfiying if is get name, phone and message
-
-        $name = preg_replace('/[|\,\;\@\:"]+/', '', $_POST['name']);
-        $phone = preg_replace('/[|\,\;\@\:"]+/', '', $_POST['phone']);
-        $message = $_POST['message'];
-
-        include '../config/db_connect.php';
-
-        //inserting data to database
-        $mysqli->query("INSERT INTO contact (name, phone, message) VALUES ('$name', '$phone', '$message')");
-        //close connection
-        $mysqli->close();
-        die(json_encode(array('status' => 201)));
+        $contact = new Contact($_POST['name'], $_POST['message'], $_POST['phone']);
+        die($contact->send());
     }
 } else {
     die(json_encode(array('status' => 400)));
 }
-function errHandle($errNo, $errStr, $errFile, $errLine)
-{
-    if ($errNo == E_NOTICE || $errNo == E_WARNING) {
-        die(json_encode(array('status' => 403)));
-    }
-}
 
-set_error_handler('errHandle');
+

@@ -113,12 +113,11 @@ $(document).ready(_ => {
                     $("#redirectM").css("display", "flex");
                     $("#redirectM div").fadeIn(1000);
                     setTimeout(() => {
-                        //xdeleteList();
-                        //xwindow.location.href = data["url"];
+                        //!deleteList();
+                        //!window.location.href = data["url"];
                     }, 1500);
                 } else {
                     $("body").toggleClass("blockBody");
-                    $("#redirectM div .fa-circle-xmark").css("background-color", "#f00");
                     $("#redirectM div .fa-circle-check").css("display", "none");
                     $("#redirectM div h1").html("Ocorreu um erro!");
                     $("#redirectM div p").html("Tente novamente mais tarde!");
@@ -126,8 +125,8 @@ $(document).ready(_ => {
                     $("#redirectM").css("display", "flex");
                     $("#redirectM div").fadeIn(1000);
                     setTimeout(() => {
-                        //xwindow.location.href = "/";
-                    }, 2500);
+                        //!window.location.href = "/";
+                    }, 3500);
                 }
             }
         });
@@ -232,8 +231,8 @@ async function takeShipping(totalW) {
                 $("#sedexBox").remove()
                 $("#discountDiv").css("display", "flex")
             } else {
-                $("#prazoPac").html("PAC: " + data['prazoPac'][0] + " Dias")
-                $("#prazoSedex").html("Sedex: " + data['prazoSedex'][0] + " Dias")
+                $("#prazoPac").html( data['prazoPac'][0] + " Dias")
+                $("#prazoSedex").html( data['prazoSedex'][0] + " Dias")
                 $("#valorPac").html("R$ " + (data['valorPac'][0]))
                 $("#valorSedex").html("R$ " + (data['valorSedex'][0]))
             }

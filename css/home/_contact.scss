@@ -110,3 +110,17 @@
         }
     }
 }
+
+@media (max-width: 460px) {
+    .contact {
+        form {
+            width: 95%;
+            small{
+                font-size: 10pt;
+            }
+        }
+        .contactImage {
+            display: none;
+        }
+    }
+}

@@ -20,12 +20,22 @@ var HomeChart = new Chart(
         },
     }
 );
-
+function getHomeInfo(){
+    $.get("/admin/api/get/getHomeInfo.php", function (data) {
+        if(data.status >= 200 && data.status < 300){
+            $("#HomeInfoAprovadas").text(data.Aprovadas)
+            $("#HomeInfoCanceladas").text(data.Canceladas)
+            $("#HomeInfoAguardandoEnvio").text(data.AguardandoEnvio)
+            $("#HomeInfoNaoFinalizados").text(data.NaoPagos)
+            $("#HomeInfoAguardandoPagamento").text(data.AguardandoPagamento)
+            $("#HomeInfoNps").text((data.Nps).toFixed(2))
+            $("#HomeInfoCanceling").text((data.canceling))
+            $("#HomeInfoVisitas").text((data.visitas))
+        }
+    })
+}
 
 $(document).ready(function () {
-
-
-
     getHomeChart("month")
     getHomeInfo()
 })

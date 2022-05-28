@@ -95,7 +95,7 @@
                 align-items: center;
                 select {
                     font-size: 12pt;
-                    width: 40%;
+                    width: 60px;
                     text-align: center;
                     padding: 5px;
                     border: none;
@@ -107,20 +107,21 @@
                 }
                 font-weight: bold;
                 color: #333;
-                span{
+                span {
+                    text-align: right;
                     width: 30%;
                 }
                 .delProd {
                     cursor: pointer;
                     text-decoration: none;
                     color: rgb(189, 33, 33);
-
+                    text-align: left;
                     &:hover {
                         color: rgb(98, 4, 161);
                     }
                 }
             }
-            .vari{
+            .vari {
                 font-size: 11pt;
                 text-align: center;
             }
@@ -188,7 +189,7 @@
                     filter: brightness(0.87);
                 }
             }
-            .off:last-child{
+            .off:last-child {
                 pointer-events: none;
                 background-color: #ddd;
                 color: #333;
@@ -212,6 +213,7 @@
                 width: 100px;
             }
             .pInfo {
+                max-width: 50%;
                 .pName {
                     font-size: 13pt;
                 }
@@ -256,6 +258,7 @@
     .cartPage {
         width: 100vw;
         .cartP {
+            padding: 10px 5px;
             align-items: center;
             justify-content: space-between;
             .pImage {
@@ -264,15 +267,136 @@
                 aspect-ratio: 1/1;
             }
         }
-        .checkoutButtons{
+        .checkoutButtons {
             .cartButtons {
                 flex-direction: column;
                 width: 100%;
                 align-items: center;
                 gap: 10px;
-                .cBtn{
+                .cBtn {
                     width: 80%;
                     margin: 0;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 360px) {
+    .cartPage {
+        width: 100vw;
+        .cartP {
+            align-items: center;
+            justify-content: space-between;
+            .pImage {
+                width: 80px;
+                height: 80px;
+                aspect-ratio: 1/1;
+            }
+            .pInfo {
+                .pName {
+                    font-size: 11pt;
+                }
+            }
+            .pPrice {
+                span:first-child {
+                    font-size: 10pt;
+                }
+            }
+        }
+        .checkoutButtons {
+            span {
+                font-size: 12pt;
+            }
+            .cartButtons {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+                gap: 10px;
+                .cBtn {
+                    width: 85%;
+                    margin: 0;
+                    a {
+                        font-size: 11pt;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 320px) {
+    .cartPage {
+        width: 100vw;
+        .cartP {
+            align-items: center;
+            justify-content: space-between;
+            .pImage {
+                width: 65px;
+                height: 65px;
+                aspect-ratio: 1/1;
+            }
+            .pInfo {
+                gap: 0;
+                .pName {
+                    font-size: 10pt;
+                    margin: auto;
+
+                }
+                .pQuantity {
+                    width: 90%;
+                    margin: 0 auto;
+                    height: 30px;
+                }
+            }
+            .pPrice {
+                span:first-child {
+                    font-size: 10pt;
+                }
+            }
+        }
+        .checkoutButtons {
+            .cartButtons {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+                gap: 10px;
+                .cBtn {
+                    width: 85%;
+                    margin: 0;
+                    a {
+                        font-size: 9pt;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 290px) {
+    .cartPage {
+        width: 100vw;
+        .cartP {
+            align-items: center;
+            justify-content: space-between;
+            .pImage {
+                width: 65px;
+                height: 65px;
+                aspect-ratio: 1/1;
+            }
+            .pInfo {
+                gap: 0;
+                .pName {
+                    font-size: 10pt;
+                }
+                .pQuantity {
+                    width: 90%;
+                    margin: 0 auto;
+                    height: 30px;
+                }
+            }
+            .pPrice {
+                span:first-child {
+                    font-size: 9pt;
                 }
             }
         }

@@ -14,6 +14,7 @@ $(document).ready(function () {
         $("#SelectByStatus").val($.urlParam("status"));
         goToSearch('');
     }
+    
     if($.urlParam("tracking") && $.urlParam("tracking") == 1){
         $(".up").removeClass("up")
         $(".selected").removeClass("selected")
@@ -156,7 +157,7 @@ function createPurchase(compra) {
             status = "Finalizada";
             break;
         case 5:
-            status = "Em Disputa";
+            status = "<small class='disputPurcList'>Em Disputa</small>";
             break;
         case 6:
             status = "Devolvida";

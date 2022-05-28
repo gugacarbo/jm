@@ -898,66 +898,6 @@ label.hasCheckboxToggle h3::after {
           flex-direction: row-reverse;
 }
 
-.adminHomeContainer .info:nth-child(1) .infoHeader {
-  color: #21d121;
-}
-
-.adminHomeContainer .info:nth-child(1) .infoHeader .infoHeaderIcon {
-  border-color: #21d121;
-}
-
-.adminHomeContainer .info:nth-child(1) .infoHeader .infoHeaderIcon i {
-  font-size: 24pt;
-}
-
-.adminHomeContainer .info:nth-child(2) .infoHeader {
-  color: #e61d1d;
-}
-
-.adminHomeContainer .info:nth-child(2) .infoHeader .infoHeaderIcon {
-  border-color: #e61d1d;
-}
-
-.adminHomeContainer .info:nth-child(2) .infoHeader .infoHeaderIcon i {
-  font-size: 23pt;
-}
-
-.adminHomeContainer .info:nth-child(3) .infoHeader {
-  color: #ff7e00;
-}
-
-.adminHomeContainer .info:nth-child(3) .infoHeader .infoHeaderIcon {
-  border-color: #ff7e00;
-}
-
-.adminHomeContainer .info:nth-child(3) .infoHeader .infoHeaderIcon i {
-  font-size: 17pt;
-}
-
-.adminHomeContainer .info:nth-child(4) .infoHeader {
-  color: #5300da;
-}
-
-.adminHomeContainer .info:nth-child(4) .infoHeader .infoHeaderIcon {
-  border-color: #5300da;
-}
-
-.adminHomeContainer .info:nth-child(4) .infoHeader .infoHeaderIcon i {
-  font-size: 16pt;
-}
-
-.adminHomeContainer .info:nth-child(5) .infoHeader {
-  color: #01ff9e;
-}
-
-.adminHomeContainer .info:nth-child(5) .infoHeader .infoHeaderIcon {
-  border-color: #01ff9e;
-}
-
-.adminHomeContainer .info:nth-child(5) .infoHeader .infoHeaderIcon i {
-  font-size: 18pt;
-}
-
 .adminHomeContainer .info .infoHeader {
   width: 100%;
   display: -webkit-box;
@@ -1040,6 +980,102 @@ label.hasCheckboxToggle h3::after {
   padding: 3px 0;
   margin: auto;
   font-size: 10pt;
+}
+
+.adminHomeContainer .infoAprovados .infoHeader {
+  color: #21d121;
+}
+
+.adminHomeContainer .infoAprovados .infoHeader .infoHeaderIcon {
+  border-color: #21d121;
+}
+
+.adminHomeContainer .infoAprovados .infoHeader .infoHeaderIcon i {
+  font-size: 24pt;
+}
+
+.adminHomeContainer .infoCancelados .infoHeader {
+  color: #e61d1d;
+}
+
+.adminHomeContainer .infoCancelados .infoHeader .infoHeaderIcon {
+  border-color: #e61d1d;
+}
+
+.adminHomeContainer .infoCancelados .infoHeader .infoHeaderIcon i {
+  font-size: 23pt;
+}
+
+.adminHomeContainer .infoEnvio .infoHeader {
+  color: #ff7e00;
+}
+
+.adminHomeContainer .infoEnvio .infoHeader .infoHeaderIcon {
+  border-color: #ff7e00;
+}
+
+.adminHomeContainer .infoEnvio .infoHeader .infoHeaderIcon i {
+  font-size: 17pt;
+}
+
+.adminHomeContainer .infoVisitantes .infoHeader {
+  color: #00cbda;
+}
+
+.adminHomeContainer .infoVisitantes .infoHeader .infoHeaderIcon {
+  border-color: #00cbda;
+}
+
+.adminHomeContainer .infoVisitantes .infoHeader .infoHeaderIcon i {
+  font-size: 16pt;
+}
+
+.adminHomeContainer .infoNaoFinalizadas .infoHeader {
+  color: #5300da;
+}
+
+.adminHomeContainer .infoNaoFinalizadas .infoHeader .infoHeaderIcon {
+  border-color: #5300da;
+}
+
+.adminHomeContainer .infoNaoFinalizadas .infoHeader .infoHeaderIcon i {
+  font-size: 16pt;
+}
+
+.adminHomeContainer .infoAguardando .infoHeader {
+  color: #01ff9e;
+}
+
+.adminHomeContainer .infoAguardando .infoHeader .infoHeaderIcon {
+  border-color: #01ff9e;
+}
+
+.adminHomeContainer .infoAguardando .infoHeader .infoHeaderIcon i {
+  font-size: 18pt;
+}
+
+.adminHomeContainer .infoNps .infoHeader {
+  color: #dbcd00;
+}
+
+.adminHomeContainer .infoNps .infoHeader .infoHeaderIcon {
+  border-color: #fbff25;
+}
+
+.adminHomeContainer .infoNps .infoHeader .infoHeaderIcon i {
+  font-size: 18pt;
+}
+
+.adminHomeContainer .infoCanceling .infoHeader {
+  color: #db0054;
+}
+
+.adminHomeContainer .infoCanceling .infoHeader .infoHeaderIcon {
+  border-color: #db0054;
+}
+
+.adminHomeContainer .infoCanceling .infoHeader .infoHeaderIcon i {
+  font-size: 18pt;
 }
 
 .adminHomeContainer .relatory {
@@ -3393,6 +3429,11 @@ label.hasCheckboxToggle h3::after {
 
 .purchasesContainer .purchases .purchase span i:hover {
   color: #ccc;
+}
+
+.purchasesContainer .purchases .purchase span .disputPurcList {
+  font-size: 1em;
+  color: #f00;
 }
 
 .purchasesContainer .purchases .purchase:nth-child(even) {

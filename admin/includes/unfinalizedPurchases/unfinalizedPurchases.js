@@ -22,7 +22,7 @@ $.get("/admin/api/get/getNoFinalizedPurshases.php?get", function (data) {
 
             var totalP = 0;
             $.each(products, function (index, value) {
-                totalP = totalP + value.qtd;
+                totalP = totalP + parseFloat(value.qtd);
             });
             $("#reviewList").append(`<div class="item">
                                 <span ${int > 3 ? "style='color:#f00;'" : ""}>${dateString} Há ${int} Dias</span>

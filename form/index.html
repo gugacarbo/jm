@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Formulário - Jm Acessórios de Luxo</title>
     <link rel="icon" href="/img/Jm_Logo_Branco.png">
     <link rel="stylesheet" href="/css/main.css">
@@ -24,13 +24,13 @@
             <input id="DataEmail" name="email" type="email" placeholder="e-mail" maxlength="120" required>
             <input id="DataTelefone" name="telefone" type="text" placeholder="Telefone" required>
             <label for="">
-            <input id="DataCPF" name="cpf" type="text" placeholder="CPF" required>
+                <input id="DataCPF" name="cpf" type="text" placeholder="CPF" required>
                 <span>Data&nbspde&nbspNasc.</span>
                 <input id="DataNascimento" name="nascimento" type="date" placeholder="Data de Nascimento" required>
                 <span>Genero: </span>
                 <select name="gender" id="SelectGender">
-                    <option name="gender" value="M">Masculino</option>
                     <option name="gender" value="F">Feminino</option>
+                    <option name="gender" value="M">Masculino</option>
                     <option name="gender" value="O">Outro</option>
                     <option name="gender" value="X">Prefiro Não Informar</option>
 
@@ -45,7 +45,8 @@
             <input id="ShippingBairro" type="text" placeholder="Bairro" name="bairro" required>
             <input id="ShippingCidade" type="text" placeholder="Cidade" name="cidade" required>
             <input id="ShippingUF" type="text" placeholder="UF" name="UF" required>
-            <input id="ShippingComplemento" type="text" placeholder="Complemento" maxlength="100" name="complemento" required>
+            <input id="ShippingComplemento" type="text" placeholder="Complemento" maxlength="100" name="complemento"
+                required>
         </div>
         <button class="formContinue" id="FormContinue">Continuar</button>
     </form>
@@ -53,4 +54,5 @@
     </footer>
     <script src="form.js"></script>
 </body>
+
 </html>

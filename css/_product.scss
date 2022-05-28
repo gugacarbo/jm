@@ -538,6 +538,10 @@
                     width: 90%;
                     height: inherit;
                     flex: 1;
+                    
+                    .sImage{
+                        max-width: 23%;
+                    }
                 }
             }
             .info {

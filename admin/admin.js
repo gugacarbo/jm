@@ -42,17 +42,7 @@ function time() {
 
 }
 
-function getHomeInfo(){
-    $.get("/admin/api/get/getHomeInfo.php", function (data) {
-        if(data.status >= 200 && data.status < 300){
-            $("#HomeInfoAprovadas").text(data.Aprovadas)
-            $("#HomeInfoCanceladas").text(data.Canceladas)
-            $("#HomeInfoAguardandoEnvio").text(data.AguardandoEnvio)
-            $("#HomeInfoNaoFinalizados").text(data.NaoPagos)
-            $("#HomeInfoAguardandoPagamento").text(data.AguardandoPagamento)
-        }
-    })
-}
+
 
 $.urlParam = function(name){
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);

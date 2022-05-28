@@ -17,7 +17,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
 
 <div class="adminHomeContainer adminContainer">
 
-    <div class="info">
+    <div class="info infoAprovados">
         <div class="infoHeader">
             <div class="infoHeaderIcon">
                 <i class="fa-solid fa-check"></i>
@@ -33,23 +33,29 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
     </div>
 
 
-
-
-    <div class="info">
+    <div class="info infoVisitantes">
         <div class="infoHeader">
             <div class="infoHeaderIcon">
-                <i class="fa-solid fa-times"></i>
-
+                <i class="fa-solid fa-users"></i>
             </div>
-            <span>Pedidos Cancelados</span>
+            <p class="infoContentP">Visitantes</p>
         </div>
         <div class="infoContent">
-            <b class="infoContentNumber" id="HomeInfoCanceladas"></b>
-            <p class="infoContentP">Pedidos Cancelados</p>
-            <button class="infoContentButton" onclick="goToSearch('status=9');changePage('purchases')"> Ver todos </button>
+            <b class="infoContentNumber" id="HomeInfoVisitas"></b>
+            <p class="infoContentP">Número de visitantes</p>
+            <button class="infoContentButton" onclick="changePage('unfinalizedPurchases')"> Ver todos </button>
         </div>
     </div>
-    <div class="info">
+
+
+
+
+
+
+
+
+
+    <div class="info infoEnvio">
         <div class="infoHeader">
             <div class="infoHeaderIcon">
                 <i class="fa-solid fa-truck-fast"></i>
@@ -62,20 +68,24 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
             <button class="infoContentButton" onclick="goToSearch('tracking=1');changePage('purchases')"> Ver todos </button>
         </div>
     </div>
-    <div class="info">
+
+    <div class="info infoCancelados">
         <div class="infoHeader">
             <div class="infoHeaderIcon">
-                <i class="fa-solid fa-cart-arrow-down"></i>
+                <i class="fa-solid fa-times"></i>
+
             </div>
-            <p class="infoContentP">Pedidos Não Finalizados</p>
+            <span>Pedidos Cancelados</span>
         </div>
         <div class="infoContent">
-            <b class="infoContentNumber" id="HomeInfoNaoFinalizados"></b>
-            <p class="infoContentP">Pedidos Não Finalizados</p>
-            <button class="infoContentButton" onclick="changePage('unfinalizedPurchases')"> Ver todos </button>
+            <b class="infoContentNumber" id="HomeInfoCanceladas"></b>
+            <p class="infoContentP">+ <span id="HomeInfoCanceling"></span> em andamento</p>
+            <button class="infoContentButton" onclick="goToSearch('status=9');changePage('purchases')"> Ver todos </button>
         </div>
     </div>
-    <div class="info">
+
+
+    <div class="info infoAguardando">
         <div class="infoHeader">
             <div class="infoHeaderIcon">
                 <i class="fa-solid fa-clock"></i>
@@ -88,6 +98,37 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
             <button class="infoContentButton" onclick="goToSearch('status=1');changePage('purchases')"> Ver todos </button>
         </div>
     </div>
+    
+    
+
+    <div class="info infoNaoFinalizadas">
+        <div class="infoHeader">
+            <div class="infoHeaderIcon">
+                <i class="fa-solid fa-cart-arrow-down"></i>
+            </div>
+            <p class="infoContentP">Carrinho Abandonado</p>
+        </div>
+        <div class="infoContent">
+            <b class="infoContentNumber" id="HomeInfoNaoFinalizados"></b>
+            <p class="infoContentP">Pedidos Não Finalizados</p>
+            <button class="infoContentButton" onclick="changePage('unfinalizedPurchases')"> Ver todos </button>
+        </div>
+    </div>
+
+    <div class="info infoNps">
+        <div class="infoHeader">
+            <div class="infoHeaderIcon">
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <p class="infoContentP">NPS</p>
+        </div>
+        <div class="infoContent">
+            <b class="infoContentNumber" id="HomeInfoNps"></b>
+            <p class="infoContentP">Avaliação dos Clientes</p>
+        </div>
+    </div>
+
+
 
 
 

@@ -1,3 +1,13 @@
-@import "carousel";
-@import "contact";
-@import "news";
+
+
+.homeContent{
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    @import "carousel";
+    @import "contact";
+    @import "news";
+}

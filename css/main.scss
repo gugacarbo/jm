@@ -6,6 +6,7 @@ $hoverColor: #666;
     padding: 0;
     margin: 0;
     font-family: "Myriad Pro";
+
 }
 
 body {
@@ -15,21 +16,35 @@ body {
     flex-direction: column;
     align-items: center;
     overflow-x: hidden;
+    position: relative;
 }
 
 .glider-dot.active {
-    background-color: $mainColor !important;
+    background-color: $mainColor;
     border: 1px solid #ffffff88;
     transition: 1s;
+    transform: scale(1.05);
 }
 
 .blockBody{
     overflow: hidden;
 }
+
+@media (max-width: 400px) {
+    .glider-dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
 @import "banner";
 @import "fonts";
 @import "header";
 @import "footer";
+@import "productModel";
+
+@import "home/home";
+
 @import "about";
 @import "product";
 @import "products";
@@ -40,5 +55,4 @@ body {
 @import "status";
 @import "unsubscribe";
 @import "terms";
-@import "productModel";
-@import "home/home";
+@import "retorno";

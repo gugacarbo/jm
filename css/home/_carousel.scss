@@ -54,11 +54,14 @@
             justify-content: space-between;
             align-items: center;
             gap: 5px;
-            // >> Product 
+            // >> Product
+            &s::-webkit-scrollbar {
+                display: none;
+            }
 
-            .unavailable{
+            .unavailable {
                 position: relative;
-                &::after{
+                &::after {
                     content: "Indisponível";
                     display: flex;
                     justify-content: center;
@@ -74,7 +77,7 @@
                     pointer-events: none;
                     z-index: 100;
                 }
-                i{
+                i {
                     color: #ccc;
                     pointer-events: none;
                 }
@@ -88,7 +91,7 @@
             background-position: center;
             background-size: 50%;
             background-repeat: no-repeat;
-            order: 999999; 
+            order: 999999;
             display: flex;
             align-items: center;
 
@@ -112,9 +115,9 @@
             span {
                 position: absolute;
                 bottom: 20%;
-
+                text-align: center;
                 color: #fff;
-                font-size: 13pt;
+                font-size: 12pt;
                 font-weight: lighter;
             }
 
@@ -143,7 +146,7 @@
             }
             .showCarousel {
                 width: 100%;
-                .carouselItem {
+                .productModel {
                     height: 250px;
                     width: 200px;
                 }
@@ -154,22 +157,64 @@
 @media (max-width: 600px) {
     .carousel {
         .categoryCarousel {
-            width: 90%;
+            margin-top: 30px;
+            width: 98%;
             .carouselTitle {
                 justify-content: center;
+                font-size: 16pt;
+                height: 15px;
+            }
+            .carouselBtn {
                 font-size: 20pt;
             }
             .showCarousel {
-                .carouselItem {
-                    height: 80px;
-                    width: 120px;
+                .productModel {
+                    .productModelPrice {
+                        font-size: 13pt;
+                    }
+                    .productModelName {
+                        font-size: 12pt;
+                    }
                 }
                 .moreItens {
-                    background-size: 30%;
 
                     span {
                         bottom: 10%;
-                        font-size: 17pt;
+                        font-size: 14pt;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 360px) {
+    .carousel {
+        .categoryCarousel {
+            margin-top: 20px;
+
+            .carouselTitle {
+                justify-content: center;
+                font-size: 15pt;
+                height: 15px;
+            }
+            .showCarousel {
+                .carouselBtn {
+                    font-size: 15pt;
+                }
+                .productModel {
+                    .productModelPrice {
+                        font-size: 12pt;
+                    }
+                    .productModelName {
+                        font-size: 11pt;
+                    }
+                }
+                .moreItens {
+                    background-size: 50%;
+
+                    span {
+                        margin-bottom: 10%;
+                        font-size: 10pt;
                     }
                 }
             }
@@ -180,7 +225,7 @@
     .carousel {
         .categoryCarousel {
             width: 95%;
-            .glider-dots{
+            .glider-dots {
                 transform: scale(0.9);
                 gap: 2px;
                 margin-top: 10px;
@@ -190,14 +235,9 @@
                 bottom: 0px;
             }
             .showCarousel {
-                .carouselItem {
+                .productModel {
                     height: 75px;
                     width: 110px;
-                }
-
-                span {
-                    bottom: 10%;
-                    font-size: 17pt;
                 }
             }
         }

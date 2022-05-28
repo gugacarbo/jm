@@ -22,13 +22,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
         margin-top: 20px;
 
         input[type="checkbox"] {
-            width: 13px;
-            height: 13px;
-            margin-right: 10px;
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
             accent-color: $mainColor;
         }
     }
@@ -64,7 +64,7 @@
         border-radius: 20px;
         border: 1px solid $mainColor;
         margin: 10px 0;
-        padding: 10px 0;
+        padding: 0;
 
         display: flex;
         flex-direction: column;
@@ -109,9 +109,13 @@
                     text-align: center;
                 }
                 .pAvailable {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
                     text-align: center;
                     font-size: 8pt;
-                    color: rgb(67, 207, 67);
+                    color: rgb(28, 131, 28);
                     width: 100%;
                     margin-bottom: 8px;
                 }
@@ -183,19 +187,20 @@
         box-sizing: border-box;
         padding: 20px 40px;
         justify-content: flex-end;
-        align-items: baseline;
+        align-items: center;
         gap: 30px;
         .cupomTitle {
             color: $mainColor;
             margin-right: auto;
             font-weight: bold;
+            width: 50%;
         }
         button {
             font-size: 12pt;
             margin: 0;
             padding: 3px 10px;
             height: inherit;
-            width: 220px;
+            width: 240px;
             transition: 0.2s;
         }
         input {
@@ -210,7 +215,11 @@
         }
         .cupomValid {
             color: #333;
-            font-size: 12pt;
+            width: 40%;
+            font-size: 10pt;
+            display: flex;
+            text-align: center;
+            align-items: center;
             b {
                 font-size: 13spt;
                 color: $mainColor;
@@ -286,14 +295,13 @@
     button {
         width: 300px;
 
-        height: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
         border: none;
         outline: none;
-        font-size: 14pt;
-        padding: 10px 0;
+        font-size: 13pt;
+        padding: 6px 0;
         border-radius: 30px;
         background-color: $mainColor;
         color: #fff;
@@ -397,7 +405,7 @@
         i {
             width: 80px;
             width: 80px;
-            color: rgb(23, 161, 23);
+            color: rgb(255, 255, 255);
             font-size: 30pt;
             border-radius: 50%;
             display: flex;
@@ -419,12 +427,13 @@
 }
 
 @media (max-width: $deskWidth) {
-    .checkout {
-        width: 90%;
+    .checkoutPage {
+        width: 95%;
     }
 }
-@media (max-width: 700px) {
-    .checkout {
+
+@media (max-width: 750px) {
+    .checkoutPage {
         .data {
             width: 100%;
             margin-bottom: 20px;
@@ -434,6 +443,10 @@
                 color: #898989;
             }
         }
+        .products .product .pInfo .pName {
+            font-size: 14pt;
+        }
+
         .shipping {
             .shipHeader {
                 width: 100%;
@@ -443,20 +456,171 @@
                 text-align: center;
             }
         }
+        .subTotal {
+            span {
+                font-size: 12pt;
+            }
+        }
+        .total {
+            width: 100%;
+            box-sizing: border-box;
+            span {
+                box-sizing: border-box;
+            }
+        }
+        .shipping {
+            gap: 0;
+            width: 100%;
+            padding: 5px 10px;
+            span {
+                font-size: 12pt;
+            }
+        }
+        .cupom {
+            padding: 10px;
+            .cupomTitle {
+                font-size: 11pt;
+                width: 50%;
+            }
+            .cupomValid {
+                font-size: 9pt;
+            }
+            input[type="text"] {
+                font-size: 10pt;
+            }
+            button {
+                font-size: 11pt;
+            }
+        }
+        button {
+            font-size: 12pt;
+            padding: 5px 0;
+        }
     }
 }
 
+@media (max-width: 630px) {
+    .checkoutPage {
+        width: 97%;
+        .checkoutTitle {
+            font-size: 16pt;
+        }
+
+        .products {
+            margin: 5px 0;
+            .product {
+                .pInfo {
+                    max-width: 40%;
+                    .pName {
+                        font-size: 12pt;
+                    }
+                    .pQuantity {
+                        span {
+                            font-size: 11pt;
+                            color: #aa6969;
+                        }
+                        font-size: 11pt;
+                    }
+                }
+                .pPrice {
+                    span {
+                        font-size: 12pt;
+                    }
+                }
+            }
+        }
+        .shipping,
+        .subTotal,
+        .total,
+        .cupom {
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+            margin: 5px 0;
+        }
+        .subTotal {
+            span {
+                font-size: 11pt;
+            }
+        }
+        .cupom {
+            padding: 15px 10px;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: space-between;
+            .cupomTitle {
+                font-size: 12pt;
+                width: 50%;
+                padding: 0;
+                margin: 0;
+                text-align: center;
+            }
+            .cupomValid {
+                padding: 0;
+                margin: 0;
+                text-align: center;
+                width: 40%;
+            }
+
+            input[type="text"] {
+                text-align: center;
+                font-size: 9pt;
+            }
+            button {
+                font-size: 10pt;
+            }
+        }
+        .aceptTerms {
+            font-size: 10pt;
+        }
+        .mailReceive {
+            font-size: 10pt;
+            gap: 5px;
+            input {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    }
+}
+
+@media (max-width: 540px) {
+    .checkoutPage {
+        .products .product .pImage {
+            width: 105px;
+            height: 105px;
+        }
+        .cupom {
+            gap: 10px;
+            button {
+                width: 30%;
+                margin: 0 auto;
+            }
+            input {
+                width: 45%;
+            }
+            .cupomValid {
+                width: 40%;
+                font-size: 9pt;
+            }
+        }
+    }
+}
 @media (max-width: 450px) {
-    .checkout {
+    .checkoutPage {
         width: 100%;
+        padding: 5px;
+        margin: 0;
         .data {
             border-radius: 0;
             border-left: none;
             border-right: none;
+            margin: 0;
         }
         .checkoutTitle {
             width: 100%;
             margin: 10px auto;
+            font-size: 15pt;
             text-align: center;
         }
 
@@ -464,50 +628,211 @@
             border-radius: 0;
             border-left: none;
             border-right: none;
+            box-sizing: border-box;
+            margin: 5px 0;
+            padding: 0;
             .product {
+                box-sizing: border-box;
                 width: 100%;
+                align-items: center;
+                padding: 10px;
                 .pImage {
                     width: 90px;
                     height: 90px;
                 }
                 .pInfo {
                     .pName {
-                        font-size: 14pt;
+                        font-size: 11pt;
+                    }
+                    .pAvailable {
+                        font-size: 7pt;
                     }
                     .pQuantity {
                         span {
-                            font-size: 12pt;
+                            font-size: 10pt;
                             color: #aa6969;
                         }
-                        font-size: 12pt;
+                        font-size: 10pt;
+                    }
+                    .vari {
+                        font-size: 10pt;
                     }
                 }
                 .pPrice {
                     span {
-                        font-size: 13pt;
+                        font-size: 11pt;
                     }
                 }
             }
         }
-        .shipping,
-        .subTotal,
-        .total {
-            border-radius: 0;
-            border-left: none;
-            border-right: none;
-        }
         .subTotal {
+            padding: 0 15px;
             span {
-                font-size: 13pt;
+                font-size: 11pt;
             }
         }
         .total {
-            border-top: none;
+            padding: 10px 0;
+            span {
+                width: 90%;
+                margin: 0 auto;
+                font-size: 11pt;
+            }
         }
         .shipping {
-            span {
-                font-size: 12pt;
+            padding: 10px;
+        }
+        button {
+            font-size: 10pt;
+            padding: 4px 0;
+            width: 55%;
+        }
+        .aceptTerms {
+            font-size: 9pt;
+            margin-top: 5px;
+        }
+        .mailReceive {
+            font-size: 9pt;
+            margin-top: 5px;
+            input {
+                width: 8px;
+                height: 8px;
             }
         }
     }
+    .redirectMessage {
+        .redirectMessageContent {
+            h1 {
+                font-size: 16pt;
+            }
+            p {
+                font-size: 11pt;
+            }
+            i {
+               font-size: 25pt; 
+            }
+        }
+    }
+}
+
+@media (max-width: 390px) {
+    .checkoutPage {
+        .data {
+            .dataHeader {
+                font-size: 14pt;
+            }
+            span {
+                font-size: 10pt;
+                b {
+                    font-size: 9pt;
+                }
+            }
+        }
+        .checkoutTitle {
+            margin: 8px auto;
+            font-size: 15pt;
+        }
+
+        .products {
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            .product {
+                padding: 10px 5px;
+                .pImage {
+                    width: 75px;
+                    height: 75px;
+                }
+                .pInfo {
+                    .pName {
+                        font-size: 10pt;
+                    }
+                    .pQuantity {
+                        font-size: 9pt;
+                        span {
+                            font-size: 9pt;
+                            color: #aa6969;
+                        }
+                    }
+                }
+
+                .pPrice {
+                    span {
+                        font-size: 10pt;
+                    }
+                }
+                .vari {
+                    font-size: 8pt;
+                }
+            }
+        }
+        .subTotal {
+            padding: 0 10px;
+            span {
+                font-size: 10pt;
+            }
+        }
+     
+        .shipping {
+            div {
+                span {
+                    font-size: 10pt;
+                }
+            }
+        }
+        .cupom {
+            padding: 5px;
+            .cupomTitle {
+                font-size: 10pt;
+                width: 46%;
+            }
+            .cupomValid {
+                width: 46%;
+                font-size: 8pt;
+            }
+            button {
+                width: 80%;
+                margin: auto;
+                font-size: 10pt;
+            }
+            input {
+                width: 80%;
+                margin: auto;
+            }
+        }
+        button {
+            width: 80%;
+        }
+        .aceptTerms {
+            font-size: 7pt;
+            text-align: center;
+        }
+        .mailReceive {
+            text-align: center;
+            font-size: 8pt;
+            input {
+                width: 6px;
+                height: 6px;
+            }
+        }
+        
+    }
+    .redirectMessage {
+        .redirectMessageContent {
+            gap: 10px;
+            h1 {
+                font-size: 14pt;
+            }
+            p {
+                font-size: 10pt;
+            }
+            i {
+               font-size: 22pt; 
+            }
+        }
+    }
+    
 }

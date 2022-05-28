@@ -67,8 +67,14 @@ function addCart(id, qtd = 0, opt = 0, msg = 1) {
   if(msg == 1){
     $("#addCartMessage").css("display", "flex");
     setTimeout(() => {
-      $("#addCartMessage").css("display", "none");
-    }, 1700);
+      $("#addCartMessage").css("opacity", "1");
+    }, 20);
+    setTimeout(() => {
+      $("#addCartMessage").css("opacity", "0");
+      setTimeout(() => {
+        $("#addCartMessage").css("display", "none");
+      }, 500);
+    }, 2000);
   }
   if (qtd > 0 ) {
 
