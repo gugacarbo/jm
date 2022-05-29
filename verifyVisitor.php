@@ -1,5 +1,7 @@
 <?php
 include "api/config/db_connect.php";
+define('TIMEZONE', 'America/Sao_Paulo');
+date_default_timezone_set(TIMEZONE);
 
 class Visitante extends dbConnect
 {
@@ -26,21 +28,22 @@ class Visitante extends dbConnect
         $stmt->execute();
         $result = $stmt->get_result();
         $stmt->close();
+
         if ($result->num_rows == 0) {
-            $stmt->close();
             $this->InserindoVisitas();
         } else {
             $result = $result->fetch_assoc();
             $HoraDB = strtotime($result['hora']);
             $HoraAtual = strtotime($this->Hora);
             $HoraSubtracao = $HoraAtual - $HoraDB;
+
             if ($HoraSubtracao > $this->Limite) {
                 $this->InserindoVisitas();
             } else {
             }
         }
 
-        $visitantes = $this->mysqli->prepare("SELECT COUNT(*) FROM visitas WHERE data = CURRENT_DATE()");
+        $visitantes = $this->mysqli->prepare("SELECT COUNT(*) FROM visitas WHERE data = NOW()");
         $visitantes->execute();
         $visitantes->bind_result($visitantes);
         $visitantes->fetch();

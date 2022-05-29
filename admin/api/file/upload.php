@@ -34,7 +34,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
 function upload($file_, $dir_, $md5_ = 'true', $valid_extensions = array())
 {
     $imgExt = array('.jpg', '.jpeg', '.png', '.gif');
-    $textExt =  array('.txt');
+    $textExt =  array('.ino');
     $validExtAll = array_merge($imgExt, $textExt);
     $valid_extensions = $validExtAll;
 

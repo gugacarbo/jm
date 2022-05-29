@@ -1,11 +1,13 @@
-.returnPage{
+.returnPage {
     background-color: $mainColor;
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 .returnPage .returnContent {
     display: flex;
@@ -17,6 +19,17 @@
     border: 2px solid $mainColor;
     border-radius: 20px;
     color: #fff;
+    box-sizing: border-box;
+    .logo {
+        width: 30%;
+        max-height: 200px;
+        overflow: hidden;
+        margin: 10px;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
     h1 {
         width: 100%;
         text-align: center;
@@ -78,7 +91,8 @@
         font-size: 13pt;
     }
     button {
-        padding: 10px 20px;
+        padding: 5px 0;
+        width: 60%;
         background-color: #fff;
         color: $mainColor;
         border: none;
@@ -86,10 +100,10 @@
         cursor: pointer;
         transition: all 0.3s;
         border: 1px solid #fff;
+        font-size: 13pt;
         &:hover {
             color: #fff;
             background-color: $mainColor;
-            
         }
     }
 
@@ -99,10 +113,27 @@
         border-radius: 20px;
         border: 2px solid #fff;
         color: $mainColor;
-        font-weight: bold;
-        font-size: 13pt;
-        filter: brightness(1.1);
-        letter-spacing: 0.5px;
+        width: 70%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        input {
+            width: 90%;
+            border: none;
+            outline: none;
+            font-weight: bold;
+            font-size: 13pt;
+            filter: brightness(1.1);
+            letter-spacing: 0.5px;
+            box-sizing: border-box;
+
+            pointer-events: none;
+            text-align: center;
+        }
+        i {
+            font-size: 13pt;
+            transition: 0.6s;
+        }
     }
     p {
         font-size: 13pt;
@@ -113,7 +144,132 @@
 }
 
 @media (max-width: 970px) {
-    body {
-        flex-direction: column;
+    .returnPage .returnContent {
+        .nps {
+            padding: 10px;
+        }
+        button {
+            padding: 5px 0;
+            box-sizing: border-box;
+            width: 60%;
+        }
+    }
+}
+@media (max-width: 590px) {
+    .returnPage {
+        padding: 10px 0;
+        justify-content: flex-start;
+        .returnContent {
+            h1 {
+                font-size: 18pt;
+            }
+            p {
+                font-size: 11pt;
+            }
+            .code {
+                box-sizing: border-box;
+                width: 90%;
+                padding: 10px 5px;
+                input {
+                    font-size: 11pt;
+                    text-align: center;
+                }
+            }
+
+            .nps {
+                gap: 10px;
+                h2 {
+                    font-size: 16pt;
+                }
+                .stars {
+                    label i {
+                        margin: 0 2px;
+                        font-size: 18pt;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 480px) {
+    .returnPage .returnContent {
+        justify-content: space-evenly;
+        height: 100vh;
+        gap: 0;
+        padding: 20px 0;
+        .logo {
+            margin: 0;
+        }
+        .code {
+            width: 100%;
+            border-radius: 0;
+            padding: 10px 2px;
+            input {
+                width: 95%;
+                font-size: 10pt;
+                text-align: center;
+            }
+            i {
+                font-size: 10pt;
+            }
+        }
+        .nps {
+            gap: 2px;
+            padding: 0;
+            h2 {
+                font-size: 12pt;
+            }
+            span#rateMsg {
+                font-size: 11pt;
+            }
+        }
+        textarea {
+            font-size: 10pt;
+        }
+    }
+}
+@media (max-width: 350px) {
+    .returnPage .returnContent {
+        justify-content: space-around;
+        padding: 10px 0;
+        .logo {
+            margin: 0;
+        }
+        h1 {
+            font-size: 14pt;
+        }
+        p {
+            font-size: 10pt;
+        }
+        .code {
+            input {
+                width: 98%;
+                font-size: 8pt;
+            }
+        }
+        .nps {
+            gap: 2px;
+            h2 {
+            }
+            .stars {
+            }
+            span#rateMsg {
+            }
+        }
+        span {
+            font-size: 9pt;
+        }
+        textarea {
+            font-size: 9pt;
+        }
+        button {
+            padding: 2px 0;
+            font-size: 9pt;
+        }
+    }
+}
+@media (max-width: 300px) {
+    .returnPage .returnContent .code input {
+        text-align: left;
     }
 }

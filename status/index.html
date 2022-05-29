@@ -17,7 +17,7 @@
     <div class="status">
         <div class="progress">
             <div class="pass " id="WaitingPayment">
-                <i class="fa-solid fa-credit-card">
+                <i class="fa-solid fa-credit-card passIcon">
                     <span class="passName">Aguardando Pagamento</span>
                 </i>
                 <div class="arrows">
@@ -29,12 +29,8 @@
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <i class="fa-solid fa-chevron-right"></i>
                 </div>
                 <div class="arrows">
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
@@ -46,7 +42,7 @@
                 </div>
             </div>
             <div class="pass" id="PreparingSending">
-                <i class="fa-solid fa-truck-ramp-box">
+                <i class="fa-solid fa-truck-ramp-box passIcon">
                     <span class="passName" id="preparingText">Preparando Envio</span>
                 </i>
                 <div class="arrows">
@@ -58,12 +54,8 @@
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <i class="fa-solid fa-chevron-right"></i>
                 </div>
                 <div class="arrows">
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
@@ -75,7 +67,7 @@
                 </div>
             </div>
             <div class="pass" id="Sended">
-                <i class="fa-solid fa-truck-fast">
+                <i class="fa-solid fa-truck-fast passIcon">
                     <span class="passName">Enviado</span>
                 </i>
                 <div class="arrows">
@@ -87,12 +79,8 @@
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <i class="fa-solid fa-chevron-right"></i>
                 </div>
                 <div class="arrows">
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
                     <i class="fa-solid fa-chevron-right"></i>
@@ -104,13 +92,13 @@
                 </div>
             </div>
             <div class="pass" id="Arrived">
-                <i class="fa-solid fa-x finalIcon" id="canceledIcon">
+                <i class="fa-solid fa-x finalIcon passIcon" id="canceledIcon">
                     <span class="passName">Compra Cancelada</span>
                 </i>
                 <i class="fa-solid fa-exclamation finalIcon" finalIcon" id="disputIcon">
                     <span class="passName" id="disputText">Entregues</span>
                 </i>
-                <i class="fa-solid fa-check" id="finiShedIcon">
+                <i class="fa-solid fa-check passIcon"  id="finiShedIcon">
                     <span class="passName">Entregue</span>
                 </i>
             </div>
@@ -142,7 +130,11 @@
                 <span id="BuyerBornDate">Data de Nasc.:<b></b></span>
             </div>
             <div id="TrackingDiv" class="TrackingDiv">
-                <h3>Rastreamento cod.: <span></span></h3>
+                <h3>Rastreamento cod.: <span>
+                </span>
+                <i class="fa-solid fa-chevron-down" onclick="moreTracking()" id="moreTracking"></i>
+            </h3>
+                
             </div>
             
             <button class="cancel" id="requestCancel">

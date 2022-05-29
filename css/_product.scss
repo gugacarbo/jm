@@ -244,7 +244,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            
+
             gap: 5px;
             position: relative;
             margin-top: 25px;
@@ -458,7 +458,6 @@
                 .prodOptions {
                     gap: 20px;
                 }
-
             }
 
             .shipping {
@@ -472,12 +471,12 @@
         }
     }
 }
-.productPage .info .buyBox .ButtonDisabled{
-    color: #888 ;  
-    background-color: #ddd ;
+.productPage .info .buyBox .ButtonDisabled {
+    color: #888;
+    background-color: #ddd;
     border: none;
 
-    pointer-events: none ;
+    pointer-events: none;
 }
 
 @media (max-width: 650px) {
@@ -499,6 +498,11 @@
                 width: 440px;
                 height: 130px;
                 flex: 1;
+
+                flex-direction: row;
+                .sImage {
+                    max-width: 23%;
+                }
             }
         }
     }
@@ -574,30 +578,30 @@
                 width: 80%;
                 margin: 0 auto;
                 margin-top: 20px;
-                img{
+                img {
                     margin: 0;
                 }
             }
-            .productPrice{
+            .productPrice {
                 width: 90%;
                 margin: 0;
                 align-items: flex-end;
-                .price{
-                    font-size: 44pt;
-                    p{
-                        font-size: 18pt;
+                .price {
+                    font-size: 26pt;
+                    p {
+                        font-size: 14pt;
                     }
                 }
-                .promo{
-                    font-size: 18pts;
+                .promo {
+                    font-size: 13pt;
                 }
             }
-            .shipping{
+            .shipping {
                 width: 100%;
             }
-            .buyBox{
+            .buyBox {
                 width: 98%;
-                .prodOptions{
+                .prodOptions {
                     gap: 10px;
                 }
             }

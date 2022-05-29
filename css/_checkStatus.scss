@@ -7,6 +7,7 @@
     border: 1px solid $mainColor;
     border-radius: 20px;
     margin-bottom: 200px;
+    align-items: center;
     span {
         font-size: 20pt;
         color: #666;
@@ -37,9 +38,9 @@
         padding: 6px 0;
         border-radius: 20px;
         margin: 20px auto;
-        font-size: 14pt;
         letter-spacing: 1px;
         transition: 0.3s;
+        font-size: 14pt;
         &:hover {
             background-color: darken($mainColor, 10);
             cursor: pointer;
@@ -52,12 +53,29 @@
     }
 }
 
-
-@media (max-width: $deskWidth) {
-}
-@media (max-width: 700px) {
-    
-    .login {
-        transform: scale(0.85);
+@media (max-width: 450px) {
+    .checkStatusPage {
+        margin-top: 30px;
+        box-sizing: border-box;
+        padding: 10px;
+        border: none;
+        width: 100%;
+        span{
+            font-size: 17pt;
+        }
+        input{
+            font-size: 10pt;
+            width: 80%;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 3px 0;
+        }
+        button{
+            font-size: 12pt;
+            padding: 3px 0;
+        }
+        p{
+            font-size: 9pt;
+        }
     }
 }

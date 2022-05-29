@@ -2,26 +2,51 @@
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Methods: POST');
 
+define('TIMEZONE', 'America/Sao_Paulo');
+date_default_timezone_set(TIMEZONE);
+
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-function errHandle($errNo, $errStr, $errFile, $errLine)
+include '../config/db_connect.php';
+
+class Nps extends dbConnect
 {
-    if ($errNo == E_NOTICE || $errNo == E_WARNING) {
-        die(json_encode(array('status' => 403)));
+    private $rate_, $message_, $code_;
+    public function __construct($rate, $message, $code)
+    {
+        $this->rate_ = $rate;
+        $this->message_ = $message;
+        $this->code_ = $code;
+    }
+    public function sendRate()
+    {
+        $rate = $this->rate_;
+        $message = $this->message_;
+        $code = $this->code_;
+
+        $mysqli = $this->Conectar();
+        $sql = "INSERT INTO rating (rate, message, code) VALUES (? , ? , ?)";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("iss", $rate, $message, $code);
+        if($stmt->execute()) {
+            $stmt->close();
+            return array("status" => 202, "message" => "Obrigado por avaliar!");
+        } else {
+            $stmt->close();
+            return array("status" => 500, "message" => "Erro ao avaliar! >");
+        }
     }
 }
 
-set_error_handler('errHandle');
-
-
 
 if (isset($_POST['rate'])) {
-    if (isset($_SESSION['rateTry']) && $_SESSION['rateTry'] > 2) {
+    if (isset($_SESSION['rateTry']) && $_SESSION['rateTry'] > 1) {
         $lastTry = date($_SESSION['rateLastTry']);
         $interval = strtotime(date('Y-m-d H:i:s')) - strtotime($lastTry);
-        if ($interval > 60) {
+        if ($interval > 360) {
             $_SESSION['rateTry'] = isset($_SESSION['rateTry']) ? $_SESSION['rateTry'] + 1 : 1;
             $_SESSION['rateTry'] = 0;
         }
@@ -41,16 +66,10 @@ if (isset($_POST['rate'])) {
         } else {
             $code = "";
         }
-        include "../config/db_connect.php";
-        $sql = "INSERT INTO rating (rate, message, code) VALUES (? , ? , ?)";
-        $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("iss", $rate, $message, $code);
-        $rate = $_POST["rate"];
-        $stmt->execute();
-        $stmt->close();
-        die(json_encode(array('status' => 200)));
+        $nps = new Nps($_POST["rate"], $message, $code);
+        $result = $nps->sendRate();
+        die(json_encode($result));
     }
 } else {
     die(json_encode(array('status' => 400)));
 }
-

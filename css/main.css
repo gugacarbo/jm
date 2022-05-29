@@ -436,7 +436,7 @@ header .mobileMenu .menu .menuItem a:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 10;
+  z-index: 80;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -744,9 +744,13 @@ footer {
   border-top: 2px solid #b66d76;
   padding-top: 30px;
   margin-top: 30px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 footer .footerContent {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 10px 0;
   width: 1100px;
   display: -webkit-box;
@@ -838,6 +842,7 @@ footer .footerContent .scudero a img {
 }
 
 footer .footerContent .scudero b {
+  text-align: center;
   margin-top: 10px;
   font-size: 9pt;
   color: #656565;
@@ -1644,22 +1649,39 @@ footer .footerContent .scudero b {
           align-items: center;
   width: 1100px;
   padding: 30px 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-.about span {
-  width: 100%;
-  font-size: 16pt;
-}
-
-.about p {
-  margin-left: 20px;
+.about #aboutText {
   width: 90%;
   margin-top: 20px;
   overflow: hidden;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 12pt;
+}
+
+.about #aboutText p {
+  font-size: 1em;
+}
+
+.about #aboutText h1 {
+  font-size: 3em;
+}
+
+.about #aboutText h2 {
+  font-size: 1.8em;
+}
+
+.about #aboutText h3 {
+  font-size: 1.3em;
 }
 
 .about div {
   padding-top: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1671,6 +1693,8 @@ footer .footerContent .scudero b {
 
 .about div .img,
 .about div .map {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   width: 49%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1700,43 +1724,63 @@ footer .footerContent .scudero b {
 }
 
 @media (max-width: 1100px) {
-  .aboutSlider {
-    width: 100%;
-  }
-  .aboutSlider #AboutSlider {
-    width: 100%;
-  }
   .about {
     width: 100%;
-    margin: 0 60px;
+    padding: 10px;
   }
   .about div {
-    margin: 0 20px;
+    padding: 20px 0;
   }
-  .about span {
-    width: 80%;
+  .about #aboutText {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 100%;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
+  .about div {
+    width: 100%;
+    margin: 0;
+    padding: 10px 0;
+  }
+  .about #aboutText {
+    margin-top: 0;
+    font-size: 10pt;
+  }
+}
+
+@media (max-width: 400px) {
+  .about #aboutText {
+    font-size: 9pt;
+    margin-bottom: -10%;
+  }
+}
+
+@media (max-width: 310px) {
   .about div {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
   }
   .about div .img,
   .about div .map {
-    width: 80%;
+    width: 100%;
+    height: auto;
   }
-}
-
-@media (max-width: 700px) {
-  .about p {
-    width: 80%;
+  .about div .img img,
+  .about div .map img {
+    width: 100%;
+    height: auto;
+  }
+  .about div .img iframe,
+  .about div .map iframe {
+    width: 100%;
+    height: auto;
+  }
+  .about #aboutText {
+    font-size: 8pt;
   }
 }
 
@@ -2459,6 +2503,10 @@ footer .footerContent .scudero b {
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
+    flex-direction: row;
+  }
+  .productPage .galery .secImg .sImage {
+    max-width: 23%;
   }
 }
 
@@ -2551,13 +2599,13 @@ footer .footerContent .scudero b {
             align-items: flex-end;
   }
   .productPage .info .productPrice .price {
-    font-size: 44pt;
+    font-size: 26pt;
   }
   .productPage .info .productPrice .price p {
-    font-size: 18pt;
+    font-size: 14pt;
   }
   .productPage .info .productPrice .promo {
-    font-size: 18pts;
+    font-size: 13pt;
   }
   .productPage .info .shipping {
     width: 100%;
@@ -4998,6 +5046,9 @@ footer .footerContent .scudero b {
   border: 1px solid #b66d76;
   border-radius: 20px;
   margin-bottom: 200px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .checkStatusPage span {
@@ -5032,10 +5083,10 @@ footer .footerContent .scudero b {
   padding: 6px 0;
   border-radius: 20px;
   margin: 20px auto;
-  font-size: 14pt;
   letter-spacing: 1px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  font-size: 14pt;
 }
 
 .checkStatusPage button:hover {
@@ -5049,10 +5100,32 @@ footer .footerContent .scudero b {
   margin-top: 10px;
 }
 
-@media (max-width: 700px) {
-  .login {
-    -webkit-transform: scale(0.85);
-            transform: scale(0.85);
+@media (max-width: 450px) {
+  .checkStatusPage {
+    margin-top: 30px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 10px;
+    border: none;
+    width: 100%;
+  }
+  .checkStatusPage span {
+    font-size: 17pt;
+  }
+  .checkStatusPage input {
+    font-size: 10pt;
+    width: 80%;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 3px 0;
+  }
+  .checkStatusPage button {
+    font-size: 12pt;
+    padding: 3px 0;
+  }
+  .checkStatusPage p {
+    font-size: 9pt;
   }
 }
 
@@ -5068,6 +5141,13 @@ footer .footerContent .scudero b {
   margin: 30px 0;
   width: 1100px;
   gap: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.status * {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .status .progress {
@@ -5079,6 +5159,10 @@ footer .footerContent .scudero b {
       -ms-flex-pack: center;
           justify-content: center;
   padding-bottom: 40px;
+  position: relative;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .status .progress .pass {
@@ -5086,9 +5170,24 @@ footer .footerContent .scudero b {
   display: -ms-flexbox;
   display: flex;
   position: relative;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-.status .progress .pass i {
+.status .progress .pass:last-child {
+  -webkit-box-flex: 0;
+      -ms-flex: 0;
+          flex: 0;
+}
+
+.status .progress .pass .passIcon {
   width: 55px;
   height: 55px;
   border-radius: 50px;
@@ -5109,7 +5208,7 @@ footer .footerContent .scudero b {
   position: relative;
 }
 
-.status .progress .pass i .passName {
+.status .progress .pass .passIcon .passName {
   position: absolute;
   bottom: -25px;
   color: #b66d76;
@@ -5131,18 +5230,25 @@ footer .footerContent .scudero b {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .status .progress .pass .arrows i {
   font-size: 13pt;
-  width: 11.5px;
   background-color: transparent;
   color: #ddd;
-  margin: 0;
+  margin: 0px;
   border: none;
 }
 
-.status .progress .doing i {
+.status .progress .doing .passIcon {
   background-color: #b66d76;
   color: #fff;
   border: 1px solid #b66d76;
@@ -5152,7 +5258,7 @@ footer .footerContent .scudero b {
   color: #b66d76;
 }
 
-.status .progress .done i {
+.status .progress .done .passIcon {
   background-color: #b66d76;
   border: 1px solid #b66d76;
   color: #fff;
@@ -5310,10 +5416,15 @@ footer .footerContent .scudero b {
   width: 100%;
   text-align: right;
   font-size: 10pt;
+  padding-right: 20px;
 }
 
 .status .buyer div {
-  width: 40%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  min-width: 40%;
+  max-width: 50%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -5323,7 +5434,7 @@ footer .footerContent .scudero b {
           flex-direction: column;
   border: 2px solid #b66d76;
   padding: 15px 25px;
-  border-radius: 30px;
+  border-radius: 20px;
   gap: 5px;
 }
 
@@ -5347,7 +5458,29 @@ footer .footerContent .scudero b {
       -ms-flex-direction: column;
           flex-direction: column;
   overflow: hidden;
-  height: 70px;
+  max-height: 50px;
+  -webkit-transition: 1.5s;
+  transition: 1.5s;
+  position: relative;
+}
+
+.status .buyer .TrackingDiv i {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 18pt;
+  color: #b66d76;
+  cursor: pointer;
+  -webkit-transition: color 0.1s, -webkit-transform 0.8s;
+  transition: color 0.1s, -webkit-transform 0.8s;
+  transition: transform 0.8s, color 0.1s;
+  transition: transform 0.8s, color 0.1s, -webkit-transform 0.8s;
+  -webkit-transition-delay: 0.7s;
+          transition-delay: 0.7s;
+}
+
+.status .buyer .TrackingDiv i:active {
+  color: #ddd;
 }
 
 .status .buyer .TrackingDiv section {
@@ -5359,7 +5492,6 @@ footer .footerContent .scudero b {
       -ms-flex-direction: column;
           flex-direction: column;
   border-bottom: 1px solid #b66d76;
-  position: relative;
 }
 
 .status .buyer .TrackingDiv section:last-child {
@@ -5380,30 +5512,13 @@ footer .footerContent .scudero b {
   color: #878787;
 }
 
-.status .buyer .TrackingDiv section i {
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-  font-size: 18pt;
-  color: #b66d76;
-  cursor: pointer;
-  -webkit-transition: color 0.1s, -webkit-transform 0.5s;
-  transition: color 0.1s, -webkit-transform 0.5s;
-  transition: transform 0.5s, color 0.1s;
-  transition: transform 0.5s, color 0.1s, -webkit-transform 0.5s;
-}
-
-.status .buyer .TrackingDiv section i:active {
-  color: #ddd;
-}
-
 .status .buyer .TrackingDiv .rotate {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
 
 .status .buyer .moreTracking {
-  height: inherit;
+  max-height: 1000px;
 }
 
 .status .buyer button {
@@ -5466,6 +5581,7 @@ footer .footerContent .scudero b {
   z-index: 100;
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
+  font-size: 0.9em;
 }
 
 .status .buyer button:disabled:hover:after {
@@ -5476,6 +5592,7 @@ footer .footerContent .scudero b {
   text-decoration: none;
   color: #b66d76;
   justify-self: flex-start;
+  margin-left: 20px;
 }
 
 #cancelBox {
@@ -5544,13 +5661,16 @@ footer .footerContent .scudero b {
   font-weight: bold;
   margin-bottom: 5px;
   color: #b66d76;
+  text-align: center;
 }
 
 #cancelBox .cancel p {
+  text-align: center;
   font-size: 14pt;
 }
 
 #cancelBox .cancel a {
+  text-align: center;
   font-size: 12pt;
   color: #b66d76;
   text-decoration: none;
@@ -5560,13 +5680,19 @@ footer .footerContent .scudero b {
   text-decoration: underline;
 }
 
+#cancelBox .cancel .redirect {
+  text-align: center;
+}
+
 #cancelBox .cancel label {
+  text-align: center;
   font-size: 12pt;
   width: 100%;
   color: #878787;
 }
 
 #cancelBox .cancel textarea {
+  text-align: center;
   margin: 0;
   width: 100%;
   height: 100px;
@@ -5577,11 +5703,11 @@ footer .footerContent .scudero b {
 }
 
 #cancelBox .cancel button {
-  width: 40%;
+  width: 60%;
   border: none;
   background-color: #b66d76;
   color: #fff;
-  padding: 10px;
+  padding: 5px 0;
   letter-spacing: 1px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -5619,77 +5745,257 @@ footer .footerContent .scudero b {
 
 @media (max-width: 1100px) {
   .status {
-    width: 90%;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    width: 100%;
+    -webkit-column-gap: 0;
+            column-gap: 0;
   }
   .status .progress {
-    width: 80%;
+    width: 98%;
     margin: 0 auto;
-    -webkit-transform: scale(0.9);
-            transform: scale(0.9);
+  }
+  .status .progress .pass .passIcon .passName {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    text-align: center;
+    bottom: 0px;
+    line-height: 1.3em;
+    -webkit-transform: translateY(110%);
+            transform: translateY(110%);
   }
   .status .prodShow {
-    width: 45%;
+    width: 35%;
+  }
+  .status .buyer {
+    width: 60%;
+  }
+}
+
+@media (max-width: 840px) {
+  .status {
+    -webkit-column-gap: 0;
+            column-gap: 0;
+  }
+  .status .progress .passIcon {
+    width: 43px;
+    height: 43px;
+    font-size: 15pt;
+    margin: 0;
+  }
+  .status .progress .arrows i:nth-child(3n),
+  .status .progress .arrows i:nth-child(1) {
+    display: none;
   }
   .status .buyer {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    width: 45%;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
   }
   .status .buyer div {
-    width: 100%;
-  }
-}
-
-@media (max-width: 950px) {
-  .status .progress {
-    width: 60%;
-    gap: 15px;
-  }
-  .status .progress .pass i .passName {
-    width: 100px;
-    text-align: center;
-    bottom: -30px;
-  }
-  .status .progress .pass .arrows i:nth-child(even) {
-    display: none;
-  }
-  .status .buyer div {
     width: 90%;
+    max-width: 90%;
+  }
+  .status .prodShow .prod .info .prodName {
+    font-size: 11pt;
   }
 }
 
-@media (max-width: 680px) {
-  .status .progress {
-    gap: 5px;
-    -webkit-transform: scale(0.9);
-            transform: scale(0.9);
-  }
-}
-
-@media (max-width: 680px) {
-  .status .progress {
-    gap: 4px;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-  }
-}
-
-@media (max-width: 550px) {
+@media (max-width: 630px) {
   .status {
-    width: 95%;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    -ms-flex-wrap: nowrap;
-        flex-wrap: nowrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .status .progress {
+    width: 90%;
+  }
+  .status .progress .pass .passIcon .passName {
+    font-size: 10pt;
+  }
+  .status .progress .pass .arrows i:nth-child(3n),
+  .status .progress .pass .arrows i:nth-child(1) {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .status .progress .pass .arrows i:nth-child(2n) {
+    display: none;
+  }
+  .status .prodShow {
+    width: 90%;
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+  }
+  .status .termsLink {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+  }
+  .status .buyer {
+    width: 90%;
+  }
+  .status .buyer button {
+    -ms-flex-item-align: end;
+        align-self: flex-end;
+    margin-top: 5px;
+    margin-left: auto;
+    font-size: 11pt;
+    padding: 2px 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 30%;
+    font-size: 10pt;
+    margin-left: 5%;
+  }
+  .status .buyer button:disabled ::after {
+    font-size: 10pt;
+  }
+}
+
+@media (max-width: 550px) {
+  .status .progress .pass .passIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 13pt;
+    margin: 0 1px;
+  }
+  .status .progress .pass .arrows i:nth-child(3n) {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .status .progress .pass .arrows i:nth-child(2n) {
+    display: none;
+  }
+  .status .buyer {
+    width: 100%;
+  }
+  .status .buyer div {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 460px) {
+  .status {
+    width: 100%;
+  }
+  .status .progress .pass .passIcon {
+    width: 34px;
+    height: 34px;
+    font-size: 11pt;
+    margin: 0;
+  }
+  .status .progress .pass .passIcon .passName {
+    font-size: 8.6pt;
+  }
+  .status .progress .pass .arrows i {
+    font-size: 11pt;
+  }
+  .status .progress .pass .arrows i:nth-child(3n) {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .status .progress .pass .arrows i:nth-child(2n) {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .status .progress .pass .passIcon {
+    width: 5px;
+    height: 5px;
+    overflow: hidden;
+    margin: 0;
+    font-size: 0;
+    background-color: #ddd;
+    margin: 0 1px;
+  }
+  .status .progress .pass .passIcon .passName {
+    font-size: 7pt;
+  }
+  .status .progress .pass .arrows i {
+    color: transparent;
+    background-color: #ddd;
+    width: 5px;
+    height: 5px;
+    overflow: hidden;
+    color: #ddd;
+    font-size: 0;
+    margin: 0 1px;
+    border-radius: 50%;
+  }
+  .status .progress .pass .arrows i:nth-child(3n) {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .status .progress .pass .arrows i:nth-child(2n) {
+    display: none;
+  }
+  .status .progress .doing .passIcon {
+    background-color: #b66d76;
+    color: #fff;
+    border: 1px solid #b66d76;
+    width: 28px;
+    height: 28px;
+    overflow: visible;
+    font-size: 10pt;
+  }
+  .status .progress .doing .arrows:nth-child(2) i {
+    background-color: #b66d76;
+  }
+  .status .progress .done .passIcon {
+    background-color: #b66d76;
+    border: 1px solid #b66d76;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    overflow: visible;
+    font-size: 10pt;
+  }
+  .status .progress .done .arrows i {
+    background-color: #b66d76;
+  }
+  .status .buyer button {
+    width: 50%;
+    font-size: 10pt;
+  }
+  #cancelBox .cancel {
+    width: 100%;
+    padding: 20px 5px;
+  }
+  #cancelBox .cancel #closeCancel {
+    font-size: 19pt;
+    color: #f99;
+    margin: 0 auto;
+    right: inherit;
+    top: -15px;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -5697,87 +6003,153 @@ footer .footerContent .scudero b {
         -ms-flex-align: center;
             align-items: center;
   }
-  .status .progress {
-    gap: 1px;
-    -webkit-transform: scale(0.75);
-            transform: scale(0.75);
-    -webkit-box-ordinal-group: -1;
-        -ms-flex-order: -2;
-            order: -2;
+  #cancelBox .cancel h3 {
+    font-size: 18pt;
   }
-  .status .buyer {
-    -webkit-box-ordinal-group: 0;
-        -ms-flex-order: -1;
-            order: -1;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
+  #cancelBox .cancel p {
+    font-size: 12pt;
   }
-  .status .buyer div {
-    width: 80%;
+  #cancelBox .cancel a {
+    font-size: 11pt;
   }
-  .status .prodShow {
-    margin-top: 1px solid #b66d76;
-    width: 100%;
-  }
-  .status .prodShow .prod {
-    width: 95%;
-  }
-  .status .prodShow .pay {
-    margin: 0 20px;
-  }
-}
-
-@media (max-width: 550px) {
-  .status .progress .pass .arrows i:nth-child(3n) {
-    display: none;
-  }
-  .status .progress .pass i {
-    width: 45px;
-    height: 45px;
-    font-size: 15pt;
-  }
-  .status .buyer div h3 {
-    font-size: 1em;
-  }
-  .status .buyer div span {
+  #cancelBox .cancel label {
     font-size: 10pt;
   }
-}
-
-@media (max-width: 400px) {
-  .status .progress {
-    gap: 0px;
-    -webkit-transform: scale(0.7);
-            transform: scale(0.7);
+  #cancelBox .cancel textarea {
+    width: 90%;
+    font-size: 10pt;
   }
-}
-
-@media (max-width: 350px) {
-  .status .progress {
-    gap: 0px;
-    -webkit-transform: scale(0.65);
-            transform: scale(0.65);
-  }
-  .status .progress .arrows i {
+  #cancelBox .cancel button {
     font-size: 11pt;
+    padding: 2px 0;
+    width: 50%;
   }
 }
 
 @media (max-width: 300px) {
-  .status {
-    width: 100%;
+  .status .progress .pass .arrows i:nth-child(3n) {
+    display: none;
   }
-  .status .progress {
-    gap: 0px;
-    -webkit-transform: scale(0.55);
-            transform: scale(0.55);
+  #cancelBox .cancel h3 {
+    font-size: 15pt;
   }
-  .status .progress .arrows i {
+  #cancelBox .cancel p {
+    font-size: 11pt;
+  }
+  #cancelBox .cancel a {
     font-size: 10pt;
+  }
+  #cancelBox .cancel label {
+    font-size: 9pt;
+  }
+  #cancelBox .cancel textarea {
+    width: 90%;
+    font-size: 9pt;
+  }
+  #cancelBox .cancel button {
+    font-size: 10pt;
+    padding: 2px 0;
+    width: 80%;
   }
 }
 
+/*
+@media (max-width: 550px) {
+    .status {
+        width: 95%;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        .progress {
+            gap: 1px;
+            transform: scale(0.75);
+            order: -2;
+        }
+        .buyer {
+            order: -1;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            div {
+                width: 80%;
+            }
+        }
+        .prodShow {
+            margin-top: 1px solid $mainColor;
+            width: 100%;
+            .prod {
+                width: 95%;
+            }
+            .pay {
+                margin: 0 20px;
+            }
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    .status {
+        .progress {
+            .pass {
+                .arrows i:nth-child(3n) {
+                    display: none;
+                }
+                i {
+                    width: 45px;
+                    height: 45px;
+                    font-size: 15pt;
+                }
+            }
+        }
+        .buyer div h3 {
+            font-size: 1em;
+        }
+        .buyer div span {
+            font-size: 10pt;
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .status {
+        .progress {
+            gap: 0px;
+
+            transform: scale(0.7);
+        }
+    }
+}
+@media (max-width: 350px) {
+    .status {
+        .progress {
+            gap: 0px;
+
+            transform: scale(0.65);
+            .arrows {
+                i {
+                    font-size: 11pt;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 300px) {
+    .status {
+        width: 100%;
+        .progress {
+            gap: 0px;
+
+            transform: scale(0.55);
+            .arrows {
+                i {
+                    font-size: 10pt;
+                }
+            }
+        }
+    }
+}
+*/
 .unsubscribe {
   width: 100%;
   min-height: 100vh;
@@ -6058,6 +6430,58 @@ footer .footerContent .scudero b {
   }
 }
 
+@media (max-width: 1100px) {
+  .helpContainer {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 800px) {
+  .helpContainer {
+    border: none;
+  }
+  .helpContainer .selectHelp {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 100%;
+  }
+  .helpContainer .selectHelp label {
+    width: 90%;
+    border-radius: 5px;
+  }
+  .helpContainer .selectHelp label .helpOption {
+    aspect-ratio: inherit;
+    padding: 10px 20px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+  .helpContainer .selectHelp label .helpOption::after {
+    height: 150%;
+    width: 18px;
+    top: -5px;
+    left: 0;
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+  }
+  .helpContainer .helpContent {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 10px 20px;
+  }
+}
+
 .returnPage {
   background-color: #b66d76;
   width: 100vw;
@@ -6072,9 +6496,12 @@ footer .footerContent .scudero b {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .returnPage .returnContent {
@@ -6096,6 +6523,20 @@ footer .footerContent .scudero b {
   border: 2px solid #b66d76;
   border-radius: 20px;
   color: #fff;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.returnPage .returnContent .logo {
+  width: 30%;
+  max-height: 200px;
+  overflow: hidden;
+  margin: 10px;
+}
+
+.returnPage .returnContent .logo img {
+  width: 100%;
+  height: 100%;
 }
 
 .returnPage .returnContent h1 {
@@ -6177,7 +6618,8 @@ footer .footerContent .scudero b {
 }
 
 .returnPage .returnContent button {
-  padding: 10px 20px;
+  padding: 5px 0;
+  width: 60%;
   background-color: #fff;
   color: #b66d76;
   border: none;
@@ -6186,6 +6628,7 @@ footer .footerContent .scudero b {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: 1px solid #fff;
+  font-size: 13pt;
 }
 
 .returnPage .returnContent button:hover {
@@ -6199,11 +6642,37 @@ footer .footerContent .scudero b {
   border-radius: 20px;
   border: 2px solid #fff;
   color: #b66d76;
+  width: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.returnPage .returnContent .code input {
+  width: 90%;
+  border: none;
+  outline: none;
   font-weight: bold;
   font-size: 13pt;
   -webkit-filter: brightness(1.1);
           filter: brightness(1.1);
   letter-spacing: 0.5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  pointer-events: none;
+  text-align: center;
+}
+
+.returnPage .returnContent .code i {
+  font-size: 13pt;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
 }
 
 .returnPage .returnContent p {
@@ -6214,11 +6683,129 @@ footer .footerContent .scudero b {
 }
 
 @media (max-width: 970px) {
-  body {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+  .returnPage .returnContent .nps {
+    padding: 10px;
+  }
+  .returnPage .returnContent button {
+    padding: 5px 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 60%;
+  }
+}
+
+@media (max-width: 590px) {
+  .returnPage {
+    padding: 10px 0;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  .returnPage .returnContent h1 {
+    font-size: 18pt;
+  }
+  .returnPage .returnContent p {
+    font-size: 11pt;
+  }
+  .returnPage .returnContent .code {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 90%;
+    padding: 10px 5px;
+  }
+  .returnPage .returnContent .code input {
+    font-size: 11pt;
+    text-align: center;
+  }
+  .returnPage .returnContent .nps {
+    gap: 10px;
+  }
+  .returnPage .returnContent .nps h2 {
+    font-size: 16pt;
+  }
+  .returnPage .returnContent .nps .stars label i {
+    margin: 0 2px;
+    font-size: 18pt;
+  }
+}
+
+@media (max-width: 480px) {
+  .returnPage .returnContent {
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    height: 100vh;
+    gap: 0;
+    padding: 20px 0;
+  }
+  .returnPage .returnContent .logo {
+    margin: 0;
+  }
+  .returnPage .returnContent .code {
+    width: 100%;
+    border-radius: 0;
+    padding: 10px 2px;
+  }
+  .returnPage .returnContent .code input {
+    width: 95%;
+    font-size: 10pt;
+    text-align: center;
+  }
+  .returnPage .returnContent .code i {
+    font-size: 10pt;
+  }
+  .returnPage .returnContent .nps {
+    gap: 2px;
+    padding: 0;
+  }
+  .returnPage .returnContent .nps h2 {
+    font-size: 12pt;
+  }
+  .returnPage .returnContent .nps span#rateMsg {
+    font-size: 11pt;
+  }
+  .returnPage .returnContent textarea {
+    font-size: 10pt;
+  }
+}
+
+@media (max-width: 350px) {
+  .returnPage .returnContent {
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    padding: 10px 0;
+  }
+  .returnPage .returnContent .logo {
+    margin: 0;
+  }
+  .returnPage .returnContent h1 {
+    font-size: 14pt;
+  }
+  .returnPage .returnContent p {
+    font-size: 10pt;
+  }
+  .returnPage .returnContent .code input {
+    width: 98%;
+    font-size: 8pt;
+  }
+  .returnPage .returnContent .nps {
+    gap: 2px;
+  }
+  .returnPage .returnContent span {
+    font-size: 9pt;
+  }
+  .returnPage .returnContent textarea {
+    font-size: 9pt;
+  }
+  .returnPage .returnContent button {
+    padding: 2px 0;
+    font-size: 9pt;
+  }
+}
+
+@media (max-width: 300px) {
+  .returnPage .returnContent .code input {
+    text-align: left;
   }
 }
 /*# sourceMappingURL=main.css.map */

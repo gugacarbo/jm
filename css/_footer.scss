@@ -6,7 +6,9 @@ footer {
     border-top: 2px solid $mainColor;
     padding-top: 30px;
     margin-top: 30px;
+    box-sizing: border-box;
     .footerContent {
+        box-sizing: border-box;
         padding: 10px 0;
         width: $deskWidth;
         display: flex;
@@ -63,6 +65,7 @@ footer {
             }
 
             b {
+                text-align: center;
                 margin-top: 10px;
                 font-size: 9pt;
                 color: #656565;

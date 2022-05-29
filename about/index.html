@@ -22,8 +22,8 @@
         <div role="tablist" class="dotsBanner"></div>
     </div>
     <div class="about">
-        <p id="aboutText">
-        </p>
+        <section id="aboutText">
+        </section>
         <div>
             <div class="img">
                 <img src="aboutImage.jpg" id="aboutImg">
@@ -44,12 +44,12 @@
 
 
             var http = new XMLHttpRequest();
-            http.open('HEAD', "aboutFile.txt", false);
+            http.open('HEAD', "aboutFile.ino", false);
             http.send();
             if (http.status == 404) {
                 $("#aboutText").html("<span>Ocorreu um erro ao carregar o conteúdo da página.</span>");
             }else{
-                $("#aboutText").load("aboutFile.txt?nocache=" + (new Date()).getTime());
+                $("#aboutText").load("aboutFile.ino?nocache=" + (new Date()).getTime());
             }
             
         
@@ -66,7 +66,7 @@
 
 
             var http = new XMLHttpRequest();
-            http.open('HEAD', "mapLink.txt", false);
+            http.open('HEAD', "mapLink.ino", false);
             http.send();
             if (http.status == 404) {
                 $("#mapL").remove()
@@ -74,7 +74,7 @@
                 $("#aboutImg").parent().css("width", "100%")
                 $("#aboutImg").css("width", "100%")
             }else{
-                $("#mapL").load("mapLink.txt?nocache=" + Math.random());
+                $("#mapL").load("mapLink.ino?nocache=" + Math.random());
             }
         })
         function setBanner(el_id, banner_name) {

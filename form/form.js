@@ -88,6 +88,10 @@ function validarCPF(cpf) {
         return false;
     return true;
 }
+
+var minYear = 2006;
+var maxYear = 1900;
+
 function verificaData(input) {
     var Data = formatDate(input)
     Data = Data.substring(0, 10);
@@ -111,9 +115,9 @@ function verificaData(input) {
         parseInt(data[1]) > 12) return false;
     if (data[2] == '' || isNaN(data[2]) || ((parseInt(data[2]) < 0 ||
         parseInt(data[2]) > 99) && (parseInt(data[2]) <
-            1900 || parseInt(data[2]) > 2004))) return false;
+            maxYear || parseInt(data[2]) > minYear))) return false;
     if (data[2] < 50) data[2] = parseInt(data[2]) + 2000;
-    else if (data[2] < 100) data[2] = parseInt(data[2]) + 1900;
+    else if (data[2] < 100) data[2] = parseInt(data[2]) + maxYear;
     switch (parseInt(data[1])) {
         case 2: {
             if (((parseInt(data[2]) % 4 != 0 ||

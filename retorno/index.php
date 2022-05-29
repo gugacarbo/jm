@@ -15,9 +15,15 @@
 <body>
     <div class="returnPage">
         <div class="returnContent">
+            <div class="logo">
+                <img src="/img/Jm_Logo_Branco.png" alt="Logo JM Acessórios de Luxo">
+            </div>
             <h1>Compra Concluída com Sucesso!</h1>
             <p>Use esse código para rastrear sua compra</p>
-            <span class="code"><?php echo ($_GET["code"]); ?></span>
+            <span class="code">
+                <input type="text" name="" id="CodeI" value=<?php echo '"' . ($_GET["code"]). '"' ; ?>>
+                <i class="fas fa-copy" id="copyCode"></i></span>
+            </span>
             <i style="color: '#bbb'; font-size: 10pt;">Ele será enviado para seu e-mail</i>
             <div class="nps">
                 <h2>Avalie Sua Compra!</h2>
@@ -47,11 +53,37 @@
             </div>
             <span>Deixe uma Mensagem <i style="color: '#ddd'; font-size: 10pt;">opcional</i></span>
             <textarea></textarea>
-            <button id="send">Enviar e Voltar a Loja</button>
+            <button id="send">Enviar e Voltar à Loja</button>
 
         </div>
     </div>
     <script>
+        function copiarTexto() {
+            let textoCopiado = $(".code").val();
+            textoCopiado.select();
+            textoCopiado.setSelectionRange(0, 99999)
+            document.execCommand("copy");
+            alert("O texto é: " + textoCopiado.value);
+        }
+        $('#copyCode').click(function() {
+            $('#CodeI').select();
+            var copiar = document.execCommand('copy');
+            if (copiar) {
+                $(this).css("transform", "scale(1.2)");
+                var c = $(this).css("color");
+                $(this).css("color", "green");
+                setTimeout(() => {
+                    $(this).css("color", c);
+                    $(this).css("transform", "scale(1)");
+                    
+                }, 500);
+                //alert('Copiado');
+            } else {
+                //alert('Erro ao copiar, seu navegador pode não ter suporte a essa função.');
+            }
+            return false;
+        });
+
         $("input").on("change", () => {
             var rate = $("input[name='nps1']:checked").val();
             switch (rate) {
@@ -82,7 +114,7 @@
                 "message": message,
                 "code": code
             }, (data) => {
-               window.location.href = "/";
+                window.location.href = "/";
             })
         })
     </script>

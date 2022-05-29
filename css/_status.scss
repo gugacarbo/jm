@@ -5,16 +5,28 @@
     margin: 30px 0;
     width: $deskWidth;
     gap: 20px;
-
+    box-sizing: border-box;
+    * {
+        box-sizing: border-box;
+    }
     .progress {
         width: 100%;
         display: flex;
         justify-content: center;
         padding-bottom: 40px;
+        position: relative;
+        justify-content: space-between;
+
         .pass {
             display: flex;
             position: relative;
-            i {
+            flex: 1;
+            align-items: center;
+            justify-content: space-between;
+            &:last-child {
+                flex: 0;
+            }
+            .passIcon {
                 width: 55px;
                 height: 55px;
                 border-radius: 50px;
@@ -44,18 +56,20 @@
             }
             .arrows {
                 display: flex;
+                justify-content: space-around;
+                align-items: center;
+                flex: 1;
                 i {
                     font-size: 13pt;
-                    width: 11.5px;
                     background-color: transparent;
                     color: #ddd;
-                    margin: 0;
+                    margin: 0px;
                     border: none;
                 }
             }
         }
         .doing {
-            i {
+            .passIcon {
                 background-color: $mainColor;
                 color: #fff;
                 border: 1px solid $mainColor;
@@ -67,7 +81,7 @@
             }
         }
         .done {
-            i {
+            .passIcon {
                 background-color: $mainColor;
                 border: 1px solid $mainColor;
 
@@ -163,14 +177,17 @@
             width: 100%;
             text-align: right;
             font-size: 10pt;
+            padding-right: 20px;
         }
         div {
-            width: 40%;
+            flex: 1;
+            min-width: 40%;
+            max-width: 50%;
             display: flex;
             flex-direction: column;
             border: 2px solid $mainColor;
             padding: 15px 25px;
-            border-radius: 30px;
+            border-radius: 20px;
             gap: 5px;
             span {
                 width: 100%;
@@ -188,7 +205,22 @@
             gap: 8px;
             flex-direction: column;
             overflow: hidden;
-            height: 70px;
+            max-height: 50px;
+            transition: 1.5s;
+            position: relative;
+            i {
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                font-size: 18pt;
+                color: $mainColor;
+                cursor: pointer;
+                transition: transform 0.8s, color 0.1s;
+                transition-delay: 0.7s;
+                &:active {
+                    color: #ddd;
+                }
+            }
             section {
                 display: flex;
                 flex-direction: column;
@@ -207,27 +239,13 @@
                     font-size: 8pt;
                     color: #878787;
                 }
-                position: relative;
-                i {
-                    position: absolute;
-                    bottom: 10px;
-                    right: 20px;
-                    font-size: 18pt;
-                    color: $mainColor;
-                    cursor: pointer;
-                    transition: transform 0.5s, color 0.1s;
-                
-                    &:active {
-                        color: #ddd;
-                    }
-                }
             }
             .rotate {
                 transform: rotate(180deg);
             }
         }
         .moreTracking {
-            height: inherit;
+            max-height: 1000px;
         }
         button {
             border: none;
@@ -270,6 +288,7 @@
                     border-radius: 10px;
                     z-index: 100;
                     transition: opacity 0.5s;
+                    font-size: 0.9em;
                 }
                 &:hover {
                     &:after {
@@ -279,10 +298,11 @@
             }
         }
     }
-    .termsLink{
+    .termsLink {
         text-decoration: none;
         color: $mainColor;
         justify-self: flex-start;
+        margin-left: 20px;
     }
 }
 #cancelBox {
@@ -325,11 +345,14 @@
             font-weight: bold;
             margin-bottom: 5px;
             color: $mainColor;
+            text-align: center;
         }
         p {
+            text-align: center;
             font-size: 14pt;
         }
         a {
+            text-align: center;
             font-size: 12pt;
             color: $mainColor;
             text-decoration: none;
@@ -337,12 +360,17 @@
                 text-decoration: underline;
             }
         }
+        .redirect {
+            text-align: center;
+        }
         label {
+            text-align: center;
             font-size: 12pt;
             width: 100%;
             color: #878787;
         }
         textarea {
+            text-align: center;
             margin: 0;
             width: 100%;
             height: 100px;
@@ -352,11 +380,11 @@
             resize: none;
         }
         button {
-            width: 40%;
+            width: 60%;
             border: none;
             background-color: $mainColor;
             color: #fff;
-            padding: 10px;
+            padding: 5px 0;
             letter-spacing: 1px;
             display: flex;
             justify-content: center;
@@ -381,71 +409,327 @@
     }
 }
 
+//x @medias
+
 @media (max-width: $deskWidth) {
     .status {
-        width: 90%;
-        justify-content: space-around;
+        justify-content: space-between;
+        width: 100%;
+        column-gap: 0;
         .progress {
-            width: 80%;
+            width: 98%;
             margin: 0 auto;
-            transform: scale(0.9);
+            //transform: scale(0.9);
+            .pass .passIcon .passName {
+                width: fit-content;
+                text-align: center;
+                bottom: 0px;
+                line-height: 1.3em;
+                transform: translateY(110%);
+            }
         }
         .prodShow {
-            width: 45%;
+            width: 35%;
+        }
+        .buyer {
+            width: 60%;
+        }
+    }
+}
+@media (max-width: 840px) {
+    .status {
+        column-gap: 0;
+        .progress {
+            .passIcon {
+                width: 43px;
+                height: 43px;
+                font-size: 15pt;
+                margin: 0;
+            }
+
+            .arrows i:nth-child(3n),
+            .arrows i:nth-child(1) {
+                display: none;
+            }
         }
         .buyer {
             flex-direction: column;
-            width: 45%;
             align-items: center;
             div {
-                width: 100%;
+                width: 90%;
+                max-width: 90%;
+            }
+        }
+        .prodShow {
+            .prod .info .prodName {
+                font-size: 11pt;
             }
         }
     }
 }
-@media (max-width: 950px) {
+
+@media (max-width: 630px) {
+    .status {
+        flex-direction: column;
+        align-items: center;
+        .progress {
+            width: 90%;
+            .pass {
+                .passIcon .passName {
+                    font-size: 10pt;
+                }
+
+                .arrows i:nth-child(3n),
+                .arrows i:nth-child(1) {
+                    display: flex;
+                }
+                .arrows i:nth-child(2n) {
+                    display: none;
+                }
+            }
+        }
+        .prodShow {
+            width: 90%;
+            order: 1;
+        }
+
+        .termsLink {
+            order: 2;
+        }
+        .buyer {
+            width: 90%;
+            button {
+                align-self: flex-end;
+                margin-top: 5px;
+                margin-left: auto;
+                font-size: 11pt;
+                padding: 2px 0;
+                box-sizing: border-box;
+                width: 30%;
+                font-size: 10pt;
+                margin-left: 5%;
+
+                &:disabled ::after {
+                    font-size: 10pt;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 550px) {
     .status {
         .progress {
-            width: 60%;
-            gap: 15px;
             .pass {
-                i {
-                    .passName {
-                        width: 100px;
-                        text-align: center;
-                        bottom: -30px;
-                    }
+                .passIcon {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 13pt;
+                    margin: 0 1px;
                 }
-                .arrows i:nth-child(even) {
+                .arrows i:nth-child(3n) {
+                    display: flex;
+                }
+                .arrows i:nth-child(2n) {
                     display: none;
                 }
             }
         }
         .buyer {
+            width: 100%;
             div {
-                width: 90%;
+                border-left: none;
+                border-right: none;
+                border-radius: 0;
+                width: 100%;
+                box-sizing: border-box;
+                max-width: 100%;
+                //padding: 10px 0;
             }
         }
     }
 }
-@media (max-width: 680px) {
+@media (max-width: 460px) {
+    .status {
+        width: 100%;
+
+        .progress {
+            .pass {
+                .passIcon {
+                    width: 34px;
+                    height: 34px;
+                    font-size: 11pt;
+                    margin: 0;
+                    .passName {
+                        font-size: 8.6pt;
+                    }
+                }
+                .arrows {
+                    i {
+                        font-size: 11pt;
+                    }
+                }
+                .arrows i:nth-child(3n) {
+                    display: flex;
+                }
+                .arrows i:nth-child(2n) {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 400px) {
     .status {
         .progress {
-            gap: 5px;
-            transform: scale(0.9);
+            .pass {
+                .passIcon {
+                    width: 5px;
+                    height: 5px;
+                    overflow: hidden;
+                    margin: 0;
+                    font-size: 0;
+                    background-color: #ddd;
+                    margin: 0 1px;
+                    .passName {
+                        font-size: 7pt;
+                    }
+                }
+                .arrows {
+                    i {
+                        color: transparent;
+                        background-color: #ddd;
+                        width: 5px;
+                        height: 5px;
+                        overflow: hidden;
+                        color: #ddd;
+                        font-size: 0;
+                        margin: 0 1px;
+                        border-radius: 50%;
+                    }
+                }
+                .arrows i:nth-child(3n) {
+                    display: flex;
+                }
+                .arrows i:nth-child(2n) {
+                    display: none;
+                }
+            }
+
+            .doing {
+                .passIcon {
+                    background-color: $mainColor;
+                    color: #fff;
+                    border: 1px solid $mainColor;
+                    width: 28px;
+                    height: 28px;
+                    overflow: visible;
+                    font-size: 10pt;
+                }
+                .arrows:nth-child(2) {
+                    i {
+                        background-color: $mainColor;
+                    }
+                }
+            }
+            .done {
+                .passIcon {
+                    background-color: $mainColor;
+                    border: 1px solid $mainColor;
+                    color: #fff;
+                    width: 28px;
+                    height: 28px;
+                    overflow: visible;
+                    font-size: 10pt;
+                }
+                .arrows {
+                    i {
+                        background-color: $mainColor;
+                    }
+                }
+            }
+        }
+        .buyer {
+            button {
+                width: 50%;
+                font-size: 10pt;
+            }
+        }
+    }
+    #cancelBox {
+        .cancel {
+            #closeCancel {
+                font-size: 19pt;
+                color: #f99;
+                margin: 0 auto;
+                right: inherit;
+                top: -15px;
+                width: 30px;
+                height: 30px;
+                background-color: #fff;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            width: 100%;
+            padding: 20px 5px;
+            h3 {
+                font-size: 18pt;
+            }
+            p {
+                font-size: 12pt;
+            }
+            a {
+                font-size: 11pt;
+            }
+            label {
+                font-size: 10pt;
+            }
+            textarea {
+                width: 90%;
+                font-size: 10pt;
+            }
+            button {
+                font-size: 11pt;
+                padding: 2px 0;
+                width: 50%;
+            }
         }
     }
 }
 
-@media (max-width: 680px) {
-    .status {
-        .progress {
-            gap: 4px;
+@media (max-width: 300px) {
+    .status .progress .pass .arrows i:nth-child(3n) {
+        display: none;
+    }
+    #cancelBox {
+        .cancel {
 
-            transform: scale(0.8);
+            h3 {
+                font-size: 15pt;
+            }
+            p {
+                font-size: 11pt;
+            }
+            a {
+                font-size: 10pt;
+            }
+            label {
+                font-size: 9pt;
+            }
+            textarea {
+                width: 90%;
+                font-size: 9pt;
+            }
+            button {
+                font-size: 10pt;
+                padding: 2px 0;
+                width: 80%;
+            }
         }
     }
 }
+/*
 @media (max-width: 550px) {
     .status {
         width: 95%;
@@ -541,3 +825,4 @@
         }
     }
 }
+*/

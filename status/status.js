@@ -74,8 +74,8 @@ $(document).ready(() => {
 
 
 function moreTracking() {
-    $("#TrackingDiv").toggleClass("moreTracking");
     $("#moreTracking").toggleClass("rotate");
+    $("#TrackingDiv").toggleClass("moreTracking");
 
 }
 
@@ -318,7 +318,6 @@ function getData(cpf, code) {
                                 "<span>" + evento.status + "</span>" +
                                 "<label>" + evento.local + "</label>" +
                                 "<small>" + evento.data + " " + evento.hora + "</small>" +
-                                (i == 0 ? "<i class='fa-solid fa-chevron-down' id='moreTracking' onclick='moreTracking()'></i>" : "") +
                                 "</section>";
                             $("#TrackingDiv").append(step);
                         })
