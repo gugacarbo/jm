@@ -79,7 +79,7 @@ function search(order_ = orderG, filter_ = filterG,) {
             $("#productsList").fadeIn(500);
         })
     })
-    
+
 }
 
 
@@ -99,7 +99,7 @@ function createProd(produto) {
         <span ${(produto.promo > 0 ? " style='color:#31AF33;' " : " style='color:#AF314E;' ")}  >${(produto.promo > 0 ? ("(" + ((1 - (produto.price / produto.promo)) * 100).toFixed(2) + "%)") : "Nao")}</span>
         
         <span>${produto.category}</span>
-        <span>${produto.totalQuantity}</span>
+        ${produto.totalQuantity <= 0 ? '<span style="font-weight: bold; color: #f00;">' + produto.totalQuantity + '</span>' : '<span>' + produto.totalQuantity + '</span>'}
         <span>${produto.sold}</span>
         <span><i class="fas fa-pencil-alt" onclick="modalProductShow(${produto.id})"></i></span>
         <span><i class="fas fa-trash-alt" onclick="deleteProduct(${produto.id})"></i></span>
@@ -130,7 +130,7 @@ function deleteProduct(id) {
 }
 
 function del(id) {
-    $.post("/admin/api/delete/deleteProduct.php", { "id": id }, function (data) {
+    $.post("/admin/api/post/product.php", { deleteProduct: id }, function (data) {
         if (data.status >= 200 && data.status < 300) {
             $("#Prod" + id).remove();
         } else {

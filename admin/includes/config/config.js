@@ -33,7 +33,7 @@ $(document).ready(function () {
             "comprimentoFrete": $("#comprimentoFrete").val()
         }
 
-        $.post("/admin/api/post/editShipingConfig.php", shipConfig, function (data) {
+        $.post("/admin/api/post/config.php", shipConfig, function (data) {
             
             $(".doneButton").removeClass("doneButton")
             $(".alertButton").removeClass("alertButton")
@@ -63,7 +63,7 @@ $(document).ready(function () {
             sendToAdminMail.push($(this).val());
         })
 
-        $.post("/admin/api/post/editEmailConfig.php", {
+        $.post("/admin/api/post/config.php", {
             adminMail: adminMail,
             contactMail: contactMail,
             automaticMail: automaticMail,

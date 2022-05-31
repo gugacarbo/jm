@@ -34,7 +34,7 @@ class frete extends dbConnect
         $config = array();
 
         foreach ($GconfigTake as $key => $value) {
-            $sql = "SELECT value FROM generalConfig WHERE config = ?";
+            $sql = "SELECT value FROM generalconfig WHERE config = ?";
             $stmt = $this->mysqli->prepare($sql);
             $stmt->bind_param("s", $value);
             $stmt->execute();

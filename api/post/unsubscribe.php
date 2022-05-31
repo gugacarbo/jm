@@ -8,8 +8,7 @@ date_default_timezone_set(TIMEZONE);
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
-include '../config/db_connect.php';
+include_once '../config/db_connect.php';
 
 class Unsubscribe extends dbConnect
 {

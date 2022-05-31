@@ -1,15 +1,41 @@
 <?php
 
 header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Methods: GET');
 
-include "../config/db_connect.php";
-$stmt = "SELECT * FROM cupom";
-$stmt = $mysqli->prepare($stmt);
-$stmt->execute();
-$result = $stmt->get_result();
-$stmt->close();
-while ($row = $result->fetch_assoc()) {
-    $row["clientIds"] = json_decode($row["clientIds"]);
-    $cupons[] = $row;
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
-die(json_encode(array("status" => 200, "cupons" => $cupons)));
+
+
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
+    die(json_encode(array('status' => 403)));
+}
+
+
+include_once '../config/db_connect.php';
+
+class cupons extends dbConnect
+{
+    public function __construct()
+    {
+        $mysqli = $this->connect();
+
+        $stmt = $mysqli->prepare("SELECT * FROM cupom");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        while ($row = $result->fetch_assoc()) {
+            $row['clientIds'] = json_decode($row['clientIds']);
+            $rows[] = $row;
+        }
+        
+        return(array(
+            'status' => 200,
+            'cupons' => $rows
+        ));
+    }
+}
+
+die(json_encode((new cupons())->__construct()));

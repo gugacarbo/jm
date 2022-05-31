@@ -46,6 +46,7 @@ body {
         justify-content: center;
         align-items: center;
         text-align: center;
+        position: relative;
         &:active {
             filter: brightness(1.1);
         }
@@ -80,10 +81,10 @@ body {
         }
         &::after {
             animation: doneButtonAnimation 1.5s;
-            margin-right: -70px;
+            right: 10%;
         }
         &::before {
-            margin-left: -70px;
+            left: 10%;
             animation: alertButtonAnimation 1.5s;
         }
 

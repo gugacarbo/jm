@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 
 
-include '../config/db_connect.php';
+include_once '../config/db_connect.php';
 class Newsletter extends dbConnect
 {
     private $name_, $email_;

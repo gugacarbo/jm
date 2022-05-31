@@ -1,24 +1,45 @@
 <?php
-//include db and take category from db and returns as json and close connection
 header('Content-Type: application/json; charset=utf-8');
-
-include '../config/db_connect.php';
-$stmt = $mysqli->prepare("SELECT * FROM material");
-$stmt->execute();
-$result_ = $stmt->get_result();
-if ($result_->num_rows > 0) {
-    $data = array();
-    while ($row = $result_->fetch_assoc()) {
+header('Access-Control-Allow-Methods: GET');
 
 
-        $stmt = $mysqli->prepare("SELECT * FROM products WHERE material = ?");
-        $stmt->bind_param("i", $row['id']);
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
+    die(json_encode(array('status' => 403)));
+}
+
+
+include_once '../config/db_connect.php';
+
+class materials extends dbConnect
+{
+
+    public function __construct()
+    {
+        $mysqli = $this->connect();
+        $stmt = $mysqli->prepare("SELECT * FROM material");
         $stmt->execute();
-        $result = $stmt->get_result();
-        
-        $row['numProds'] = $result->num_rows;
-        $data[] = $row;
+        $result_ = $stmt->get_result();
+        if ($result_->num_rows > 0) {
+            $data = array();
+            while ($row = $result_->fetch_assoc()) {
+                $stmt = $mysqli->prepare("SELECT * FROM products WHERE material = ?");
+                $stmt->bind_param("i", $row['id']);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                $row['numProds'] = $result->num_rows;
+                $data[] = $row;
+            }
+            return $data;
+        } else {
+            return (array('status' => 403));
+        }
     }
 }
-$mysqli->close();
-die(json_encode($data, JSON_UNESCAPED_UNICODE));
+
+die(json_encode((new materials())->__construct()));

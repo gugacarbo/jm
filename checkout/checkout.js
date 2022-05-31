@@ -120,13 +120,13 @@ $(document).ready(_ => {
                     $("body").toggleClass("blockBody");
                     $("#redirectM div .fa-circle-check").css("display", "none");
                     $("#redirectM div h1").html("Ocorreu um erro!");
-                    $("#redirectM div p").html("Tente novamente mais tarde!");
+                    $("#redirectM div p").html(data.message);
                     $("#redirectM").css("opacity", "1");
                     $("#redirectM").css("display", "flex");
                     $("#redirectM div").fadeIn(1000);
                     setTimeout(() => {
                         //!window.location.href = "/";
-                    }, 3500);
+                    }, 5000);
                 }
             }
         });

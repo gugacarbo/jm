@@ -22,13 +22,13 @@ $.get("/admin/api/get/getNoFinalizedPurshases.php?get", function (data) {
 
             var totalP = 0;
             $.each(products, function (index, value) {
-                totalP = totalP + parseFloat(value.qtd);
+                totalP += parseInt(value.qtd);
             });
             $("#reviewList").append(`<div class="item">
                                 <span ${int > 3 ? "style='color:#f00;'" : ""}>${dateString} Há ${int} Dias</span>
                                 <span>${buyer.nome} ${buyer.sobrenome}</span>
                                 <span> ${totalP}</span>
-                                <span> ${value.totalValue}</span>
+                                <span> R$ ${value.totalValue.toFixed(2).replace(".", ",")}</span>
                             </div>`);
         })
     } else {

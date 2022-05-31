@@ -76,6 +76,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
+  position: relative;
 }
 
 .adminContainer button:active {
@@ -121,11 +122,11 @@ body {
 .adminContainer button::after {
   -webkit-animation: doneButtonAnimation 1.5s;
           animation: doneButtonAnimation 1.5s;
-  margin-right: -70px;
+  right: 10%;
 }
 
 .adminContainer button::before {
-  margin-left: -70px;
+  left: 10%;
   -webkit-animation: alertButtonAnimation 1.5s;
           animation: alertButtonAnimation 1.5s;
 }
@@ -2229,9 +2230,8 @@ label.hasCheckboxToggle h3::after {
   display: -ms-flexbox;
   display: flex;
   width: 95%;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   margin-top: 50px;
 }
 
@@ -3706,9 +3706,10 @@ label.hasCheckboxToggle h3::after {
 }
 
 .purchasesContainer .modalPurchase section label button {
-  width: 120px;
+  width: 20%;
   color: #b66d76;
   background-color: #fff;
+  font-size: 11pt;
   border: none;
   border-radius: 20px;
   padding: 4px 0;

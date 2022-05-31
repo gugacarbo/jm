@@ -163,7 +163,7 @@ $(document).ready(function () {
         } else {
 
             $.ajax({
-                url: "/admin/api/post/postProduct.php",
+                url: "/admin/api/post/product.php",
                 type: "POST",
                 data: {
                     id: id,
@@ -171,6 +171,7 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     if (data.status >= 200 && data.status < 300) {
+                        $("#saveProduct").attr("name", data.id)
                         $("#saveProduct").addClass("doneButton")
                         setTimeout(() => {
                             $(".doneButton").removeClass("doneButton")
@@ -252,9 +253,10 @@ $("#closeModal").click(function () {
 
 $("#addOpt").click(function () {
     var newOpt = $("#newOptName").val();
-    var newOptQ = $("#newOptQuantity").val().replace("un.", '').replace(" ", '');
+    var newOptQ = $("#newOptQuantity").val().replaceAll("un.", '').replaceAll(" ", '').normalize('NFD').replace(/[\u0300-\u036f]/g, "");
     var dup = 0;
     if (newOpt != "" && newOptQ != "" && parseInt(newOptQ) > 0) {
+        newOpt = newOpt.replaceAll(" ", '');
         $("#OptionsList").find(".item").each(function (i, x) {
             if ($(x).find("input:eq(0)").val() == newOpt) {
                 $(x).find("input:eq(0)").addClass("invalidInput")
@@ -293,7 +295,7 @@ function deleteOpt(this_) {
 
 function modalProductShow(id = 0) {
     if (id > 0) {
-
+        clearProduct();
         $.get("/admin/api/get/getProdById.php", { id }, function (data) {
 
             $("#NewProductName").val(data['name']);
@@ -306,9 +308,9 @@ function modalProductShow(id = 0) {
             $("#NewProductCost").val(data['cost'].toFixed(2).replace(/\./g, ','));
             $("#NewProductWeight").val(data['weight'] * 1000);
             $("#NewProductDescription").html(data['description']);
-            $("#NewProductMaterial option[name='" + data['material'] + "']").attr("selected", true);
+            $("#NewProductMaterial option[value='" + data['material'] + "']").attr("selected", true);
             $("#NewProductCategory option").each(function (i, x) {
-                if ($(x).val() == data['categoryId']) {
+                if ($(x).val() == data['category']) {
                     $(x).attr("selected", true);
                 } else {
                     $(x).attr("selected", false);

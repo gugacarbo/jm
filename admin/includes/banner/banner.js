@@ -48,7 +48,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: "/admin/api/post/editBanners.php",
+            url: "/admin/api/post/banners.php",
             type: "POST",
             data: {
                 banners: banners

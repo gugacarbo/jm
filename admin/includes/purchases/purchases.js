@@ -80,6 +80,12 @@ $(document).ready(function () {
                 }
             })
             search();
+        }else{
+    
+            $("#addTrackingCode").addClass("alertButton")
+            setTimeout(() => {
+                $(".alertButton").removeClass("alertButton")
+            }, 1500);
         }
     })
     $("#closeModalPurchase").on("click", function () {
@@ -198,11 +204,11 @@ function modalPurchase(id = 0) {
     if (id > 0) {
         $.get("/admin/api/get/getPurchase.php", { "Bid": id }, function (data) {
             var purchase = (data["purchase"]);
-            var client = (data["client"]);
+            var client = (data["purchase"]);
             var products = data["products"];
             
             var payload = JSON.parse(purchase.rawPayload);
-
+            console.log(payload);
             $("#addTrackingCode").attr("data-id", id)
             $("#ClientName b").html(client.name + " " + client.lastName);
             $("#ClientEmail b").html(client.email);
@@ -330,9 +336,12 @@ function modalPurchase(id = 0) {
                 $("#TrackingCode").attr("placeholder", purchase.trackingCode);
                 $("#TrackingCode").val("")
                 $("#TrackingCode").addClass("hasCode")
+                $("#addTrackingCode").html("Alterar Código");
+                
                 $.get("/api/get/tracking.php", { trackingCode: purchase.trackingCode }, function (data) {
                 })
             }else{
+                $("#addTrackingCode").html("Salvar");
                 $("#TrackingCode").val("");
                 $("#TrackingCode").attr("placeholder", "Código de Rastreio");
                 $("#TrackingCode").removeClass("hasCode")
@@ -348,8 +357,8 @@ function modalPurchase(id = 0) {
             $("#PurchaseCode a").attr("href", "http://localhost/checkStatus?code=" + payload.code);
             $("#PurchaseTotalAmount b").html((payload.grossAmount.replace(".", ",")));
             $("#PurchaseFeeAmount b").html(payload.creditorFees.intermediationFeeAmount.replace(".", ","));
-            $("#PurchaseDiscount b").html(payload.discountAmount.replace(".", ","));
-            $("#PurchaseNetAmount b").html(payload.netAmount.replace(".", ","));
+            $("#PurchaseDiscount b").html(payload.extraAmount.replace(".", ","));
+            $("#PurchaseNetAmount b").html((parseFloat(payload.netAmount)-parseFloat(payload.shipping.cost)).toFixed(2).replace(".", ","));
             $("#PurchaseShippingPrice b").html(payload.shipping.cost.replace(".", ","));
 
             switch (parseInt(payload.paymentMethod.type)) {
@@ -386,6 +395,11 @@ function modalPurchase(id = 0) {
         }).then(function () {
             $("#ModalPurchase").addClass("modalOpen");
         })
+        .catch((value) => {
+            $("#ModalPurchase").removeClass("modalOpen");
+        })
+    }else{
+        $("#ModalPurchase").removeClass("modalOpen");
     }
 }
 

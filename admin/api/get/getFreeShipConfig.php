@@ -1,27 +1,33 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Methods: GET');
 
-include "../config/db_connect.php";
 
-
-$GconfigTake = ["freteGratis"];
-$Gconfig = array();
-
-foreach ($GconfigTake as $key => $value) {
-    $sql = "SELECT value FROM generalConfig WHERE config = ?";
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("s", $value);
-    $stmt->execute();
-    $stmt->bind_result($Gconfig[$value]);
-    $stmt->fetch();
-    $stmt->close();
-    $Gconfig[$value] = tirarAcentos($Gconfig[$value]);
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
 
-die(json_encode(array('status' => 200, 'data' => $Gconfig)));
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
+    die(json_encode(array('status' => 403)));
+}
 
-function tirarAcentos($string)
+
+include_once '../config/db_connect.php';
+
+class freeShipping extends dbConnect
 {
-    return preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/"), explode(" ", "a A e E i I o O u U n N"), $string);
+    public function __construct()
+    {
+        $mysqli = $this->connect();
+
+        $stmt = $mysqli->prepare("SELECT value FROM generalconfig WHERE config = 'freteGratis'");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        $result = $result->fetch_assoc();
+        return(json_decode($result['value']));
+    }
 }
+
+die(json_encode((new freeShipping())->__construct()));

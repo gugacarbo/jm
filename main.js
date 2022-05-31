@@ -46,6 +46,9 @@ $(document).ready(() => {
       + $("#contactMessage").val();
 
     if (nome && phone && $("#contactMessage").val()) {
+      $("#contactName").val('')
+      $("#contactPhone").val('')
+      $("#contactMessage").val('')
       var sendToDb = $.post("/api/post/sendContact.php", { name: nome, phone, message }, data => {
 
       })

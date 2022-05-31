@@ -15,7 +15,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
             Nesta aba voce pode inserir, alterar e excluir materiais.
         </p>
         <div class="materialContent">
-            <div class="content" id="CatList">
+            <div class="content" id="MatList">
 
             </div>
             <div class="chart">

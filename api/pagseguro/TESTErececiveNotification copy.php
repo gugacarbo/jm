@@ -6,6 +6,8 @@ header('Access-Control-Allow-Methods: POST');
 define('TIMEZONE', 'America/Sao_Paulo');
 date_default_timezone_set(TIMEZONE);
 
+error_reporting(0);
+ini_set('display_errors', 0);
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -17,7 +19,7 @@ require '../mailer/src/SMTP.php';
 
 include "../mail/model/model_compra.php";
 
-include "../config/db_connect.php";
+include_once "../config/db_connect.php";
 
 
 
@@ -45,35 +47,50 @@ class ReceiveNotification extends dbConnect
     public function verify()
     {
 
+        //X Erro notification Code Inválido
+        if ($this->Payload_ == []) { //=401
+            $errorMessage = (array(
+                'status' => 400,
+                'errorCode' => 401,
+                'code' => $this->notificationCode_,
+                'payload' => json_encode($this->Payload_),
+                "message" => "Erro ao receber notificação do PagSeguro",
+            )
+            );
+            $this->error_log("error", $errorMessage);
+            return ((array('status' => 400, "message" => "Erro ao receber notificação do PagSeguro, Código Inválido")));
+        }
+
+
+
         $mysqli = $this->Conectar();
         $Payload = $this->Payload_;
         $jsonPayload = $this->jsonPayload_;
 
-        $sql = "SELECT products, clientId FROM checkout_data WHERE reference = ?";
+        //> Dados da compra do banco de vendas primário
+        $sql = "SELECT products, clientId, totalCost FROM checkout_data WHERE reference = ?";
         $stmt = $mysqli->prepare($sql);
-
         $stmt->bind_param("s", $Payload['reference']);
         $stmt->execute();
         $result = $stmt->get_result();
         $resultD = $result->fetch_assoc();
 
         if ($result->num_rows > 0) {
+            //*Venda Existe
             $products = json_decode($resultD['products']);
             $clientId = $resultD['clientId'];
-
-            //array_push($htmlJsonResponse, ('status' => 200));
+            $totalCost = $resultD['totalCost'];
             $stmt->close();
 
 
-            //> Upload checkout Data
+            //| Atualiza dados da tabela primaria
             $sql = "UPDATE checkout_data SET payload = ? WHERE reference = ?";
             $stmt = $mysqli->prepare($sql);
             $stmt->bind_param("ss", $jsonPayload, $Payload['reference']);
             $stmt->execute();
             $stmt->close();
-            //array_push($htmlJsonResponse, ('Update CheckoutData' => 200));
 
-            //? Get the purchase data
+            //? Procura se a venda ja foi cadastrada na tabela secundária
             $stmt = $mysqli->prepare("SELECT internalStatus FROM vendas WHERE reference = ?");
             $stmt->bind_param("s", $Payload['reference']);
             $stmt->execute();
@@ -83,23 +100,38 @@ class ReceiveNotification extends dbConnect
             $stmt->close();
 
 
-            //* * New purchase * *
             if ($hasSale <= 0) {
-                $stmt = $mysqli->prepare("INSERT INTO vendas (status,  clientId, reference, code, totalAmount, buyDate, lastUpdate, rawPayload) VALUES (?, ?, ?,  ?, ?, ?, ?, ?)");
-                $stmt->bind_param("ssssssss", $Payload['status'],  $clientId, $Payload['reference'], $Payload['code'], $Payload['grossAmount'], $Payload['date'], $Payload['lastEventDate'], $jsonPayload);
+            //* * Nova Compra * *
+            
+                $stmt = $mysqli->prepare("INSERT INTO vendas (status,  clientId, reference, code, totalAmount, buyDate, lastUpdate, rawPayload, totalCost) VALUES (?, ?, ?,  ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssssssss", $Payload['status'],  $clientId, $Payload['reference'], $Payload['code'], $Payload['grossAmount'], $Payload['date'], $Payload['lastEventDate'], $jsonPayload, $totalCost);
                 $stmt->execute();
                 if ($stmt->affected_rows) {
                     $stmt->close();
-
                     $htmlJsonResponse['status'] = 202;
+
                 } else {
-                    $stmt->close();
+
+                    //X Erro ao criar nova venda
                     $htmlJsonResponse['status'] = 500;
                     $htmlJsonResponse['error'] = "Erro ao inserir nova venda";
-                    return (json_encode($htmlJsonResponse));
+                    $errorMessage = (array(//=501
+                        'status' => 500,
+                        'errorCode' => 501,
+                        'code' => $this->notificationCode_,
+                        'mysqlError' => $stmt->error,
+                        "message" => "Erro ai criar nova venda",
+                    )
+                    );
+                    $this->error_log("error", $errorMessage);
+
+                    $stmt->close();
+
+                    return (($htmlJsonResponse));
                 }
             } else {
-                //> Update the purchase status on VENDAS
+
+                //> Atualiza Tabela secundária
                 $stmt = $mysqli->prepare("UPDATE vendas SET status = ?,  lastUpdate = ?, rawPayload = ? WHERE reference = ?");
                 $stmt->bind_param("ssss", $Payload['status'], $Payload['lastEventDate'], $jsonPayload, $Payload['reference']);
 
@@ -112,8 +144,18 @@ class ReceiveNotification extends dbConnect
                     $htmlJsonResponse['ref'] = $Payload['reference'];
                     $htmlJsonResponse['payload'] = $jsonPayload;
                     $htmlJsonResponse['error'] = "Erro ao atualizar venda" . $stmt->error;
+                    
+                    $errorMessage = (array( //=502
+                        'status' => 500,
+                        'errorCode' => 502,
+                        'code' => $this->notificationCode_,
+                        'mysqlError' => $stmt->error,
+                        "message" => "Erro ao atualizar venda",
+                    )
+                    );
+                    $this->error_log("error", $errorMessage);
                     $stmt->close();
-                    return (json_encode($htmlJsonResponse));
+                    return (($htmlJsonResponse));
                 }
                 $stmt->close();
             }
@@ -121,24 +163,35 @@ class ReceiveNotification extends dbConnect
             //| Send Email 
             $sendedMail = $this->sendMail($Payload);
             if ($sendedMail["status"] >= 200 && $sendedMail["status"] <= 200) {
-                //array_push($htmlJsonResponse, ('Send Mail' => 200));
+                $htmlJsonResponse['Send Mail'] = "OK";
             } else {
-                array_push($htmlJsonResponse, array('Send Mail' => 403));
+                //X Erro ao enviar email
+                $errorMessage = (array( //=402
+                    'status' => 400,
+                    'errorCode' => 402,
+                    'code' => $this->notificationCode_,
+                    "message" => "Enviar email",
+                )
+                );
+                $this->error_log("error", $errorMessage);
+                $htmlJsonResponse['Send Mail'] = "error";
             }
 
+
             //> Pagamento Aprovado
-            //> ["status" = 3, "Value" : "Pagamento Efetuado"], ["internalStatus" = 3, "Review Products Of Canceled Purchase"]
+            //> ["status" = 3, "Value" : "Pagamento Efetuado"], ["internalStatus" = 3, "Sold Contabilized"]
             //> Atualiza quantidade Vendida dos Produtos
-            if (intval($Payload['status']) == 3 && intval($Purshcase_InternalStatus) < 3) {
+            if ((intval($Payload['status']) == 3 || intval($Payload['status']) == 4) && intval($Purshcase_InternalStatus) < 3) {
                 $successP = 0;
                 $errorP = 0;
+                $errorPInfo = [];
+
                 foreach ($products as $product) {
                     $stmtP = $mysqli->prepare("SELECT * FROM products WHERE id = ?");
                     $stmtP->bind_param("s", $product->id);
                     $stmtP->execute();
                     $result = $stmtP->get_result();
                     $rowP = $result->fetch_assoc();
-
                     $stmtP = $mysqli->prepare("UPDATE products SET sold = ? WHERE id = ?");
                     $sold = ($rowP['sold'] + $product->qtd);
                     $stmtP->bind_param("is", $sold, $product->id);
@@ -146,23 +199,43 @@ class ReceiveNotification extends dbConnect
                     if ($stmtP->affected_rows > 0) {
                         $successP++;
                     } else {
+                        //X Erro ao atualizar produto Vendido
                         $errorP++;
+                        $errorPInfo[] = $stmtP->error;
                     }
                     $stmtP->close();
                 }
+
                 $stmt = $mysqli->prepare("UPDATE vendas SET internalStatus = 3 WHERE reference = ?");
-                $stmt->bind_param("s", $Payload['reference']);    //? Status 7 == Pagamento Aprovado, Produtos Vendidos
+                $stmt->bind_param("ss", $Payload['reference']);    //? Status 7 == Pagamento Aprovado, Produtos Vendidos
                 $stmt->execute();
                 $stmt->close();
                 $htmlJsonResponse['status'] = 201;
+
+                if ($errorP > 0) {
+                    $errorMessage = (array(
+                        'status' => 500,
+                        'errorCode' => 500,
+                        'code' => $this->notificationCode_,
+                        'success' => $successP,
+                        'Failed' => $errorP,
+                        'FailedInfo' => json_encode($errorPInfo),
+                        "message" => "Pedido Pago - Erro ao contabilizar Vendido",
+                    )
+                    );
+                    $this->error_log("error", $errorMessage);
+                }
             } //>Fim da Atualização de Produtos
+
+
 
             //? Verifica se a Compra foi cancelada
             //? Retorna os Produtos ao Estoque
-            //? ["status" = 7, "Value" : "Cancelada"], ["internalStatus" = 8, "Review Products Of Canceled Purchase"
-            if (intval($Payload['status']) == 7 && intval($Purshcase_InternalStatus < 8)) {
+            //? ["status" = 7, "Value" : "Cancelada"], ["internalStatus" = 7, "Return Products Of Canceled Purchase"
+            if (intval($Payload['status']) == 7 && intval($Purshcase_InternalStatus < 7)) {
                 $doneBack = 0;
                 $failBack = 0;
+                $failBackInfo = [];
                 foreach ($products as $product) {
                     $stmtP = $mysqli->prepare("SELECT * FROM products WHERE id = ?");
                     $stmtP->bind_param("s", $product->id);
@@ -173,32 +246,64 @@ class ReceiveNotification extends dbConnect
                     $options[$product->opt] = $options[$product->opt] + $product->qtd;
                     $newOptions = json_encode($options);
                     $totalQuantity = 0;
+
                     foreach ($options as $n => $op) {
                         $totalQuantity += $options[$n];
                     }
+
                     $stmtP = $mysqli->prepare("UPDATE products SET options = ?, totalQuantity = ? WHERE id = ?");
                     $stmtP->bind_param("sis", $newOptions, $totalQuantity, $product->id);
                     $stmtP->execute();
                     if ($stmtP->affected_rows > 0) {
                         $doneBack++;
                     } else {
+                        //X Erro ao retornar produto ao Estoque 
                         $failBack++;
+                        $failBackInfo[] = $stmtP->error;
                     }
                     $stmtP->close();
                 }
                 $htmlJsonResponse['status'] = 201;
-                $stmt = $mysqli->prepare("UPDATE vendas SET internalStatus = 8 WHERE reference = ?");
+                $stmt = $mysqli->prepare("UPDATE vendas SET internalStatus = 7 WHERE reference = ?");
                 $stmt->bind_param("s", $Payload['reference']);
                 $stmt->execute();
                 $stmt->close();
+
+                if ($failBack > 0) {
+                    $errorMessage = (array(
+                        'status' => 400,
+                        'errorCode' => 400,
+                        'code' => $this->notificationCode_,
+                        'success' => $doneBack,
+                        'Failed' => $failBack,
+                        'FailedInfo' => json_encode($failBackInfo),
+                        "message" => "Erro ao retornar produtos ao estoque",
+                    )
+                    );
+                    $this->error_log("error", $errorMessage);
+                }
             } //? Fim Retorno de Produtos ao Estoque
-            return (json_encode($htmlJsonResponse));
+
+
+            return (($htmlJsonResponse));
         } else {
+            //X Erro Venda nao existe
             $stmt->close();
             $htmlJsonResponse['status'] = 500;
             $htmlJsonResponse['error'] = "Venda Não Existe";
+
+            $errorMessage = (array(
+                'status' => 400,
+                'errorCode' => 400,
+                'code' => $this->notificationCode_,
+                'reference' => $Payload['reference'],
+                "message" => "Noticifação recebida, mas a venda não existe",
+            )
+            );
+            $this->error_log("error", $errorMessage);
+            
             //$htmlJsonResponse['reference'] = $Payload["reference"];
-            return (json_encode($htmlJsonResponse));
+            return (($htmlJsonResponse));
         }
     }
 
@@ -211,7 +316,7 @@ class ReceiveNotification extends dbConnect
         $config = array();
 
         foreach ($GconfigTake as $key => $value) {
-            $sql = "SELECT value FROM generalConfig WHERE config = ?";
+            $sql = "SELECT value FROM generalconfig WHERE config = ?";
             $stmt = $mysqli->prepare($sql);
             $stmt->bind_param("s", $value);
             $stmt->execute();
@@ -257,7 +362,7 @@ class ReceiveNotification extends dbConnect
                 $mail->ClearAllRecipients();
                 $mail->ClearAttachments();
                 $mail->ClearAddresses();
-                
+
                 $statusCode = $model["purchaseStatusCode"];
                 $listSend = json_decode($config['sendToAdminMail']);
                 $statusCode == 6 ? $statusCode = 9 :  $statusCode = $statusCode;
@@ -284,10 +389,10 @@ class ReceiveNotification extends dbConnect
 
 if (empty($_POST['notificationCode'])) {
 
-    $notificationCode =  "71C091970A9C0A9C8F24444D5F8B193A83C5"; // 3 id = 30
+    $notificationCode =  "7E20EDA29C3D9C3D4A9AA4E1CFA9B41851BB"; // 3 id = 30
 
     $receive = new ReceiveNotification($notificationCode);
-    echo $receive->verify();
+    die(json_encode($receive->verify()));
 } else {
     $htmlJsonResponse['status'] = 400;
     $htmlJsonResponse['error'] = "Bad Request";

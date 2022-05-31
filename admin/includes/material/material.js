@@ -1,17 +1,17 @@
-var categories = [];
+var materials = [];
 
 var MaterialChart;
-$(document).ready(function () { 
+$(document).ready(function () {
     $("input").on("keydown", function (e) {
         if (e.keyCode == 13) {
         }
         console.log("aa")
     })
-    getCat();
+    getMat();
     var cdata = {
         labels: [],
         datasets: [{
-            label: 'Categorias',
+            label: 'Mategorias',
             data: [],
             backgroundColor: [
                 'rgba(255, 99, 132, 1)',
@@ -47,17 +47,16 @@ $(document).ready(function () {
     );
 })
 
-var timerCat;
-function deleteCategory(n) {
+var timerMat;
+function deleteMaterial(n, i) {
     $(".deleteConfirm").remove();
-    console.log("aaa")
     $("input[name='" + n + "']  + span + span").append(`
         <div class="deleteConfirm">
-        <div onclick='delMatConfirmed("${n}")'>Deletar?</div>
+        <div onclick='delMatConfirmed("${i}")'>Deletar?</div>
         </div>
     `)
-    clearTimeout(timerCat);
-    timerCat = setTimeout(() => {
+    clearTimeout(timerMat);
+    timerMat = setTimeout(() => {
         $(".deleteConfirm").fadeOut(500, function () {
             $(".deleteConfirm").remove();
         })
@@ -65,65 +64,76 @@ function deleteCategory(n) {
 }
 
 
-function delMatConfirmed(n){
-    $.post("/admin/api/delete/deleteMaterial.php", { cat: n }, function (data) {
-        
+function delMatConfirmed(n) {
+    $.post("/admin/api/post/material.php", { delMat: n }, function (data) {
         if (data["status"] >= 200 && data["status"] < 300) {
-            getCat()
+            getMat()
+        } else {
+            $(".deleteConfirm div").html("Erro!")
+            $(".deleteConfirm div").css("background-color", "#ff0")
+            $(".deleteConfirm div").css("color", "#000")
+
         }
     })
 }
 
 
-function edit(c) {
-    var newCat = UPFisrt($("input[name='" + c + "']").val());
-    var oldCat = c;
-    if (newCat != "") {
+function editMat(c) {
+    var newMat = UPFisrt($("input[name='" + c + "']").val());
+    var oldMat = c;
+    if (newMat != "") {
 
-        $.post("/admin/api/post/editMaterial.php", { newCat, oldCat: c }, function (data) {
+        $.post("/admin/api/post/material.php", { newMat, oldMat: c }, function (data) {
             if (data["status"] >= 200 && data["status"] < 300) {
-                getCat()
+                getMat()
+            }else{
+                var btc = $("input[name='" + c + "'] + span i").css("color");
+                console.log(btc)
+                $("input[name='" + c + "'] + span i").css("color", "#f00");
+                setTimeout(() => {
+                    $("input[name='" + c + "'] + span i").css("color", btc);
+                }, 500);
             }
         })
     }
 }
-function addCat() {
-    var newCat = UPFisrt($("#newCat").val());
-    if (newCat != "") {
-        if (categories.includes(newCat)) {
-            alert("Categoria Já Existe");
+function addMat() {
+    var newMat = UPFisrt($("#newMat").val());
+    if (newMat != "") {
+        if (materials.includes(newMat)) {
+            alert("Mategoria Já Existe");
         } else {
-            $.post("/admin/api/post/createMaterial.php", { newCat }, function (data) {
+            $.post("/admin/api/post/material.php", { newMat }, function (data) {
                 if (data["status"] >= 200 && data["status"] < 300) {
-                    getCat()
+                    getMat()
 
                 }
             })
         }
     }
 }
-function getCat() {
-    $.get("/admin/api/get/getMaterial.php", function (category) {
-        //category foreach
+function getMat() {
+    $.get("/admin/api/get/getMaterial.php", function (material) {
+        //material foreach
         removeData(MaterialChart);
-        $("#CatList").empty();
-        $("#CatList").append(`  <div class="item header">
+        $("#MatList").empty();
+        $("#MatList").append(`  <div class="item header">
                                     <span>Materiais</span>
                                     <span>Opções</span>
                                 </div>
                                 <div class="item add">
-                                    <input type="text" value="" id="newCat" placeholder="Novo Material">
-                                    <i class="fa-solid fa-plus" id="addCat" onclick="addCat()"></i>
+                                    <input type="text" value="" id="newMat" placeholder="Novo Material">
+                                    <i class="fa-solid fa-plus" id="addMat" onclick="addMat()"></i>
                                 </div>`)
-        $.each(category, function (index, value) {
+        $.each(material, function (index, value) {
             var item = `<div class="item">
                 <input type="text" onkeydown="editing(this)" value="${value.name}"  name="${value.name}" >
-                <span><i class="fa-solid fa-save" onclick="edit('${value.name}')"></i></span><span>
+                <span><i class="fa-solid fa-save" onclick="editMat('${value.name}')"></i></span><span>
                 `+ (value.numProds > 0 ? '<i class="fa-solid fa-trash cantDelete"></i>' :
-                    '<i class="fa-solid fa-trash" onclick="deleteCategory(' + "'" + value['name'] + "'" + ')"></i>') +
+                    '<i class="fa-solid fa-trash" onclick="deleteMaterial(' + "'" + value['name'] + "'" + "," + "'" + value['id'] + "'" + ')"></i>') +
                 `</span></div>`
-            categories.push(value['name']);
-            $("#CatList").append(item);
+                materials.push(value['name']);
+            $("#MatList").append(item);
             addData(MaterialChart, value["name"], value["numProds"]);
         })
 

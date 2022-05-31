@@ -3,7 +3,7 @@
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Methods: GET');
 
-include '../config/db_connect.php';
+include_once '../config/db_connect.php';
 
 class verifyCode extends dbConnect
 {

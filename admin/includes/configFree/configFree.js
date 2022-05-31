@@ -8,17 +8,17 @@ $(document).ready(function () {
 
     $.get("/admin/api/get/getFreeShipConfig.php", (data) => {
 
-        var freteGratis = JSON.parse(data.data.freteGratis);
+        var freteGratis = (data);
         $("#freteGratisCheck").prop("checked", freteGratis.use == "true");
         $(".selectFree").toggleClass("noFreteGratis", freteGratis.use == "false");
 
         $.each(freteGratis.cidades, (i, v) => {
-            $("#freeCity").append(`<label><i class="fa-solid fa-trash-can" onclick="del(this, 'city')"></i><p>${v}</p></label>`);
+            $("#freeCity").append(`<label><i class="fa-solid fa-trash-can" onclick="deleteStCt(this, 'city')"></i><p>${v}</p></label>`);
             cities.push(v);
         })
 
         $.each(freteGratis.estados, (i, v) => {
-            $("#freeState").append(`<label><i class="fa-solid fa-trash-can" onclick="del(this, 'state')"></i><p>${v}</p></label>`);
+            $("#freeState").append(`<label><i class="fa-solid fa-trash-can" onclick="deleteStCt(this, 'state')"></i><p>${v}</p></label>`);
             states.push(v);
             if (freteGratis.estados.length == 27) {
                 $("#freeStateAll").prop("checked", "true")
@@ -30,13 +30,16 @@ $(document).ready(function () {
     $("#freeStateAll").change(function () {
         if ($(this).prop("checked")) {
             states = StatesList;
+            
+            $("#freeState").empty();
+            
             $.each(StatesList, (i, v) => {
-                $("#freeState").append(`<label><i class="fa-solid fa-trash-can" onclick="del(this, 'state')"></i><p>${v}</p></label>`);
-                $("#freeStateAll").prop("checked", "true")
-                $("#freeState").css("display", "none")
-                $("#TextTodosEstados").css("display", "flex")
+                $("#freeState").append(`<label><i class="fa-solid fa-trash-can" onclick="deleteStCt(this, 'state')"></i><p>${v}</p></label>`);
             })
+
             $("#freeState").css("display", "none")
+            $("#TextTodosEstados").css("display", "flex")
+            
         } else {
             $("#TextTodosEstados").css("display", "none")
             $("#freeState").css("display", "flex")
@@ -94,7 +97,7 @@ $(document).ready(function () {
                         }
                     })
                     if (exist == 0) {
-                        $("#freeCity").append(`<label><p>${newCity}</p><i class="fa-solid fa-trash-can" onclick="del(this, 'city')"></i></label>`);
+                        $("#freeCity").append(`<label><i class="fa-solid fa-trash-can" onclick="deleteStCt(this, 'city')"></i><p>${newCity}</p></label>`);
                         cities.push(newCity);
                     }
 
@@ -105,7 +108,7 @@ $(document).ready(function () {
                         }
                     })
                     if (exist == 0) {
-                        $("#freeState").append(`<label><p>${newState}</p><i class="fa-solid fa-trash-can" onclick="del(this, 'state')"></i></label>`);
+                        $("#freeState").append(`<label><i class="fa-solid fa-trash-can" onclick="deleteStCt(this, 'state')"></i><p>${newState}</p></label>`);
                         states.push(newState);
                     }
 
@@ -131,10 +134,10 @@ $(document).ready(function () {
     $("#SaveFreeShipConfig").click(function () {
         var settings = {
             "freteGratis": $("#freteGratisCheck").is(":checked"),
-            "cidades": cities || [],
-            "estados": $("#freeStateAll").prop("checked") == 1 ? StatesList : states || []
+            "cidades": cities.length == 0 ? '[]' : cities,
+            "estados": $("#freeStateAll").prop("checked") == 1 ? StatesList : states.length == 0 ?  '[]' : states,
         }
-        $.post("/admin/api/post/editFreeShippingConfig.php", settings, function (data) {
+        $.post("/admin/api/post/config.php", settings, function (data) {
             $(".doneButton").removeClass("doneButton")
             $(".alertButton").removeClass("alertButton")
             if (data.status >= 200 && data.status < 300) {
@@ -164,7 +167,7 @@ $(document).ready(function () {
                 }
             })
             if (exist == 0) {
-                $("#freeCity").append(`<label><p>${newCity}</p><i class="fa-solid fa-trash-can" onclick="del(this, 'city')"></i></label>`);
+                $("#freeCity").append(`<label><i class="fa-solid fa-trash-can" onclick="deleteStCt(this, 'city')"></i><p>${newCity}</p></label>`);
                 $("#addCityInput").val("");
                 cities.push(newCity);
             } else {
@@ -191,9 +194,9 @@ $(document).ready(function () {
             "value": $("#NewCupomValue").val(),
             "type": type,
             "quantity": $("#NewCupomQuantity").val(),
-            "firstPurchase": $("#singleUseCumpom").prop("checked") == true ? 1 : 0,
+            "singleUse": $("#singleUseCumpom").prop("checked") == true ? 1 : 0,
         }
-        $.post("/admin/api/post/editCupom.php", newCupom, function (data) {
+        $.post("/admin/api/post/cupom.php", newCupom, function (data) {
             if (data.status >= 200 && data.status < 300) {
                 $(".doneButton").removeClass("doneButton")
                 $(".alertButton").removeClass("alertButton")
@@ -265,7 +268,7 @@ function cupomModal(id_ = 0) {
                 var cup = data.cupom
                 $("#modalCupomHeader").html("Editar Cupom");
                 cup.type == "percent" ? $("#CupomAbsType").prop("selected", true) : $("#CupomRelType").prop("selected", true);
-                $("#singleUseCumpom").prop("checked", cup.firstPurchase);
+                $("#singleUseCumpom").prop("checked", cup.singleUse);
                 $("#NewCupomQuantity").val(cup.quantity);
                 $("#NewCupomValue").val(cup.value);
                 $("#SaveCupom").attr("data-id", id_);
@@ -319,7 +322,7 @@ function addState(newState) {
             alert("Estado não existe");
             $("#addStateInput").val("");
         } else {
-            $("#freeState").append(`<label><p>${newState}</p><i class="fa-solid fa-trash-can" onclick="del(this, 'state')"></i></label>`);
+            $("#freeState").append(`<label><i class="fa-solid fa-trash-can" onclick="deleteStCt(this, 'state')"></i><p>${newState}</p></label>`);
             $("#addStateInput").val("");
             states.push(newState);
         }
@@ -339,7 +342,7 @@ function takeCupons() {
                 $("#CuponsList").append(`
                                         <div class="showCupom">
                                         <span class="ticker">${cupom.ticker}</span>
-                                        <span class="useTimes">${cupom.firstPurchase ? "Uso Único" : "Uso Livre"}</span>
+                                        <span class="useTimes">${cupom.singleUse ? "Uso Único" : "Uso Livre"}</span>
                                         <span class="edit" onclick="cupomModal(${cupom.id})"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
                                         <span class="edit delete" onclick="deleteCupom(${cupom.id}, this)"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                                         <div class="quantityBox">
@@ -366,14 +369,14 @@ function deleteCupom(id, el) {
     }, 3000);
 }
 function deleteCupomConfirmed(id) {
-    $.post("/admin/api/delete/deleteCupom.php", { id: id }, function (data) {
+    $.post("/admin/api/post/cupom.php", { delCupom: id }, function (data) {
         if (data.status >= 200 && data.status < 300) {
             takeCupons()
         }
     })
 }
 
-function del(this_, cs) {
+function deleteStCt(this_, cs) {
     var p = $(this_).parent().find("p").text();
     if (cs == "city") {
         cities.splice(cities.indexOf(p), 1);

@@ -1,9 +1,8 @@
 .adminMaterialContainer {
-
-    .materialContent{
+    .materialContent {
         display: flex;
         width: 95%;
-        justify-content: space-evenly;
+        justify-content: space-around;
         margin-top: 50px;
     }
     .content {
@@ -11,7 +10,6 @@
         display: flex;
         flex-direction: column;
         gap: 5px;
-
         width: 40%;
         align-self: flex-start;
         .item {
@@ -36,7 +34,7 @@
                     color: #ccc;
                 }
             }
-            span{
+            span {
                 width: 10%;
                 display: flex;
                 justify-content: center;
@@ -49,10 +47,9 @@
                     text-align: center;
                     color: #ddd;
                     cursor: pointer;
-                    
                 }
             }
-            .fa-trash{
+            .fa-trash {
                 color: $mainColor;
             }
             .canSave {

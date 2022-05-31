@@ -22,6 +22,7 @@ if (isset($_SESSION["loginTry"]) && $_SESSION["loginTry"] >= 10) {
     $_SESSION["lastLoginTry"] = time();
 
     if (isset($_POST['username']) && isset($_POST['password'])) {
+
         include "../config/db_config.php";
         $mysqli = new mysqli($server, $user, $password, $dbname);
         if (!$mysqli) {
@@ -30,11 +31,13 @@ if (isset($_SESSION["loginTry"]) && $_SESSION["loginTry"] >= 10) {
         $username = $_POST['username'];
         $password = md5($_POST['password']);
 
-        $stmt = $mysqli->prepare("SELECT * FROM admin WHERE user = ?");
+        $stmt = $mysqli->prepare("SELECT admin,password FROM admin WHERE user = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
+
         if ($result->num_rows == 0) {
+            header("Location: login.php?error=Usuário ou senha inválidos.");
             die(json_encode(array('status' => 403, 'message' => 'Invalid username or password.')));
         } else {
             $row = $result->fetch_assoc();

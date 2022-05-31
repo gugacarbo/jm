@@ -39,7 +39,7 @@ $(document).ready(function () {
             var select = selectAutoType;
         }
 
-        $.post("/admin/api/post/createCarousel.php", { category: category, SelectType: SelectType, select: select }, function (data) {
+        $.post("/admin/api/post/carousel.php", { category: category, SelectType: SelectType, select: select }, function (data) {
             if (data.status >= 200 && data.status < 300) {
                 $("#addCarousel").addClass("doneButton")
                 setTimeout(() => {
@@ -240,7 +240,7 @@ function selectItems(this_, id) {
 
 function deleteGlider(id_) {
     if (confirm("Are you sure you want to delete this glider?")) {
-
+        //X Ajustar
     }
 }
 
@@ -266,7 +266,7 @@ function deleteGlider(id) {
 
 
 function delCarouselConfirmed(id){
-    $.post("/admin/api/delete/deleteGlider.php", { id }, function (data) {
+    $.post("/admin/api/post/carousel.php", { deleteGlider : id }, function (data) {
         startGliders();
     })
 }

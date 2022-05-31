@@ -21,6 +21,8 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
     <p class="adminDescricao">Nesta aba voce pode alterar o texto de apresentação do seu negócio, bem como inserir o código com a localização fisica do google maps e editar o banner presente na pagina.
         (Caso não queira usar o banner ou o mapa, basta deixar os campos em branco).<br>
         A area visivel está destacada no campo de texto abaixo em pontilhado
+        <br>
+        Extensão da imagem somente .jpg
     </p>
     <button id="SaveAdminAbout">Salvar</button>
     <div class="content">
@@ -60,6 +62,4 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
 </div>
 
 
-<script src="/admin/js/jquery-te-1.4.0.js"></script>
-<link rel="stylesheet" href="/admin/js/jquery-te-1.4.0.css">
 <script src="includes/about/about.js"></script>

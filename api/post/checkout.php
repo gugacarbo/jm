@@ -50,7 +50,6 @@ class checkout extends dbConnect
         $this->buyer_ = $buyer;
         $this->ship_ = $ship;
         $this->cart_ = $cart;
-
     }
 
     public function getCode()
@@ -75,31 +74,55 @@ class checkout extends dbConnect
 
         //? ***************************************/
 
-        //* Verifica e Insere ou atualiza cliente
+        //| Verifica e Insere ou atualiza cliente
         $cpf = str_replace(["-", ".", " ", "_", "-"], "", $sender['cpf']);
-        $date = date('Y-m-d H:i:s', strtotime($sender["nascimento"]));
+        $date = date('Y-m-d', strtotime($sender["nascimento"]));
 
-        $stmt = $mysqli->prepare("SELECT * FROM client WHERE cpf = ? AND bornDate = ?");
-        $stmt->bind_param("ss", $cpf, $date);
+        $stmt = $mysqli->prepare("SELECT * FROM client WHERE cpf = ?");
+        $stmt->bind_param("s", $cpf);
         $stmt->execute();
 
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $stmt->close();
+            if ($row["bornDate"] != $date || $row["email"] != $sender["email"]) {
+                $errorMessage = (array(
+                    'status' => 401,
+                    'errorCode' => 401,
+                    'reference' => $data['reference'],
+                    'sender' => $JsonSender,
+                    'senderDate' => $date,
+                    'senderEmail' => $sender["email"],
+                    'dbDate' => $row["bornDate"],
+                    'dbEmail' => $row["email"],
 
-            $clientId = $row['id'];
-            $actPurchases = json_decode($row['purchases']) ?? [];
-
-            $actPurchases[] = $data['reference'];
-            $jsonPurch = json_encode($actPurchases);
-
-            $stmt = $mysqli->prepare("UPDATE client SET purchases = ? WHERE id = ?");
-            $stmt->bind_param("si", $jsonPurch, $clientId);
-            $stmt->execute();
-            $stmt->close();
+                    "message" => "Cliente Já Cadastrado, mas dados não conferem"
+                )
+                );
+                $this->error_log("error", $errorMessage);
+                //! Cpf Cadastrado, email ou data de nascimento incorretos
+                return (array(
+                    "status" => 401,
+                    'errorCode' => 401,
+                    "message" => "Os dados Informados não conferem com nosso banco de dados.
+                     Verifique o email, cpf e data de nascimento caso voce nunca tenha feito 
+                     uma compra na loja, entre em contato com o suporte.",
+                ));
+            } else {
+                //? Atualiza referencia de compras do cliente;
+                $stmt->close();
+                $clientId = $row['id'];
+                $actPurchases = json_decode($row['purchases']) ?? [];
+                $actPurchases[] = $data['reference'];
+                $jsonPurch = json_encode($actPurchases);
+                $stmt = $mysqli->prepare("UPDATE client SET purchases = ? WHERE id = ?");
+                $stmt->bind_param("si", $jsonPurch, $clientId);
+                $stmt->execute();
+                $stmt->close();
+            }
         } else {
+            // * Novo CLiente
             $stmt->close();
             $clientPurchases[] = $data['reference'];
             $jsonPurch = json_encode($clientPurchases);
@@ -111,12 +134,25 @@ class checkout extends dbConnect
         }
 
         if ($clientId == 0) {
-            return(json_encode(array('status' => 500, 'message' => 'Erro ao inserir ou atualizar o cliente')));
+            $errorMessage = (array(
+                'status' => 500,
+                'errorCode' => 501,
+                'reference' => $data['reference'],
+                'sender' => $JsonSender,
+                "message" => "Erro ao Atualizar inserir ou atualizar Cliente"
+            )
+            );
+            $this->error_log("error", $errorMessage);
+            return (json_encode(array(
+                'status' => 500,
+                'errorCode' => 501,
+                'message' => 'Erro ao inserir ou atualizar o cliente'
+            )));
         }
 
 
 
-        //? Caso Desejado insere cliente na lista de newsletter
+        //> Caso Desejado insere cliente na lista de newsletter
         if (isset($_POST['newsletter'])) {
             $stmt = $mysqli->prepare("SELECT id FROM newsletter WHERE email = ?");
             $stmt->bind_param("s", $sender['email']);
@@ -129,18 +165,30 @@ class checkout extends dbConnect
                 $stmt = $mysqli->prepare("INSERT INTO newsletter (name, email) VALUES (?,?)");
                 $stmt->bind_param("ss", $sender['nome'], $sender['email']);
                 $stmt->execute();
+                if ($stmt->affected_rows == 0) {
+                    $errorMessage = (array(
+                        'status' => 500,
+                        'errorCode' => 502,
+                        'reference' => $data['reference'],
+                        'email' => $sender['email'],
+                        "message" => "Erro ao Inserir ou Atualizar Newsletter"
+                    )
+                    );
+                    $this->error_log("error", $errorMessage);
+                }
                 $stmt->close();
             }
         }
 
 
+        //> Insere dados do Comprador
         $data['senderName'] = str_replace(" ", "_", $sender['nome']) . " " . str_replace(" ", "_", $sender['sobrenome']);
         $data['senderEmail'] = $sender['email'];
         $data['senderAreaCode'] = $sender['telefone'][1] . $sender['telefone'][2];
         $data['senderCPF'] = str_replace(["-", "."], "", $sender['cpf']);
 
 
-
+        //> Insere dados do Endereço de Entrega
         $data['shippingAddressStreet'] = $sender["rua"];
         $data['shippingAddressNumber'] = $sender["numero"];
         $data['shippingAddressComplement'] = $sender["complemento"];
@@ -151,26 +199,33 @@ class checkout extends dbConnect
 
         $totalValue = 0;
         $totalWeight = 0;
+        $totalCost = 0;
 
 
-
-        //* Verifica a disponibilidade dos produtos no estoque
+        //| Verifica a disponibilidade dos produtos no estoque
         $newProds = [];
-        $getProd = new Prods();
 
         foreach ($cart as $n => $p) {
             $id = intval(preg_replace('/[|\,\;\\\:"]+/', '', $p["id"]));
             $qtd = intval(preg_replace('/[|\,\;\\\:"]+/', '', $p["qtd"]));
             $opt = preg_replace('/[|\,\;\\\:"]+/', '', $p["opt"]);
 
-            $item = $getProd->getById($id);
+            $stmt = $mysqli->prepare("SELECT * FROM products WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $item = $result->fetch_assoc();
+
+            $cart[$n]["prodCost"] = $item["cost"];
 
             if (!isset($newProds[$id])) {
-                $options = json_encode($item['options']);
+                $options = json_decode($item['options']);
+                $options = json_encode($options);
                 $options = json_decode($options, true);
                 $newProds[$id] = $options;
             }
-            //>Adiciona informações do produto à query de compra
+
+            //> Adiciona informações do produto à query de compra
             $data['itemId' . strval($n + 1)] = $item['id'];
             $data['itemDescription' . strval($n + 1)] = tirarAcentos2($item['name']) . " - " . tirarAcentos2($opt);
             $data['itemQuantity' . strval($n + 1)] = $qtd;
@@ -178,22 +233,36 @@ class checkout extends dbConnect
             $data['itemWeight' . strval($n + 1)] = round($item['weight'] * 1000);
             $totalWeight += $item['weight'];
             $totalValue += $item['price'] * $qtd;
+            $totalCost += $item['cost'] * $qtd;
 
 
-            //! Remove do estoque
-            //echo $id . ": ".$opt . " - " . $qtd . "=>" . $newProds[$id][$opt] ."\n";
             $newProds[$id][$opt] = $newProds[$id][$opt] - $qtd;
-            //echo $id . ": ".$opt . " - " . $qtd . "=>" . $newProds[$id][$opt] ."\n";
-            //! Verifica se há a quantidade solicitada
+            //? Verifica se há a quantidade solicitada
+            //!Remove do estoque
 
-            if($newProds[$id][$opt] < 0) {
-                return((array('status' => 500, "message" => "Itens Indisponíveis")));
-            } else{
+
+            if ($newProds[$id][$opt] < 0) {
+                //x Produto não disponível
+                $errorMessage = (array(
+                    'status' => 500,
+                    'errorCode' => 502,
+                    'reference' => $data['reference'],
+                    'clientId' => $clientId,
+                    "message" => "Produto Indisponível"
+                )
+                );
+                $this->error_log("error", $errorMessage);
+                return ((array(
+                    'status' => 500,
+                    'errorCode' => 502,
+                    "message" => "Itens Indisponíveis"
+                )));
+            } else {
                 $newOptions = json_encode($options);
             }
         }
 
-        // ** ** Cupom Desconto  ** **
+        //| Cupom Desconto
         if (isset($_POST['cupom'])) {
             $sql = "SELECT * FROM cupom WHERE ticker = ? AND quantity > 0"; // ? Verifica se o cupom existe
             $stmt = $mysqli->prepare($sql);
@@ -201,34 +270,59 @@ class checkout extends dbConnect
             $stmt->execute();
             $result = $stmt->get_result();
 
-            if ($result->num_rows > 0) { //> Há o Cumpom Solicitado
+            if ($result->num_rows > 0) { //* Há o Cumpom Solicitado
                 $cupom = $result->fetch_assoc();
                 $stmt->close();
                 $cupomDiscount = $cupom["type"] == "percent" ? ($totalValue *  $cupom["value"] / 100) : $cupom["value"];
                 $cupomDiscount =  $cupomDiscount >= $totalValue - 1.5 ? $totalValue - 1.5 : $cupomDiscount;
                 $cupomDiscount = "-" . number_format($cupomDiscount, 2, '.', '');
-                //echo $cupomDiscount;
                 $Rcupom["clientIds"] = json_decode($cupom["clientIds"]);
 
-                //- Verifica se o cupom é de uso unico e se o cliente já utilizou o cupom
-                if ($cupom["firstPurchase"] == 1 && !in_array($clientId, $Rcupom["clientIds"])) {
-                    $data['extraAmount'] = $cupomDiscount;
-                } else { //= Cupom não é de uso único
+                //? Verifica se o cupom é de uso unico e se o cliente já utilizou o cupom
+                if ($cupom["firstPurchase"] == 1) {
+                    //* Cliente Não Usou, Aplica Cupom
+                    if (!in_array($clientId, $Rcupom["clientIds"])) {
+                        $data['extraAmount'] = $cupomDiscount;
+                    } else {
+                        $data['extraAmount'] = '0.00';
+                    }
+                } else {
+                    //* Cupom não é de uso único, Aplica Cupom
                     $data['extraAmount'] = $cupomDiscount;
                 }
+            } else {
+                $data['extraAmount'] = '0.00';
             }
+        } else {
+            $data['extraAmount'] = '0.00';
         }
-        // ** ** Fim Cupom  ** **
 
 
+        //> Calcula o valor total do Frete
         $frete = new frete($sender["cep"], $totalWeight);
+        $newShip = $frete->getfrete();
+
+        //x Erro ao Calcular Frete
+        if ($newShip["erro"] > 0 || $newShip["erro2"] > 0) {
+            $errorMessage = (array(
+                'status' => 500,
+                'errorCode' => 504,
+                'reference' => $data['reference'],
+                'clientId' => $clientId,
+                'shipError' => json_encode($newShip),
+                "message" => "Erro ao Atualizar Produtos"
+            )
+            );
+            $this->error_log("error", $errorMessage);
+
+            return json_encode(array(
+                'status' => 500,
+                'errorCode' => 503,
+                "message" => "Erro ao calcular o frete. Tente novamente mais tarde."
+            ));
+        }
 
         //> Verifica o Tipo de Frete Solicitado
-        $newShip = $frete->getfrete();
-        
-        if($newShip["erro"] > 0 || $newShip["erro2"] > 0){
-            return json_encode(array('status' => 500, "message" => "Erro ao calcular o frete"));
-        }
         if ($shipping["selected"] == "PAC") {
             $data['shippingType'] = 1;
             $sprice = str_replace(",", ".", $newShip["valorPac"][0]);
@@ -243,6 +337,8 @@ class checkout extends dbConnect
         if (isset($newShip["freteGratis"])) {
             $data['shippingCost'] =  '0.00';
         }
+
+        $totalCost += floatval($data['shippingCost']);
 
         //* Solicita Link de Checkout no PagSeguro *//
         $url = "https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?email=guga_carbo@hotmail.com&token=8BE1A0DF1DAD40D99949834093F21AB8";
@@ -260,12 +356,12 @@ class checkout extends dbConnect
         $json = json_encode($xml,  JSON_UNESCAPED_UNICODE);
         $array = json_decode($json, TRUE);
 
-        if ($array["code"]) { //* Código de Cehckout Bem sucedido
+        if (isset($array["code"])) { //* Código de Cehckout Bem sucedido
             $JsonCart = json_encode($cart);
 
             //- Insere Pedido no Banco de Dados
-            $stmt = $mysqli->prepare("INSERT INTO checkout_data (products, totalValue, clientId, buyer, reference) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssss", $JsonCart, $totalValue, $clientId, $JsonSender, $data['reference']);
+            $stmt = $mysqli->prepare("INSERT INTO checkout_data (products, totalValue, clientId, buyer, reference, totalCost) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $JsonCart, $totalValue, $clientId, $JsonSender, $data['reference'], $totalCost);
             $stmt->execute();
             $stmt->close();
 
@@ -280,13 +376,22 @@ class checkout extends dbConnect
                 if ($stmtU->affected_rows > 0) {
                     $stmtU->close();
                 } else {
-                    return((array('status' => 500, "message" => "Erro ao Atualizar Produtos", "error" => $stmtU->error)));
+                    $errorMessage = (array(
+                        'status' => 500,
+                        'errorCode' => 504,
+                        'reference' => $data['reference'],
+                        'clientId' => $clientId,
+                        'products' => $JsonCart,
+                        "message" => "Erro ao Atualizar Produtos"
+                    )
+                    );
+                    $this->error_log("error", $errorMessage);
                     $stmtU->close();
                 }
             }
 
             // > Atualiza Quantidade do Cupom
-            if (isset($data['extraAmount']) && $data['extraAmount'] < 0) {
+            if (isset($data['extraAmount']) && floatval($data['extraAmount']) < 0) {
                 $sql = "UPDATE cupom SET quantity = quantity - 1, clientIds = ? WHERE ticker = ?";
                 $stmt = $mysqli->prepare($sql);
                 $newCupomIds = json_encode(array_merge($Rcupom["clientIds"], [$clientId]));
@@ -295,18 +400,36 @@ class checkout extends dbConnect
                 if ($stmt->affected_rows > 0) {
                     $stmt->close();
                 } else {
-                    $data['extraAmount'] = 0;
-                    //echo(json_encode(array('status' => 500, "message" => "Erro ao Atualizar Cupom", "error" => $stmt->error)));
+                    $errorMessage = (array(
+                        'status' => 500,
+                        'errorCode' => 505,
+                        'reference' => $data['reference'],
+                        'clientId' => $clientId,
+                        'cupom' => $cupom["ticker"],
+                        "message" => "Erro ao Atualizar Cupom", "error" => $stmt->error
+                    )
+                    );
+                    $this->error_log("error", $errorMessage);
                     $stmt->close();
                 }
             }
 
-            return((array('status' => 202, 'url' => "https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=" . $array['code'])));
+            return ((array('status' => 202, 'url' => "https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=" . $array['code'])));
         } else {
-            //die json
-            return((array('status' => 500)));
+            $errorMessage = (array(
+                'status' => 500,
+                'errorCode' => 506,
+                'reference' => $data['reference'],
+                'pagseguro' => $array,
+                "message" => "Erro ao Solicitar Checkout"
+            )
+            );
+            $this->error_log("error", $errorMessage);
+            return ((array('status' => 500, 'error' => $array)));
         }
     }
+
+
 }
 
 

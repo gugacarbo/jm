@@ -46,12 +46,11 @@ $(document).ready(function () {
 })
 
 var timerCat;
-function deleteCategory(n) {
+function deleteCategory(n, i) {
     $(".deleteConfirm").remove();
-    console.log("aaa")
     $("input[name='" + n + "']  + span + span").append(`
         <div class="deleteConfirm">
-        <div onclick='delConfirmed("${n}")'>Deletar?</div>
+        <div onclick='delConfirmed("${i}")'>Deletar?</div>
         </div>
     `)
     clearTimeout(timerCat);
@@ -63,21 +62,33 @@ function deleteCategory(n) {
 }
 
 
-function delConfirmed(n){
-    $.post("/admin/api/delete/deleteCategory.php", { cat: n }, function (data) {
+function delConfirmed(n) {
+    $.post("/admin/api/post/category.php", { delCat: n }, function (data) {
         if (data["status"] >= 200 && data["status"] < 300) {
             categories.splice(categories.indexOf(n), 1);
             getCat()
+        }else{
+            $(".deleteConfirm div").html("Erro!")
+            $(".deleteConfirm div").css("background-color", "#ff0")
+            $(".deleteConfirm div").css("color", "#000")
+        
         }
     })
 }
-function edit(c) {
+function editCat(c) {
     var newCat = UPFisrt($("input[name='" + c + "']").val());
     var oldCat = c;
     if (newCat != "") {
-        $.post("/admin/api/post/editCategory.php", { newCat, oldCat: c }, function (data) {
+        $.post("/admin/api/post/category.php", { newCat, oldCat: c }, function (data) {
             if (data["status"] >= 200 && data["status"] < 300) {
                 getCat()
+            } else {
+                var btc = $("input[name='" + c + "'] + span i").css("color");
+                console.log(btc)
+                $("input[name='" + c + "'] + span i").css("color", "#f00");
+                setTimeout(() => {
+                    $("input[name='" + c + "'] + span i").css("color", btc);
+                }, 500);
             }
         })
     }
@@ -88,9 +99,16 @@ function addCat() {
         if (categories.includes(newCat)) {
             alert("Categoria Já Existe");
         } else {
-            $.post("/admin/api/post/createCategory.php", { newCat }, function (data) {
+            $.post("/admin/api/post/category.php", { newCat }, function (data) {
                 if (data["status"] >= 200 && data["status"] < 300) {
                     getCat()
+                } else {
+                    var btc = $("#newCat + i").css("color");
+                    console.log(btc)
+                    $("#newCat + i").css("color", "#f00");
+                    setTimeout(() => {
+                        $("#newCat + i").css("color", btc);
+                    }, 500);
                 }
             })
         }
@@ -113,9 +131,9 @@ function getCat() {
         $.each(category, function (index, value) {
             var item = `<div class="item">
                 <input type="text" onkeydown="editing(this)" value="${value.name}"  name="${value.name}" >
-                <span><i class="fa-solid fa-save" onclick="edit('${value.name}')"></i></span><span>
+                <span><i class="fa-solid fa-save" onclick="editCat('${value.name}')"></i></span><span>
                 `+ (value.numProds > 0 ? '<i class="fa-solid fa-trash cantDelete"></i>' :
-                    '<i class="fa-solid fa-trash" onclick="deleteCategory(' + "'" + value['name'] + "'" + ')"></i>') +
+                    '<i class="fa-solid fa-trash" onclick="deleteCategory(' + "'" + value['name'] + "'" + ","  + "'" + value['id'] + "'" + ')"></i>') +
                 `</span></div>`
             categories.push(value['name']);
             $("#CatList").append(item);

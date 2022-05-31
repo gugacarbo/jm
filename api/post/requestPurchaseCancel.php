@@ -16,7 +16,7 @@ require '../mailer/src/SMTP.php';
 include "../mail/model/model_cancel.php";
 
 
-include '../config/db_connect.php';
+include_once '../config/db_connect.php';
 
 class CancelPurchase extends dbConnect
 {
@@ -76,7 +76,7 @@ class CancelPurchase extends dbConnect
 
         foreach ($GconfigTake as $key => $value) {
 
-            $sql = "SELECT value FROM generalConfig WHERE config = ?";
+            $sql = "SELECT value FROM generalconfig WHERE config = ?";
             $stmt = $mysqli->prepare($sql);
             $stmt->bind_param("s", $value);
             $stmt->execute();
