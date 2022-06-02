@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
     //die(json_encode(array('status' => 403)));
 } else {
 
@@ -21,7 +21,6 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
         <div class="infoHeader">
             <div class="infoHeaderIcon">
                 <i class="fa-solid fa-check"></i>
-
             </div>
             <span>Pedidos Aprovados</span>
         </div>
@@ -31,29 +30,19 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
             <button class="infoContentButton" onclick="goToSearch('status=3');changePage('purchases')"> Ver todos </button>
         </div>
     </div>
-
-
-    <div class="info infoVisitantes">
+    <div class="info infoNps">
         <div class="infoHeader">
             <div class="infoHeaderIcon">
-                <i class="fa-solid fa-users"></i>
+                <i class="fa-solid fa-star"></i>
             </div>
-            <p class="infoContentP">Visitantes</p>
+            <p class="infoContentP">NPS</p>
         </div>
         <div class="infoContent">
-            <b class="infoContentNumber" id="HomeInfoVisitas"></b>
-            <p class="infoContentP">Número de visitantes</p>
-            <button class="infoContentButton" onclick="changePage('unfinalizedPurchases')"> Ver todos </button>
+            <b class="infoContentNumber" ><b id="HomeInfoNps"></b><small>%</small></b>
+            <p class="infoContentP ">Avaliação dos Clientes</p>
+            <button class="infoContentButton" onclick="changePage('relatory');goToSearch('status=1');"> Ver Relatórios </button>
         </div>
     </div>
-
-
-
-
-
-
-
-
 
     <div class="info infoEnvio">
         <div class="infoHeader">
@@ -68,21 +57,21 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
             <button class="infoContentButton" onclick="goToSearch('tracking=1');changePage('purchases')"> Ver todos </button>
         </div>
     </div>
-
-    <div class="info infoCancelados">
+    <div class="info infoClients">
         <div class="infoHeader">
             <div class="infoHeaderIcon">
-                <i class="fa-solid fa-times"></i>
-
+                <i class="fa-solid fa-user-friends"></i>
             </div>
-            <span>Pedidos Cancelados</span>
+            <p class="infoContentP">Clientes</p>
         </div>
         <div class="infoContent">
-            <b class="infoContentNumber" id="HomeInfoCanceladas"></b>
-            <p class="infoContentP">+ <span id="HomeInfoCanceling"></span> em andamento</p>
-            <button class="infoContentButton" onclick="goToSearch('status=9');changePage('purchases')"> Ver todos </button>
+            <b class="infoContentNumber" id="HomeInfoClients"></b>
+            <p class="infoContentP">+ <b></b>&nbspEsse Mês</p>
+            <button class="infoContentButton" onclick="changePage('relatory');goToSearch('status=1');"> Ver Relatórios </button>
+
         </div>
     </div>
+
 
 
     <div class="info infoAguardando">
@@ -98,8 +87,6 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
             <button class="infoContentButton" onclick="goToSearch('status=1');changePage('purchases')"> Ver todos </button>
         </div>
     </div>
-    
-    
 
     <div class="info infoNaoFinalizadas">
         <div class="infoHeader">
@@ -111,22 +98,38 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
         <div class="infoContent">
             <b class="infoContentNumber" id="HomeInfoNaoFinalizados"></b>
             <p class="infoContentP">Pedidos Não Finalizados</p>
-            <button class="infoContentButton" onclick="changePage('unfinalizedPurchases')"> Ver todos </button>
+            <button class="infoContentButton" onclick="changePage('relatory');goToSearch('status=1');"> Ver Relatórios </button>
+        </div>
+    </div>
+    <div class="info infoVisitantes">
+        <div class="infoHeader">
+            <div class="infoHeaderIcon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <p class="infoContentP">Visitantes</p>
+        </div>
+        <div class="infoContent">
+            <b class="infoContentNumber" id="HomeInfoVisitas"></b>
+            <p class="infoContentP ">Número de visitantes</p>
+            <button class="infoContentButton" onclick="changePage('relatory');goToSearch('status=1');"> Ver Relatórios </button>
+
+        </div>
+    </div>
+    <div class="info infoCancelados">
+        <div class="infoHeader">
+            <div class="infoHeaderIcon">
+                <i class="fa-solid fa-times"></i>
+            </div>
+            <span>Pedidos Cancelados</span>
+        </div>
+        <div class="infoContent">
+            <b class="infoContentNumber" id="HomeInfoCanceladas"></b>
+            <p class="infoContentP">+ <span id="HomeInfoCanceling"></span> em andamento</p>
+            <button class="infoContentButton" onclick="goToSearch('status=9');changePage('purchases')"> Ver todos </button>
         </div>
     </div>
 
-    <div class="info infoNps">
-        <div class="infoHeader">
-            <div class="infoHeaderIcon">
-                <i class="fa-solid fa-star"></i>
-            </div>
-            <p class="infoContentP">NPS</p>
-        </div>
-        <div class="infoContent">
-            <b class="infoContentNumber" id="HomeInfoNps"></b>
-            <p class="infoContentP">Avaliação dos Clientes</p>
-        </div>
-    </div>
+
 
 
 
@@ -144,8 +147,8 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
             </div>
             <canvas id="HomeChart"></canvas>
         </div>
-        <button>
-            Saiba Mais
+        <button onclick="changePage('relatory')">
+            Ver Mais
         </button>
     </div>
 </div>

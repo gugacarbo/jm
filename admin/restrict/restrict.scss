@@ -1,0 +1,190 @@
+@import url("https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Kdam Thmor Pro", sans-serif;
+    box-sizing: border-box;
+}
+$colorA: #2c2e30;
+$colorB: #3a3d3f;
+$colorC: #5c5d5e;
+body {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    overflow: hidden;
+    background: $colorA;
+}
+
+.--box {
+    backdrop-filter: blur(10px);
+    color: #fff;
+}
+
+.restrictContent {
+    width: 100%;
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    grid-template-rows: 5% 25% 70%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        "menu menu menu menu"
+        "total mes futuro cancelado"
+        "content content content content";
+
+    .box {
+        @extend .--box;
+        background-color: $colorA;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        transition: 2.8s;
+
+        input[type="radio"] {
+            display: none;
+
+            &:checked {
+                & + div {
+                    background: $colorB;
+                }
+            }
+        }
+        div {
+            transition: 1s;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+
+            span {
+                font-weight: bold;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+            .boxTitle {
+                font-size: 18pt;
+                gap: 10px;
+                i {
+                    font-size: 20pt;
+                }
+            }
+            .boxValue {
+                align-items: baseline;
+                gap: 5px;
+                small {
+                    font-size: 15pt;
+                    letter-spacing: 2px;
+                }
+                font-size: 26pt;
+            }
+        }
+    }
+    .total {
+        grid-area: total;
+    }
+    .mes {
+        grid-area: mes;
+    }
+    .futuro {
+        grid-area: futuro;
+    }
+    .cancelado {
+        grid-area: cancelado;
+    }
+
+    .menu {
+        width: 100%;
+        height: 100%;
+        grid-area: menu;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .menuContent {
+            @extend .--box;
+            height: 100%;
+            width: 100%;
+            margin: auto;
+            background-color: $colorB;
+        }
+    }
+    .content {
+        width: 100%;
+        height: 100%;
+        grid-area: content;
+        background: $colorA;
+
+        display: flex;
+        justify-content: space-between;
+        .chartBox {
+            @extend .--box;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            canvas {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .listBox {
+            @extend .--box;
+            width: 50%;
+
+            .listTitle {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 10px 20px;
+
+                background-color: $colorC;
+                letter-spacing: 1px;
+                font-size: 15pt;
+            }
+            .listHeader {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+
+                span {
+                    padding: 5px 10px;
+                    text-align: center;
+                    width: 100%;
+                }
+            }
+            .listContent {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+
+                .listItem {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    &:nth-child(odd) {
+                        background-color: #5c5d5e;
+                    }
+                    span {
+                        padding: 5px 10px;
+                        width: 100%;
+
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}

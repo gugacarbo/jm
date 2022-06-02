@@ -376,19 +376,74 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding: 0 30px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 50px;
   background-color: #fff;
   z-index: 90;
+}
+
+.adminHeader .arrowback {
+  position: absolute;
+  left: 10px;
+  cursor: pointer;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.adminHeader .arrowback i {
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  font-size: 22pt;
+  color: #b66d76;
+  text-shadow: 0 0 2px #fff;
+}
+
+.adminHeader .arrowback:hover i {
+  -webkit-filter: brightness(1.1);
+          filter: brightness(1.1);
+}
+
+.adminHeader .arrowback:active i {
+  -webkit-filter: brightness(0.9);
+          filter: brightness(0.9);
+}
+
+.adminHeader .nobackpage {
+  cursor: inherit;
+  pointer-events: none;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.adminHeader .nobackpage i {
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  text-shadow: 0 0 1px #fff;
+  color: #dedede;
+}
+
+.adminHeader .nobackpage i:hover {
+  color: #dedede;
 }
 
 .adminHeader span {
   color: #b66d76;
 }
 
+.adminHeader span small {
+  font-size: 1.05em;
+  font-weight: bold;
+}
+
+.adminHeader .clock {
+  width: 20%;
+  text-align: center;
+}
+
 .adminHeader .PageTitle {
+  margin: 0 auto;
   font-size: 16pt;
   font-weight: bold;
 }
@@ -714,6 +769,11 @@ body {
   position: relative;
 }
 
+.help .messageLeft {
+  left: inherit;
+  right: 15px;
+}
+
 .helpDelete .helpMessage {
   -webkit-transition-delay: 0.5s;
           transition-delay: 0.5s;
@@ -944,7 +1004,8 @@ label.hasCheckboxToggle h3::after {
   width: 100%;
       grid-template-areas: "infoContentNumber infoContentP" "infoContentNumber infoContentButton";
   place-items: center;
-  gap: 10px;
+  -ms-grid-columns: 30% 70%;
+      grid-template-columns: 30% 70%;
 }
 
 .adminHomeContainer .info .infoContent .infoContentNumber {
@@ -957,7 +1018,7 @@ label.hasCheckboxToggle h3::after {
 
 .adminHomeContainer .info .infoContent .infoContentP {
   text-align: center;
-  font-size: 9pt;
+  font-size: 10pt;
   font-weight: bold;
   -ms-grid-row: 1;
   -ms-grid-column: 2;
@@ -1019,6 +1080,18 @@ label.hasCheckboxToggle h3::after {
   font-size: 17pt;
 }
 
+.adminHomeContainer .infoClients .infoHeader {
+  color: #8400db;
+}
+
+.adminHomeContainer .infoClients .infoHeader .infoHeaderIcon {
+  border-color: #8400db;
+}
+
+.adminHomeContainer .infoClients .infoHeader .infoHeaderIcon i {
+  font-size: 16pt;
+}
+
 .adminHomeContainer .infoVisitantes .infoHeader {
   color: #00cbda;
 }
@@ -1029,6 +1102,12 @@ label.hasCheckboxToggle h3::after {
 
 .adminHomeContainer .infoVisitantes .infoHeader .infoHeaderIcon i {
   font-size: 16pt;
+}
+
+.adminHomeContainer .infoNaoFinalizadas {
+  -ms-grid-row: 4;
+  -ms-grid-column: 4;
+  grid-area: 4/4;
 }
 
 .adminHomeContainer .infoNaoFinalizadas .infoHeader {
@@ -1065,6 +1144,10 @@ label.hasCheckboxToggle h3::after {
 
 .adminHomeContainer .infoNps .infoHeader .infoHeaderIcon i {
   font-size: 18pt;
+}
+
+.adminHomeContainer .infoNps .infoContent small {
+  font-size: 12pt;
 }
 
 .adminHomeContainer .infoCanceling .infoHeader {
@@ -3443,6 +3526,7 @@ label.hasCheckboxToggle h3::after {
 
 .purchasesContainer .purchases .purchase span .disputPurcList {
   font-size: 1em;
+  font-weight: bold;
   color: #f00;
 }
 
@@ -3854,101 +3938,16 @@ label.hasCheckboxToggle h3::after {
   display: flex;
 }
 
-.reviewPurchasesContent .reviewContainer {
-  width: 90%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.reviewPurchasesContent button {
-  width: 220px;
-  margin-top: 20px;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-  margin-left: 5%;
-}
-
-.reviewPurchasesContent button:hover {
-  background-color: #fff;
-  color: #b66d76;
-  border: 1px solid #b66d76;
-}
-
-.reviewPurchasesContent #totalOrders {
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-}
-
-.reviewPurchasesContent #totalOrders b {
-  color: #b66d76;
-}
-
-.reviewPurchasesContent .contentHeader {
-  background-color: #b66d76;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding: 4px 20px;
-}
-
-.reviewPurchasesContent .contentHeader span {
-  color: #fff;
-  text-align: center;
-  width: 100%;
-}
-
-.reviewPurchasesContent .reviewContent {
-  padding-bottom: 40px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 100%;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.reviewPurchasesContent .reviewContent .item {
-  padding: 4px 20px;
-  border-bottom: 1px solid #b66d76;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.reviewPurchasesContent .reviewContent .item span {
-  width: 100%;
-  text-align: center;
-}
-
 .adminConfigContainer .configContent {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 20px;
+  row-gap: 20px;
   position: relative;
-  padding: 0 30px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 .adminConfigContainer .configContent .configBox .config {
@@ -3974,6 +3973,7 @@ label.hasCheckboxToggle h3::after {
 }
 
 .adminConfigContainer .configContent .configBox .config input[type="text"],
+.adminConfigContainer .configContent .configBox .config input[type="password"],
 .adminConfigContainer .configContent .configBox .config input[type="number"] {
   border: none;
   border: 1px solid #b66d76;
@@ -4164,6 +4164,115 @@ label.hasCheckboxToggle h3::after {
 
 .adminConfigContainer .configContent .configBox .config #aditionalWeight {
   width: 30%;
+}
+
+.adminConfigContainer .configContent .configBox .bar {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong {
+  opacity: 0;
+  width: 50%;
+  padding: 4px 0;
+  background-color: #eeeeee;
+  overflow: hidden;
+  border-radius: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid #ccc;
+  position: relative;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #80580f;
+  left: 0;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.fraca {
+  background-color: #ddd;
+  border-color: #888;
+  opacity: 1;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.fraca::after {
+  -webkit-transform: translateX(-80%);
+          transform: translateX(-80%);
+  background-color: #d13b00;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.media {
+  opacity: 1;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.media::after {
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background-color: #ffaf01;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.forte {
+  opacity: 1;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.forte::after {
+  -webkit-transform: translateX(-5%);
+          transform: translateX(-5%);
+  background-color: #15ff0d;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.muitoForte {
+  opacity: 1;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.muitoForte::after {
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+  background-color: #70030c;
+}
+
+.adminConfigContainer .configContent .configBox .password span {
+  width: 50%;
+  font-size: 10pt;
+}
+
+.adminConfigContainer .configContent .configBox .password input {
+  width: 45%;
+}
+
+.adminConfigContainer .configContent .configBox .password input::-webkit-input-placeholder {
+  color: #ddd;
+}
+
+.adminConfigContainer .configContent .configBox .password input:-ms-input-placeholder {
+  color: #ddd;
+}
+
+.adminConfigContainer .configContent .configBox .password input::-ms-input-placeholder {
+  color: #ddd;
+}
+
+.adminConfigContainer .configContent .configBox .password input::placeholder {
+  color: #ddd;
+}
+
+.adminConfigContainer .configContent .configBox .password .is-not-equal {
+  border-color: #ff0;
 }
 
 .adminConfigContainer .configContent .configBox .pass span {

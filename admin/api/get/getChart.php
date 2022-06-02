@@ -19,6 +19,8 @@ class Chart extends dbConnect
     {
         $this->interval_ = $interval;
 
+
+
         switch ($interval) {
             case 'month':
                 $this->Month();
@@ -53,30 +55,29 @@ class Chart extends dbConnect
     //- Mês
     private function Month()
     {
-        $this->startDate_ = date('Y-m-01');
+        $this->startDate_ =  date("Y-m-d", strtotime("-1 month", strtotime(date('Y-m-d'))));
         $this->homeChartData();
         $monthData = [];
         $monthLabels = [];
         $data = $this->data_;
         $labels = $this->labels_;
 
+        for ($dt = $this->startDate_; $dt <= date("Y-m-d"); $dt = date("Y-m-d", strtotime("+1 day", strtotime($dt)))) {
+            $monthData[(int)date("Y", strtotime(($dt)))][(int)date("m", strtotime(($dt)))][(int)date("d", strtotime(($dt)))] = 0;
+            $monthLabels[(int)date("Y", strtotime(($dt)))][(int)date("m", strtotime(($dt)))][(int)date("d", strtotime(($dt)))] = date("Y-m-d", strtotime($dt));
+        }
 
 
         //> Labels
         foreach ($data as $y => $year) {
             foreach ($year as $m => $month) {
-                for ($i = 1; $i <= intval(date("t", strtotime(date($y . "-" . $m . "-t")))); $i++) {
-                    $monthData[$i] = 0;
-                    $monthLabels[$i] =  date("Y-m-d H:i:s", strtotime(date($y . "-" . $m . "-" . $i . " 00:00:00")));
-                }
-
-
                 foreach ($month as $d => $day) {
-                    $monthData[$d] += $day;
+                    $monthData[$y][$m][$d] += $day;
                 }
             }
+            $monthData = (array_merge(...$monthData[$y]));
+            $monthLabels = (array_merge(...$monthLabels[$y]));
         }
-
 
 
         $this->labels_ = $monthLabels;
@@ -88,34 +89,31 @@ class Chart extends dbConnect
     //> Ano
     private function Trimester()
     {
-        $this->startDate_ = date("Y-m-01", strtotime("-6 month", strtotime(date('Y-m-01'))));
+        $this->startDate_ = date("Y-m-d", strtotime("-3 month", strtotime(date('Y-m-d'))));
+        
         $this->homeChartData();
-
-
         $monthData = [];
         $monthLabels = [];
         $data = $this->data_;
         $labels = $this->labels_;
 
+        for ($dt = $this->startDate_; $dt <= date("Y-m-d"); $dt = date("Y-m-d", strtotime("+1 day", strtotime($dt)))) {
+            $monthData[(int)date("Y", strtotime(($dt)))][(int)date("m", strtotime(($dt)))][(int)date("d", strtotime(($dt)))] = 0;
+            $monthLabels[(int)date("Y", strtotime(($dt)))][(int)date("m", strtotime(($dt)))][(int)date("d", strtotime(($dt)))] = date("Y-m-d", strtotime($dt));
+        }
 
 
         //> Labels
         foreach ($data as $y => $year) {
             foreach ($year as $m => $month) {
-
-                for ($i = 1; $i <= intval(date("t", strtotime(date($y . "-" . $m . "-t")))); $i++) {
-                    $monthData[$y][$m][$i] = 0;
-                    $monthLabels[$y][$m][$i] =  date("Y-m-d", strtotime(date($y . "-" . $m . "-" . $i . " 00:00:00")));
-                }
-
-
                 foreach ($month as $d => $day) {
                     $monthData[$y][$m][$d] += $day;
                 }
             }
-            $monthLabels = (array_merge(...$monthLabels[$y]));
             $monthData = (array_merge(...$monthData[$y]));
+            $monthLabels = (array_merge(...$monthLabels[$y]));
         }
+
 
 
         $newData = [];
@@ -124,7 +122,7 @@ class Chart extends dbConnect
         }
 
         foreach (array_chunk($monthLabels, 3) as $chunked) {
-            $newLabel[] = $chunked[1];
+            isset($chunked[2]) ? $newLabel[] = $chunked[2] : $newLabel[] = $chunked[0];
         }
 
 
@@ -137,7 +135,13 @@ class Chart extends dbConnect
     //> Ano
     private function Year()
     {
-        $this->startDate_ = date('Y-01-01');
+        if (intval(date('m')) < 3) {
+
+            $this->startDate_ = date("Y-m-01", strtotime("-3 month", strtotime(date('Y-m-01'))));
+        } else {
+            $this->startDate_ = date("Y-01-01");
+        }
+
         $this->homeChartData();
         $monthData = [];
         $labels = [];
@@ -167,7 +171,7 @@ class Chart extends dbConnect
     private function homeChartData()
     {
         $mysqli = $this->connect();
-        $stmt = $mysqli->prepare('SELECT * FROM vendas WHERE buyDate >= ? AND status >= 3 AND status <= 4');
+        $stmt = $mysqli->prepare('SELECT * FROM vendas WHERE paymentDate >= ? AND status >= 3 AND status <= 4');
         //echo $date;
         $stmt->bind_param('s', $this->startDate_);
         $stmt->execute();
@@ -184,9 +188,15 @@ class Chart extends dbConnect
         }
         $stmt->close();
         $mysqli->close();
-
-        ksort($data[2022]); // !
-        ksort($label[2022]); // !
+        if (sizeof($data) > 0) {
+            foreach ($data as $y => $year) {
+                ksort($data[$y]);
+                ksort($label[$y]);
+            }
+        } else {
+        }
+        ksort($data);
+        ksort($label);
 
         $this->labels_ = $label;
         $this->data_ = $data;

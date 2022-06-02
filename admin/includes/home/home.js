@@ -47,7 +47,7 @@ var HomeChart = new Chart(
                 above: 'rgba(7, 158, 57, 0.15)'
             },
             borderColor: 'rgb(7, 158, 57)',
-            tension: 0.15
+            tension: 0.10
 
         }],
     },
@@ -106,9 +106,11 @@ function getHomeInfo() {
             $("#HomeInfoAguardandoEnvio").text(data.AguardandoEnvio)
             $("#HomeInfoNaoFinalizados").text(data.NaoPagos)
             $("#HomeInfoAguardandoPagamento").text(data.AguardandoPagamento)
-            $("#HomeInfoNps").text((data.Nps).toFixed(2))
+            $("#HomeInfoNps").text((data.Nps).toFixed(0))
             $("#HomeInfoCanceling").text((data.canceling))
             $("#HomeInfoVisitas").text((data.visitas))
+            $("#HomeInfoClients").text((data.clients))
+            $("#HomeInfoClients + p b").text((data.moreClients))
         }
     })
 }
@@ -143,6 +145,9 @@ function getHomeChart(interval, el = "#monthFirst") {
                     break;
                 case "year":
                     HomeChart.options.scales.x.time.unit = 'month';
+                    break;
+                default:
+                    HomeChart.options.scales.x.time.unit = 'day';
                     break;
             }
             HomeChart.update();

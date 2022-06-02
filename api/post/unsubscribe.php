@@ -2,9 +2,6 @@
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Methods: POST');
 
-define('TIMEZONE', 'America/Sao_Paulo');
-date_default_timezone_set(TIMEZONE);
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

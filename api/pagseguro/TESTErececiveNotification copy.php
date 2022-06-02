@@ -1,13 +1,9 @@
 <?php
-header('Content-Type: application/json; charset:utf-8');
-header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json;');
 header('Access-Control-Allow-Methods: POST');
 
-define('TIMEZONE', 'America/Sao_Paulo');
-date_default_timezone_set(TIMEZONE);
-
-error_reporting(0);
-ini_set('display_errors', 0);
+error_reporting(1);
+ini_set('display_errors', 1);
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -27,7 +23,6 @@ $htmlJsonResponse = [];
 class ReceiveNotification extends dbConnect
 {
 
-    //$credenciais = "email=guga_carbo@hotmail.com&token=2892d1c4-4188-475f-b840-975a99cb9b396e0c6960446fa00bc19a696db4163addcac8-51be-49aa-a7bf-2baed7e7e05b";
     private $notificationCode_, $jsonPayload_,
         $Payload_,
         $credenciais_ = "email=guga_carbo@hotmail.com&token=8BE1A0DF1DAD40D99949834093F21AB8";
@@ -126,7 +121,10 @@ class ReceiveNotification extends dbConnect
                     $this->error_log("error", $errorMessage);
 
                     $stmt->close();
-
+                    
+                    if($Payload['status'] > 2){
+                        $this->verify();
+                    }
                     return (($htmlJsonResponse));
                 }
             } else {
@@ -206,8 +204,8 @@ class ReceiveNotification extends dbConnect
                     $stmtP->close();
                 }
 
-                $stmt = $mysqli->prepare("UPDATE vendas SET internalStatus = 3 WHERE reference = ?");
-                $stmt->bind_param("ss", $Payload['reference']);    //? Status 7 == Pagamento Aprovado, Produtos Vendidos
+                $stmt = $mysqli->prepare("UPDATE vendas SET internalStatus = 3, paymentDate = ? WHERE reference = ?");
+                $stmt->bind_param("ss", $Payload['lastEventDate'], $Payload['reference']);//? Status 7 == Pagamento Aprovado, Produtos Vendidos
                 $stmt->execute();
                 $stmt->close();
                 $htmlJsonResponse['status'] = 201;
@@ -389,7 +387,7 @@ class ReceiveNotification extends dbConnect
 
 if (empty($_POST['notificationCode'])) {
 
-    $notificationCode =  "7E20EDA29C3D9C3D4A9AA4E1CFA9B41851BB"; // 3 id = 30
+    $notificationCode =  "C26201A45C945C943EA884B34FA38F3036C4"; // 3 id = 30
 
     $receive = new ReceiveNotification($notificationCode);
     die(json_encode($receive->verify()));

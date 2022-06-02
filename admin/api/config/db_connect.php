@@ -1,10 +1,15 @@
 <?php
 
+
+define('TIMEZONE', 'America/Sao_Paulo');
+date_default_timezone_set(TIMEZONE);
+
+
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
   die(json_encode(array(
     'status' => 403,
     'message' => 'Forbidden'

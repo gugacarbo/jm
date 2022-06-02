@@ -57,18 +57,20 @@
                 "infoContentNumber infoContentP"
                 "infoContentNumber infoContentButton";
             place-items: center;
-            gap: 10px;
+
+            grid-template-columns: 30% 70%;
             .infoContentNumber {
                 font-size: 40pt;
                 grid-area: infoContentNumber;
             }
             .infoContentP {
                 text-align: center;
-                font-size: 9pt;
+                font-size: 10pt;
                 font-weight: bold;
                 grid-area: infoContentP;
                 // place-self: center start;
             }
+
             .infoContentButton {
                 grid-area: infoContentButton;
                 display: flex;
@@ -82,7 +84,7 @@
         }
     }
 
-    .infoAprovados{
+    .infoAprovados {
         .infoHeader {
             color: rgb(33, 209, 33);
             .infoHeaderIcon {
@@ -93,7 +95,7 @@
             }
         }
     }
-    .infoCancelados{
+    .infoCancelados {
         .infoHeader {
             color: rgb(230, 29, 29);
             .infoHeaderIcon {
@@ -106,7 +108,7 @@
         }
     }
 
-    .infoEnvio{
+    .infoEnvio {
         .infoHeader {
             color: #ff7e00;
             .infoHeaderIcon {
@@ -118,6 +120,17 @@
         }
     }
 
+    .infoClients {
+        .infoHeader {
+            color: #8400db;
+            .infoHeaderIcon {
+                border-color: #8400db;
+                i {
+                    font-size: 16pt;
+                }
+            }
+        }
+    }
     .infoVisitantes {
         .infoHeader {
             color: #00cbda;
@@ -130,6 +143,7 @@
         }
     }
     .infoNaoFinalizadas {
+        grid-area: 4/4;
         .infoHeader {
             color: #5300da;
             .infoHeaderIcon {
@@ -162,6 +176,9 @@
                     font-size: 18pt;
                 }
             }
+        }
+        .infoContent small {
+            font-size: 12pt;
         }
     }
     .infoCanceling {

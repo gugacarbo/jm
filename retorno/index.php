@@ -21,7 +21,7 @@
             <h1>Compra Concluída com Sucesso!</h1>
             <p>Use esse código para rastrear sua compra</p>
             <span class="code">
-                <input type="text" name="" id="CodeI" value=<?php echo '"' . ($_GET["code"]). '"' ; ?>>
+                <input type="text" name="" id="CodeI" value=<?php echo '"' . ($_GET["code"]) . '"'; ?>>
                 <i class="fas fa-copy" id="copyCode"></i></span>
             </span>
             <i style="color: '#bbb'; font-size: 10pt;">Ele será enviado para seu e-mail</i>
@@ -54,10 +54,13 @@
             <span>Deixe uma Mensagem <i style="color: '#ddd'; font-size: 10pt;">opcional</i></span>
             <textarea></textarea>
             <button id="send">Enviar e Voltar à Loja</button>
+            <button id="noRate" style="opacity: 0;">Não Avaliar</button>
 
         </div>
     </div>
     <script>
+        var confirmRate = 1;
+
         function copiarTexto() {
             let textoCopiado = $(".code").val();
             textoCopiado.select();
@@ -75,7 +78,7 @@
                 setTimeout(() => {
                     $(this).css("color", c);
                     $(this).css("transform", "scale(1)");
-                    
+
                 }, 500);
                 //alert('Copiado');
             } else {
@@ -104,13 +107,38 @@
                     break;
             }
         })
+        $("#noRate").on("click", () => {
+            window.location.href = "/";
+        })
         $("#send").on("click", () => {
             //$("#send").css("pointer-events", "none");
-            var rate = $("input[name='nps1']:checked").val();
+            var rate = $("input[name='nps1']:checked").val() || 0;
             var message = $("textarea").val();
             var code = "<?php echo ($_GET["code"]); ?>";
+
+            if (rate <= 2 && confirmRate == 1) {
+                var btxt = $("#send").html();
+                confirmRate = 0;
+                $("#noRate").css("transition", "1s");
+                $("#noRate").css("opacity", "1");
+                $("#send").html("Confirmar Nota?");
+                setTimeout(() => {
+                    $("#send").html(btxt);
+
+                }, 2500);
+
+                $(".fa-star").each(function() {
+                    $(this).addClass("confirmRate");
+                    setTimeout(() => {
+                        $(this).removeClass("confirmRate");
+
+                    }, 2500);
+                });
+                return;
+            }
+
             $.post("/api/post/sendRating.php", {
-                "rate": rate,
+                "rate": rate || 0,
                 "message": message,
                 "code": code
             }, (data) => {

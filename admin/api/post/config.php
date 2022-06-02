@@ -8,8 +8,9 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 
-if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
-    die(json_encode(array('status' => 403)));
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 2) {
+    die(json_encode(array('status' => 403,
+    'message' => 'Acesso negado')));
 }
 
 
@@ -121,6 +122,39 @@ class config extends dbConnect
         }
         return ((array("status" => 200, "message" => "Configurações alteradas com sucesso")));
     }
+    public function editAdminPassword($user, $old, $new)
+    {
+        $mysqli = $this->connect();
+
+        $sql = "SELECT password FROM admin WHERE user = ?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("s", $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            if ($row['password'] == md5($old)) {
+                $new = md5($new);
+                $sql = "UPDATE admin SET password = ? WHERE user = ?";
+                $stmt = $mysqli->prepare($sql);
+                $stmt->bind_param("ss", $new, $user);
+                if ($stmt->execute()) {
+                    $stmt->close();
+                    return ((array("status" => 201, "message" => "Senha alterada com sucesso")));
+                } else {
+                    $stmt->close();
+                    return ((array("status" => 504, "message" => "Erro ao alterar senha")));
+                }
+            } else {
+                return ((array("status" => 403, "message" => "Senha atual incorreta")));
+            }
+        } else {
+            return ((array("status" => 404, "message" => "Usuário não encontrado")));
+        }
+
+    }
 }
 
 
@@ -172,6 +206,17 @@ if (isset($_POST["adminMail"]) && isset($_POST["contactMail"]) && isset($_POST["
     $config = new config();
     $response = $config->setShippingConfig($cepOrigemFrete, $aditionalWeight, $alturaFrete, $larguraFrete, $comprimentoFrete);
     die(json_encode($response));
+
+    //! Change Password
+}else if(($_POST["user"]) &&($_POST["currentPassword"]) && isset($_POST["newPassword"])){
+    $user = $_POST["user"];
+    $currentPassword = $_POST["currentPassword"];
+    $newPassword = $_POST["newPassword"];
+
+    $config = new config();
+    $response = $config->editAdminPassword($user, $currentPassword, $newPassword);
+    die(json_encode($response));
+    
 } else {
 
     die(json_encode(array("status" => 400, "message" => "Bad Resquest")));

@@ -1,13 +1,17 @@
 <?php
 
+define('TIMEZONE', 'America/Sao_Paulo');
+date_default_timezone_set(TIMEZONE);
+
+
 if (!function_exists('errHandledb')) {
   function errHandledb($errNo, $errStr, $errFile, $errLine)
   {
     if ($errNo == E_NOTICE || $errNo == E_WARNING) {
-      die(json_encode(array('status' => 403)));
+      die(json_encode(array('status' => 403, 'message' => "Forbidden")));
     }
   }
-  //set_error_handler('errHandledb');
+ // set_error_handler('errHandledb');
 }
 
 

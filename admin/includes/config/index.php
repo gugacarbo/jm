@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
     die(json_encode(array('status' => 404)));
 } else {
     //$content = '
@@ -256,19 +256,72 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
 
                 </div>
                 <div class="config centerC">
-                 
-                        <span>Peso da Embalagem: </span>
-                        <input type="number" min="0" step="1" value="0" max="500" id="aditionalWeight">
-                        <b>g</b>
-                        <div class="help">
-                            <i class="fas fa-question-circle"></i>
-                            <div class="helpMessage">
-                                Adicione o Peso da Embalagem Utilizada Para Somar com o Peso do Produto Para Calculo de Frete
-                            </div>
+
+                    <span>Peso da Embalagem: </span>
+                    <input type="number" min="0" step="1" value="0" max="500" id="aditionalWeight">
+                    <b>g</b>
+                    <div class="help">
+                        <i class="fas fa-question-circle"></i>
+                        <div class="helpMessage">
+                            Adicione o Peso da Embalagem Utilizada Para Somar com o Peso do Produto Para Calculo de Frete
                         </div>
-                    
+                    </div>
+
                 </div>
                 <button id="saveShipingConfig">
+                    Salvar
+                </button>
+            </div>
+
+
+
+            <!--//! Senha-->
+            <div class="configBox box">
+                <h1 class="boxTitle">Alterar Senha do Admin</h1>
+
+                <div class="config password">
+                    <span>Senha Atual: </span>
+                    <input type="password" placeholder="*************" id="currentPassword">
+                    <section class="help">
+                        <i class="fas fa-question-circle"></i>
+                        <div class="helpMessage messageLeft">
+                            <p>
+                                Digite a senha que está usando atualmente para fazer login no Painel de Controle.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="config password">
+                    <span>Nova Senha: </span>
+                    <input type="password" placeholder="*************" id="newPassword">
+
+                    <section class="help">
+                        <i class="fas fa-question-circle"></i>
+                        <div class="helpMessage messageLeft">
+                            <p>
+                                A nova senha deve conter ao menos uma letra, um numero e um caracter especial, e no mínimo 8 digitos.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+         
+                <div class="config password">
+                    <span>Confirmar Senha: </span>
+                    <input type="password" placeholder="*************" id="confirmPassword">
+                    <section class="help">
+                        <i class="fas fa-question-circle"></i>
+                        <div class="helpMessage messageLeft">
+                            <p>
+                                Repita a senha.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="config centerC  bar">
+                    <div id="passStrong"></div>
+                    <small></small>
+                </div>
+                <button id="saveAdminPassword">
                     Salvar
                 </button>
             </div>

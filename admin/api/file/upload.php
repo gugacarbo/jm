@@ -6,8 +6,9 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 
-if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
-    die(json_encode(array('status' => 403)));
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 2) {
+    die(json_encode(array('status' => 403,
+        'message' => 'Acesso negado')));
 } else {
     if (isset($_FILES['file']['name']) && isset($_GET['dir'])) {
         $validDir = ['/about/', "/img/banners/", "/img/products/"];

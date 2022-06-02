@@ -1,7 +1,6 @@
 <?php
 include "api/config/db_connect.php";
-define('TIMEZONE', 'America/Sao_Paulo');
-date_default_timezone_set(TIMEZONE);
+
 
 class Visitante extends dbConnect
 {

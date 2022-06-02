@@ -1,7 +1,8 @@
 internal_status:{
     1 : '',
     2 : '',
-    3 : 'Sold Contabilized'  
+    3 : 'Sold Contabilized',
+    4 : 'Gone to Final Relatory'
     7 : 'Return Products Of Canceled Purchase'
 }
 custo total = Produtos + Frete (Nao soma frete gratis nem cupom)

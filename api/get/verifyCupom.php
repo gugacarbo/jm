@@ -37,10 +37,10 @@ class cupom extends dbConnect
             $Rcupom["ticker"] = $cupom["ticker"];
             $Rcupom["type"] = $cupom["type"];
             $Rcupom["value"] = $cupom["value"];
-            $Rcupom["firstPurchase"] = $cupom["firstPurchase"];
+            $Rcupom["singleUse"] = $cupom["singleUse"];
             $Rcupom["clientIds"] = json_decode($cupom["clientIds"]);
     
-            if($cupom["firstPurchase"]){
+            if($cupom["singleUse"]){
 
                 $sql = "SELECT id FROM client WHERE cpf = ? AND bornDate = ?";
                 $stmt = $mysqli->prepare($sql);

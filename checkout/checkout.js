@@ -113,8 +113,8 @@ $(document).ready(_ => {
                     $("#redirectM").css("display", "flex");
                     $("#redirectM div").fadeIn(1000);
                     setTimeout(() => {
-                        //!deleteList();
-                        //!window.location.href = data["url"];
+                        deleteList();
+                        window.location.href = data["url"];
                     }, 1500);
                 } else {
                     $("body").toggleClass("blockBody");
@@ -125,7 +125,7 @@ $(document).ready(_ => {
                     $("#redirectM").css("display", "flex");
                     $("#redirectM div").fadeIn(1000);
                     setTimeout(() => {
-                        //!window.location.href = "/";
+                        window.location.href = "/";
                     }, 5000);
                 }
             }

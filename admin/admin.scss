@@ -212,14 +212,60 @@ body {
     width: calc(100% - 60px);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
+    justify-content: center;
+    padding: 0 50px;
     background-color: #fff;
     z-index: 90;
+    .arrowback{
+        position: absolute;
+        left: 10px;
+        cursor: pointer;
+        transition: 0.4s;
+        i{
+            transition: 0.4s;
+            font-size: 22pt;
+            color: $mainColor;
+            text-shadow: 0 0 2px #fff;
+        }
+        &:hover{
+           i{
+               filter: brightness(1.1);
+           }
+        }
+        &:active{
+           i{
+               filter: brightness(0.9);
+           }
+        }
+
+    }
+    .nobackpage{
+        cursor: inherit;
+        pointer-events: none;
+        transition: 0.4s;
+        
+        i{
+            transition: 0.4s;
+            text-shadow: 0 0 1px #fff;
+            color: #dedede;
+            &:hover{
+                color: #dedede;
+            }
+        }
+    }
     span {
         color: $mainColor;
+        small{
+            font-size: 1.05em;
+            font-weight: bold;
+        }
+    }
+    .clock{
+        width: 20%;
+        text-align: center;
     }
     .PageTitle {
+        margin: 0 auto;
         font-size: 16pt;
         font-weight: bold;
     }
@@ -442,6 +488,10 @@ body {
             position: relative;
         }
     }
+    .messageLeft{
+            left: inherit;
+    right: 15px;
+    }
 }
 .helpDelete {
     .helpMessage {
@@ -567,6 +617,6 @@ label.hasCheckboxToggle {
 @import "scss/material";
 @import "scss/products";
 @import "scss/purchases";
-@import "scss/unfinalizedPurchases";
+@import "scss/relatory";
 @import "scss/config";
 @import "scss/configFree";

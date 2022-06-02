@@ -1,0 +1,280 @@
+@import url("https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Kdam Thmor Pro", sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow: hidden;
+  background: #2c2e30;
+}
+
+.--box, .restrictContent .box, .restrictContent .menu .menuContent, .restrictContent .content .chartBox, .restrictContent .content .listBox {
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  color: #fff;
+}
+
+.restrictContent {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  -ms-grid-rows: 5% 25% 70%;
+      grid-template-rows: 5% 25% 70%;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-areas: "menu menu menu menu" "total mes futuro cancelado" "content content content content";
+}
+
+.restrictContent .box {
+  background-color: #2c2e30;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-grid-columns: (1fr)[6];
+      grid-template-columns: repeat(6, 1fr);
+  -ms-grid-rows: (1fr)[4];
+      grid-template-rows: repeat(4, 1fr);
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  -webkit-transition: 2.8s;
+  transition: 2.8s;
+}
+
+.restrictContent .box input[type="radio"] {
+  display: none;
+}
+
+.restrictContent .box input[type="radio"]:checked + div {
+  background: #3a3d3f;
+}
+
+.restrictContent .box div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.restrictContent .box div span {
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.restrictContent .box div .boxTitle {
+  font-size: 18pt;
+  gap: 10px;
+}
+
+.restrictContent .box div .boxTitle i {
+  font-size: 20pt;
+}
+
+.restrictContent .box div .boxValue {
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  gap: 5px;
+  font-size: 26pt;
+}
+
+.restrictContent .box div .boxValue small {
+  font-size: 15pt;
+  letter-spacing: 2px;
+}
+
+.restrictContent .total {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: total;
+}
+
+.restrictContent .mes {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: mes;
+}
+
+.restrictContent .futuro {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+  grid-area: futuro;
+}
+
+.restrictContent .cancelado {
+  -ms-grid-row: 2;
+  -ms-grid-column: 4;
+  grid-area: cancelado;
+}
+
+.restrictContent .menu {
+  width: 100%;
+  height: 100%;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+  grid-area: menu;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.restrictContent .menu .menuContent {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  background-color: #3a3d3f;
+}
+
+.restrictContent .content {
+  width: 100%;
+  height: 100%;
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+  grid-area: content;
+  background: #2c2e30;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.restrictContent .content .chartBox {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.restrictContent .content .chartBox canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.restrictContent .content .listBox {
+  width: 50%;
+}
+
+.restrictContent .content .listBox .listTitle {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px 20px;
+  background-color: #5c5d5e;
+  letter-spacing: 1px;
+  font-size: 15pt;
+}
+
+.restrictContent .content .listBox .listHeader {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.restrictContent .content .listBox .listHeader span {
+  padding: 5px 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.restrictContent .content .listBox .listContent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.restrictContent .content .listBox .listContent .listItem {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.restrictContent .content .listBox .listContent .listItem:nth-child(odd) {
+  background-color: #5c5d5e;
+}
+
+.restrictContent .content .listBox .listContent .listItem span {
+  padding: 5px 10px;
+  width: 100%;
+  text-align: center;
+}
+/*# sourceMappingURL=restrict.css.map */

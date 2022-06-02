@@ -187,7 +187,7 @@ function createPurchase(compra) {
     m += 1;  // JavaScript months are 0-11
     var y = date.getFullYear();
     var pursh = `
-    <div class="purchase" id="Purchase${compra.id}">
+    <div class="purchase" id="Purchase${compra.id}" ${compra.status == 5 ? "style='order:-2;'" : ''} >
         <span>${compra.id}</span>
         <span>${d}/${m}/${y}</span>
         <span onclick="modalPurchase(${compra.id})">${compra.client.name + " " + compra.client.lastName}</span>

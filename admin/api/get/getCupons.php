@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 
-if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
     die(json_encode(array('status' => 403)));
 }
 

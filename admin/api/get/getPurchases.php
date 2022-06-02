@@ -197,15 +197,13 @@ class Purchases extends dbConnect
 
 
 
-if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])) {
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
     die(json_encode(array('status' => 403)));
-}else{
-
-    
+} else {
     isset($_GET['filter']) ? $filter = $_GET['filter'] : $filter = "";
     isset($_GET['text']) ? $text = $_GET['text'] : $text = "";
     isset($_GET['getStatus']) ? $status = $_GET['getStatus'] : $status = "";
-isset($_GET['order']) ? $order = $_GET['order'] : $order = "";
-$vendas = new Purchases($filter, $text, $status, $order);
-die(($vendas->getPurchases()));
+    isset($_GET['order']) ? $order = $_GET['order'] : $order = "";
+    $vendas = new Purchases($filter, $text, $status, $order);
+    die(($vendas->getPurchases()));
 }

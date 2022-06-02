@@ -6596,6 +6596,12 @@ footer .footerContent .scudero b {
   transition: 0.5s;
 }
 
+.returnPage .returnContent .nps .stars label .confirmRate {
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+  text-shadow: 0px 0px 5px #ff0;
+}
+
 .returnPage .returnContent .nps .stars input:checked ~ label i,
 .returnPage .returnContent .nps .stars label:hover i {
   color: #dacb00;
