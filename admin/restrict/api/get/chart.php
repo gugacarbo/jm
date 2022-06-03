@@ -19,21 +19,31 @@ include_once "../../../api/config/db_connect.php";
 
 class home extends dbConnect
 {
-    private $totalDS = 0, $lucroMesDS = 0, $futuroDS = 0, $canceladasMesDS  = 0, $canceladas = 0, $faturamentoMes = 0, $custos = 0, $lucroMes = 0;
+    private $totalDS, $lucroMesDS, $futuroDS, $canceladasMesDS, $canceladas, $faturamentoMes, $custos, $lucroMes;
 
     public function __construct()
     {
+        $this->totalDS = 0;
         $this->getMes();
         $this->getCanceladasMes();
         $this->getTotalCanceladas();
-        $this->futuroDS = $this->futuroDS * 0.15; //> 15%
-        $this->lucroMesDS = $this->lucroMesDS * 0.15; //> 15%
-        $this->canceladas = $this->canceladas * 0.15; // >15%
-        $this->canceladasMesDS = $this->canceladasMesDS * 0.15; // >15%
-    }
 
-    public function get()
-    {
+        $this->faturamentoMes = number_format($this->faturamentoMes, 2, '.', '');
+        $this->custos = number_format($this->custos, 2, '.', '');
+        $this->lucroMes = number_format($this->lucroMes, 2, '.', '');
+        $this->lucroMesDS = number_format($this->lucroMesDS, 2, '.', '');
+        $this->futuroDS = number_format($this->futuroDS, 2, '.', '');
+        $this->canceladasMesDS = number_format($this->canceladasMesDS, 2, '.', '');
+        $this->canceladas = number_format($this->canceladas, 2, '.', '');
+        
+        $this->faturamentoMes = floatval($this->faturamentoMes);
+        $this->custos = floatval($this->custos);
+        $this->lucroMes = floatval($this->lucroMes);
+        $this->lucroMesDS = floatval($this->lucroMesDS);
+        $this->futuroDS = floatval($this->futuroDS);
+        $this->canceladasMesDS = floatval($this->canceladasMesDS);
+        $this->canceladas = floatval($this->canceladas);
+
         return (array(
             'status' => 200,
             'totalDS' => $this->totalDS,
@@ -46,6 +56,7 @@ class home extends dbConnect
             "lucroMes" => $this->lucroMes, //* Lucro
         ));
     }
+
     public function getMes()
     {
 
@@ -55,36 +66,31 @@ class home extends dbConnect
         $result = $stmt->get_result();
         $stmt->close();
 
-        $lucDs = 0;
-        $fut = 0;
-        $luc = 0;
-        $fat = 0;
-        $cos = 0;
-
         while ($row = $result->fetch_assoc()) {
             $payload = json_decode($row['rawPayload'], true);
-            $grossAmount = (float) $payload["grossAmount"]; // * Valor da compra
-            $totalCost = (float) $row["totalCost"] + floatval($payload['creditorFees']['intermediationRateAmount']) + floatval($payload['creditorFees']['intermediationFeeAmount']); // > Custo de Produto e Frete
-            $netAmount = $grossAmount - $totalCost;
 
-            if (strtotime($payload['escrowEndDate']) > strtotime(date("Y-m-d"))) {
-                $fut += (float) $netAmount; //> Futuro DS
+            $grossAmount = (float) $payload["grossAmount"]; // * Valor da compra
+
+            $totalCost = (float) $row["totalCost"]; // > Custo de Produto e Frete
+
+            //?Lucro Final =>    $payload["netAmount"] = Valor da compra descontado taxa pagseguro  
+            $netAmount = (float) $payload["netAmount"] - $totalCost;
+
+
+            $this->faturamentoMes += $grossAmount;  //- Faturamento
+            $this->custos += $totalCost; //! Custos
+            $this->lucroMes += (float) $netAmount; //* Lucro
+            
+            if (strtotime($payload['escrowEndDate']) > strtotime(date("Y-m-5"))) {
+                $this->futuroDS += (float) $netAmount; //> Futuro DS
             } else {
-                $fat += $grossAmount;  //- Faturamento
-                $cos += $totalCost; //! Custos
-                $luc += (float) $netAmount; //* Lucro
-                $lucDs += (float) $netAmount; //> LucroMesDS
+                $this->lucroMesDS += (float) $netAmount; //> LucroMesDS
             }
             //echo "FuturoDS: " . $this->futuroDS . "\n";
-
+            
         }
-
-        $this->faturamentoMes = $fat;  //- Faturamento
-        $this->custos = $cos; //! Custos
-        $this->lucroMes = $luc; //* Lucro
-        $this->futuroDS = $fut; //> Futuro DS
-        $this->lucroMesDS = $lucDs; //> LucroMesDS
-
+        $this->futuroDS = $this->futuroDS * 0.15; //> 15%
+        $this->lucroMesDS = $this->lucroMesDS * 0.15; //> 15%
     }
 
     public function getCanceladasMes()
@@ -100,6 +106,7 @@ class home extends dbConnect
             $netAmount = (float) $payload["netAmount"] - $totalCost;
             $this->canceladasMesDS += (float) $netAmount; // ! Canceladas Mes
         }
+        $this->canceladasMesDS = $this->canceladasMesDS * 0.15; // >15%
     }
 
 
@@ -119,8 +126,9 @@ class home extends dbConnect
             $netAmount = (float) $payload["netAmount"] - $totalCost;
             $this->canceladas += (float) $netAmount; // ! Total Canceladas
         }
+        $this->canceladas = $this->canceladas * 0.15; // >15%
     }
 }
 
 $home = new home();
-die(json_encode($home->get()));
+die(json_encode($home->__construct()));

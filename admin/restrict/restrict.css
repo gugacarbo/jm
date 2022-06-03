@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap");
 * {
   margin: 0;
@@ -21,7 +22,7 @@ body {
   background: #2c2e30;
 }
 
-.--box, .restrictContent .box, .restrictContent .menu .menuContent, .restrictContent .content .chartBox, .restrictContent .content .listBox {
+.--box, .restrictContent .menu .menuContent, .restrictContent .box, .restrictContent .content .chartBox, .restrictContent .content .listBox {
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
   color: #fff;
@@ -29,6 +30,7 @@ body {
 
 .restrictContent {
   width: 100%;
+  position: relative;
   display: -ms-grid;
   display: grid;
   min-height: 100vh;
@@ -38,6 +40,106 @@ body {
   -ms-grid-columns: 1fr 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr 1fr;
       grid-template-areas: "menu menu menu menu" "total mes futuro cancelado" "content content content content";
+}
+
+.restrictContent .menu {
+  width: 100%;
+  height: 100%;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+  grid-area: menu;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 10;
+}
+
+.restrictContent .menu .menuContent {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  background-color: #404a4e;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.restrictContent .menu .menuContent .menuItem {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 100%;
+  cursor: pointer;
+}
+
+.restrictContent .menu .menuContent .menuItem:hover {
+  background-color: #383c3f;
+}
+
+.restrictContent .menu .menuContent .menuItem i {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.5rem;
+}
+
+.restrictContent .menu .menuContent .menuItem i:hover .menuItemDescription {
+  opacity: 1;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.restrictContent .menu .menuContent .menuItem i .menuItemDescription {
+  font-size: 14pt;
+  min-width: 100%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  position: absolute;
+  border-radius: 5px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  left: 130%;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-transition: all 0.8s;
+  transition: all 0.8s;
 }
 
 .restrictContent .box {
@@ -62,8 +164,8 @@ body {
   width: 100%;
   height: 100%;
   cursor: pointer;
-  -webkit-transition: 2.8s;
-  transition: 2.8s;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
 }
 
 .restrictContent .box input[type="radio"] {
@@ -71,10 +173,12 @@ body {
 }
 
 .restrictContent .box input[type="radio"]:checked + div {
-  background: #3a3d3f;
+  background: #404a4e;
 }
 
 .restrictContent .box div {
+  -webkit-transition: 1s;
+  transition: 1s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -118,7 +222,7 @@ body {
   -webkit-box-align: baseline;
       -ms-flex-align: baseline;
           align-items: baseline;
-  gap: 5px;
+  gap: 2px;
   font-size: 26pt;
 }
 
@@ -151,29 +255,10 @@ body {
   grid-area: cancelado;
 }
 
-.restrictContent .menu {
-  width: 100%;
-  height: 100%;
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 4;
-  grid-area: menu;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.restrictContent .menu .menuContent {
-  height: 100%;
-  width: 100%;
-  margin: auto;
-  background-color: #3a3d3f;
+.restrictContent .cancelado #InfoCanceledMonth,
+.restrictContent .cancelado #InfoCanceledMonth + small,
+.restrictContent .cancelado #InfoCanceledMonth + small + b {
+  color: #ff4a4a;
 }
 
 .restrictContent .content {
@@ -214,7 +299,66 @@ body {
   width: 50%;
 }
 
-.restrictContent .content .listBox .listTitle {
+.restrictContent .content .listBox .cancelList .listTitle {
+  color: #ff4a4a;
+}
+
+.listContent span .restrictContent .content .listBox .cancelList:last-child {
+  color: #ff4a4a;
+}
+
+.restrictContent .content .listBox .monthList .listTitle {
+  color: #57ff57;
+}
+
+.listContent span .restrictContent .content .listBox .monthList:last-child {
+  color: #57ff57;
+}
+
+.listContent span .restrictContent .content .listBox .futureList:last-child {
+  color: #57ff57;
+}
+
+.restrictContent .content .listBox .totalList .listHeader .download {
+  width: 50%;
+}
+
+.restrictContent .content .listBox .totalList .listContent span:nth-child(5) {
+  color: #57ff57;
+}
+
+.restrictContent .content .listBox .totalList .listContent span:nth-child(3) {
+  color: #ff4a4a;
+}
+
+.restrictContent .content .listBox .totalList .listContent .listItem .download {
+  width: 50%;
+}
+
+.restrictContent .content .listBox .totalList .listContent .listItem .download a {
+  font-size: 16pt;
+  color: #fff;
+  text-decoration: none;
+}
+
+.restrictContent .list {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: none;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
+}
+
+.restrictContent .list .listTitle {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -223,12 +367,12 @@ body {
       -ms-flex-align: center;
           align-items: center;
   padding: 10px 20px;
-  background-color: #5c5d5e;
+  background-color: #383c3f;
   letter-spacing: 1px;
   font-size: 15pt;
 }
 
-.restrictContent .content .listBox .listHeader {
+.restrictContent .list .listHeader {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -238,13 +382,13 @@ body {
           justify-content: space-between;
 }
 
-.restrictContent .content .listBox .listHeader span {
-  padding: 5px 10px;
+.restrictContent .list .listHeader span {
+  padding: 5px 0;
   text-align: center;
   width: 100%;
 }
 
-.restrictContent .content .listBox .listContent {
+.restrictContent .list .listContent {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -258,7 +402,7 @@ body {
           align-items: center;
 }
 
-.restrictContent .content .listBox .listContent .listItem {
+.restrictContent .list .listContent .listItem {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -268,13 +412,359 @@ body {
           justify-content: space-between;
 }
 
-.restrictContent .content .listBox .listContent .listItem:nth-child(odd) {
-  background-color: #5c5d5e;
+.restrictContent .list .listContent .listItem:nth-child(odd) {
+  background-color: #404a4e;
 }
 
-.restrictContent .content .listBox .listContent .listItem span {
-  padding: 5px 10px;
+.restrictContent .list .listContent .listItem span {
+  padding: 5px 0;
   width: 100%;
   text-align: center;
+}
+
+.restrictContent .list .listContent .listItem span:last-child {
+  color: #57ff57;
+}
+
+.restrictContent .list .listContent .listItem .--redVal:last-child {
+  color: #ff4a4a;
+}
+
+.restrictContent .overPage {
+  position: absolute;
+  width: 100%;
+  height: 95%;
+  bottom: 0;
+  z-index: 5;
+  background-color: #424547;
+  -webkit-transition: 1s;
+  transition: 1s;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+}
+
+.restrictContent .overPage .overPageContent {
+  z-index: 8;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.restrictContent .overPageOpen {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.restrictContent .overRelatory .overPageContent .list {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.restrictContent .overRelatory .overPageContent .list .listHeader {
+  font-size: 10pt;
+}
+
+.restrictContent .overRelatory .overPageContent .list .listContent .listItem {
+  font-size: 10pt;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo {
+  width: 50%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .overInfo {
+  width: 50%;
+  aspect-ratio: 2;
+  background-color: #383c3f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .overInfo:nth-child(1), .restrictContent .overRelatory .overPageContent .overPageInfo .overInfo:nth-child(4), .restrictContent .overRelatory .overPageContent .overPageInfo .overInfo:nth-child(5) {
+  background-color: #2c2e30;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .overInfo span {
+  font-size: 22pt;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .overInfo i {
+  font-size: 32pt;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .overInfo b {
+  font-size: 26pt;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generateButton {
+  background-color: #404a4e;
+  cursor: pointer;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  position: relative;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generateButton .gears {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  aspect-ratio: 1.3;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generateButton .gears i {
+  -webkit-transition: 0.9s;
+  transition: 0.9s;
+  width: 40px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generateButton .gears i:last-child {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: rotate(30deg);
+          transform: rotate(30deg);
+}
+
+@-webkit-keyframes rotateGear1 {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+}
+
+@keyframes rotateGear1 {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+}
+
+@-webkit-keyframes rotateGear2 {
+  from {
+    -webkit-transform: rotate(30deg);
+            transform: rotate(30deg);
+  }
+  to {
+    -webkit-transform: rotate(-150deg);
+            transform: rotate(-150deg);
+  }
+}
+
+@keyframes rotateGear2 {
+  from {
+    -webkit-transform: rotate(30deg);
+            transform: rotate(30deg);
+  }
+  to {
+    -webkit-transform: rotate(-150deg);
+            transform: rotate(-150deg);
+  }
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generateButton:hover {
+  background-color: #383c3f;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generateButton:hover .gears i {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generateButton:hover .gears i:last-child {
+  -webkit-transform: rotate(-150deg);
+          transform: rotate(-150deg);
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generateButton::before {
+  z-index: 3;
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(87, 255, 87, 0.4);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+  opacity: 0;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .getting {
+  pointer-events: none;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .getting .gears i {
+  -webkit-animation: rotateGear1 1.5s infinite;
+          animation: rotateGear1 1.5s infinite;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .getting .gears i:last-child {
+  -webkit-animation: rotateGear2 1.5s infinite;
+          animation: rotateGear2 1.5s infinite;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generatedError::before {
+  content: "Erro";
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  font-size: 20pt;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-shadow: 0 0 5px #000000a9;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(255, 74, 74, 0.4);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+  opacity: 1;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generatedError::before:hover {
+  background-color: rgba(255, 74, 74, 0.3);
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generated::before {
+  content: "Pronto";
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  font-size: 20pt;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-shadow: 0 0 5px #000000a9;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(87, 255, 87, 0.4);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+  opacity: 1;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .generated::before:hover {
+  background-color: rgba(87, 255, 87, 0.3);
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .confirmGenerateButton::after {
+  content: "Confirmar";
+  z-index: 4;
+  font-size: 18pt;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transform: translatey(100%);
+          transform: translatey(100%);
+  text-shadow: 0 0 5px #00000099;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .confirmGenerateButton::after:hover {
+  color: #ddd;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .confirmGenerateButton::before {
+  content: "Gerar Relatório";
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  font-size: 22pt;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-shadow: 0 0 5px #000000a9;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(87, 255, 87, 0.4);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+  opacity: 1;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .confirmGenerateButton::before:hover {
+  background-color: rgba(87, 255, 87, 0.3);
 }
 /*# sourceMappingURL=restrict.css.map */

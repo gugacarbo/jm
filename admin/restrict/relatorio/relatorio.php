@@ -27,23 +27,32 @@ class relatorio extends dbConnect
     {
         header('Content-Type: application/json; charset=utf-8');
         $this->getData();
-        return (($this->data));
+        $labels = [
+            "id",
+            'email',
+            'reference',
+            'buyDate',
+            'paymentDate',
+            'itemCount',
+            'totalAmount',
+            'taxaPagseguro',
+            'shippingCost',
+            'extraAmount',
+            'totalCost',
+            'netAmount',
+            'escrowEndDate'
+        ];
+        $newData = array();
+        foreach ($this->data as $item) {
+            $newData[] = array_combine($labels, $item);
+        }
+
+
+        return ($newData);
     }
     private function getData()
     {
         $mysqli = $this->connect();
-
-        $stmt = $mysqli->prepare("SELECT * FROM vendas WHERE totalCost = 0");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
-        while ($row = $result->fetch_assoc()) {
-            $stmt = $mysqli->prepare("UPDATE vendas SET totalCost = 25 WHERE id = ?");
-            $stmt->bind_param("i", $row['id']);
-            $stmt->execute();
-            $stmt->close();
-        }
-
 
         $stmt = $mysqli->prepare("SELECT * FROM vendas WHERE internalStatus = 3");
         $stmt->execute();
@@ -63,7 +72,6 @@ class relatorio extends dbConnect
 
             $netAmount = (float) $payload["netAmount"] - $totalCost;
             $lucroTotal += (float) $netAmount;
-
 
             $csvRow[] = array(
                 $row['id'],
@@ -85,6 +93,9 @@ class relatorio extends dbConnect
     }
 
 
+
+
+
     public function vendasCsv()
     {
         $this->getData();
@@ -95,6 +106,12 @@ class relatorio extends dbConnect
             fputcsv($fp, $fields, ';');
         }
         fclose($fp);
+
+        header('Content-Type: application/csv');
+        header('Content-Disposition: attachment; filename=arquivo.csv');
+        header('Pragma: no-cache');
+        readfile("arquivo.csv");
+
         return json_encode(array('status' => 200, 'message' => 'OK'));
     }
 }
@@ -102,15 +119,12 @@ class relatorio extends dbConnect
 
 $relatorio = new relatorio();
 
-if(isset($_GET['action']))
-switch($_GET['action']){
-    case 'json':
-        die(json_encode($relatorio->json()));
-        break;
-    case 'vendasCsv':
-        die($relatorio->vendasCsv());
-        break;
-}
-
-
-
+if (isset($_GET['action']))
+    switch ($_GET['action']) {
+        case 'json':
+            die(json_encode($relatorio->json()));
+            break;
+        case 'vendasCsv':
+            die($relatorio->vendasCsv());
+            break;
+    }

@@ -2,7 +2,7 @@
 //verify if session login is valid
 session_start();
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
-    header("Location: api/login/login.php");
+    header("Location: login/login.php");
     exit;
 } else {
     $user = $_SESSION['user'];
@@ -105,7 +105,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                 <i class="fas fa-cog"></i>
             </a>
 
-            <a href="/admin/api/login/logout.php">
+            <a href="/admin/login/logout.php">
                 <label>Sair</label>
                 <i class="fas fa-sign-out-alt"></i>
             </a>

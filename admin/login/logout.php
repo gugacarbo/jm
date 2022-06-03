@@ -1,6 +1,9 @@
 <?php
 //logout 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $_SESSION['user'] = null;
 $_SESSION['admin'] = null;
 $_SESSION['hashCode'] = null;

@@ -1,7 +1,10 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 date_default_timezone_set('America/Sao_Paulo');
-session_start();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $adminPass = "admin";
 $adminHashCode = md5($adminPass);
@@ -23,7 +26,7 @@ if (isset($_SESSION["loginTry"]) && $_SESSION["loginTry"] >= 10) {
 
     if (isset($_POST['username']) && isset($_POST['password'])) {
 
-        include "../config/db_config.php";
+        include "../api/config/db_config.php";
         $mysqli = new mysqli($server, $user, $password, $dbname);
         if (!$mysqli) {
             die("Falha na conexao: " . mysqli_connect_error());
