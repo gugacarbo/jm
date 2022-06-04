@@ -387,7 +387,7 @@ class ReceiveNotification extends dbConnect
 
 if (empty($_POST['notificationCode'])) {
 
-    $notificationCode =  "C26201A45C945C943EA884B34FA38F3036C4"; // 3 id = 30
+    $notificationCode =  "CD546042F986F986E34004FBFFB6D99912C0"; // 3 id = 30
 
     $receive = new ReceiveNotification($notificationCode);
     die(json_encode($receive->verify()));

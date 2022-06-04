@@ -26,6 +26,7 @@ class home extends dbConnect
         $this->getMes();
         $this->getCanceladasMes();
         $this->getTotalCanceladas();
+        $this->getTotals();
         $this->futuroDS = $this->futuroDS * 0.15; //> 15%
         $this->lucroMesDS = $this->lucroMesDS * 0.15; //> 15%
         $this->canceladas = $this->canceladas * 0.15; // >15%
@@ -118,6 +119,19 @@ class home extends dbConnect
             $totalCost = (float) $row["totalCost"];
             $netAmount = (float) $payload["netAmount"] - $totalCost;
             $this->canceladas += (float) $netAmount; // ! Total Canceladas
+        }
+    }
+      
+    public function getTotals()
+    {
+        $mysqli = $this->connect();
+        $stmt = $mysqli->prepare("SELECT * FROM ds_relatory");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        while ($row = $result->fetch_assoc()) {
+            //$row['date'] = date("d/m/Y", strtotime($row['date']));
+            $this->totalDS +=$row['invoicing'];
         }
     }
 }

@@ -31,11 +31,16 @@ class getList extends dbConnect
 
 
     public function generate()
-    {
+    {   
+
+        if(count($this->mes) == 0 && count($this->canceladas) == 0){
+            die(json_encode(array('status' => 404, 'message' => 'Nenhum registro encontrado')));
+        }
+
         gc_collect_cycles();
-        $d = date("Y-m-d");
+        $d = date("Y-m-d-H-i");
         $this->fileName = "Relatório".$d.".csv";
-        $fp = fopen($this->fileName, 'w');
+        $fp = fopen("../../relatorios/".$this->fileName, 'w');
 
         $csvRow = array(
             "Id",
@@ -50,6 +55,7 @@ class getList extends dbConnect
             "Lucro da Venda DS (15%)",
         );
         fputcsv($fp, $csvRow, ';');
+
 
         foreach ($this->mes as $compra) {
 
@@ -103,8 +109,9 @@ class getList extends dbConnect
         }
 
         fclose($fp);
+        $this->fileName = "relatorios/" . $this->fileName;
         $this->setTotal();
-        //$this->updateSales();
+        $this->updateSales();
         die(json_encode(array('status' => 200, 'message' => 'Arquivo gerado com sucesso')));
     }
 
@@ -192,7 +199,7 @@ class getList extends dbConnect
             $mysqli->close();
             return true;
         }else{
-            die(json_encode(array('status' => 500, 'message' => $stmt->error)));
+            die(json_encode(array('status' => 500)));
         }
         $stmt->close();
 

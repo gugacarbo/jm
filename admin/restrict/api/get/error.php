@@ -22,6 +22,9 @@ class errorlog extends dbConnect
 
     public function __construct()
     {
+  
+    }
+    public function getAll(){
         $mysqli = $this->connect();
         $data   = array();
         $stmt = $mysqli->prepare("SELECT * FROM error_log");
@@ -33,9 +36,35 @@ class errorlog extends dbConnect
             $row["message"]->server = json_decode($row["message"]->server);
             $data[] = $row;
         }
-        die(json_encode($data));
+
+        die(json_encode(array('status' => 200, 'data' => ($data)))); 
     }
+    public function getId($id){
+        $mysqli = $this->connect();
+        $data   = array();
+        $stmt = $mysqli->prepare("SELECT * FROM error_log WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        while ($row = $result->fetch_assoc()) {
+            $row["message"] = json_decode($row["message"]);
+            $row["message"]->server = json_decode($row["message"]->server);
+            $data[] = $row;
+        }
+
+        die(json_encode(array('status' => 200, 'data' => ($data)))); 
+    }
+
+
+}
+$errorlog = new errorlog();
+
+if(isset($_GET['id'])){
+    $id = $_GET['id'];
+    $errorlog->getId($id);
+}else{
+    $errorlog->getAll();
 }
 
 
-$errorlog = new errorlog();

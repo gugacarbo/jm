@@ -9,9 +9,15 @@ $colorA: #2c2e30;
 $colorB: #404a4e;
 $colorC: #383c3f;
 $colorD: rgb(66, 69, 71);
+$colorE: rgb(75, 84, 90);
 
 $red: #ff4a4a;
 $green: #57ff57;
+$orange: #ff9a00;
+$blue: #0aa2ee;
+
+$jmColor: #b66d76;
+
 body {
     display: flex;
     width: 100vw;
@@ -64,6 +70,7 @@ body {
                 flex: 1;
                 height: 100%;
                 cursor: pointer;
+                transition: 0.4s;
 
                 &:hover {
                     background-color: $colorC;
@@ -89,10 +96,97 @@ body {
                         justify-content: center;
                         align-items: center;
                         text-align: center;
-                        left: 130%;
+                        left: 160%;
                         pointer-events: none;
                         opacity: 0;
                         transition: all 0.8s;
+                    }
+                }
+            }
+            .logoutButton {
+                transition: 0.6s;
+
+                &:hover {
+                    .ship .fire {
+                        font-size: 14pt;
+                    }
+                    .Logout,
+                    .backJM {
+                        opacity: 1;
+                    }
+                }
+                .ship {
+                    transform-origin: center;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    transition: 0.8s;
+                    transform: rotate(-90deg);
+
+                    .spaceship {
+                        font-size: 20pt;
+                        transition: 0.5s;
+                        z-index: 3;
+                    }
+                    .fire {
+                        z-index: 2;
+                        position: absolute;
+                        color: $red;
+                        transform: rotate(-90deg) translateY(-100%);
+                        transition: 0.4s;
+                        font-size: 16pt;
+                        font-size: 2px;
+                    }
+                }
+
+                .backJM {
+                    position: absolute;
+                    transform: translateX(-200%);
+                    opacity: 0;
+                    transition: 0.5s;
+
+                    &:hover {
+                        color: $orange;
+                        & + p + .ship {
+                            transform: rotate(-180deg);
+                        }
+                    }
+                }
+                .Logout {
+                    opacity: 0;
+                    position: absolute;
+                    transition: 0.5s;
+                    transform: translateX(230%);
+                    &:hover {
+                        color: $red;
+                        & + .ship {
+                            transform: rotate(0deg);
+                        }
+                    }
+                }
+            }
+            .goJM {
+                .backJM {
+                    opacity: 1;
+                }
+                .ship {
+                    transition: 0.5s;
+
+                    transform: translateX(-200%) rotate(-180deg);
+                    .fire {
+                        font-size: 16pt;
+                    }
+                }
+            }
+            .goLogout {
+                .Logout {
+                    opacity: 1;
+                }
+                .ship {
+                    transform: translateX(200%) rotate(0deg);
+                    .fire {
+                        font-size: 16pt;
                     }
                 }
             }
@@ -226,6 +320,7 @@ body {
                     }
                 }
                 .listContent {
+                    flex-direction: column-reverse;
                     span:nth-child(5) {
                         color: $green;
                     }
@@ -254,6 +349,34 @@ body {
         align-items: center;
         display: none;
         transition: 0.8s;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        height: 100%;
+
+        /* width */
+        &::-webkit-scrollbar {
+            width: 8px;
+            border: none;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+            background: $colorA;
+            border: none;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            background: $colorE;
+            border-radius: 20px;
+        }
+
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+            border: none;
+            background: $colorB;
+        }
+
         .listTitle {
             width: 100%;
             display: flex;
@@ -372,7 +495,9 @@ body {
                 background-color: $colorB;
                 cursor: pointer;
                 transition: 0.5s;
-
+                .generatedErrorMessage {
+                    display: none;
+                }
                 .gears {
                     display: flex;
                     aspect-ratio: 1.3;
@@ -450,6 +575,16 @@ body {
                 }
             }
             .generatedError {
+                .generatedErrorMessage {
+                    display: flex;
+                    position: absolute;
+                    z-index: 7;
+                    font-size: 15pt;
+                    color: #fff;
+                    top: 20px;
+                    font-weight: bold;
+                    letter-spacing: 1px;
+                }
                 &::before {
                     content: "Erro";
                     cursor: pointer;
@@ -533,6 +668,102 @@ body {
                     &:hover {
                         background-color: rgba($green, 0.3);
                     }
+                }
+            }
+        }
+    }
+
+    .overPageConfig .overPageContent {
+        .list {
+            width: 50%;
+            display: flex;
+            .listHeader {
+                font-size: 10pt;
+                background-color: $colorB;
+                span{
+                    max-width: 10%;
+
+                    &:nth-child(5),
+                    &:nth-child(6){
+                        max-width: 100%;
+                        width: 100%;
+                    }
+                }
+            }
+            .listContent {
+                .listItem {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: $colorC;
+                    &:nth-child(even) {
+                        background-color: $colorA;
+                    }
+
+                    span{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        overflow: hidden;
+                        max-width: 10%;
+                        font-size: 10pt;
+                        &:nth-child(5),
+                        &:nth-child(6){
+                            max-width: 100%;
+                            width: 100%;
+                        }
+                        &:last-child{
+                            color: $red;
+                        }
+                    }
+                }
+            }
+        }
+        .errorShow{
+            width: 50%;
+            height: 100%;
+            pre{
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                font-size: 10pt;
+                overflow-x: hidden;
+                overflow: scroll;
+                color: $orange;
+                &::-webkit-scrollbar {
+                    width: 8px;
+                    height: 8px;
+                    border: none;
+                }
+        
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    background: $colorA;
+                    border: none;
+                }
+        
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    background: $colorE;
+                    border-radius: 20px;
+                }
+        
+                /* Handle on hover */
+                &::-webkit-scrollbar-thumb:hover {
+                    border: none;
+                    background: $colorB;
+                }
+        
+                .json-string{
+                    color: $blue;
+                }
+                .json-literal{
+                    color: $green;
+                    font-weight: normal;
+                }
+                span{
+                    color: #fff;
                 }
             }
         }

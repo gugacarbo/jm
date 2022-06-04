@@ -23,7 +23,6 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
         <link href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" rel="stylesheet">
         <link rel="preload" as="font" type="font/woff2" crossorigin href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff2?v=4.3.0" />
 
-        <link rel="stylesheet" href="restrict.css">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script el="preload" as="style" src="https://kit.fontawesome.com/dd47628d23.js" crossorigin="anonymous"></script>
@@ -33,6 +32,11 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery.json-viewer@1.5.0/json-viewer/jquery.json-viewer.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.json-viewer@1.5.0/json-viewer/jquery.json-viewer.css">
+
+
+        <link rel="stylesheet" href="restrict.css">
 
     </head>
 </head>
@@ -91,6 +95,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                     </div>
                     <div class="overInfo generateButton" id="GenerateRelatory">
                         <span>Gerar Relatório</span>
+                        <span class="generatedErrorMessage" id="GeneratedErrorMessage"></span>
                         <div class="gears">
                             <i class="fa-solid fa-gear"></i>
                             <i class="fa-solid fa-gear"></i>
@@ -99,8 +104,26 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                 </div>
             </div>
         </div>
-        <div class="overPage">
-            2
+        <div class="overPage overPageConfig">
+            <div class="overPageContent">
+                <div class="list">
+                    <span class="listTitle">Log de Erros</span>
+
+                    <div class="listHeader">
+                        <span>Data</span>
+                        <span>Type</span>
+                        <span>Status Code</span>
+                        <span>Error Code</span>
+                        <span>Path</span>
+                        <span>Message</span>
+                    </div>
+                    <div class="listContent" id="errorLogContent">
+                    </div>
+                </div>
+                <div class="errorShow" id="ErrorShow">
+                <pre id="json-renderer"></pre>
+                </div>
+            </div>
         </div>
 
         <div class="menu">
@@ -125,26 +148,28 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                     <i class="fa-brands fa-galactic-republic">
 
                         <p class="menuItemDescription">
-                            Configurações
+                            Erros
                         </p>
                     </i>
                 </label>
-                <label class="menuItem" onclick="logout()">
-                    <!--<i class="fa-solid fa-person-hiking">
-                    <i class="fa-solid fa-rocket">-->
-                    <i class="fa-solid fa-shuttle-space">
-
-                        <p class="menuItemDescription">
-                            Logout
-                        </p>
-                    </i>
+                <label class="menuItem logoutButton">
+                    <p class="backJM" onclick="goJm()">
+                        Admin&nbspJM
+                    </p>
+                    <p class="Logout" onclick="logout()">
+                        Logout
+                    </p>
+                    <div class="ship">
+                        <i class="fa-solid fa-shuttle-space spaceship"></i>
+                        <i class="fa-solid fa-fire-flame-simple fire"></i>
+                    </div>
                 </label>
 
             </div>
         </div>
 
 
-        <label class="box total">
+        <label class=" box total">
             <input type="radio" name="selectHome" value="totalList" checked>
             <div class="boxContent">
                 <span class="boxTitle">

@@ -17,118 +17,62 @@ include_once "../../../api/config/db_connect.php";
 
 
 
-class home extends dbConnect
+class chart extends dbConnect
 {
-    private $totalDS, $lucroMesDS, $futuroDS, $canceladasMesDS, $canceladas, $faturamentoMes, $custos, $lucroMes;
 
     public function __construct()
     {
-        $this->totalDS = 0;
-        $this->getMes();
-        $this->getCanceladasMes();
-        $this->getTotalCanceladas();
+    }
 
-        $this->faturamentoMes = number_format($this->faturamentoMes, 2, '.', '');
-        $this->custos = number_format($this->custos, 2, '.', '');
-        $this->lucroMes = number_format($this->lucroMes, 2, '.', '');
-        $this->lucroMesDS = number_format($this->lucroMesDS, 2, '.', '');
-        $this->futuroDS = number_format($this->futuroDS, 2, '.', '');
-        $this->canceladasMesDS = number_format($this->canceladasMesDS, 2, '.', '');
-        $this->canceladas = number_format($this->canceladas, 2, '.', '');
+    public function getChart()
+    {
+        $mysqli = $this->connect();
+        $stmt = $mysqli->prepare("SELECT * FROM ds_relatory");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        $chartDataInvoicing = array();
+        $chartDataCanceled =  array();
+        while ($row = $result->fetch_assoc()) {
+            $chartDataInvoicing[date('Y', strtotime($row['date']))][date('m', strtotime($row['date']))][] = $row['invoicing'];
+            $chartDataCanceled[date('Y', strtotime($row['date']))][date('m', strtotime($row['date']))][] = $row['canceled'];
+        }
+        //ksort($chartDataInvoicing);
+        //ksort($chartDataCanceled);
+
+        $chartInv = [];
+        $chartInvLabel = [];
+        $chartCan = [];
+        $chartCanLabel = [];
         
-        $this->faturamentoMes = floatval($this->faturamentoMes);
-        $this->custos = floatval($this->custos);
-        $this->lucroMes = floatval($this->lucroMes);
-        $this->lucroMesDS = floatval($this->lucroMesDS);
-        $this->futuroDS = floatval($this->futuroDS);
-        $this->canceladasMesDS = floatval($this->canceladasMesDS);
-        $this->canceladas = floatval($this->canceladas);
 
-        return (array(
-            'status' => 200,
-            'totalDS' => $this->totalDS,
-            "lucroMesDS" => $this->lucroMesDS,  // > LucroMesDS // >15%
-            "futuroDS" => $this->futuroDS,  // > Futuro DS // >15%
-            "canceladasMesDS" => $this->canceladasMesDS, // ! Canceladas Mes > 15%
-            "canceladas" => $this->canceladas, // ! Total Canceladas > 15%
-            'faturamentoMes' => $this->faturamentoMes, //- Faturamento
-            "custos" => $this->custos, //! Custos
-            "lucroMes" => $this->lucroMes, //* Lucro
-        ));
-    }
-
-    public function getMes()
-    {
-
-        $mysqli = $this->connect();
-        $stmt = $mysqli->prepare("SELECT * FROM vendas WHERE internalStatus = 3");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
-
-        while ($row = $result->fetch_assoc()) {
-            $payload = json_decode($row['rawPayload'], true);
-
-            $grossAmount = (float) $payload["grossAmount"]; // * Valor da compra
-
-            $totalCost = (float) $row["totalCost"]; // > Custo de Produto e Frete
-
-            //?Lucro Final =>    $payload["netAmount"] = Valor da compra descontado taxa pagseguro  
-            $netAmount = (float) $payload["netAmount"] - $totalCost;
-
-
-            $this->faturamentoMes += $grossAmount;  //- Faturamento
-            $this->custos += $totalCost; //! Custos
-            $this->lucroMes += (float) $netAmount; //* Lucro
-            
-            if (strtotime($payload['escrowEndDate']) > strtotime(date("Y-m-5"))) {
-                $this->futuroDS += (float) $netAmount; //> Futuro DS
-            } else {
-                $this->lucroMesDS += (float) $netAmount; //> LucroMesDS
+        foreach ($chartDataInvoicing as $Y => $Year) {
+            foreach ($Year as $m => $month) {
+                $chartInv[] = array_sum($month);
+                $chartInvLabel[] = date("Y-m", strtotime($Y . "-" . $m));
             }
-            //echo "FuturoDS: " . $this->futuroDS . "\n";
-            
         }
-        $this->futuroDS = $this->futuroDS * 0.15; //> 15%
-        $this->lucroMesDS = $this->lucroMesDS * 0.15; //> 15%
-    }
-
-    public function getCanceladasMes()
-    {
-        $mysqli = $this->connect();
-        $stmt = $mysqli->prepare("SELECT * FROM vendas WHERE internalStatus = 8");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
-        while ($row = $result->fetch_assoc()) {
-            $payload = json_decode($row['rawPayload'], true);
-            $totalCost = (float) $row["totalCost"];
-            $netAmount = (float) $payload["netAmount"] - $totalCost;
-            $this->canceladasMesDS += (float) $netAmount; // ! Canceladas Mes
+        foreach ($chartDataCanceled as $Y => $Year) {
+            foreach ($Year as $m => $month) {
+                $chartCan[] = array_sum($month);
+                $chartCanLabel[] = date("Y-m", strtotime($Y . "-" . $m));
+            }
         }
-        $this->canceladasMesDS = $this->canceladasMesDS * 0.15; // >15%
-    }
+        $invChart = array(
+            'data' => $chartInv,
+            'labels' => $chartInvLabel,
+        );
+
+        $canChart = array(
+            'data' => $chartCan,
+            'labels' => $chartCanLabel,
+        );
 
 
-
-    public function getTotalCanceladas()
-    {
-        $mysqli = $this->connect();
-
-        $canceladas = 0;
-        $stmt = $mysqli->prepare("SELECT * FROM vendas WHERE internalStatus = 9");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
-        while ($row = $result->fetch_assoc()) {
-            $payload = json_decode($row['rawPayload'], true);
-            $totalCost = (float) $row["totalCost"];
-            $netAmount = (float) $payload["netAmount"] - $totalCost;
-            $this->canceladas += (float) $netAmount; // ! Total Canceladas
-        }
-        $this->canceladas = $this->canceladas * 0.15; // >15%
+        die(json_encode(array('status' => 200, 'message' => 'Success', 'data' => array('invoicing' => $invChart, 'canceled' => $canChart))));
     }
 }
 
-$home = new home();
-die(json_encode($home->__construct()));
+$chart = new chart();
+$chart->getChart();

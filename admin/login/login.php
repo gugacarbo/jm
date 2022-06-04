@@ -130,8 +130,8 @@ if (isset($_GET["error"])) {
             <header>
                 <h4>Login Administrador</h4>
                 <div>
-                    <img src="../..//img/logoBranco.png">
-                    <img src="../..//img/scudero.png">
+                    <img src="../img/logoBranco.png">
+                    <img src="../img/scudero.png">
                 </div>
             </header>
             <input type="text" name="username" placeholder="Usuário" required>
