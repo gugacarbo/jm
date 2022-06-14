@@ -81,8 +81,9 @@ function getChart() {
 function getHomeInfo() {
     $.get("api/get/home.php", (data) => {
 
-        setNumerUp($("#InfoRelatoryCancel"), data.canceladasMesDS);
-        setNumerUp($("#InfoRelatoryNetDS"), data.lucroMesDS);
+        setNumerUp($("#InfoRelatoryCancel"), data.canceladasMes);
+        setNumerUp($("#InfoRelatoryNetDs"), data.lucroMesDS);
+        setNumerUp($("#InfoRelatoryCancelDs"), data.canceladasMesDS);
         setNumerUp($("#InfoRelatoryNet"), data.lucroMes);
         setNumerUp($("#InfoRelatoryCosts"), data.custos);
         setNumerUp($("#InfoRelatoryInvoicing"), data.faturamentoMes);
@@ -120,9 +121,9 @@ function setLists() {
                     <span class="value">${value['id']}</span>
                     <span class="value">${value['rawPayload']['itemCount']}</span>
                     <span class="value">R$${value['rawPayload']['grossAmount']}</span>
-                    <span class="value">R$${(parseFloat(value['rawPayload']['creditorFees']['intermediationFeeAmount']) + parseFloat(value['rawPayload']['creditorFees']['intermediationRateAmount']) + parseFloat(value['totalCost'])).toFixed(2)}</span>
-                    <span class="value">R$${value['rawPayload']['extraAmount']}</span>
                     <span class="value">R$${value['rawPayload']['shipping']['cost']}</span>
+                    <span class="value">R$${(parseFloat(value['rawPayload']['creditorFees']['intermediationFeeAmount']) + parseFloat(value['rawPayload']['creditorFees']['intermediationRateAmount']) + parseFloat(value['totalCost'])).toFixed(2)}</span>
+                    <span class="value">R$${parseFloat(value['rawPayload']['extraAmount']) + parseFloat(value['rawPayload']['discountAmount'])}</span>
                     <span class="netAmount">R$${(parseFloat(value['rawPayload']['netAmount']) - parseFloat(value['totalCost'])).toFixed(2)}</span>
                     <span class="finalNet">R$${((parseFloat(value['rawPayload']['netAmount']) - parseFloat(value['totalCost'])) * 0.15).toFixed(2)}</span>
                 </div>
@@ -140,9 +141,9 @@ function setLists() {
                     <span class="value">${value['id']}</span>
                     <span class="value">${value['rawPayload']['itemCount']}</span>
                     <span class="value">R$${value['rawPayload']['grossAmount']}</span>
+                    <span class="value">R$${value['rawPayload']['shipping']['cost']}</span>
                     <span class="value">R$${(parseFloat(value['rawPayload']['creditorFees']['intermediationFeeAmount']) + parseFloat(value['totalCost'])).toFixed(2)}</span>
                     <span class="value">R$${value['rawPayload']['extraAmount']}</span>
-                    <span class="value">R$${value['rawPayload']['shipping']['cost']}</span>
                     <span class="netAmount">R$${(parseFloat(value['rawPayload']['netAmount']) - parseFloat(value['totalCost'])).toFixed(2)}</span>
                     <span class="finalNet --redVal">R$${((parseFloat(value['rawPayload']['netAmount']) - parseFloat(value['totalCost'])) * 0.15).toFixed(2)}</span>
                 </div>
@@ -275,15 +276,14 @@ function setHomeLists(data) {
     })
     $.each(data.totals, (i, value) => {
 
-
-
         var listItem = (`
             <div class="listItem">
                 <span class="date">${value.date}</span>
                 <span class="date">${value.invoicing}</span>
                 <span class="finalNet --redVal">R$${value.canceled}</span>
                 <span class="date">${value.netAmount}</span>
-                <span class="date">${value.DS_netAmount}</span>
+                <span class="--colorRed" >${value.canceledDs}</span>
+                <span class="--colorGreen">${value.netAmountDs}</span>
                 <span class="download"><a href='${value.fileName}' target='blank'><i class="fa-solid fa-ellipsis"></i></a></span>
             </div>
         `)
@@ -371,9 +371,10 @@ var restrictChart = new Chart(
                 position: 'left',
                 min: 0,
                 title: {
-                    color: '#ff4a4a',
+                    color: '#57ff57',
                     display: true,
-                    text: 'Cancelados',
+                    text: 'Lucro'
+
 
                 },
                 ticks: {
@@ -397,10 +398,10 @@ var restrictChart = new Chart(
                     drawOnChartArea: false, // only want the grid lines for one axis to show up
                 },
                 title: {
-
-                    color: '#57ff57',
+                    color: '#ff4a4a',
                     display: true,
-                    text: 'Lucro'
+                    text: 'Cancelados',
+
 
                 },
                 ticks: {

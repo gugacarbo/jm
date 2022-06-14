@@ -18,19 +18,26 @@ function getModel($load)
     $AltBody .= "<br>PedidoEnviado " . $trackingCode;
 
 
+    $serverName = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[SERVER_NAME]";
+
 
     $ContentMail = '
-<html>
+
+<div background="#f0f" style="display: flex; flex-direction:column; align-items: center;">
 <body background="#f0f" style="display: flex; flex-direction:column; align-items: center;">
-    <table style="border-spacing: 0px;">
+    <table style="border-spacing: 0px; width:600px;">
         <tr>
-            <td max-width="600" height="200"><img src="http://www.jmacessoriosdeluxo.com.br/mail/model/Logo.jpg" width="600" alt="JM"></td>
+        <td bgcolor="#b66d76" valign="center" align="center">
+        
+        <img src="' . $serverName . '/img/Jm_Logo_Branco.png" width="300" alt="JM" style="display:block; margin: auto;">
+
+        </td>
         </tr>
         <tr>
             <td max-width="600">
                 <h1
                     style="text-align:center; font-family: Arial, Helvetica, sans-serif; color:#66262e; font-size: 15pt; margin: 10px 0">
-                  
+                    Pedido Enviado!
                 </h1>
             </td>
         </tr>
@@ -43,13 +50,13 @@ function getModel($load)
                     </span>
             </td>
         </tr>';
-        $ContentMail .= "<tr><td>
+    $ContentMail .= "<tr><td>
         <h4 style='text-align:center; margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 12pt; color: #b66d76;'>Código de Rastreio</h4>
         <h4 style='text-align:center; margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 12pt; color: #333;'>$trackingCode</h4>
         </td>
         ";
 
-        $ContentMail .= '<tr style="margin:0;">
+    $ContentMail .= '<tr style="margin:0;">
             <td bgcolor="#b66d76" valign="center" align="center">
                 <span color="white"
                     style="font-family: Arial, Helvetica, sans-serif;  text-align: center; color: #ffffff; width: 100%;">Visualize <a
@@ -64,7 +71,7 @@ function getModel($load)
         <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000;text-align:center;" >Email: ' . $notification->sender->email . '</h4>
         <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000; text-align:center;" ">Tel.:(' . $notification->sender->phone->areaCode . ')' . $notification->sender->phone->number . '</h4>
         <h2 style="margin:25px 0;font-family: Arial, Helvetica, sans-serif; font-size: 12pt; color: #333; text-align:center;">Endereço de envio</h2>
-        <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000; text-align:center;" >' . $notification->shipping->address->postalCode .'</h4>
+        <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000; text-align:center;" >' . $notification->shipping->address->postalCode . '</h4>
         <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000; text-align:center;" >' . $notification->shipping->address->street . ', ' . $notification->shipping->address->number . '</h4>
         <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000; text-align:center;" >' . $notification->shipping->address->complement . '</h4>
         <h4 style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000; text-align:center;" >' . $notification->shipping->address->city . ' - ' . $notification->shipping->address->state . '</h4>
@@ -72,12 +79,61 @@ function getModel($load)
 </tr>' . '
 ';
 
-    $ContentMail .= '<tr>
-            <td height="180" bgcolor="#b66d76" color="#000"></td>
-        </tr>
-    </table>
-    </body>
-</html>
+    $ContentMail .= '
+    <td height="40" bgcolor="#b66d76" color="#fff" style="text-align:center; ">
+    <a style="color: #fff;" href="' . $serverName . '/">Home</a>
+</td>
+</tr>
+<tr>
+<td height="20" bgcolor="#b66d76" color="#fff" style="text-align:center; ">
+    <a style="color: #fff;" href="' . $serverName . '/about">Sobre</a>
+</td>
+</tr>
+<tr>
+<td height="20" bgcolor="#b66d76" color="#fff" style="text-align:center; ">
+    <a style="color: #fff;" href="' . $serverName . '/terms">Termos de Compra</a>
+</td>
+</tr>
+<tr>
+<td height="20" bgcolor="#b66d76" color="#fff" style="text-align:center; ">
+    <a style="color: #fff;" href="' . $serverName . '/#contactDiv">Contato</a>
+</td>
+</tr>
+
+<tr>
+<td height="20" bgcolor="#b66d76" color="#fff" style="text-align:center; ">
+    <a style="color: #fff;" href="' . $serverName . '/" style="text-align:center; padding: 5px 0;">
+        <img src="' . $serverName . '/img/Jm_Logo_Branco.png" width="60" alt="JM"
+            style="display:block; margin: 10px auto;">
+
+    </a>
+
+    <a href="' . $serverName . '/" style="text-align:center; padding: 5px 0;">
+        <img src="' . $serverName . '/img/scudero.png" width="30" alt="JM" style="display:block; margin: 20px auto;">
+
+    </a>
+
+</td>
+</tr>
+<tr>
+<td  style="text-align:center;">
+    <small  style="text-align:center; padding: 5px 0;">®Digital Scudero - Todos os direitos reservados - 2022</small>
+</td>
+</tr>
+<tr>
+<td height="50" bgcolor="#000" color="#fff">
+    <h4
+        style="margin:5px 0;font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #fff; background-color: #000; text-align:center;">
+        Caso não tenha sido voce que realizou este pedido, por favor, entre em contato com o nosso atendimento.
+        <br>
+        <a href="' .  $serverName . '#contactDiv" style="color:#b66d76; text-decoration:none;">
+            Contato
+        </a>
+    </h4>
+</td>
+</tr>
+</table>
+</div>
 ';
     return ((array('status' => 200, "content" => $ContentMail, "subject" => $subject, "AltBody" => $AltBody)));
 }

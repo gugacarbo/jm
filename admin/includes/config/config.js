@@ -151,7 +151,7 @@ $(document).ready(function () {
         verifyPass();
         if (!$("#saveAdminPassword").prop("disabled")) {
             $.post("/admin/api/post/config.php", {
-                user: $("#userName").text().replace(" ", ''),
+                user: $("#userName").val().replace(" ", ''),
                 currentPassword: $("#currentPassword").val(),
                 newPassword: $("#newPassword").val()
             }, function (data) {

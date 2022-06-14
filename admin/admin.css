@@ -7,6 +7,25 @@
   font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+*::-webkit-scrollbar {
+  width: 8px;
+  border: none;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ddd;
+  border: none;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #b66d76;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  border: none;
+  background: #c78f96;
+}
+
 body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -48,318 +67,43 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  max-height: calc(100vh - 50px);
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   gap: 20px;
 }
 
-.adminContainer button {
-  border-radius: 30px;
-  padding: 6px 0;
-  border: none;
-  font-weight: bold;
-  font-size: 11pt;
-  color: #fff;
-  background-color: #b66d76;
-  border: 1px solid #fff;
-  cursor: pointer;
-  -webkit-transition: 0.25s;
-  transition: 0.25s;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  text-align: center;
-  position: relative;
-}
-
-.adminContainer button:active {
-  -webkit-filter: brightness(1.1);
-          filter: brightness(1.1);
-}
-
-.adminContainer button:hover {
-  background-color: #fff;
+.adminContainer .adminTitle {
+  width: 85%;
   color: #b66d76;
-  border: 1px solid #b66d76;
-}
-
-.adminContainer button:disabled {
-  color: #686868;
-  background-color: #ddd;
-  cursor: inherit;
-  border: none;
-}
-
-.adminContainer button:disabled:hover {
-  background-color: #ddd;
-}
-
-.adminContainer button:disabled:active {
-  background-color: #ddd;
-}
-
-.adminContainer button::after, .adminContainer button::before {
-  font-family: "FontAwesome";
-  margin: 0 10px;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
-  -webkit-animation-iteration-count: 1;
-          animation-iteration-count: 1;
-  -webkit-animation: alertButtonAnimation 1.5s;
-          animation: alertButtonAnimation 1.5s;
+  font-weight: bold;
   font-size: 14pt;
-  opacity: 0;
-  position: absolute;
+  margin-top: 30px;
 }
 
-.adminContainer button::after {
-  -webkit-animation: doneButtonAnimation 1.5s;
-          animation: doneButtonAnimation 1.5s;
-  right: 10%;
+.adminContainer .adminDescricao {
+  width: 75%;
+  margin-top: 20px;
+  line-height: 1.4em;
 }
 
-.adminContainer button::before {
-  left: 10%;
-  -webkit-animation: alertButtonAnimation 1.5s;
-          animation: alertButtonAnimation 1.5s;
+.adminContainer .adminDescricao b {
+  font-size: 11pt;
+  color: #b66d76;
 }
 
-@-webkit-keyframes alertButtonAnimation {
-  1% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    text-shadow: 0 0 2px #ffffff22;
-  }
-  25% {
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  50% {
-    -webkit-transform: scale(1.05);
-            transform: scale(1.05);
-    text-shadow: 0 0 15px #ffbf0f;
-  }
-  75% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-  }
-  99% {
-    text-shadow: 0 0 8px #ffae0022;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    display: -webkit-box;
-    display: flex;
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 0;
-    display: none;
-  }
+.preloadIcon {
+  font-size: 0.01pt;
+  font-family: "FontAwesome";
 }
 
-@keyframes alertButtonAnimation {
-  1% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    text-shadow: 0 0 2px #ffffff22;
-  }
-  25% {
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  50% {
-    -webkit-transform: scale(1.05);
-            transform: scale(1.05);
-    text-shadow: 0 0 15px #ffbf0f;
-  }
-  75% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-  }
-  99% {
-    text-shadow: 0 0 8px #ffae0022;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 0;
-    display: none;
-  }
-}
-
-@-webkit-keyframes doneButtonAnimation {
-  1% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    text-shadow: 0 0 2px #ffffff22;
-  }
-  25% {
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  50% {
-    -webkit-transform: scale(1.05);
-            transform: scale(1.05);
-    text-shadow: 0 0 15px #1ab61a;
-  }
-  75% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-  }
-  99% {
-    text-shadow: 0 0 8px #6ad40622;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    display: -webkit-box;
-    display: flex;
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 0;
-  }
-}
-
-@keyframes doneButtonAnimation {
-  1% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    text-shadow: 0 0 2px #ffffff22;
-  }
-  25% {
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
-  50% {
-    -webkit-transform: scale(1.05);
-            transform: scale(1.05);
-    text-shadow: 0 0 15px #1ab61a;
-  }
-  75% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-  }
-  99% {
-    text-shadow: 0 0 8px #6ad40622;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 0;
-  }
-}
-
-.adminContainer .doneButton::after {
+.preloadIcon::after {
   content: "\f00c";
 }
 
-.adminContainer .alertButton::before {
+.preloadIcon::before {
   content: "\f071";
-}
-
-.adminContainer .inverted {
-  color: #b66d76;
-  background-color: #fff;
-  border: 1px solid #b66d76;
-}
-
-.adminContainer .inverted:hover {
-  background-color: #b66d76;
-  color: #fff;
-  border: 1px solid #fff;
-}
-
-.adminContainer .box {
-  max-width: 800px;
-  min-width: 400px;
-  padding: 20px;
-  border: 1px solid #b66d76;
-  border-radius: 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  gap: 10px;
-  -webkit-column-gap: 0;
-          column-gap: 0;
-  position: relative;
-  margin-bottom: auto;
-}
-
-.adminContainer .box .boxTitle {
-  width: 100%;
-  font-size: 16pt;
-  color: #b66d76;
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-@-webkit-keyframes rotateLoadingImage {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-
-@keyframes rotateLoadingImage {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
 }
 
 .adminHeader {
@@ -595,57 +339,426 @@ body {
           align-items: flex-end;
 }
 
-.adminTitle {
-  width: 85%;
-  color: #b66d76;
+/*
+    * <button><button>
+    
+    > Done   <button class="doneButton"><button>
+    ! Alert  <button class="alertButton"><button>
+
+*/
+button {
+  border-radius: 30px;
+  padding: 6px 0;
+  border: none;
   font-weight: bold;
-  font-size: 14pt;
-  margin-top: 30px;
-}
-
-.adminDescricao {
-  width: 75%;
-  margin-bottom: 20px;
-  line-height: 1.4em;
-}
-
-.adminDescricao b {
   font-size: 11pt;
-  color: #b66d76;
-}
-
-.modal {
-  position: fixed;
-  background-color: #fff;
-  border: 1px solid #b66d76;
-  border-radius: 20px;
-  overflow: hidden;
-  width: 100%;
-  max-width: 900px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 20px;
-  -webkit-box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
-          box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
+  color: #fff;
+  background-color: #b66d76;
+  border: 1px solid #fff;
+  cursor: pointer;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  display: none;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-transition: 1s;
-  transition: 1s;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  position: relative;
 }
 
-.right {
-  left: -5px;
+button:active {
+  -webkit-filter: brightness(1.1);
+          filter: brightness(1.1);
 }
 
+button:hover {
+  background-color: #fff;
+  color: #b66d76;
+  border: 1px solid #b66d76;
+}
+
+button:disabled {
+  color: #686868;
+  background-color: #ddd;
+  cursor: inherit;
+  border: none;
+}
+
+button:disabled:hover {
+  background-color: #ddd;
+}
+
+button:disabled:active {
+  background-color: #ddd;
+}
+
+button::after, button::before {
+  font-family: "FontAwesome";
+  margin: 0 10px;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation: alertButtonAnimation 1.5s;
+          animation: alertButtonAnimation 1.5s;
+  font-size: 14pt;
+  opacity: 0;
+  position: absolute;
+}
+
+button::after {
+  -webkit-animation: doneButtonAnimation 1.5s;
+          animation: doneButtonAnimation 1.5s;
+  right: 10%;
+}
+
+button::before {
+  left: 10%;
+  -webkit-animation: alertButtonAnimation 1.5s;
+          animation: alertButtonAnimation 1.5s;
+}
+
+@-webkit-keyframes alertButtonAnimation {
+  1% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    text-shadow: 0 0 2px #ffffff22;
+  }
+  25% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+    text-shadow: 0 0 15px #ffbf0f;
+  }
+  75% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  99% {
+    text-shadow: 0 0 8px #ffae0022;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    display: -webkit-box;
+    display: flex;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes alertButtonAnimation {
+  1% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    text-shadow: 0 0 2px #ffffff22;
+  }
+  25% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+    text-shadow: 0 0 15px #ffbf0f;
+  }
+  75% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  99% {
+    text-shadow: 0 0 8px #ffae0022;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0;
+    display: none;
+  }
+}
+
+@-webkit-keyframes doneButtonAnimation {
+  1% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    text-shadow: 0 0 2px #ffffff22;
+  }
+  25% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+    text-shadow: 0 0 15px #1ab61a;
+  }
+  75% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  99% {
+    text-shadow: 0 0 8px #6ad40622;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    display: -webkit-box;
+    display: flex;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes doneButtonAnimation {
+  1% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    text-shadow: 0 0 2px #ffffff22;
+  }
+  25% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+    text-shadow: 0 0 15px #1ab61a;
+  }
+  75% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  99% {
+    text-shadow: 0 0 8px #6ad40622;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.doneButton::after {
+  content: "\f00c";
+}
+
+.alertButton::before {
+  content: "\f071";
+}
+
+.inverted {
+  color: #b66d76;
+  background-color: #fff;
+  border: 1px solid #b66d76;
+}
+
+.inverted:hover {
+  background-color: #b66d76;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+/*
+
+   * <div class="info">
+        <div class="infoHeader">
+            <div class="infoHeaderIcon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <span></span>
+        </div>
+        <div class="infoContent">
+            <b class="infoContentNumber"></b>
+            <p class="infoContentP"></p>
+            <button class="infoContentButton"></button>
+        </div>
+    * </div>
+
+*/
+.info {
+  background-color: #fff;
+  margin-top: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 10px 15px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  color: #b66d76;
+  border: 1px solid #b66d76;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  gap: 10px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  font-size: 12pt;
+}
+
+.info .infoHeader {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #b66d76;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.info .infoHeader .infoHeaderIcon {
+  border: 2px solid #b66d76;
+  width: 40px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 50%;
+  margin: 0 20px;
+  font-size: 1.4em;
+}
+
+.info .infoHeader span {
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 1.2px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.info .infoContent {
+  display: -ms-grid;
+  display: grid;
+  padding: 10px 0;
+  color: #999;
+  width: 100%;
+      grid-template-areas: "infoContentNumber infoContentP" "infoContentNumber infoContentButton";
+  place-items: center;
+  -ms-grid-columns: 30% 70%;
+      grid-template-columns: 30% 70%;
+}
+
+.info .infoContent .infoContentNumber {
+  font-size: 3em;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: infoContentNumber;
+}
+
+.info .infoContent .infoContentP {
+  font-size: 0.8em;
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: infoContentP;
+  text-align: center;
+}
+
+.info .infoContent .infoContentButton {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: infoContentButton;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+  padding: 3px 0;
+  margin: auto;
+  font-size: 10pt;
+}
+
+/*
+
+    * <div class="help ">
+    - <i class="fas fa-question-circle"></i>
+    >   <div class="helpMessage">
+    ?       <p>
+                //Content.
+    ?       </p>
+    >   </div>
+    * </div>
+
+
+
+    ! <div class="help helpDelete">
+    -   <i class="fas fa-trash-alt"></i>
+    >   <div class="helpMessage">
+    ?       <p>
+                //Content.
+    ?       </p>
+    >   </div>
+    ! </div>
+*/
 .help {
   color: #b66d76;
-  font-size: 16pt;
   cursor: pointer;
   position: relative;
   right: -5px;
@@ -658,7 +771,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 10pt;
+  font-size: 0.7em;
 }
 
 .help i {
@@ -666,11 +779,9 @@ body {
   aspect-ratio: 1/1;
   color: rgba(194, 194, 194, 0.9) !important;
   border-radius: 50%;
-  border: 1px solid #999;
 }
 
 .help i:hover {
-  border-color: rgba(150, 93, 36, 0.9);
   color: rgba(255, 128, 0, 0.9) !important;
   background-color: #fff;
 }
@@ -755,6 +866,7 @@ body {
           transition-delay: 0.2s;
   z-index: 120;
   opacity: 0;
+  font-size: 1.2em;
   -webkit-box-shadow: 0px 0px 10px -4px #74747424;
           box-shadow: 0px 0px 10px -4px #74747424;
   height: inherit !important;
@@ -796,6 +908,16 @@ body {
   background-color: #fff;
 }
 
+.right {
+  left: -5px;
+}
+
+/*
+    * <label class="hasCheckboxToggle">
+    ?   <input type="checkbox">
+    |   <h3></h3>
+    * </label>
+*/
 label.hasCheckboxToggle input[type="checkbox"] {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -849,6 +971,11 @@ label.hasCheckboxToggle h3::after {
   left: 0;
 }
 
+/*
+    * <div class="deleteConfirm">
+        //Are you sure?
+    * </div>
+*/
 .deleteConfirm {
   position: absolute;
   right: 0;
@@ -920,152 +1047,118 @@ label.hasCheckboxToggle h3::after {
           animation: rotateLoadingImage 1s infinite;
 }
 
+@-webkit-keyframes rotateLoadingImage {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateLoadingImage {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.modal {
+  position: fixed;
+  background-color: #fff;
+  border: 1px solid #b66d76;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
+          box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+/*
+    * <div class="box">
+    >    <h4 class="freteGratisHeader">Title</h4>
+    * <div>
+
+*/
+.box {
+  max-width: 800px;
+  min-width: 400px;
+  padding: 20px;
+  border: 1px solid #b66d76;
+  border-radius: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  -webkit-column-gap: 0;
+          column-gap: 0;
+  position: relative;
+  margin-bottom: auto;
+}
+
+.box .boxTitle {
+  width: 100%;
+  font-size: 16pt;
+  color: #b66d76;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 .adminHomeContainer {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 20% 20% 20% 20%;
       grid-template-columns: 20% 20% 20% 20%;
-  -ms-grid-rows: auto;
-      grid-template-rows: auto;
+  -ms-grid-rows: (1fr)[4];
+      grid-template-rows: repeat(4, 1fr);
+  overflow: hidden;
   -ms-flex-pack: distribute;
       justify-content: space-around;
   place-items: center;
-  padding: 40px 0;
-}
-
-.adminHomeContainer .info {
-  background-color: #fff;
-  margin-top: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  padding: 15px 20px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  height: 100%;
-  color: #b66d76;
-  border: 1px solid #b66d76;
-  border-radius: 15px;
-  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  gap: 10px;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: reverse;
-      -ms-flex-direction: row-reverse;
-          flex-direction: row-reverse;
-}
-
-.adminHomeContainer .info .infoHeader {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  color: #b66d76;
-}
-
-.adminHomeContainer .info .infoHeader .infoHeaderIcon {
-  border: 2px solid #b66d76;
-  width: 45px;
-  height: 45px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-
-.adminHomeContainer .info .infoHeader .infoHeaderIcon i {
-  font-size: 25pt;
-}
-
-.adminHomeContainer .info .infoHeader span {
-  margin-right: auto;
-  font-size: 14pt;
-}
-
-.adminHomeContainer .info .infoContent {
-  display: -ms-grid;
-  display: grid;
-  padding: 10px 0;
-  color: #999;
-  width: 100%;
-      grid-template-areas: "infoContentNumber infoContentP" "infoContentNumber infoContentButton";
-  place-items: center;
-  -ms-grid-columns: 30% 70%;
-      grid-template-columns: 30% 70%;
-}
-
-.adminHomeContainer .info .infoContent .infoContentNumber {
-  font-size: 40pt;
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 2;
-  -ms-grid-column: 1;
-  grid-area: infoContentNumber;
-}
-
-.adminHomeContainer .info .infoContent .infoContentP {
-  text-align: center;
-  font-size: 10pt;
-  font-weight: bold;
-  -ms-grid-row: 1;
-  -ms-grid-column: 2;
-  grid-area: infoContentP;
-}
-
-.adminHomeContainer .info .infoContent .infoContentButton {
-  -ms-grid-row: 2;
-  -ms-grid-column: 2;
-  grid-area: infoContentButton;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 80%;
-  padding: 3px 0;
-  margin: auto;
-  font-size: 10pt;
+  padding: 20px 0;
 }
 
 .adminHomeContainer .infoAprovados .infoHeader {
-  color: #21d121;
+  color: #4beb4b;
 }
 
 .adminHomeContainer .infoAprovados .infoHeader .infoHeaderIcon {
-  border-color: #21d121;
-}
-
-.adminHomeContainer .infoAprovados .infoHeader .infoHeaderIcon i {
-  font-size: 24pt;
+  border-color: #4beb4b;
+  font-size: 1.75em;
 }
 
 .adminHomeContainer .infoCancelados .infoHeader {
-  color: #e61d1d;
+  color: #ff4a4a;
 }
 
 .adminHomeContainer .infoCancelados .infoHeader .infoHeaderIcon {
-  border-color: #e61d1d;
-}
-
-.adminHomeContainer .infoCancelados .infoHeader .infoHeaderIcon i {
-  font-size: 23pt;
+  border-color: #ff4a4a;
+  font-size: 2em;
 }
 
 .adminHomeContainer .infoEnvio .infoHeader {
@@ -1076,20 +1169,12 @@ label.hasCheckboxToggle h3::after {
   border-color: #ff7e00;
 }
 
-.adminHomeContainer .infoEnvio .infoHeader .infoHeaderIcon i {
-  font-size: 17pt;
-}
-
 .adminHomeContainer .infoClients .infoHeader {
   color: #8400db;
 }
 
 .adminHomeContainer .infoClients .infoHeader .infoHeaderIcon {
   border-color: #8400db;
-}
-
-.adminHomeContainer .infoClients .infoHeader .infoHeaderIcon i {
-  font-size: 16pt;
 }
 
 .adminHomeContainer .infoVisitantes .infoHeader {
@@ -1100,10 +1185,6 @@ label.hasCheckboxToggle h3::after {
   border-color: #00cbda;
 }
 
-.adminHomeContainer .infoVisitantes .infoHeader .infoHeaderIcon i {
-  font-size: 16pt;
-}
-
 .adminHomeContainer .infoNaoFinalizadas {
   -ms-grid-row: 4;
   -ms-grid-column: 4;
@@ -1111,55 +1192,85 @@ label.hasCheckboxToggle h3::after {
 }
 
 .adminHomeContainer .infoNaoFinalizadas .infoHeader {
-  color: #5300da;
+  color: #8400db;
 }
 
 .adminHomeContainer .infoNaoFinalizadas .infoHeader .infoHeaderIcon {
-  border-color: #5300da;
-}
-
-.adminHomeContainer .infoNaoFinalizadas .infoHeader .infoHeaderIcon i {
-  font-size: 16pt;
+  border-color: #8400db;
 }
 
 .adminHomeContainer .infoAguardando .infoHeader {
-  color: #01ff9e;
+  color: #0eeeb6;
 }
 
 .adminHomeContainer .infoAguardando .infoHeader .infoHeaderIcon {
-  border-color: #01ff9e;
-}
-
-.adminHomeContainer .infoAguardando .infoHeader .infoHeaderIcon i {
-  font-size: 18pt;
+  border-color: #0eeeb6;
 }
 
 .adminHomeContainer .infoNps .infoHeader {
-  color: #dbcd00;
+  color: #fff128;
 }
 
 .adminHomeContainer .infoNps .infoHeader .infoHeaderIcon {
-  border-color: #fbff25;
+  border-color: #fff128;
 }
 
 .adminHomeContainer .infoNps .infoHeader .infoHeaderIcon i {
-  font-size: 18pt;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+}
+
+.adminHomeContainer .infoNps .infoHeader .infoHeaderIcon i::after {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 2px;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: translateX(20px) rotate(-45deg);
+          transform: translateX(20px) rotate(-45deg);
+  background-color: #ffffffa5;
+  -webkit-animation: luz 2s infinite;
+          animation: luz 2s infinite;
+}
+
+@-webkit-keyframes luz {
+  from {
+    -webkit-transform: translateX(20px) rotate(-45deg);
+            transform: translateX(20px) rotate(-45deg);
+    opacity: 0.4;
+  }
+  to {
+    -webkit-transform: translateX(-20px) rotate(-45deg);
+            transform: translateX(-20px) rotate(-45deg);
+    opacity: 0.9;
+  }
+}
+
+@keyframes luz {
+  from {
+    -webkit-transform: translateX(20px) rotate(-45deg);
+            transform: translateX(20px) rotate(-45deg);
+    opacity: 0.4;
+  }
+  to {
+    -webkit-transform: translateX(-20px) rotate(-45deg);
+            transform: translateX(-20px) rotate(-45deg);
+    opacity: 0.9;
+  }
 }
 
 .adminHomeContainer .infoNps .infoContent small {
   font-size: 12pt;
-}
-
-.adminHomeContainer .infoCanceling .infoHeader {
-  color: #db0054;
-}
-
-.adminHomeContainer .infoCanceling .infoHeader .infoHeaderIcon {
-  border-color: #db0054;
-}
-
-.adminHomeContainer .infoCanceling .infoHeader .infoHeaderIcon i {
-  font-size: 18pt;
 }
 
 .adminHomeContainer .relatory {
@@ -1192,6 +1303,9 @@ label.hasCheckboxToggle h3::after {
 
 .adminHomeContainer .relatory .graph {
   background-color: #fff;
+  position: relative;
+  height: 90%;
+  overflow: hidden;
 }
 
 .adminHomeContainer .relatory .graph .graphButtons {
@@ -1240,85 +1354,84 @@ label.hasCheckboxToggle h3::after {
 
 .adminHomeContainer .relatory .graph canvas {
   border: 1px solid #b66d76;
+  width: 100%;
+  height: 90% !important;
 }
 
 .adminHomeContainer .relatory button {
   margin-top: 20px;
 }
 
-.aboutAdminContainer button {
-  width: 240px;
-  margin-right: auto;
-  margin-left: 10%;
+.purchasesContainer {
+  position: relative;
 }
 
-.aboutAdminContainer .content {
-  width: 80%;
+.purchasesContainer .purchasesContent {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding-bottom: 80px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 90%;
 }
 
-.aboutAdminContainer .content .jqte {
-  width: 100%;
-  height: 100%;
-  margin: 20px auto;
-}
-
-.aboutAdminContainer .content .jqte .jqte_editor {
-  height: 100%;
-  resize: none;
-  margin: 2%;
-  border: 2px dashed #bbb;
-}
-
-.aboutAdminContainer .content .jqte .jqte_tool.jqte_tool_1 .jqte_tool_label {
-  height: inherit !important;
-}
-
-.aboutAdminContainer .content section {
+.purchasesContainer .filterPurchases {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-.aboutAdminContainer .content section div {
-  width: 100%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  border-top: 1px solid #b66d76;
+  margin-top: 20px;
+  padding: 10px 0;
   gap: 30px;
-  -webkit-transition: 1.5s;
-  transition: 1.5s;
 }
 
-.aboutAdminContainer .content section div span {
-  font-size: 14pt;
-  font-weight: bold;
+.purchasesContainer .filterPurchases .filterTitle {
   color: #b66d76;
-  margin-left: 20px;
+  font-size: 12pt;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  padding: 2px 0;
 }
 
-.aboutAdminContainer .content section div label {
+.purchasesContainer .filterPurchases #totalPurchases {
+  color: #333;
+  font-size: 12pt;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  padding: 2px 0;
+}
+
+.purchasesContainer .filterPurchases #totalPurchases b {
+  color: #b66d76;
+}
+
+.purchasesContainer .filterPurchases button {
+  width: 260px;
+  height: 28px;
+  border-radius: 30px;
+  border: none;
+  background-color: #b66d76;
+  color: #fff;
+  font-weight: bold;
+  font-size: 10pt;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.purchasesContainer .filterPurchases .selectStatus {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1328,61 +1441,1327 @@ label.hasCheckboxToggle h3::after {
   gap: 20px;
 }
 
-.aboutAdminContainer .content section div small {
-  font-size: 10pt;
-  color: #333;
-}
-
-.aboutAdminContainer .content section div input[type="text"] {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  border: 1px solid #b66d76;
-  border-radius: 2px;
-  padding: 3px 10px;
-  font-size: 10pt;
-  color: #333;
-  max-width: 10%;
-  -webkit-transition: 1s;
-  transition: 1s;
-  outline: none;
-}
-
-.aboutAdminContainer .content section div input[type="text"]:focus {
-  -webkit-transition: 1.6s;
-  transition: 1.6s;
-  max-width: 100%;
-}
-
-.aboutAdminContainer .content section div .deleteLink {
+.purchasesContainer .filterPurchases .selectStatus span {
   font-size: 12pt;
   color: #b66d76;
+}
+
+.purchasesContainer .filterPurchases .selectStatus select {
+  border: none;
+  border: 1px solid #b66d76;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #333;
+  text-align: center;
+  padding: 3px 10px;
+}
+
+.purchasesContainer .filterPurchases label {
+  margin-left: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 250px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.purchasesContainer .filterPurchases label input {
+  padding: 6px 10px;
+  background-color: transparent;
+  width: 85%;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: rgba(235, 227, 227, 0.507);
+  border-bottom: 1px solid #fff;
+  color: #333;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  font-weight: bold;
+  font-size: 11pt;
+}
+
+.purchasesContainer .filterPurchases label input:focus {
+  border-bottom: 1px solid #b66d76;
+  border-right: none;
+}
+
+.purchasesContainer .filterPurchases label input:focus + i {
+  border-bottom: 1px solid #b66d76;
+  border-left: none;
+}
+
+.purchasesContainer .filterPurchases label i {
+  border-radius: 20px;
+  background-color: rgba(235, 227, 227, 0.507);
+  height: 100%;
+  width: 15%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 6px 10px;
   cursor: pointer;
+  color: #b66d76;
+  border-bottom: 1px solid #fff;
+  border-left: none;
+  font-size: 12pt;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
-.aboutAdminContainer .content section div .deleteLink:hover {
+.purchasesContainer .filterPurchases label i:hover {
+  color: #b66d76;
+}
+
+.purchasesContainer .filterPurchases label i:active {
+  color: #72444a85;
+}
+
+.purchasesContainer .purchasesHeader {
+  width: 100%;
+  margin-top: 0px;
+  background-color: #b66d76;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: #fff;
+  padding: 3px 0;
+  font-weight: bolder;
+}
+
+.purchasesContainer .purchasesHeader label {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+  font-size: 11pt;
+  text-align: center;
+  cursor: pointer;
+  text-shadow: 0px 0px 1px #ffc7e3;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.purchasesContainer .purchasesHeader label:hover {
+  color: #c7c7c7;
+}
+
+.purchasesContainer .purchasesHeader label:first-child {
+  width: 25%;
+}
+
+.purchasesContainer .purchasesHeader label:nth-child(2) {
+  width: 60%;
+}
+
+.purchasesContainer .purchasesHeader label:nth-child(4) {
+  width: 60%;
+}
+
+.purchasesContainer .purchasesHeader label:nth-child(6) {
+  width: 20%;
+}
+
+.purchasesContainer .purchasesHeader label:last-child {
+  width: 35%;
+}
+
+.purchasesContainer .purchasesHeader .selected i {
+  color: #ffa1a1;
+  text-shadow: 0px 5px 1px #ffc7e3;
+}
+
+.purchasesContainer .purchasesHeader .selected .up {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  -webkit-transform: 2.5px;
+          transform: 2.5px;
+}
+
+.purchasesContainer .purchases {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  border-bottom: 1px solid #b66d76;
+}
+
+.purchasesContainer .purchases .purchase {
+  width: 100%;
+  padding: 5px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: 1px solid #fff;
+}
+
+.purchasesContainer .purchases .purchase span {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 11pt;
+  color: #000;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.purchasesContainer .purchases .purchase span:first-child {
+  width: 25%;
+}
+
+.purchasesContainer .purchases .purchase span:nth-child(2) {
+  width: 60%;
+}
+
+.purchasesContainer .purchases .purchase span:nth-child(4) {
+  width: 60%;
+}
+
+.purchasesContainer .purchases .purchase span:nth-child(6) {
+  width: 20%;
+}
+
+.purchasesContainer .purchases .purchase span:last-child {
+  width: 35%;
+}
+
+.purchasesContainer .purchases .purchase span i {
+  font-size: 13pt;
+  color: #b66d76;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.purchasesContainer .purchases .purchase span i:hover {
+  color: #ccc;
+}
+
+.purchasesContainer .purchases .purchase span .disputPurcList {
+  font-size: 1em;
+  font-weight: bold;
   color: #f00;
 }
 
-.aboutAdminContainer .content section .aboutSelectHeader {
+.purchasesContainer .purchases .purchase:nth-child(even) {
+  background-color: #efefef;
+}
+
+.purchasesContainer .purchases .purchase:hover {
+  border: 1px solid #b66d76;
+  border-left: none;
+  border-right: none;
+}
+
+.purchasesContainer .purchases .purchase .deleteConfirm {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+
+.purchasesContainer .purchases .purchase .deleteConfirm button {
+  border: none;
+  color: #fff;
+  border-radius: 20px;
+  width: 100%;
+  padding: 2px 10px;
+  cursor: pointer;
+  background-color: #b66d76;
+}
+
+.purchasesContainer .purchases .purchase .deleteConfirm button:hover {
+  background-color: #f00;
+}
+
+.purchasesContainer .pageCounter {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.purchasesContainer .pageCounter span {
+  color: #aaa;
+  font-size: 13pt;
+  cursor: pointer;
+}
+
+.purchasesContainer .pageCounter span:hover {
+  color: #ccc;
+}
+
+.purchasesContainer .pageCounter .pageSelected {
+  font-weight: bold;
+  color: #b66d76;
+}
+
+.purchasesContainer .pageCounter .pageSelected:hover {
+  color: #b66d76;
+  font-size: 13pt;
+}
+
+.purchasesContainer .modalPurchase {
+  position: absolute;
+  width: 100%;
+  max-width: 80%;
+  padding: 30px 20px;
+  background-color: #fff;
+  border: 1px solid #b66d76;
+  border-radius: 20px;
+  position: fixed;
+  top: 10vh;
+  place-items: center;
+  row-gap: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  max-height: 90vh;
+  display: none;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  -ms-grid-rows: 35% 10% 55%;
+      grid-template-rows: 35% 10% 55%;
+  display: none;
+  -webkit-box-shadow: 0px 0px 5px #00000057, 0px 0px 15px #b66d76, 0px 0px 20px #00000011;
+          box-shadow: 0px 0px 5px #00000057, 0px 0px 15px #b66d76, 0px 0px 20px #00000011;
+}
+
+.purchasesContainer .modalPurchase * {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.purchasesContainer .modalPurchase #closeModalPurchase {
+  position: absolute;
+  top: -25px;
+  right: calc(50% - 25px);
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #b66d76;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  color: #b66d76;
+  font-size: 20pt;
+  -webkit-box-shadow: 0px 0px 5px #00000037, 0px 0px 8px #b66d76, 0px 0px 10px #00000011;
+          box-shadow: 0px 0px 5px #00000037, 0px 0px 8px #b66d76, 0px 0px 10px #00000011;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.purchasesContainer .modalPurchase #closeModalPurchase:hover {
+  color: #dbb;
+  border: none;
+}
+
+.purchasesContainer .modalPurchase section {
+  width: 95%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid #b66d76;
+  border-radius: 10px;
+}
+
+.purchasesContainer .modalPurchase section h4 {
+  color: #b66d76;
+  font-size: 13pt;
+}
+
+.purchasesContainer .modalPurchase label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.purchasesContainer .modalPurchase .colorSection {
+  background-color: #b66d76;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  color: #fff;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 25px;
+  max-height: 40px;
+  padding: 20px 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  max-height: 50px;
+  border-radius: 5px;
+}
+
+.purchasesContainer .modalPurchase .colorSection .help i {
+  color: #f5f5f5 !important;
+}
+
+.purchasesContainer .modalPurchase .colorSection span {
+  font-size: 11pt;
+  color: #fff;
+}
+
+.purchasesContainer .modalPurchase .colorSection #StatusSelect {
+  font-weight: bold;
+}
+
+.purchasesContainer .modalPurchase .colorSection select {
+  width: 180px;
+  padding: 4px 0;
+  border: 1px solid #b66d76;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg id='eha7kRn9GDj1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 99%;
+  background-position-y: -4px;
+  background-color: #fff;
+  outline: none;
+  border-radius: 30px;
+}
+
+.purchasesContainer .modalPurchase .colorSection select:focus {
+  background-image: url("data:image/svg+xml;utf8,<svg id='euV7IenENMk1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' transform='matrix(-1 0 0-1 24 25)' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
+}
+
+.purchasesContainer .modalPurchase .colorSection select:disabled {
+  border-color: #ccc;
+}
+
+.purchasesContainer .modalPurchase .colorSection input[type="text"] {
+  width: 180px;
+  padding: 3px 0;
+  border: 1px solid #b66d76;
+  border-radius: 30px;
+  text-align: center;
+  font-size: 11pt;
+  color: #333;
+}
+
+.purchasesContainer .modalPurchase .colorSection input[type="text"]::-webkit-input-placeholder {
+  color: #ccc;
+}
+
+.purchasesContainer .modalPurchase .colorSection input[type="text"]:-ms-input-placeholder {
+  color: #ccc;
+}
+
+.purchasesContainer .modalPurchase .colorSection input[type="text"]::-ms-input-placeholder {
+  color: #ccc;
+}
+
+.purchasesContainer .modalPurchase .colorSection input[type="text"]::placeholder {
+  color: #ccc;
+}
+
+.purchasesContainer .modalPurchase .colorSection input[type="text"].hasCode::-webkit-input-placeholder {
+  color: #b66d76;
+  font-weight: bold;
+  font-size: 10pt;
+}
+
+.purchasesContainer .modalPurchase .colorSection input[type="text"].hasCode:-ms-input-placeholder {
+  color: #b66d76;
+  font-weight: bold;
+  font-size: 10pt;
+}
+
+.purchasesContainer .modalPurchase .colorSection input[type="text"].hasCode::-ms-input-placeholder {
+  color: #b66d76;
+  font-weight: bold;
+  font-size: 10pt;
+}
+
+.purchasesContainer .modalPurchase .colorSection input[type="text"].hasCode::placeholder {
+  color: #b66d76;
+  font-weight: bold;
+  font-size: 10pt;
+}
+
+.purchasesContainer .modalPurchase .colorSection button {
+  width: 20%;
+  color: #b66d76;
+  background-color: #fff;
+  font-size: 11pt;
+  border: none;
+  border-radius: 20px;
+  padding: 4px 0;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid #b66d76;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.purchasesContainer .modalPurchase .colorSection button:hover {
+  color: #fff;
+  background-color: #b66d76;
+  border: 1px solid #fff;
+}
+
+.purchasesContainer .modalPurchase .colorSection button:active {
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+  background-color: #a5626a;
+}
+
+.purchasesContainer .modalPurchase .info {
+  padding: 20px 0;
+}
+
+.purchasesContainer .modalPurchase .info:last-child {
+  margin-bottom: auto;
+}
+
+.purchasesContainer .modalPurchase .info span {
+  font-weight: bold;
+  color: #b66d76;
+}
+
+.purchasesContainer .modalPurchase .info span b {
+  color: #333;
+  font-weight: normal;
+}
+
+.purchasesContainer .modalPurchase .info span a {
+  color: #a5626a;
+}
+
+.purchasesContainer .modalPurchase .prods {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  margin: 25px 0;
 }
 
-.aboutAdminContainer .content section .aboutSelectHeader label input[type="checkbox"]:not(:checked) + h3 + *,
-.aboutAdminContainer .content section .aboutSelectHeader label input[type="checkbox"]:not(:checked) + h3 + * + *,
-.aboutAdminContainer .content section .aboutSelectHeader label input[type="checkbox"]:not(:checked) + h3 + * + * + * {
-  -webkit-filter: grayscale(100%);
-          filter: grayscale(100%);
-  pointer-events: none;
+.purchasesContainer .modalPurchase .prods .prodsHeader {
+  width: 100%;
+}
+
+.purchasesContainer .modalPurchase .prods .prodsHeader span {
+  width: 100px;
+  text-align: center;
+}
+
+.purchasesContainer .modalPurchase .prods .prodsHeader span:first-child {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.purchasesContainer .modalPurchase .prods .productList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.purchasesContainer .modalPurchase .prods .productList .product {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  border-bottom: 1px solid #b66d76;
+}
+
+.purchasesContainer .modalPurchase .prods .productList .product:last-child {
+  border-bottom: none;
+}
+
+.purchasesContainer .modalPurchase .prods .productList .product .image {
+  width: 75px;
+  height: 75px;
+  overflow: hidden;
+  border: 1px solid #b66d76;
+  border-radius: 10px;
+  padding: 0;
+  background-color: #b66d76;
+}
+
+.purchasesContainer .modalPurchase .prods .productList .product .image img {
+  width: 100%;
+  height: 100%;
+}
+
+.purchasesContainer .modalPurchase .prods .productList .product label {
+  width: 100px;
+  background-color: #fff;
+}
+
+.purchasesContainer .modalPurchase .prods .productList .product label span {
+  color: #333;
+}
+
+.purchasesContainer .modalPurchase .prods .productList .product .name {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.purchasesContainer .modalOpen {
+  display: -ms-grid;
+  display: grid;
+}
+
+.productsContainer {
+  position: relative;
+}
+
+.productsContainer .filterProducts {
+  width: 95%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  border-top: 1px solid #b66d76;
+  margin-top: 20px;
+  padding: 10px 0;
+}
+
+.productsContainer .filterProducts #totalProducts {
+  color: #b66d76;
+  font-size: 12pt;
+  margin-bottom: 0;
+  padding: 2px 0;
+  margin-left: 10px;
+}
+
+.productsContainer .filterProducts .filterTitle {
+  color: #b66d76;
+  font-size: 12pt;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  padding: 2px 0;
+}
+
+.productsContainer .filterProducts button {
+  width: 260px;
+  margin-left: auto;
+}
+
+.productsContainer .filterProducts label {
+  margin-left: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 250px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: rgba(235, 227, 227, 0.507);
+}
+
+.productsContainer .filterProducts label input {
+  padding: 6px 10px;
+  background-color: transparent;
+  width: 85%;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1px solid #fff;
+  color: #333;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  font-weight: bold;
+  font-size: 11pt;
+}
+
+.productsContainer .filterProducts label input:focus {
+  border-bottom: 1px solid #b66d76;
+  border-right: none;
+}
+
+.productsContainer .filterProducts label input:focus + i {
+  border-bottom: 1px solid #b66d76;
+  border-left: none;
+}
+
+.productsContainer .filterProducts label i {
+  border-radius: 20px;
+  height: 100%;
+  width: 15%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: #b66d76;
+  border-bottom: 1px solid #fff;
+  border-left: none;
+  font-size: 13pt;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.productsContainer .filterProducts label i:hover {
+  color: #b66d76;
+}
+
+.productsContainer .filterProducts label i:active {
+  color: #72444a85;
+}
+
+.productsContainer .displayProds {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 95%;
+}
+
+.productsContainer .productsHeader {
+  margin-top: 0px;
+  background-color: #b66d76;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: #fff;
+  padding: 3px 0;
+  font-weight: bolder;
+  width: 100%;
+}
+
+.productsContainer .productsHeader label {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+  font-size: 11pt;
+  text-align: center;
+  cursor: pointer;
+  text-shadow: 0px 0px 1px #ffc7e3;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.productsContainer .productsHeader label:hover {
+  color: #c7c7c7;
+}
+
+.productsContainer .productsHeader label:nth-child(1) {
+  width: 35%;
+}
+
+.productsContainer .productsHeader .selected i {
+  color: #ffa1a1;
+  text-shadow: 0px 5px 1px #ffc7e3;
+}
+
+.productsContainer .productsHeader .selected .up {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  -webkit-transform: 2.5px;
+          transform: 2.5px;
+}
+
+.productsContainer .products {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  border-bottom: 1px solid #b66d76;
+}
+
+.productsContainer .products .product {
+  width: 100%;
+  padding: 5px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: 1px solid #fff;
+  position: relative;
+}
+
+.productsContainer .products .product span {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 11pt;
+  color: #000;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.productsContainer .products .product span:nth-child(1) {
+  width: 35%;
+}
+
+.productsContainer .products .product span i {
+  font-size: 13pt;
+  color: #b66d76;
+  cursor: pointer;
+}
+
+.productsContainer .products .product span i:hover {
+  color: #f00;
+}
+
+.productsContainer .products .product:nth-child(even) {
+  background-color: #efefef;
+}
+
+.productsContainer .products .product:hover {
+  border: 1px solid #b66d76;
+  border-left: none;
+  border-right: none;
+}
+
+.productsContainer .pageCounter {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.productsContainer .pageCounter span {
   color: #aaa;
+  font-size: 13pt;
+  cursor: pointer;
 }
 
-.aboutAdminContainer .content section .aboutImgBox {
+.productsContainer .pageCounter span:hover {
+  color: #ccc;
+}
+
+.productsContainer .pageCounter .pageSelected {
+  font-weight: bold;
+  color: #b66d76;
+}
+
+.productsContainer .pageCounter .pageSelected:hover {
+  color: #b66d76;
+  font-size: 13pt;
+}
+
+.productsContainer .modalProduct {
+  position: fixed;
+  background-color: #fff;
+  border: 1px solid #b66d76;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1100px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
+          box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  top: 15%;
+  max-height: 60vh;
+}
+
+.productsContainer .modalProduct .modalTitle {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #b66d76;
+  margin-bottom: 10px;
+}
+
+.productsContainer .modalProduct .modalTitle small {
+  color: #999;
+  font-size: 0.8em;
+  font-weight: normal;
+}
+
+.productsContainer .modalProduct .productAdd {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo {
+  width: 70%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 8% 8% 8% 8% 50%;
+      grid-template-rows: 8% 8% 8% 8% 50%;
+  -ms-grid-columns: 60% 40%;
+      grid-template-columns: 60% 40%;
+  gap: 14px 10px;
+  padding: 10px;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section label {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  width: 100%;
+  height: 100%;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section label .rs,
+.productsContainer .modalProduct .productAdd .productInfo section label .kg {
+  font-size: 10pt;
+  font-weight: bold;
+  color: #b66d76;
+  left: 3px;
+  position: absolute;
+  top: 6px;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section label .kg {
+  left: 13%;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section label input {
+  width: 90%;
+  border: none;
+  border-radius: 30px;
+  padding: 3px 20px;
+  font-size: 13pt;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  outline: none;
+  background-color: #fff;
+  border: 1px solid #b66d76;
+  color: #b66d76;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section label input:focus + small,
+.productsContainer .modalProduct .productAdd .productInfo section label input:valid + small {
+  top: -12px;
+  left: 0px;
+  font-weight: bold;
+  color: #b66d76;
+  text-shadow: 0 0 1px #ffe0e4;
+  font-size: 9pt;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section label select {
+  width: 90%;
+  border: none;
+  border-radius: 30px;
+  padding: 4px 16px;
+  font-size: 11pt;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: #fff;
+  color: #b66d76;
+  border: 1px solid #b66d76;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section label select + small {
+  position: absolute;
+  top: -12px;
+  left: 0px;
+  font-weight: bold;
+  color: #b66d76;
+  text-shadow: 0 0 1px #ffe0e4;
+  font-size: 9pt;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section label small {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  position: absolute;
+  left: 22px;
+  top: 6px;
+  font-size: 11pt;
+  color: #b66d76;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section label textarea {
+  margin-top: 10px;
+  width: 90%;
+  height: 100%;
+  border: none;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  resize: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section label textarea:focus {
+  border: 1px solid #b66d76;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section label #NewProductDescription + small {
+  top: -10px;
+  left: -5px;
+  font-weight: bold;
+  color: #b66d76;
+  font-size: 10pt;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section .save {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section .save button {
+  width: 90%;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section .save button span {
+  font-size: 11pt;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo section .save button i {
+  font-size: 13pt;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .optionsHeader {
+  font-size: 13pt;
+  color: #b66d76;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions #OptionsList {
+  border: 1px solid #b66d76;
+  border-right: none;
+  border-left: none;
+  padding: 5px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  overflow-y: scroll;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .item {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .item input {
+  width: 30%;
+  border: none;
+  background-color: #fff;
+  color: #b66d76;
+  outline: none;
+  padding: 5px 0;
+  text-align: center;
+  -webkit-box-shadow: 0;
+          box-shadow: 0;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  border-bottom: 1px solid #b66d76;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .item input::-webkit-input-placeholder {
+  color: #b66d76;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .item input:-ms-input-placeholder {
+  color: #b66d76;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .item input::-ms-input-placeholder {
+  color: #b66d76;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .item input::placeholder {
+  color: #b66d76;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .item i {
+  width: 20%;
+  font-size: 10pt;
+  color: #b66d76;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+  cursor: pointer;
+  text-align: center;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .item i:hover {
+  color: #ccc;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .add {
+  -webkit-box-ordinal-group: 1001;
+      -ms-flex-order: 1000;
+          order: 1000;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .add span {
+  font-size: 10pt;
+  color: #b66d76;
+  font-weight: bold;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .add input {
+  border: 1px solid #b66d76;
+  border-radius: 10px;
+}
+
+.productsContainer .modalProduct .productAdd .productInfo .productOptions .add i {
+  font-size: 13pt;
+}
+
+.productsContainer .modalProduct .productAdd .productImages {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+  width: 30%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.productsContainer .modalProduct .productAdd .productImages .productMainImage {
+  width: 280px;
+  height: 280px;
+  background-color: #f99;
+  border: 1px solid #b66d76;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.productsContainer .modalProduct .productAdd .productImages .productSecImage {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.productsContainer .modalProduct .productAdd .productImages .productSecImage div {
+  width: 80px;
+  height: 80px;
+  background-color: #f99;
+  border: 1px solid #b66d76;
+}
+
+.productsContainer .modalProduct .productAdd .productImages .addImage {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1394,39 +2773,23 @@ label.hasCheckboxToggle h3::after {
           align-items: center;
   position: relative;
   overflow: hidden;
-  min-height: 300px;
-  border: 2px solid #bbb;
 }
 
-.aboutAdminContainer .content section .aboutImgBox #DeleteAboutImage {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 10px;
-  font-size: 14pt;
-  color: #b66d76;
-  cursor: pointer;
-  z-index: 20;
-}
-
-.aboutAdminContainer .content section .aboutImgBox #DeleteAboutImage:hover {
-  color: #f00;
-}
-
-.aboutAdminContainer .content section .aboutImgBox img {
-  width: 100%;
+.productsContainer .modalProduct .productAdd .productImages .addImage img {
+  display: block;
   height: 100%;
+  width: 100%;
   position: relative;
   pointer-events: none;
 }
 
-.aboutAdminContainer .content section .aboutImgBox input[type="file"] {
+.productsContainer .modalProduct .productAdd .productImages .addImage input[type="file"] {
   position: absolute;
   background-color: #fff;
   background-image: url("img/plus.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 25%;
+  background-size: 50%;
   top: 0;
   left: 0;
   width: 100%;
@@ -1434,42 +2797,49 @@ label.hasCheckboxToggle h3::after {
   font-size: 0pt;
   color: transparent;
   cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
-.aboutAdminContainer .content section .aboutImgBox input[type="file"]::-webkit-file-upload-button {
+.productsContainer .modalProduct .productAdd .productImages .addImage input[type="file"]::-webkit-file-upload-button {
   display: none;
 }
 
-.aboutAdminContainer .content section .aboutImgBox i {
+.productsContainer .modalProduct .productAdd .productImages .addImage input[type="file"]:hover {
+  -webkit-filter: grayscale(0.8);
+          filter: grayscale(0.8);
+}
+
+.productsContainer .modalProduct .productAdd .productImages .addImage i {
   position: absolute;
   right: 4px;
-  bottom: 2px;
-  color: #7e2c2c;
+  top: 4px;
+  color: #b66d76;
   font-size: 10pt;
   cursor: pointer;
 }
 
-.aboutAdminContainer .content section .aboutImgBox i:hover {
+.productsContainer .modalProduct .productAdd .productImages .addImage i:hover {
   color: #777777;
 }
 
-.aboutAdminContainer .content section .aboutMap {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 20px;
-  min-height: 400px;
+.productsContainer .modalProduct .closeMod {
+  position: absolute;
+  top: 10px;
+  color: #b66d76;
+  font-size: 18pt;
+  right: 30px;
+  cursor: pointer;
 }
 
-.aboutAdminContainer .content section .aboutMap iframe {
-  width: 100%;
-  height: 100%;
+.productsContainer .modalProduct .closeMod:hover {
+  color: #c00;
+}
+
+.productsContainer .invalidInput {
+  border: 1px solid #b66d76;
+  -webkit-box-shadow: 0px 0px 4px 1px #dbce12;
+          box-shadow: 0px 0px 4px 1px #dbce12;
 }
 
 .adminBannerContainer {
@@ -1687,415 +3057,6 @@ label.hasCheckboxToggle h3::after {
 
 .adminBannerContainer .bannerShow .bannerContainer .preview i:hover {
   color: #777777;
-}
-
-.adminCarouselContainer button {
-  width: 280px;
-}
-
-.adminCarouselContainer .carouselContent {
-  width: 80%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  padding-bottom: 80px;
-}
-
-.adminCarouselContainer .carouselContent .carouselList {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 20px;
-  margin: 20px 0;
-  position: relative;
-  -webkit-transition: 2s;
-  transition: 2s;
-}
-
-.adminCarouselContainer .carouselContent .carouselList .preview {
-  width: 95%;
-  position: absolute;
-}
-
-.adminCarouselContainer .carouselContent .carousel {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  background-color: #fff;
-  border-radius: 20px;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  padding: 10px;
-  padding-bottom: 20px;
-  border: 1px solid #b66d76;
-}
-
-.adminCarouselContainer .carouselContent .carousel .name {
-  width: 98%;
-  color: #b66d76;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 15pt;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.adminCarouselContainer .carouselContent .carousel .items {
-  width: 80%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 0;
-}
-
-.adminCarouselContainer .carouselContent .carousel .items .item {
-  width: 120px;
-  height: 120px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.adminCarouselContainer .carouselContent .carousel .items .item img {
-  width: 100%;
-  height: 100%;
-}
-
-.adminCarouselContainer .carouselContent .carousel .info {
-  width: 20%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  gap: 10px;
-}
-
-.adminCarouselContainer .carouselContent .carousel .info label {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.adminCarouselContainer .carouselContent .carousel .info label span {
-  width: 30%;
-}
-
-.adminCarouselContainer .carouselContent .carousel .info span {
-  font-size: 10pt;
-  font-weight: bold;
-  margin-left: 10px;
-  position: relative;
-}
-
-.adminCarouselContainer .carouselContent .carousel .info span b {
-  font-size: 9pt;
-  color: #b66d76;
-}
-
-.adminCarouselContainer .carouselContent .carousel .info i {
-  margin-left: 15px;
-  font-size: 14pt;
-  color: #b66d76;
-  cursor: pointer;
-}
-
-.adminCarouselContainer .carouselContent .carousel .info i:hover {
-  -webkit-filter: brightness(1.2);
-          filter: brightness(1.2);
-}
-
-.adminCarouselContainer .carouselContent .carousel .info i:active {
-  -webkit-filter: brightness(0.9);
-          filter: brightness(0.9);
-}
-
-.adminCarouselContainer .modalSelectProds {
-  width: 600px;
-  padding: 0;
-  top: 20%;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding-bottom: 20px;
-}
-
-.adminCarouselContainer .modalSelectProds #closeCarouselModal {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 18pt;
-  color: #fff;
-  cursor: pointer;
-}
-
-.adminCarouselContainer .modalSelectProds #closeCarouselModal:hover {
-  -webkit-filter: brightness(1.2);
-          filter: brightness(1.2);
-}
-
-.adminCarouselContainer .modalSelectProds #closeCarouselModal:active {
-  -webkit-filter: brightness(0.9);
-          filter: brightness(0.9);
-}
-
-.adminCarouselContainer .modalSelectProds .catSelect {
-  width: 100%;
-  background-color: #b66d76;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 15px 0;
-  gap: 10px;
-}
-
-.adminCarouselContainer .modalSelectProds .catSelect span {
-  color: #fff;
-  font-size: 13pt;
-  font-weight: bold;
-}
-
-.adminCarouselContainer .modalSelectProds .catSelect select {
-  border: none;
-  background-color: #fff;
-  border-radius: 25px;
-  padding: 3px 10px;
-  font-size: 11pt;
-  text-align: center;
-}
-
-.adminCarouselContainer .modalSelectProds .catSelect select:disabled {
-  border-color: #999;
-}
-
-.adminCarouselContainer .modalSelectProds section {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 20px 0;
-  width: 80%;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  gap: 10px;
-}
-
-.adminCarouselContainer .modalSelectProds section label {
-  cursor: pointer;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 10px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.adminCarouselContainer .modalSelectProds section label input[type="radio"] {
-  accent-color: #b66d76;
-}
-
-.adminCarouselContainer .modalSelectProds section label input[type="radio"]:checked + i {
-  color: #b66d76;
-}
-
-.adminCarouselContainer .modalSelectProds section label input[type="radio"]:disabled + i {
-  color: #ccc;
-}
-
-.adminCarouselContainer .modalSelectProds section label i {
-  color: #ccc;
-  pointer-events: none;
-}
-
-.adminCarouselContainer .modalSelectProds section span {
-  color: #333;
-}
-
-.adminCarouselContainer .modalSelectProds section #ProdAddCount b {
-  color: #b66d76;
-  margin-right: 5px;
-}
-
-.adminCarouselContainer .modalSelectProds section select {
-  border: none;
-  background-color: #fff;
-  border-radius: 25px;
-  padding: 3px 5px;
-  text-align: center;
-  border: 1px solid #b66d76;
-}
-
-.adminCarouselContainer .prodList {
-  position: absolute;
-  width: 600px;
-  padding: 20px;
-  background-color: #b66d76;
-  border: 1px solid #fff;
-  border-radius: 20px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  top: 20%;
-  min-height: 200px;
-  display: none;
-  overflow: auto;
-  /* Track */
-  /* Handle */
-  /* Handle on hover */
-}
-
-.adminCarouselContainer .prodList ::-webkit-scrollbar {
-  width: 10px;
-}
-
-.adminCarouselContainer .prodList ::-webkit-scrollbar-track {
-  background: #dadada;
-}
-
-.adminCarouselContainer .prodList ::-webkit-scrollbar-thumb {
-  background: #b66d76;
-}
-
-.adminCarouselContainer .prodList ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(182, 109, 118, 0.8);
-}
-
-.adminCarouselContainer .prodList #closeProdList {
-  position: absolute;
-  font-size: 20pt;
-  color: #fff;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  color: white;
-  background-color: #b66d76;
-  padding: 5px;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.adminCarouselContainer .prodList #closeProdList i {
-  text-shadow: 0 0 3px #fff;
-}
-
-.adminCarouselContainer .prodList #closeProdList:hover {
-  color: #13a71f;
-}
-
-.adminCarouselContainer .prodList #prodList {
-  width: 100%;
-  height: 100%;
-  display: -ms-grid;
-  display: grid;
-  gap: 10px;
-  -ms-grid-columns: (minmax(100px, 1fr))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  -ms-grid-rows: (minmax(100px, 1fr))[auto-fill];
-      grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
-  padding: 30px 20px;
-  max-height: 60vh;
-  background-color: #fff;
-}
-
-.adminCarouselContainer .prodList #prodList label {
-  width: 100px;
-  height: 100px;
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border: 1px solid #b66d76;
-  cursor: pointer;
-}
-
-.adminCarouselContainer .prodList #prodList label img {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-}
-
-.adminCarouselContainer .prodList #prodList label input[type="checkbox"] {
-  position: absolute;
-  bottom: 2px;
-  right: 2px;
-  width: 20px;
-  height: 20px;
-  accent-color: #b66d76;
-  cursor: pointer;
-  z-index: 10;
 }
 
 .adminCategoryContainer .categoryContent {
@@ -2518,126 +3479,27 @@ label.hasCheckboxToggle h3::after {
   font-weight: bold;
 }
 
-.productsContainer {
-  position: relative;
+.adminCarouselContainer button {
+  width: 280px;
 }
 
-.productsContainer .filterProducts {
-  width: 95%;
+.adminCarouselContainer .carouselContent {
+  width: 80%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  border-top: 1px solid #b66d76;
-  margin-top: 20px;
-  padding: 10px 0;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-bottom: 80px;
 }
 
-.productsContainer .filterProducts #totalProducts {
-  color: #b66d76;
-  font-size: 12pt;
-  margin-bottom: 0;
-  padding: 2px 0;
-  margin-left: 10px;
-}
-
-.productsContainer .filterProducts .filterTitle {
-  color: #b66d76;
-  font-size: 12pt;
-  margin-top: 10px;
-  margin-bottom: 8px;
-  padding: 2px 0;
-}
-
-.productsContainer .filterProducts button {
-  width: 260px;
-  margin-left: auto;
-}
-
-.productsContainer .filterProducts label {
-  margin-left: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 250px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  overflow: hidden;
-  border-radius: 20px;
-  background-color: rgba(235, 227, 227, 0.507);
-}
-
-.productsContainer .filterProducts label input {
-  padding: 6px 10px;
-  background-color: transparent;
-  width: 85%;
-  border: none;
-  border-radius: 20px;
-  outline: none;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: 1px solid #fff;
-  color: #333;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  font-weight: bold;
-  font-size: 11pt;
-}
-
-.productsContainer .filterProducts label input:focus {
-  border-bottom: 1px solid #b66d76;
-  border-right: none;
-}
-
-.productsContainer .filterProducts label input:focus + i {
-  border-bottom: 1px solid #b66d76;
-  border-left: none;
-}
-
-.productsContainer .filterProducts label i {
-  border-radius: 20px;
-  height: 100%;
-  width: 15%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 6px 10px;
-  cursor: pointer;
-  color: #b66d76;
-  border-bottom: 1px solid #fff;
-  border-left: none;
-  font-size: 13pt;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-.productsContainer .filterProducts label i:hover {
-  color: #b66d76;
-}
-
-.productsContainer .filterProducts label i:active {
-  color: #72444a85;
-}
-
-.productsContainer .displayProds {
+.adminCarouselContainer .carouselContent .carouselList {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2645,496 +3507,535 @@ label.hasCheckboxToggle h3::after {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 95%;
-}
-
-.productsContainer .productsHeader {
-  margin-top: 0px;
-  background-color: #b66d76;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  color: #fff;
-  padding: 3px 0;
-  font-weight: bolder;
-  width: 100%;
-}
-
-.productsContainer .productsHeader label {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 5px;
-  font-size: 11pt;
-  text-align: center;
-  cursor: pointer;
-  text-shadow: 0px 0px 1px #ffc7e3;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-.productsContainer .productsHeader label:hover {
-  color: #c7c7c7;
-}
-
-.productsContainer .productsHeader label:nth-child(1) {
-  width: 35%;
-}
-
-.productsContainer .productsHeader .selected i {
-  color: #ffa1a1;
-  text-shadow: 0px 5px 1px #ffc7e3;
-}
-
-.productsContainer .productsHeader .selected .up {
-  -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
-  -webkit-transform: 2.5px;
-          transform: 2.5px;
-}
-
-.productsContainer .products {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 100%;
-  border-bottom: 1px solid #b66d76;
-}
-
-.productsContainer .products .product {
-  width: 100%;
-  padding: 5px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.productsContainer .products .product span {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  font-size: 11pt;
-  color: #000;
-  text-align: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  position: relative;
-}
-
-.productsContainer .products .product span:nth-child(1) {
-  width: 35%;
-}
-
-.productsContainer .products .product span i {
-  font-size: 13pt;
-  color: #b66d76;
-  cursor: pointer;
-}
-
-.productsContainer .products .product span i:hover {
-  color: #f00;
-}
-
-.productsContainer .products .product:nth-child(even) {
-  background-color: #efefef;
-}
-
-.productsContainer .products .product:hover {
-  border: 1px solid #b66d76;
-  border-left: none;
-  border-right: none;
-}
-
-.productsContainer .pageCounter {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   gap: 20px;
-  padding: 10px 0;
+  margin: 20px 0;
+  position: relative;
+  -webkit-transition: 2s;
+  transition: 2s;
 }
 
-.productsContainer .pageCounter span {
-  color: #aaa;
-  font-size: 13pt;
-  cursor: pointer;
+.adminCarouselContainer .carouselContent .carouselList .preview {
+  width: 95%;
+  position: absolute;
 }
 
-.productsContainer .pageCounter span:hover {
-  color: #ccc;
-}
-
-.productsContainer .pageCounter .pageSelected {
-  font-weight: bold;
-  color: #b66d76;
-}
-
-.productsContainer .pageCounter .pageSelected:hover {
-  color: #b66d76;
-  font-size: 13pt;
-}
-
-.productsContainer .modalProduct {
-  position: fixed;
-  background-color: #fff;
-  border: 1px solid #b66d76;
-  border-radius: 20px;
-  overflow: hidden;
+.adminCarouselContainer .carouselContent .carousel {
   width: 100%;
-  max-width: 1100px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 20px;
-  -webkit-box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
-          box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  display: none;
+  background-color: #fff;
+  border-radius: 20px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 10px;
+  padding-bottom: 20px;
+  border: 1px solid #b66d76;
+}
+
+.adminCarouselContainer .carouselContent .carousel .name {
+  width: 98%;
+  color: #b66d76;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 15pt;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.adminCarouselContainer .carouselContent .carousel .items {
+  width: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0;
+}
+
+.adminCarouselContainer .carouselContent .carousel .items .item {
+  width: 120px;
+  height: 120px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.adminCarouselContainer .carouselContent .carousel .items .item img {
+  width: 100%;
+  height: 100%;
+}
+
+.adminCarouselContainer .carouselContent .carousel .Cinfo {
+  width: 20%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  top: 15%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 10px;
 }
 
-.productsContainer .modalProduct .modalTitle {
-  font-size: 12pt;
-  font-weight: bold;
-  color: #b66d76;
-  margin-bottom: 10px;
-}
-
-.productsContainer .modalProduct .productAdd {
+.adminCarouselContainer .carouselContent .carousel .Cinfo label {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
 }
 
-.productsContainer .modalProduct .productAdd .productInfo {
-  width: 70%;
+.adminCarouselContainer .carouselContent .carousel .Cinfo label span {
+  width: 30%;
+}
+
+.adminCarouselContainer .carouselContent .carousel .Cinfo span {
+  font-size: 10pt;
+  font-weight: bold;
+  margin-left: 10px;
+  position: relative;
+}
+
+.adminCarouselContainer .carouselContent .carousel .Cinfo span b {
+  font-size: 9pt;
+  color: #b66d76;
+}
+
+.adminCarouselContainer .carouselContent .carousel .Cinfo i {
+  margin-left: 15px;
+  font-size: 14pt;
+  color: #b66d76;
+  cursor: pointer;
+}
+
+.adminCarouselContainer .carouselContent .carousel .Cinfo i:hover {
+  -webkit-filter: brightness(1.2);
+          filter: brightness(1.2);
+}
+
+.adminCarouselContainer .carouselContent .carousel .Cinfo i:active {
+  -webkit-filter: brightness(0.9);
+          filter: brightness(0.9);
+}
+
+.adminCarouselContainer .modalSelectProds {
+  width: 600px;
+  padding: 0;
+  top: 20%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 20px;
+}
+
+.adminCarouselContainer .modalSelectProds .categoryAlert {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #c09d00;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.adminCarouselContainer .modalSelectProds #closeCarouselModal {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 18pt;
+  color: #fff;
+  cursor: pointer;
+}
+
+.adminCarouselContainer .modalSelectProds #closeCarouselModal:hover {
+  -webkit-filter: brightness(1.2);
+          filter: brightness(1.2);
+}
+
+.adminCarouselContainer .modalSelectProds #closeCarouselModal:active {
+  -webkit-filter: brightness(0.9);
+          filter: brightness(0.9);
+}
+
+.adminCarouselContainer .modalSelectProds .catSelect {
+  width: 100%;
+  background-color: #b66d76;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 15px 0;
+  gap: 10px;
+}
+
+.adminCarouselContainer .modalSelectProds .catSelect span {
+  color: #fff;
+  font-size: 13pt;
+  font-weight: bold;
+}
+
+.adminCarouselContainer .modalSelectProds .catSelect select {
+  border: none;
+  background-color: #fff;
+  border-radius: 25px;
+  padding: 3px 10px;
+  font-size: 11pt;
+  text-align: center;
+}
+
+.adminCarouselContainer .modalSelectProds .catSelect select:disabled {
+  border-color: #999;
+}
+
+.adminCarouselContainer .modalSelectProds section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px 0;
+  width: 80%;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+
+.adminCarouselContainer .modalSelectProds section label {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.adminCarouselContainer .modalSelectProds section label input[type="radio"] {
+  accent-color: #b66d76;
+}
+
+.adminCarouselContainer .modalSelectProds section label input[type="radio"]:checked + i {
+  color: #b66d76;
+}
+
+.adminCarouselContainer .modalSelectProds section label input[type="radio"]:disabled + i {
+  color: #ccc;
+}
+
+.adminCarouselContainer .modalSelectProds section label i {
+  color: #ccc;
+  pointer-events: none;
+}
+
+.adminCarouselContainer .modalSelectProds section span {
+  color: #333;
+}
+
+.adminCarouselContainer .modalSelectProds section #ProdAddCount b {
+  color: #b66d76;
+  margin-right: 5px;
+}
+
+.adminCarouselContainer .modalSelectProds section select {
+  border: none;
+  background-color: #fff;
+  border-radius: 25px;
+  padding: 3px 5px;
+  text-align: center;
+  border: 1px solid #b66d76;
+}
+
+.adminCarouselContainer .prodList {
+  position: absolute;
+  width: 600px;
+  padding: 20px;
+  background-color: #b66d76;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  top: 20%;
+  min-height: 200px;
+  display: none;
+  overflow: auto;
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+
+.adminCarouselContainer .prodList ::-webkit-scrollbar {
+  width: 10px;
+}
+
+.adminCarouselContainer .prodList ::-webkit-scrollbar-track {
+  background: #dadada;
+}
+
+.adminCarouselContainer .prodList ::-webkit-scrollbar-thumb {
+  background: #b66d76;
+}
+
+.adminCarouselContainer .prodList ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(182, 109, 118, 0.8);
+}
+
+.adminCarouselContainer .prodList #closeProdList {
+  position: absolute;
+  font-size: 20pt;
+  color: #fff;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  background-color: #b66d76;
+  padding: 5px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.adminCarouselContainer .prodList #closeProdList i {
+  text-shadow: 0 0 3px #fff;
+}
+
+.adminCarouselContainer .prodList #closeProdList:hover {
+  color: #13a71f;
+}
+
+.adminCarouselContainer .prodList #prodList {
+  width: 100%;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  gap: 10px;
+  -ms-grid-columns: (minmax(100px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  -ms-grid-rows: (minmax(100px, 1fr))[auto-fill];
+      grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+  padding: 30px 20px;
+  max-height: 60vh;
+  background-color: #fff;
+}
+
+.adminCarouselContainer .prodList #prodList label {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid #b66d76;
+  cursor: pointer;
+}
+
+.adminCarouselContainer .prodList #prodList label img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.adminCarouselContainer .prodList #prodList label input[type="checkbox"] {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  accent-color: #b66d76;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.aboutAdminContainer button {
+  width: 240px;
+  margin-right: auto;
+  margin-left: 10%;
+}
+
+.aboutAdminContainer .content {
+  width: 80%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 14px 10px;
-  padding: 10px;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section {
-  width: 68%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section:nth-child(even) {
-  width: 30%;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section label {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section label .rs,
-.productsContainer .modalProduct .productAdd .productInfo section label .kg {
-  font-size: 10pt;
-  font-weight: bold;
-  color: #b66d76;
-  left: 3px;
-  position: absolute;
-  top: 6px;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section label .kg {
-  left: 13%;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section label input {
-  width: 90%;
-  border: none;
-  border-radius: 30px;
-  padding: 3px 20px;
-  font-size: 13pt;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  outline: none;
-  background-color: #fff;
-  border: 1px solid #b66d76;
-  color: #b66d76;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section label input:focus + small,
-.productsContainer .modalProduct .productAdd .productInfo section label input:valid + small {
-  top: -12px;
-  left: 0px;
-  font-weight: bold;
-  color: #b66d76;
-  text-shadow: 0 0 1px #ffe0e4;
-  font-size: 9pt;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section label select {
-  width: 90%;
-  border: none;
-  border-radius: 30px;
-  padding: 4px 16px;
-  font-size: 11pt;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  background-color: #fff;
-  color: #b66d76;
-  border: 1px solid #b66d76;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section label select + small {
-  position: absolute;
-  top: -12px;
-  left: 0px;
-  font-weight: bold;
-  color: #b66d76;
-  text-shadow: 0 0 1px #ffe0e4;
-  font-size: 9pt;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section label small {
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  position: absolute;
-  left: 22px;
-  top: 6px;
-  font-size: 11pt;
-  color: #b66d76;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section label textarea {
-  width: 90%;
-  height: 150px;
-  border: none;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  outline: none;
-  resize: none;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section label textarea:focus {
-  border: 1px solid #b66d76;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section label #NewProductDescription + small {
-  top: -17px;
-  left: -5px;
-  font-weight: bold;
-  color: #b66d76;
-  font-size: 10pt;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save button {
-  width: 90%;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save button span {
-  font-size: 11pt;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo section .save button i {
-  font-size: 13pt;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  gap: 10px;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions .optionsHeader {
-  font-size: 13pt;
-  color: #b66d76;
-  font-weight: bold;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions #OptionsList {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  gap: 10px;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions .item {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions .item input {
-  width: 40%;
-  border: none;
-  border: 1px solid #b66d76;
-  background-color: #fff;
-  color: #b66d76;
-  outline: none;
-  border-radius: 20px;
-  padding: 5px 0;
-  text-align: center;
-  -webkit-box-shadow: 0;
-          box-shadow: 0;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions .item input::-webkit-input-placeholder {
-  color: #b66d76;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions .item input:-ms-input-placeholder {
-  color: #b66d76;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions .item input::-ms-input-placeholder {
-  color: #b66d76;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions .item input::placeholder {
-  color: #b66d76;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions .item i {
-  width: 10%;
-  font-size: 14pt;
-  color: #b66d76;
-  -webkit-transition: 0.1s;
-  transition: 0.1s;
-  cursor: pointer;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions .item i:hover {
-  color: #ccc;
-}
-
-.productsContainer .modalProduct .productAdd .productInfo .productOptions .add {
-  -webkit-box-ordinal-group: 1001;
-      -ms-flex-order: 1000;
-          order: 1000;
-}
-
-.productsContainer .modalProduct .productAdd .productImages {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  gap: 20px;
-  width: 30%;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  padding-bottom: 80px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
-.productsContainer .modalProduct .productAdd .productImages .productMainImage {
-  width: 280px;
-  height: 280px;
-  background-color: #f99;
-  border: 1px solid #b66d76;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+.aboutAdminContainer .content .jqte {
+  width: 100%;
+  height: 100%;
+  margin: 20px auto;
 }
 
-.productsContainer .modalProduct .productAdd .productImages .productSecImage {
+.aboutAdminContainer .content .jqte .jqte_editor {
+  height: 100%;
+  resize: none;
+  margin: 2%;
+  border: 2px dashed #bbb;
+}
+
+.aboutAdminContainer .content .jqte .jqte_tool.jqte_tool_1 .jqte_tool_label {
+  height: inherit !important;
+}
+
+.aboutAdminContainer .content section {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.aboutAdminContainer .content section div {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 30px;
+  -webkit-transition: 1.5s;
+  transition: 1.5s;
 }
 
-.productsContainer .modalProduct .productAdd .productImages .productSecImage div {
-  width: 80px;
-  height: 80px;
-  background-color: #f99;
+.aboutAdminContainer .content section div span {
+  font-size: 14pt;
+  font-weight: bold;
+  color: #b66d76;
+  margin-left: 20px;
+}
+
+.aboutAdminContainer .content section div label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+}
+
+.aboutAdminContainer .content section div small {
+  font-size: 10pt;
+  color: #333;
+}
+
+.aboutAdminContainer .content section div input[type="text"] {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   border: 1px solid #b66d76;
+  border-radius: 2px;
+  padding: 3px 10px;
+  font-size: 10pt;
+  color: #333;
+  max-width: 10%;
+  -webkit-transition: 1s;
+  transition: 1s;
+  outline: none;
 }
 
-.productsContainer .modalProduct .productAdd .productImages .addImage {
+.aboutAdminContainer .content section div input[type="text"]:focus {
+  -webkit-transition: 1.6s;
+  transition: 1.6s;
+  max-width: 100%;
+}
+
+.aboutAdminContainer .content section div .deleteLink {
+  font-size: 12pt;
+  color: #b66d76;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.aboutAdminContainer .content section div .deleteLink:hover {
+  color: #f00;
+}
+
+.aboutAdminContainer .content section .aboutSelectHeader {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin: 25px 0;
+}
+
+.aboutAdminContainer .content section .aboutSelectHeader label input[type="checkbox"]:not(:checked) + h3 + *,
+.aboutAdminContainer .content section .aboutSelectHeader label input[type="checkbox"]:not(:checked) + h3 + * + *,
+.aboutAdminContainer .content section .aboutSelectHeader label input[type="checkbox"]:not(:checked) + h3 + * + * + * {
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
+  pointer-events: none;
+  color: #aaa;
+}
+
+.aboutAdminContainer .content section .aboutImgBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3146,23 +4047,39 @@ label.hasCheckboxToggle h3::after {
           align-items: center;
   position: relative;
   overflow: hidden;
+  min-height: 300px;
+  border: 2px solid #bbb;
 }
 
-.productsContainer .modalProduct .productAdd .productImages .addImage img {
-  display: block;
-  height: 100%;
+.aboutAdminContainer .content section .aboutImgBox #DeleteAboutImage {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  font-size: 14pt;
+  color: #b66d76;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.aboutAdminContainer .content section .aboutImgBox #DeleteAboutImage:hover {
+  color: #f00;
+}
+
+.aboutAdminContainer .content section .aboutImgBox img {
   width: 100%;
+  height: 100%;
   position: relative;
   pointer-events: none;
 }
 
-.productsContainer .modalProduct .productAdd .productImages .addImage input[type="file"] {
+.aboutAdminContainer .content section .aboutImgBox input[type="file"] {
   position: absolute;
   background-color: #fff;
   background-image: url("img/plus.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 50%;
+  background-size: 25%;
   top: 0;
   left: 0;
   width: 100%;
@@ -3170,56 +4087,60 @@ label.hasCheckboxToggle h3::after {
   font-size: 0pt;
   color: transparent;
   cursor: pointer;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
 }
 
-.productsContainer .modalProduct .productAdd .productImages .addImage input[type="file"]::-webkit-file-upload-button {
+.aboutAdminContainer .content section .aboutImgBox input[type="file"]::-webkit-file-upload-button {
   display: none;
 }
 
-.productsContainer .modalProduct .productAdd .productImages .addImage input[type="file"]:hover {
-  -webkit-filter: grayscale(0.8);
-          filter: grayscale(0.8);
-}
-
-.productsContainer .modalProduct .productAdd .productImages .addImage i {
+.aboutAdminContainer .content section .aboutImgBox i {
   position: absolute;
   right: 4px;
-  top: 4px;
-  color: #b66d76;
+  bottom: 2px;
+  color: #7e2c2c;
   font-size: 10pt;
   cursor: pointer;
 }
 
-.productsContainer .modalProduct .productAdd .productImages .addImage i:hover {
+.aboutAdminContainer .content section .aboutImgBox i:hover {
   color: #777777;
 }
 
-.productsContainer .modalProduct .closeMod {
-  position: absolute;
-  top: 10px;
+.aboutAdminContainer .content section .aboutMap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.aboutAdminContainer .content section .aboutMap iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.adminRelatoryContainer {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 20% 80%;
+      grid-template-columns: 20% 80%;
+  height: calc(100vh - 50px);
+  max-height: calc(100vh - 50px);
+  overflow: hidden;
+  gap: 0;
+}
+
+.adminRelatoryContainer .relatoryMenu {
+  background-color: #fff;
   color: #b66d76;
-  font-size: 18pt;
-  right: 30px;
-  cursor: pointer;
-}
-
-.productsContainer .modalProduct .closeMod:hover {
-  color: #c00;
-}
-
-.productsContainer .invalidInput {
-  border: 1px solid #b66d76;
-  -webkit-box-shadow: 0px 0px 4px 1px #dbce12;
-          box-shadow: 0px 0px 4px 1px #dbce12;
-}
-
-.purchasesContainer {
-  position: relative;
-}
-
-.purchasesContainer .purchasesContent {
+  border-right: 2px solid #b66d76;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3227,134 +4148,260 @@ label.hasCheckboxToggle h3::after {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 90%;
+  width: 100%;
 }
 
-.purchasesContainer .filterPurchases {
+.adminRelatoryContainer .relatoryMenu .menuSelect {
+  background-color: #bf7e86;
+}
+
+.adminRelatoryContainer .relatoryMenu .menuSelect span {
+  color: #fff;
+}
+
+.adminRelatoryContainer .relatoryMenu .relatoryMenuItem {
+  width: 100%;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid #b66d76;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.adminRelatoryContainer .relatoryMenu .relatoryMenuItem:hover {
+  color: #fff;
+  background-color: #c78f96;
+}
+
+.adminRelatoryContainer .relatoryMenu .relatoryMenuItem span {
+  font-size: 16pt;
+  letter-spacing: 1px;
+}
+
+.adminRelatoryContainer .relatoryDisplay {
+  height: 100%;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  border-top: 1px solid #b66d76;
-  margin-top: 20px;
-  padding: 10px 0;
-  gap: 30px;
 }
 
-.purchasesContainer .filterPurchases .filterTitle {
-  color: #b66d76;
-  font-size: 12pt;
-  margin-top: 10px;
-  margin-bottom: 8px;
-  padding: 2px 0;
-}
-
-.purchasesContainer .filterPurchases #totalPurchases {
-  color: #333;
-  font-size: 12pt;
-  margin-top: 10px;
-  margin-bottom: 8px;
-  padding: 2px 0;
-}
-
-.purchasesContainer .filterPurchases #totalPurchases b {
-  color: #b66d76;
-}
-
-.purchasesContainer .filterPurchases button {
-  width: 260px;
-  height: 28px;
-  border-radius: 30px;
-  border: none;
-  background-color: #b66d76;
-  color: #fff;
-  font-weight: bold;
-  font-size: 10pt;
-  cursor: pointer;
-  margin-left: auto;
-}
-
-.purchasesContainer .filterPurchases .selectStatus {
+.adminRelatoryContainer .relatoryDisplay .relatoryBox {
+  width: 100%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 20px;
 }
 
-.purchasesContainer .filterPurchases .selectStatus span {
-  font-size: 12pt;
-  color: #b66d76;
-}
-
-.purchasesContainer .filterPurchases .selectStatus select {
-  border: none;
-  border: 1px solid #b66d76;
-  border-radius: 30px;
-  background-color: #fff;
-  color: #333;
-  text-align: center;
-  padding: 3px 10px;
-}
-
-.purchasesContainer .filterPurchases label {
-  margin-left: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 250px;
+.adminRelatoryContainer .relatoryDisplay .finances {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  -ms-grid-rows: (1fr)[4];
+      grid-template-rows: repeat(4, 1fr);
+  grid-gap: 20px;
+  padding: 20px 0;
+  padding-bottom: 40px;
+  padding-right: 40px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  place-content: space-around;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   overflow: hidden;
-  border-radius: 20px;
+  height: calc(100vh - 50px);
 }
 
-.purchasesContainer .filterPurchases label input {
-  padding: 6px 10px;
-  background-color: transparent;
-  width: 85%;
-  border: none;
-  border-radius: 20px;
-  outline: none;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  background-color: rgba(235, 227, 227, 0.507);
-  border-bottom: 1px solid #fff;
-  color: #333;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  font-weight: bold;
-  font-size: 11pt;
+.adminRelatoryContainer .relatoryDisplay .finances .infoFatTT .infoHeaderIcon {
+  color: #018b6d;
 }
 
-.purchasesContainer .filterPurchases label input:focus {
-  border-bottom: 1px solid #b66d76;
-  border-right: none;
+.adminRelatoryContainer .relatoryDisplay .finances .infoFatM .infoHeaderIcon {
+  color: #0b9116;
 }
 
-.purchasesContainer .filterPurchases label input:focus + i {
-  border-bottom: 1px solid #b66d76;
-  border-left: none;
+.adminRelatoryContainer .relatoryDisplay .finances .infoTicket .infoHeaderIcon {
+  color: #8400db;
 }
 
-.purchasesContainer .filterPurchases label i {
-  border-radius: 20px;
-  background-color: rgba(235, 227, 227, 0.507);
+.adminRelatoryContainer .relatoryDisplay .finances .infoPrice .infoHeaderIcon {
+  color: #132094;
+}
+
+.adminRelatoryContainer .relatoryDisplay .finances .infoMargin .infoHeaderIcon {
+  color: #be03a5;
+}
+
+.adminRelatoryContainer .relatoryDisplay .finances .infoCost .infoHeaderIcon {
+  color: #ff4a4a;
+}
+
+.adminRelatoryContainer .relatoryDisplay .finances .infoCredited .infoHeaderIcon {
+  color: #fff128;
+}
+
+.adminRelatoryContainer .relatoryDisplay .finances .infoFuture .infoHeaderIcon {
+  color: #00cbda;
+}
+
+.adminRelatoryContainer .relatoryDisplay .finances .relatoryPurchaseList {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 4;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: 1/ 1 / 5 / 3;
+}
+
+.adminRelatoryContainer .relatoryDisplay .finances .relatoryPurchaseList .listHeader span:nth-child(1) {
+  -webkit-box-flex: 0.4;
+      -ms-flex: 0.4;
+          flex: 0.4;
+}
+
+.adminRelatoryContainer .relatoryDisplay .finances .relatoryPurchaseList .listHeader span:nth-child(2), .adminRelatoryContainer .relatoryDisplay .finances .relatoryPurchaseList .listHeader span:nth-child(3) {
+  font-size: 10pt;
+}
+
+.adminRelatoryContainer .relatoryDisplay .finances .relatoryPurchaseList .listHeader span:last-child {
+  -webkit-box-flex: 0.4;
+      -ms-flex: 0.4;
+          flex: 0.4;
+}
+
+.adminRelatoryContainer .relatoryDisplay .finances .relatoryPurchaseList .relatoryPurchaseListContent span:nth-child(1) {
+  -webkit-box-flex: 0.4;
+      -ms-flex: 0.4;
+          flex: 0.4;
+}
+
+.adminRelatoryContainer .relatoryDisplay .finances .relatoryPurchaseList .relatoryPurchaseListContent span:last-child {
+  -webkit-box-flex: 0.4;
+      -ms-flex: 0.4;
+          flex: 0.4;
+}
+
+.adminRelatoryContainer .relatoryDisplay .final {
+  display: none;
+}
+
+.adminRelatoryContainer .relatoryDisplay .final .relatoryPurchaseList {
+  height: 90%;
+  margin: auto;
+}
+
+.adminRelatoryContainer .relatoryDisplay .orders {
+  display: none;
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+}
+
+.adminRelatoryContainer .relatoryDisplay .orders .relatoryPurchaseList {
+  width: 100%;
+}
+
+.adminRelatoryContainer .relatoryDisplay .orders .ordersChart {
+  width: 100%;
   height: 100%;
-  width: 15%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.adminRelatoryContainer .relatoryDisplay .orders .ordersChart canvas {
+  width: 85% !important;
+  margin: auto;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps {
+  display: -ms-grid;
+  display: grid;
+  display: none;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  -ms-grid-rows: (1fr)[5];
+      grid-template-rows: repeat(5, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+  max-height: 94vh;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .visitorsChart,
+.adminRelatoryContainer .relatoryDisplay .nps .genderChart {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+  -webkit-box-shadow: 3px 3px 8px #00000045;
+          box-shadow: 3px 3px 8px #00000045;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .visitorsChart {
+  -ms-grid-row: 4;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: 4/ 1 / 6 / 3;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .visitorsChart canvas {
+  height: 100% !important;
+  width: 100% !important;
+  margin: auto;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .genderChart {
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 4;
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 2;
+  grid-area: 2/ 3 / 6 / 5;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .genderChart #GenderChart {
+  height: 100% !important;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .genderChart canvas {
+  width: 100% !important;
+  margin: auto;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .cancelInfo .infoHeaderIcon {
+  color: #ff4a4a;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .npsInfo .infoHeaderIcon {
+  color: #fff128;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .npsInfo i {
+  font-size: 18pt;
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3364,98 +4411,137 @@ label.hasCheckboxToggle h3::after {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 6px 10px;
-  cursor: pointer;
-  color: #b66d76;
-  border-bottom: 1px solid #fff;
-  border-left: none;
-  font-size: 12pt;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
+  overflow: hidden;
 }
 
-.purchasesContainer .filterPurchases label i:hover {
-  color: #b66d76;
+.adminRelatoryContainer .relatoryDisplay .nps .npsInfo i::after {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 2px;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: translateX(20px) rotate(-45deg);
+          transform: translateX(20px) rotate(-45deg);
+  background-color: #ffffffa5;
+  -webkit-animation: luz 2s infinite;
+          animation: luz 2s infinite;
 }
 
-.purchasesContainer .filterPurchases label i:active {
-  color: #72444a85;
+@keyframes luz {
+  from {
+    -webkit-transform: translateX(20px) rotate(-45deg);
+            transform: translateX(20px) rotate(-45deg);
+    opacity: 0.4;
+  }
+  to {
+    -webkit-transform: translateX(-20px) rotate(-45deg);
+            transform: translateX(-20px) rotate(-45deg);
+    opacity: 0.9;
+  }
 }
 
-.purchasesContainer .purchasesHeader {
+.adminRelatoryContainer .relatoryDisplay .nps .clientInfo .infoHeaderIcon {
+  color: #8400db;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .relatoryPurchaseList {
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: 2/ 1 / 4 / 3;
   width: 100%;
-  margin-top: 0px;
-  background-color: #b66d76;
+  -webkit-box-shadow: 3px 3px 8px #00000045;
+          box-shadow: 3px 3px 8px #00000045;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .relatoryPurchaseList .listHeader span:nth-child(1) {
+  -webkit-box-flex: 0.4;
+      -ms-flex: 0.4;
+          flex: 0.4;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .relatoryPurchaseList .listHeader span:nth-child(2), .adminRelatoryContainer .relatoryDisplay .nps .relatoryPurchaseList .listHeader span:nth-child(3) {
+  font-size: 10pt;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .relatoryPurchaseList .listHeader span:last-child {
+  -webkit-box-flex: 0.4;
+      -ms-flex: 0.4;
+          flex: 0.4;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .relatoryPurchaseList .relatoryPurchaseListContent span:nth-child(1) {
+  -webkit-box-flex: 0.4;
+      -ms-flex: 0.4;
+          flex: 0.4;
+}
+
+.adminRelatoryContainer .relatoryDisplay .nps .relatoryPurchaseList .relatoryPurchaseListContent span:last-child {
+  -webkit-box-flex: 0.4;
+      -ms-flex: 0.4;
+          flex: 0.4;
+}
+
+.adminRelatoryContainer .relatoryDisplay .relatoryInfo {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  color: #fff;
-  padding: 3px 0;
-  font-weight: bolder;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  color: #b66d76;
+  border: 1px solid #b66d76;
+  border-radius: 10px;
 }
 
-.purchasesContainer .purchasesHeader label {
-  width: 100%;
+.adminRelatoryContainer .relatoryDisplay .relatoryInfo .infoHeaderIcon {
+  color: #018b0c;
+  font-size: 22pt;
+}
+
+.adminRelatoryContainer .relatoryDisplay .relatoryInfo span {
+  font-size: 16pt;
+}
+
+.adminRelatoryContainer .relatoryDisplay .relatoryInfo .infoContentNumber {
+  font-size: 20pt;
+  color: #999;
+}
+
+.adminRelatoryContainer .relatoryDisplay .relatoryInfo .infoContentP {
+  font-size: 11pt;
+  color: #aaa;
+  text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   gap: 5px;
-  font-size: 11pt;
-  text-align: center;
-  cursor: pointer;
-  text-shadow: 0px 0px 1px #ffc7e3;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
 }
 
-.purchasesContainer .purchasesHeader label:hover {
-  color: #c7c7c7;
+.adminRelatoryContainer .relatoryDisplay .relatoryInfo .infoContentP b {
+  font-size: 1em;
 }
 
-.purchasesContainer .purchasesHeader label:first-child {
-  width: 25%;
-}
-
-.purchasesContainer .purchasesHeader label:nth-child(2) {
-  width: 60%;
-}
-
-.purchasesContainer .purchasesHeader label:nth-child(4) {
-  width: 60%;
-}
-
-.purchasesContainer .purchasesHeader label:nth-child(6) {
-  width: 20%;
-}
-
-.purchasesContainer .purchasesHeader label:last-child {
-  width: 35%;
-}
-
-.purchasesContainer .purchasesHeader .selected i {
-  color: #ffa1a1;
-  text-shadow: 0px 5px 1px #ffc7e3;
-}
-
-.purchasesContainer .purchasesHeader .selected .up {
-  -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
-  -webkit-transform: 2.5px;
-          transform: 2.5px;
-}
-
-.purchasesContainer .purchases {
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3463,867 +4549,120 @@ label.hasCheckboxToggle h3::after {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  height: 100%;
+  width: 90%;
+  margin: auto;
+  overflow: hidden;
+  margin-bottom: auto;
+  -webkit-box-shadow: 4px 4px 10px #00000055;
+          box-shadow: 4px 4px 10px #00000055;
+}
+
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList .listTitle {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #fff;
+  padding: 10px 0;
   border-bottom: 1px solid #b66d76;
 }
 
-.purchasesContainer .purchases .purchase {
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList .listTitle span {
+  color: #b66d76;
+  font-size: 16pt;
+}
+
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList .listHeader {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 5px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.purchasesContainer .purchases .purchase span {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  font-size: 11pt;
-  color: #000;
-  text-align: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  position: relative;
-}
-
-.purchasesContainer .purchases .purchase span:first-child {
-  width: 25%;
-}
-
-.purchasesContainer .purchases .purchase span:nth-child(2) {
-  width: 60%;
-}
-
-.purchasesContainer .purchases .purchase span:nth-child(4) {
-  width: 60%;
-}
-
-.purchasesContainer .purchases .purchase span:nth-child(6) {
-  width: 20%;
-}
-
-.purchasesContainer .purchases .purchase span:last-child {
-  width: 35%;
-}
-
-.purchasesContainer .purchases .purchase span i {
-  font-size: 13pt;
-  color: #b66d76;
-  cursor: pointer;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-}
-
-.purchasesContainer .purchases .purchase span i:hover {
-  color: #ccc;
-}
-
-.purchasesContainer .purchases .purchase span .disputPurcList {
-  font-size: 1em;
-  font-weight: bold;
-  color: #f00;
-}
-
-.purchasesContainer .purchases .purchase:nth-child(even) {
-  background-color: #efefef;
-}
-
-.purchasesContainer .purchases .purchase .deleteConfirm {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100%;
-}
-
-.purchasesContainer .purchases .purchase .deleteConfirm button {
-  border: none;
-  color: #fff;
-  border-radius: 20px;
-  width: 100%;
-  padding: 2px 10px;
-  cursor: pointer;
   background-color: #b66d76;
+  padding-right: 8px;
 }
 
-.purchasesContainer .purchases .purchase .deleteConfirm button:hover {
-  background-color: #f00;
-}
-
-.purchasesContainer .pageCounter {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 20px;
-  padding: 10px 0;
-}
-
-.purchasesContainer .pageCounter span {
-  color: #aaa;
-  font-size: 13pt;
-  cursor: pointer;
-}
-
-.purchasesContainer .pageCounter span:hover {
-  color: #ccc;
-}
-
-.purchasesContainer .pageCounter .pageSelected {
-  font-weight: bold;
-  color: #b66d76;
-}
-
-.purchasesContainer .pageCounter .pageSelected:hover {
-  color: #b66d76;
-  font-size: 13pt;
-}
-
-.purchasesContainer .modalPurchase {
-  position: absolute;
-  width: 100%;
-  max-width: 80%;
-  padding: 30px 20px;
-  background-color: #fff;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  border: 1px solid #b66d76;
-  border-radius: 20px;
-  top: 40px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  row-gap: 20px;
-  display: none;
-  -webkit-box-shadow: 0px 0px 5px #00000057, 0px 0px 15px #b66d76, 0px 0px 20px #00000011;
-          box-shadow: 0px 0px 5px #00000057, 0px 0px 15px #b66d76, 0px 0px 20px #00000011;
-}
-
-.purchasesContainer .modalPurchase #closeModalPurchase {
-  position: absolute;
-  top: -25px;
-  right: calc(50% - 25px);
-  width: 50px;
-  height: 50px;
-  background-color: #fff;
-  border: 1px solid #b66d76;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-  border-radius: 50%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  cursor: pointer;
-  color: #b66d76;
-  font-size: 20pt;
-  -webkit-box-shadow: 0px 0px 5px #00000037, 0px 0px 8px #b66d76, 0px 0px 10px #00000011;
-          box-shadow: 0px 0px 5px #00000037, 0px 0px 8px #b66d76, 0px 0px 10px #00000011;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-}
-
-.purchasesContainer .modalPurchase #closeModalPurchase:hover {
-  color: #dbb;
-  border: none;
-}
-
-.purchasesContainer .modalPurchase section {
-  width: 49%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 10px;
-  border: 1px solid #b66d76;
-  border-radius: 10px;
-}
-
-.purchasesContainer .modalPurchase section h4 {
-  color: #b66d76;
-  font-size: 13pt;
-}
-
-.purchasesContainer .modalPurchase section label {
-  width: 100%;
-  background-color: #b66d76;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList .listHeader span {
   color: #fff;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  gap: 25px;
-  padding: 10px 0;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 100%;
-  max-height: 50px;
-  border-radius: 5px;
-}
-
-.purchasesContainer .modalPurchase section label .help i {
-  color: #f5f5f5 !important;
-}
-
-.purchasesContainer .modalPurchase section label span {
-  font-size: 11pt;
-  color: #fff;
-}
-
-.purchasesContainer .modalPurchase section label #StatusSelect {
   font-weight: bold;
-}
-
-.purchasesContainer .modalPurchase section label select {
-  width: 180px;
-  padding: 4px 0;
-  border: 1px solid #b66d76;
-  text-align: center;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: transparent;
-  background-image: url("data:image/svg+xml;utf8,<svg id='eha7kRn9GDj1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
-  background-repeat: no-repeat;
-  background-position-x: 99%;
-  background-position-y: -4px;
-  background-color: #fff;
-  outline: none;
-  border-radius: 30px;
-}
-
-.purchasesContainer .modalPurchase section label select:focus {
-  background-image: url("data:image/svg+xml;utf8,<svg id='euV7IenENMk1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' transform='matrix(-1 0 0-1 24 25)' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
-}
-
-.purchasesContainer .modalPurchase section label select:disabled {
-  border-color: #ccc;
-}
-
-.purchasesContainer .modalPurchase section label input[type="text"] {
-  width: 180px;
-  padding: 3px 0;
-  border: 1px solid #b66d76;
-  border-radius: 30px;
-  text-align: center;
-  font-size: 11pt;
-  color: #333;
-}
-
-.purchasesContainer .modalPurchase section label input[type="text"]::-webkit-input-placeholder {
-  color: #ccc;
-}
-
-.purchasesContainer .modalPurchase section label input[type="text"]:-ms-input-placeholder {
-  color: #ccc;
-}
-
-.purchasesContainer .modalPurchase section label input[type="text"]::-ms-input-placeholder {
-  color: #ccc;
-}
-
-.purchasesContainer .modalPurchase section label input[type="text"]::placeholder {
-  color: #ccc;
-}
-
-.purchasesContainer .modalPurchase section label input[type="text"].hasCode::-webkit-input-placeholder {
-  color: #b66d76;
-  font-weight: bold;
-  font-size: 10pt;
-}
-
-.purchasesContainer .modalPurchase section label input[type="text"].hasCode:-ms-input-placeholder {
-  color: #b66d76;
-  font-weight: bold;
-  font-size: 10pt;
-}
-
-.purchasesContainer .modalPurchase section label input[type="text"].hasCode::-ms-input-placeholder {
-  color: #b66d76;
-  font-weight: bold;
-  font-size: 10pt;
-}
-
-.purchasesContainer .modalPurchase section label input[type="text"].hasCode::placeholder {
-  color: #b66d76;
-  font-weight: bold;
-  font-size: 10pt;
-}
-
-.purchasesContainer .modalPurchase section label button {
-  width: 20%;
-  color: #b66d76;
-  background-color: #fff;
-  font-size: 11pt;
-  border: none;
-  border-radius: 20px;
-  padding: 4px 0;
-  font-weight: bold;
-  cursor: pointer;
-  border: 1px solid #b66d76;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-.purchasesContainer .modalPurchase section label button:hover {
-  color: #fff;
-  background-color: #b66d76;
-  border: 1px solid #fff;
-}
-
-.purchasesContainer .modalPurchase section label button:active {
-  -webkit-transition: 0.1s;
-  transition: 0.1s;
-  background-color: #a5626a;
-}
-
-.purchasesContainer .modalPurchase .info {
-  padding: 20px 0;
-}
-
-.purchasesContainer .modalPurchase .info:last-child {
-  margin-bottom: auto;
-}
-
-.purchasesContainer .modalPurchase .info span {
-  font-weight: bold;
-  color: #b66d76;
-}
-
-.purchasesContainer .modalPurchase .info span b {
-  color: #333;
-  font-weight: normal;
-}
-
-.purchasesContainer .modalPurchase .info span a {
-  color: #a5626a;
-}
-
-.purchasesContainer .modalPurchase .prods {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-
-.purchasesContainer .modalPurchase .prods .prodsHeader {
-  width: 100%;
-}
-
-.purchasesContainer .modalPurchase .prods .prodsHeader span {
-  width: 100px;
-  text-align: center;
-}
-
-.purchasesContainer .modalPurchase .prods .prodsHeader span:first-child {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-}
-
-.purchasesContainer .modalPurchase .prods .productList {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 100%;
+  text-align: center;
+  font-size: 11pt;
 }
 
-.purchasesContainer .modalPurchase .prods .productList .product {
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList .relatoryPurchaseListContent {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList .relatoryPurchaseListContent .listItem {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  width: 100%;
-  gap: 10px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 8px 0;
   border-bottom: 1px solid #b66d76;
 }
 
-.purchasesContainer .modalPurchase .prods .productList .product:last-child {
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList .relatoryPurchaseListContent .listItem:last-child {
   border-bottom: none;
 }
 
-.purchasesContainer .modalPurchase .prods .productList .product .image {
-  width: 75px;
-  height: 75px;
-  overflow: hidden;
-  border: 1px solid #b66d76;
-  border-radius: 10px;
-  padding: 0;
-  background-color: #b66d76;
-}
-
-.purchasesContainer .modalPurchase .prods .productList .product .image img {
-  width: 100%;
-  height: 100%;
-}
-
-.purchasesContainer .modalPurchase .prods .productList .product label {
-  width: 100px;
-  background-color: #fff;
-}
-
-.purchasesContainer .modalPurchase .prods .productList .product label span {
-  color: #333;
-}
-
-.purchasesContainer .modalPurchase .prods .productList .product .name {
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList .relatoryPurchaseListContent .listItem span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-
-.purchasesContainer .modalOpen {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.adminConfigContainer .configContent {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  row-gap: 20px;
-  position: relative;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-}
-
-.adminConfigContainer .configContent .configBox .config {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 10px;
-  -webkit-column-gap: 0;
-          column-gap: 0;
-}
-
-.adminConfigContainer .configContent .configBox .config span {
-  color: #b66d76;
-  font-size: 12pt;
-  font-weight: bold;
-  margin-right: auto;
-}
-
-.adminConfigContainer .configContent .configBox .config input[type="text"],
-.adminConfigContainer .configContent .configBox .config input[type="password"],
-.adminConfigContainer .configContent .configBox .config input[type="number"] {
-  border: none;
-  border: 1px solid #b66d76;
-  border-radius: 30px;
-  padding: 2px 10px;
-  text-align: center;
-  width: 50%;
-  margin: 0 10px;
-}
-
-.adminConfigContainer .configContent .configBox .config b {
-  color: #b66d76;
-}
-
-.adminConfigContainer .configContent .configBox .config .configToggle {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  gap: 10px;
-  padding: 10px;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-  width: 100%;
-  margin-right: 8%;
-}
-
-.adminConfigContainer .configContent .configBox .config .configToggle h2 {
-  font-size: 13pt;
-  color: #b66d76;
-  text-align: center;
-  margin-left: 25%;
-}
-
-.adminConfigContainer .configContent .configBox .config .configToggle .toggle {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.adminConfigContainer .configContent .configBox .config .configToggle .toggle h4 {
-  color: #333;
   font-size: 11pt;
-  width: 100%;
-  text-align: right;
-}
-
-.adminConfigContainer .configContent .configBox .config .configToggle .toggle label {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 20%;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.adminConfigContainer .configContent .configBox .config .configToggle .toggle label input[type="checkbox"] {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-}
-
-.adminConfigContainer .configContent .configBox .config .configToggle .toggle label input[type="checkbox"]:checked + h3::after {
-  -webkit-filter: grayscale(0);
-          filter: grayscale(0);
-  -webkit-transform: translateX(80%);
-          transform: translateX(80%);
-}
-
-.adminConfigContainer .configContent .configBox .config .configToggle .toggle label h3 {
-  width: 25px;
-  height: 15px;
-  border-radius: 20px;
-  background-color: #ddd;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-
-.adminConfigContainer .configContent .configBox .config .configToggle .toggle label h3:hover::after {
-  -webkit-filter: grayscale(0.3);
-          filter: grayscale(0.3);
-}
-
-.adminConfigContainer .configContent .configBox .config .configToggle .toggle label h3::after {
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-  content: "";
-  position: absolute;
-  width: 13px;
-  height: 13px;
-  border-radius: 30px;
-  background-color: #b66d76;
-  -webkit-filter: grayscale(0.6);
-          filter: grayscale(0.6);
-  left: 0;
-}
-
-.adminConfigContainer .configContent .configBox .config .previewSize {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin: 20px;
-}
-
-.adminConfigContainer .configContent .configBox .config .previewSize .boxSizesImage {
-  width: 120px;
-  height: 110px;
-  background-image: url("img/caixa.png");
-  background-size: 125px;
-  background-position: center;
-  border: 1px solid #b66d76;
-}
-
-.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes {
-  width: 70%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  gap: 10px;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes label {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  gap: 0;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes label input {
-  max-width: 60px;
   text-align: center;
-  margin-right: 0;
 }
 
-.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes label span {
-  font-size: 10pt;
-  width: 75%;
-  text-align: right;
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList .relatoryPurchaseListContent .listItem span:last-child a {
+  color: #b66d76;
+  text-decoration: none;
 }
 
-.adminConfigContainer .configContent .configBox .config #aditionalWeight {
-  width: 30%;
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList .relatoryPurchaseListContent .listItem span:last-child:hover {
+  color: #b66d76;
 }
 
-.adminConfigContainer .configContent .configBox .bar {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.adminConfigContainer .configContent .configBox .bar #passStrong {
-  opacity: 0;
-  width: 50%;
-  padding: 4px 0;
-  background-color: #eeeeee;
-  overflow: hidden;
-  border-radius: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border: 1px solid #ccc;
-  position: relative;
-}
-
-.adminConfigContainer .configContent .configBox .bar #passStrong::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  background-color: #80580f;
-  left: 0;
-  -webkit-transform: translateX(-100%);
-          transform: translateX(-100%);
-  -webkit-transition: 0.8s;
-  transition: 0.8s;
-}
-
-.adminConfigContainer .configContent .configBox .bar #passStrong.fraca {
-  background-color: #ddd;
-  border-color: #888;
-  opacity: 1;
-}
-
-.adminConfigContainer .configContent .configBox .bar #passStrong.fraca::after {
-  -webkit-transform: translateX(-80%);
-          transform: translateX(-80%);
-  background-color: #d13b00;
-}
-
-.adminConfigContainer .configContent .configBox .bar #passStrong.media {
-  opacity: 1;
-}
-
-.adminConfigContainer .configContent .configBox .bar #passStrong.media::after {
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  background-color: #ffaf01;
-}
-
-.adminConfigContainer .configContent .configBox .bar #passStrong.forte {
-  opacity: 1;
-}
-
-.adminConfigContainer .configContent .configBox .bar #passStrong.forte::after {
-  -webkit-transform: translateX(-5%);
-          transform: translateX(-5%);
-  background-color: #15ff0d;
-}
-
-.adminConfigContainer .configContent .configBox .bar #passStrong.muitoForte {
-  opacity: 1;
-}
-
-.adminConfigContainer .configContent .configBox .bar #passStrong.muitoForte::after {
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
-  background-color: #70030c;
-}
-
-.adminConfigContainer .configContent .configBox .password span {
-  width: 50%;
-  font-size: 10pt;
-}
-
-.adminConfigContainer .configContent .configBox .password input {
-  width: 45%;
-}
-
-.adminConfigContainer .configContent .configBox .password input::-webkit-input-placeholder {
-  color: #ddd;
-}
-
-.adminConfigContainer .configContent .configBox .password input:-ms-input-placeholder {
-  color: #ddd;
-}
-
-.adminConfigContainer .configContent .configBox .password input::-ms-input-placeholder {
-  color: #ddd;
-}
-
-.adminConfigContainer .configContent .configBox .password input::placeholder {
-  color: #ddd;
-}
-
-.adminConfigContainer .configContent .configBox .password .is-not-equal {
-  border-color: #ff0;
-}
-
-.adminConfigContainer .configContent .configBox .pass span {
-  width: 60%;
-}
-
-.adminConfigContainer .configContent .configBox .pass input[type="text"] {
-  width: 40%;
-}
-
-.adminConfigContainer .configContent .configBox .pass input[type="text"]::-webkit-input-placeholder {
-  color: rgba(182, 109, 118, 0.5);
-}
-
-.adminConfigContainer .configContent .configBox .pass input[type="text"]:-ms-input-placeholder {
-  color: rgba(182, 109, 118, 0.5);
-}
-
-.adminConfigContainer .configContent .configBox .pass input[type="text"]::-ms-input-placeholder {
-  color: rgba(182, 109, 118, 0.5);
-}
-
-.adminConfigContainer .configContent .configBox .pass input[type="text"]::placeholder {
-  color: rgba(182, 109, 118, 0.5);
-}
-
-.adminConfigContainer .configContent .configBox .centerC {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.adminConfigContainer .configContent .configBox .centerC span {
-  margin-right: 0;
-}
-
-.adminConfigContainer .configContent .configBox .configEmail {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.adminConfigContainer .configContent .configBox #saveShipingConfig {
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 20px;
-}
-
-.adminConfigContainer .configContent .configBox button {
-  margin-top: 20px;
+.adminRelatoryContainer .relatoryDisplay .relatoryPurchaseList .relatoryPurchaseListContent .listItem span:last-child:hover i {
+  cursor: pointer;
 }
 
 .purchasesShippingConfig input[type="text"],
@@ -4959,5 +5298,393 @@ label.hasCheckboxToggle h3::after {
   -webkit-transform: translateX(0);
           transform: translateX(0);
   background-color: #9a9a9a !important;
+}
+
+.adminConfigContainer .configContent {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  row-gap: 20px;
+  position: relative;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.adminConfigContainer .configContent .configBox .config {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  -webkit-column-gap: 0;
+          column-gap: 0;
+}
+
+.adminConfigContainer .configContent .configBox .config span {
+  color: #b66d76;
+  font-size: 12pt;
+  font-weight: bold;
+  margin-right: auto;
+}
+
+.adminConfigContainer .configContent .configBox .config input[type="text"],
+.adminConfigContainer .configContent .configBox .config input[type="password"],
+.adminConfigContainer .configContent .configBox .config input[type="number"] {
+  border: none;
+  border: 1px solid #b66d76;
+  border-radius: 30px;
+  padding: 2px 10px;
+  text-align: center;
+  width: 50%;
+  margin: 0 10px;
+}
+
+.adminConfigContainer .configContent .configBox .config b {
+  color: #b66d76;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  gap: 10px;
+  padding: 10px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  width: 100%;
+  margin-right: 8%;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle h2 {
+  font-size: 13pt;
+  color: #b66d76;
+  text-align: center;
+  margin-left: 25%;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle h4 {
+  color: #333;
+  font-size: 11pt;
+  width: 100%;
+  text-align: right;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 20%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label input[type="checkbox"] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label input[type="checkbox"]:checked + h3::after {
+  -webkit-filter: grayscale(0);
+          filter: grayscale(0);
+  -webkit-transform: translateX(80%);
+          transform: translateX(80%);
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label h3 {
+  width: 25px;
+  height: 15px;
+  border-radius: 20px;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label h3:hover::after {
+  -webkit-filter: grayscale(0.3);
+          filter: grayscale(0.3);
+}
+
+.adminConfigContainer .configContent .configBox .config .configToggle .toggle label h3::after {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 30px;
+  background-color: #b66d76;
+  -webkit-filter: grayscale(0.6);
+          filter: grayscale(0.6);
+  left: 0;
+}
+
+.adminConfigContainer .configContent .configBox .config .previewSize {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 20px;
+}
+
+.adminConfigContainer .configContent .configBox .config .previewSize .boxSizesImage {
+  width: 120px;
+  height: 110px;
+  background-image: url("img/caixa.png");
+  background-size: 125px;
+  background-position: center;
+  border: 1px solid #b66d76;
+}
+
+.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes {
+  width: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes label {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 0;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes label input {
+  max-width: 60px;
+  text-align: center;
+  margin-right: 0;
+}
+
+.adminConfigContainer .configContent .configBox .config .previewSize .shipSizes label span {
+  font-size: 10pt;
+  width: 75%;
+  text-align: right;
+}
+
+.adminConfigContainer .configContent .configBox .config #aditionalWeight {
+  width: 30%;
+}
+
+.adminConfigContainer .configContent .configBox .bar {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong {
+  opacity: 0;
+  width: 50%;
+  padding: 4px 0;
+  background-color: #eeeeee;
+  overflow: hidden;
+  border-radius: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid #ccc;
+  position: relative;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #80580f;
+  left: 0;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.fraca {
+  background-color: #ddd;
+  border-color: #888;
+  opacity: 1;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.fraca::after {
+  -webkit-transform: translateX(-80%);
+          transform: translateX(-80%);
+  background-color: #d13b00;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.media {
+  opacity: 1;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.media::after {
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background-color: #ffaf01;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.forte {
+  opacity: 1;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.forte::after {
+  -webkit-transform: translateX(-5%);
+          transform: translateX(-5%);
+  background-color: #15ff0d;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.muitoForte {
+  opacity: 1;
+}
+
+.adminConfigContainer .configContent .configBox .bar #passStrong.muitoForte::after {
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+  background-color: #70030c;
+}
+
+.adminConfigContainer .configContent .configBox .password span {
+  width: 50%;
+  font-size: 10pt;
+}
+
+.adminConfigContainer .configContent .configBox .password input {
+  width: 45%;
+}
+
+.adminConfigContainer .configContent .configBox .password input::-webkit-input-placeholder {
+  color: #ddd;
+}
+
+.adminConfigContainer .configContent .configBox .password input:-ms-input-placeholder {
+  color: #ddd;
+}
+
+.adminConfigContainer .configContent .configBox .password input::-ms-input-placeholder {
+  color: #ddd;
+}
+
+.adminConfigContainer .configContent .configBox .password input::placeholder {
+  color: #ddd;
+}
+
+.adminConfigContainer .configContent .configBox .password .is-not-equal {
+  border-color: #ff0;
+}
+
+.adminConfigContainer .configContent .configBox .pass span {
+  width: 60%;
+}
+
+.adminConfigContainer .configContent .configBox .pass input[type="text"] {
+  width: 40%;
+}
+
+.adminConfigContainer .configContent .configBox .pass input[type="text"]::-webkit-input-placeholder {
+  color: rgba(182, 109, 118, 0.5);
+}
+
+.adminConfigContainer .configContent .configBox .pass input[type="text"]:-ms-input-placeholder {
+  color: rgba(182, 109, 118, 0.5);
+}
+
+.adminConfigContainer .configContent .configBox .pass input[type="text"]::-ms-input-placeholder {
+  color: rgba(182, 109, 118, 0.5);
+}
+
+.adminConfigContainer .configContent .configBox .pass input[type="text"]::placeholder {
+  color: rgba(182, 109, 118, 0.5);
+}
+
+.adminConfigContainer .configContent .configBox .centerC {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.adminConfigContainer .configContent .configBox .centerC span {
+  margin-right: 0;
+}
+
+.adminConfigContainer .configContent .configBox .configEmail {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.adminConfigContainer .configContent .configBox #saveShipingConfig {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.adminConfigContainer .configContent .configBox button {
+  margin-top: 20px;
 }
 /*# sourceMappingURL=admin.css.map */

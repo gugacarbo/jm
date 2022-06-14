@@ -4,12 +4,15 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
+
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM".$_SERVER['REMOTE_ADDR']));
     session_start();
 }
 
+
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 4) {
-    header("Location: ../index.php");
+    //header("Location: ../index.php");
     die(json_encode(array('status' => 403, 'message' => 'Forbidden')));
 }
 
@@ -35,11 +38,10 @@ class chart extends dbConnect
         $chartDataInvoicing = array();
         $chartDataCanceled =  array();
         while ($row = $result->fetch_assoc()) {
-            $chartDataInvoicing[date('Y', strtotime($row['date']))][date('m', strtotime($row['date']))][] = $row['invoicing'];
+            $chartDataInvoicing[date('Y', strtotime($row['date']))][date('m', strtotime($row['date']))][] = $row['netAmountDs'];
             $chartDataCanceled[date('Y', strtotime($row['date']))][date('m', strtotime($row['date']))][] = $row['canceled'];
         }
-        //ksort($chartDataInvoicing);
-        //ksort($chartDataCanceled);
+
 
         $chartInv = [];
         $chartInvLabel = [];

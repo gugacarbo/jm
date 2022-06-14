@@ -5,14 +5,15 @@
 header('Content-Type: application/json; charset=utf-8');
 
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM".$_SERVER['REMOTE_ADDR']));
     session_start();
 }
 
+
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 4) {
-    header("Location: ../index.php");
+    //header("Location: ../index.php");
     die(json_encode(array('status' => 403, 'message' => 'Forbidden')));
 }
-
 include_once "../../../api/config/db_connect.php";
 
 

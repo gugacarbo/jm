@@ -1,0 +1,149 @@
+
+/*
+    * <button><button>
+    
+    > Done   <button class="doneButton"><button>
+    ! Alert  <button class="alertButton"><button>
+
+*/
+
+button {
+    border-radius: 30px;
+    padding: 6px 0;
+    border: none;
+    font-weight: bold;
+    font-size: 11pt;
+    color: #fff;
+    background-color: $mainColor;
+    border: 1px solid #fff;
+    cursor: pointer;
+    transition: 0.25s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    &:active {
+        filter: brightness(1.1);
+    }
+    &:hover {
+        background-color: #fff;
+        color: $mainColor;
+        border: 1px solid $mainColor;
+    }
+    &:disabled {
+        color: #686868;
+        background-color: #ddd;
+        cursor: inherit;
+        border: none;
+        &:hover {
+            background-color: #ddd;
+        }
+        &:active {
+            background-color: #ddd;
+        }
+    }
+
+    &::after,
+    &::before {
+        font-family: "FontAwesome";
+        margin: 0 10px;
+        animation-fill-mode: forwards;
+        animation-iteration-count: 1;
+        animation: alertButtonAnimation 1.5s;
+        font-size: 14pt;
+        opacity: 0;
+        position: absolute;
+    }
+    &::after {
+        animation: doneButtonAnimation 1.5s;
+        right: 10%;
+    }
+    &::before {
+        left: 10%;
+        animation: alertButtonAnimation 1.5s;
+    }
+
+    @keyframes alertButtonAnimation {
+        1% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        0% {
+            transform: scale(1);
+            text-shadow: 0 0 2px #ffffff22;
+        }
+        25% {
+            transform: scale(1.2);
+        }
+        50% {
+            transform: scale(1.05);
+            text-shadow: 0 0 15px rgb(255, 191, 15);
+        }
+        75% {
+            transform: scale(1.1);
+        }
+        99% {
+            text-shadow: 0 0 8px #ffae0022;
+            transform: scale(1);
+            display: flex;
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0;
+            display: none;
+        }
+    }
+    @keyframes doneButtonAnimation {
+        1% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        0% {
+            transform: scale(1);
+            text-shadow: 0 0 2px #ffffff22;
+        }
+        25% {
+            transform: scale(1.2);
+        }
+        50% {
+            transform: scale(1.05);
+            text-shadow: 0 0 15px rgb(26, 182, 26);
+        }
+        75% {
+            transform: scale(1.1);
+        }
+        99% {
+            text-shadow: 0 0 8px #6ad40622;
+            transform: scale(1);
+            display: flex;
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0;
+        }
+    }
+}
+.doneButton {
+    &::after {
+        content: "\f00c";
+    }
+}
+.alertButton {
+    &::before {
+        content: "\f071";
+    }
+}
+.inverted {
+    color: $mainColor;
+    background-color: #fff;
+    border: 1px solid $mainColor;
+    &:hover {
+        background-color: $mainColor;
+        color: #fff;
+        border: 1px solid #fff;
+    }
+}
+

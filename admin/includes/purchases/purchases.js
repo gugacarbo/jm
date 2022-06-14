@@ -9,6 +9,7 @@ var getStatus = 0;
 $(document).ready(function () {
 
     PurchasesPage = 0;
+
     if($.urlParam("status")){
         getStatus = $.urlParam("status");
         $("#SelectByStatus").val($.urlParam("status"));
@@ -23,6 +24,11 @@ $(document).ready(function () {
         goToSearch('');
 
     }
+    if($.urlParam("id")){
+        modalPurchase($.urlParam("id"));
+        goToSearch('');
+    }
+
     search();
     $("#SelectByStatus").on("change", function () {
         PurchasesPage = 0;
@@ -247,7 +253,7 @@ function modalPurchase(id = 0) {
 
                     var images = (product.imgs);
                     $("#PurchaseProducts").append(`
-                <div class="product">
+                <div class="product" onclick="changePage('products');goToSearch('id=${product.id}');">
                 <div class="image">    
                 <img src="${images['1']}" alt="">
                 </div>
@@ -356,9 +362,10 @@ function modalPurchase(id = 0) {
             $("#PurchaseCode a").html(payload.code);
             $("#PurchaseCode a").attr("href", "http://localhost/checkStatus?code=" + payload.code);
             $("#PurchaseTotalAmount b").html((payload.grossAmount.replace(".", ",")));
-            $("#PurchaseFeeAmount b").html(payload.creditorFees.intermediationFeeAmount.replace(".", ","));
-            $("#PurchaseDiscount b").html(payload.extraAmount.replace(".", ","));
-            $("#PurchaseNetAmount b").html((parseFloat(payload.netAmount)-parseFloat(payload.shipping.cost)).toFixed(2).replace(".", ","));
+            $("#PurchaseFeeAmount b").html((parseFloat(payload.creditorFees.intermediationFeeAmount)+parseFloat(payload.creditorFees.intermediationRateAmount)).toFixed(2).replace(".", ","));
+            $("#PurchaseDiscount b").html((parseFloat(payload.discountAmount) + parseFloat(payload.extraAmount)).toFixed(2).replace(".", ","));
+            $("#PurchaseProdCost b").html(parseFloat(purchase.totalCost).toFixed(2).replace(".", ","));
+            $("#PurchaseNetAmount b").html((parseFloat(payload.netAmount)-parseFloat(purchase.totalCost)).toFixed(2).replace(".", ","));
             $("#PurchaseShippingPrice b").html(payload.shipping.cost.replace(".", ","));
 
             switch (parseInt(payload.paymentMethod.type)) {

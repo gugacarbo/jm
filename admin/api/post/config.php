@@ -3,7 +3,9 @@ header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Methods: POST');
 
 
+
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM".$_SERVER['REMOTE_ADDR']));
     session_start();
 }
 
@@ -126,8 +128,12 @@ class config extends dbConnect
     {
         $mysqli = $this->connect();
 
-        $sql = "SELECT password FROM admin WHERE user = ?";
+
+
+
+        $sql = "SELECT password FROM ds_adm_user WHERE user = ?";
         $stmt = $mysqli->prepare($sql);
+        echo $mysqli->error;
         $stmt->bind_param("s", $user);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -137,7 +143,7 @@ class config extends dbConnect
             $row = $result->fetch_assoc();
             if ($row['password'] == md5($old)) {
                 $new = md5($new);
-                $sql = "UPDATE admin SET password = ? WHERE user = ?";
+                $sql = "UPDATE ds_adm_user SET password = ? WHERE user = ?";
                 $stmt = $mysqli->prepare($sql);
                 $stmt->bind_param("ss", $new, $user);
                 if ($stmt->execute()) {

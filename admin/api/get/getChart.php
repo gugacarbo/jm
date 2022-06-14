@@ -5,6 +5,17 @@ header('Content-Type: application/json; charset=utf-8');
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM".$_SERVER['REMOTE_ADDR']));
+    session_start();
+}
+
+
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin'])  || ($_SESSION['admin']) < 1) {
+    die(json_encode(array('status' => 403)));
+}
+
+
 
 include_once '../config/db_connect.php';
 

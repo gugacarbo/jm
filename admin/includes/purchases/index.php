@@ -1,17 +1,18 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM" . $_SERVER['REMOTE_ADDR']));
     session_start();
 }
 
-if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
-    //die(json_encode(array('status' => 403)));
-} else {
 
-    $content = '
+if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
+    die(include("../../error/403.html"));
+
+} else {
+?>
     <div class="purchasesContainer adminContainer">
 
-        <span class="adminTitle">Vendas</span>
         <p class="adminDescricao">Nesta aba você pode visualizar e controlar suas vendas.</p>
         <div class="purchasesContent">
 
@@ -23,7 +24,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                     <i class="fas fa-search" id="btnSearch"></i>
                 </label>
                 <div class="selectStatus">
-                <span>Selecionar Por Status</span>
+                    <span>Selecionar Por Status</span>
                     <select id="SelectByStatus">
                         <option value="0">Todas</option>
                         <option value="1">Aguardando Pagamento</option>
@@ -33,10 +34,10 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                         <option value="9">Compras Canceladas</option>
 
                     </select>
-                
+
                 </div>
                 <span id="totalPurchases">Total <b></b> Vendas encontradas</span>
-                
+
             </div>
             <div class="purchasesHeader">
                 <label name="id" class="filterI selected ">Id<i class="fa-solid fa-chevron-down up">
@@ -87,11 +88,11 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                 <span id="AddressComplement">Complemento: <b></b></span>
                 <span id="ShippingType">PAC</span>
             </section>
-            <section>
-                <label>
-                    <span>Status Da Compra</span>
-                    <span id="StatusSelect"></span>
-                    <!--
+            <section class="colorSection">
+
+                <span>Status Da Compra</span>
+                <span id="StatusSelect"></span>
+                <!--
 
                         <select id="StatusSelect">
                         </select>
@@ -100,28 +101,28 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                             Salvar
                         </button>
                     -->
-                </label>
+
             </section>
-            <section>
-                <label>
-                    <span>Código de Rastreio</span>
-                    <input type="text" id="TrackingCode" placeholder="Código de Rastreio" maxlength="13">
-                    <button id="addTrackingCode">
-                        Salvar
-                    </button>
-                    <div class="help">
-                        <i class="fas fa-question-circle"></i>
-                        <div class="helpMessage">
-                            <p>
+            <section class="colorSection">
+
+                <span>Código de Rastreio</span>
+                <input type="text" id="TrackingCode" placeholder="Código de Rastreio" maxlength="13">
+                <button id="addTrackingCode">
+                    Salvar
+                </button>
+                <div class="help">
+                    <i class="fas fa-question-circle"></i>
+                    <div class="helpMessage">
+                        <p>
                             Ao Salvar, um e-mail é enviado ao comprador com o código de rastreio.
 
-                            </p>
-                        </div>
+                        </p>
                     </div>
+                </div>
                 </label>
             </section>
             <section class="prods">
-                <label class="prodsHeader">
+                <label class="prodsHeader colorSection">
                     <span>Produtos</span>
                     <span>Qtd</span>
                     <span>Valor Total</span>
@@ -141,12 +142,13 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                 <span id="PurchaseFeeAmount">Taxas: R$ <b></b></span>
                 <span id="PurchaseDiscount">Desconto: R$ <b></b></span>
                 <span id="PurchaseShippingPrice">Frete: R$ <b></b></span>
+                <span id="PurchaseProdCost">Custo do Produto: R$ <b></b></span>
                 <span id="PurchaseNetAmount">Lucro Liquido: R$ <b></b></span>
                 <span id="PurchasePaymentMethod">Método de Pagamento: <b></b></span>
             </section>
         </div>
     </div>
     <script src="includes/purchases/purchases.js"></script>';
-
-    die($content);
+<?php
 }
+die();

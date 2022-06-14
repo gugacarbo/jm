@@ -2,7 +2,9 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
+
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM".$_SERVER['REMOTE_ADDR']));
     session_start();
 }
 
@@ -25,7 +27,7 @@ class Products extends dbConnect
         $params = "";
         $labels = "";
 
-        $sql = "SELECT * FROM products WHERE";
+        $sql = "SELECT * FROM products WHERE deleted = 0 ";
 
 
         $min = 0;
@@ -33,11 +35,11 @@ class Products extends dbConnect
 
         if ($_GET["text"]) {
             $text = "%" . $_GET["text"] . "%";
-            $sql .= " name LIKE ?";
+            $sql .= " AND name LIKE ?";
             $labels = "s";
             $params = $text;
         } else {
-            $sql .= " 1=1 ";
+            $sql .= " ";
         }
 
         if ($_GET["filter"]) {

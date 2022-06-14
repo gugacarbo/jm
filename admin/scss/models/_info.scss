@@ -1,0 +1,94 @@
+/*
+
+   * <div class="info">
+        <div class="infoHeader">
+            <div class="infoHeaderIcon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <span></span>
+        </div>
+        <div class="infoContent">
+            <b class="infoContentNumber"></b>
+            <p class="infoContentP"></p>
+            <button class="infoContentButton"></button>
+        </div>
+    * </div>
+
+*/
+
+.info {
+    background-color: #fff;
+    margin-top: auto;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 10px 15px;
+    justify-content: center;
+    height: 100%;
+    color: $mainColor;
+    border: 1px solid $mainColor;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    gap: 10px;
+    flex-direction: row-reverse;
+
+    font-size: 12pt;
+
+    .infoHeader {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        color: $mainColor;
+        justify-content: space-around;
+        .infoHeaderIcon {
+            border: 2px solid $mainColor;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin: 0 20px;
+            font-size: 1.4em;
+        }
+        span {
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 1.2px;
+            flex: 1;
+        }
+    }
+    .infoContent {
+        display: grid;
+        padding: 10px 0;
+        color: #999;
+        width: 100%;
+        grid-template-areas:
+            "infoContentNumber infoContentP"
+            "infoContentNumber infoContentButton";
+        place-items: center;
+
+        grid-template-columns: 30% 70%;
+        .infoContentNumber {
+            font-size: 3em;
+            grid-area: infoContentNumber;
+        }
+        .infoContentP {
+            font-size: 0.8em;
+            grid-area: infoContentP;
+            text-align: center;
+        }
+
+        .infoContentButton {
+            grid-area: infoContentButton;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+            padding: 3px 0;
+            margin: auto;
+            font-size: 10pt;
+        }
+    }
+}

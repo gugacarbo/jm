@@ -28,12 +28,12 @@ class getBanner extends dbConnect
         $ret["name"] = $itens["name"];
         $ret["images"] = json_decode($itens["images"]);
 
-        return (json_encode($ret));
+        die(json_encode($ret));
     }
 }
 
 if (isset($_GET['name'])) {
-    die((new getBanner($_GET["name"]))->__construct($_GET["name"]));
+    new getBanner($_GET["name"]);
 } else {
     die(json_encode(array('status' => 400, 'message' => 'Banner não encontrado')));
 }

@@ -3,10 +3,11 @@ header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Methods: POST');
 
 
+
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM".$_SERVER['REMOTE_ADDR']));
     session_start();
 }
-
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
     die(json_encode(array('status' => 403)));

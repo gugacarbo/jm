@@ -16,7 +16,7 @@ class getFiltered extends dbConnect
         $params = array();
         $labels = "";
 
-        $sql = "SELECT * FROM products WHERE 1 = 1 ";
+        $sql = "SELECT * FROM products WHERE deleted = 0 ";
 
         $min = 0;
         $max = 20000;
@@ -60,7 +60,6 @@ class getFiltered extends dbConnect
         $maxPrice = 0;
         if ($result->num_rows) {
             $products = array();
-            //$products["status"] = 200;
 
             while ($row = $result->fetch_assoc()) {
                 unset($row['cost']);
@@ -73,15 +72,14 @@ class getFiltered extends dbConnect
             }
             if (count($products) > 0) {
                 $products[0]["maxPrice"] = $maxPrice;
-                return(json_encode(array("status" => 200, "products" => $products)));
+                die(json_encode(array("status" => 200, "products" => $products)));
             } else {
-                return(json_encode(array("status" => 200, "maxPrice" => $maxPrice)));
+                die(json_encode(array("status" => 200, "maxPrice" => $maxPrice)));
             }
         } else {
-            return(json_encode(["products" => array()]));
+            die(json_encode(["products" => array()]));
         }
     }
 }
 
-$filtered = new getFiltered();
-die($filtered->__construct());
+new getFiltered();

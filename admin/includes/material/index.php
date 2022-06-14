@@ -1,16 +1,17 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM" . $_SERVER['REMOTE_ADDR']));
     session_start();
 }
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
-    //die(json_encode(array('status' => 403)));
-} else {
+    die(include("../../error/403.html"));
 
-    $content = '
+} else {
+?>
+
     <div class="adminMaterialContainer adminContainer">
-        <span class="adminTitle">Materiais</span>
         <p class="adminDescricao">
             Nesta aba voce pode inserir, alterar e excluir materiais.
         </p>
@@ -26,7 +27,6 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
     </div>
 
     <script src="includes/material/material.js"></script>
-</body>';
-
-    die($content);
+<?php
 }
+die();

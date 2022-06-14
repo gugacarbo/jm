@@ -1,0 +1,16 @@
+.modal {
+    position: fixed;
+    background-color: #fff;
+    border: 1px solid $mainColor;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px;
+    box-sizing: border-box;
+    padding: 20px;
+    box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
+    display: flex;
+    display: none;
+    flex-direction: column;
+    transition: 1s;
+}

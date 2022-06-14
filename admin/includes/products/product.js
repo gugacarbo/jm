@@ -2,6 +2,8 @@ var toDelete = [];
 
 $(document).ready(function () {
 
+
+
     $("#newOptQuantity").mask("0000 un.", { reverse: true });
     $("#NewProductPrice").mask("0000,0#", { reverse: true });
     $("#NewProductPromo").mask("0000,0#", { reverse: true });
@@ -21,34 +23,47 @@ $(document).ready(function () {
         })
     })
 
+    if ($.urlParam("id")) {
+        modalProductShow($.urlParam("id"));
+        goToSearch('');
+    }
 
     $("#saveProduct").click(function () {
         var id = $(this).attr("name");
         id = id || 0;
+        var prodImag = [
+            $("#NewProductImage1").val(),
+            $("#NewProductImage2").val(),
+            $("#NewProductImage3").val(),
+            $("#NewProductImage4").val()
+        ]
+
+
+        
+        $.each(prodImag, function (index, value) {
+            if (value == "") {
+                prodImag.splice(index, 1);
+                console.log(prodImag);
+            }
+        })
+        console.log(prodImag);
+
         var prodImages = {
-            "1": $("#NewProductImage1").val(),
-            "2": $("#NewProductImage2").val(),
-            "3": $("#NewProductImage3").val(),
-            "4": $("#NewProductImage4").val()
+            "1": prodImag[0],
+            "2": prodImag[1] || '',
+            "3": prodImag[2] || '',
+            "4": prodImag[3] || ''
         }
+        console.log(prodImages);
+
+
         $.each(prodImages, function (i, x) {
             const index = toDelete.indexOf(x);
             if (index > -1) {
                 toDelete.splice(index, 1);
-                console.log(x)
             }
         })
-        $.each(toDelete, function (i, value) {
-            $.ajax({
-                url: "/admin/api/file/delete.php",
-                type: "POST",
-                data: {
-                    file: value
-                },
-                success: function (data) {
-                }
-            })
-        })
+
 
         var prodOptions = {};
 
@@ -171,11 +186,26 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     if (data.status >= 200 && data.status < 300) {
+
+                        $.each(toDelete, function (i, value) {
+                            $.ajax({
+                                url: "/admin/api/file/delete.php",
+                                type: "POST",
+                                data: {
+                                    file: value
+                                },
+                                success: function (data) {
+                                }
+                            })
+                        })
+
                         $("#saveProduct").attr("name", data.id)
                         $("#saveProduct").addClass("doneButton")
                         setTimeout(() => {
                             $(".doneButton").removeClass("doneButton")
                         }, 1500);
+
+                        modalProductShow(data.id)
                     } else {
                         alert(data.message);
                         $("#saveProduct").addClass("alertButton")
@@ -236,6 +266,9 @@ $(document).ready(function () {
         }
 
     });
+
+
+
 });
 
 
@@ -248,7 +281,6 @@ $(".toDeleteList").on("click", function () {
 
 $("#closeModal").click(function () {
     $("#ModalProduct").css("display", "none");
-    console.log("cls")
 })
 
 $("#addOpt").click(function () {
@@ -308,14 +340,17 @@ function modalProductShow(id = 0) {
             $("#NewProductCost").val(data['cost'].toFixed(2).replace(/\./g, ','));
             $("#NewProductWeight").val(data['weight'] * 1000);
             $("#NewProductDescription").html(data['description']);
-            $("#NewProductMaterial option[value='" + data['material'] + "']").attr("selected", true);
+
             $("#NewProductCategory option").each(function (i, x) {
-                if ($(x).val() == data['category']) {
-                    $(x).attr("selected", true);
-                } else {
-                    $(x).attr("selected", false);
-                }
+                $(x).attr("selected", false);
             })
+            $("#NewProductMaterial option").each(function (i, x) {
+                $(x).attr("selected", false);
+            })
+
+            $("#NewProductMaterial option[value='" + data['material'] + "']").attr("selected", true);
+            $("#NewProductCategory option[value='" + data['category'] + "']").attr("selected", true);
+
             var options = (data['options']);
 
 

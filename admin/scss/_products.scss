@@ -1,6 +1,4 @@
 .productsContainer {
-
-
     .filterProducts {
         width: 95%;
         display: flex;
@@ -90,7 +88,7 @@
             }
         }
     }
-    .displayProds{
+    .displayProds {
         display: flex;
         flex-direction: column;
         width: 95%;
@@ -166,13 +164,13 @@
             &:nth-child(even) {
                 background-color: #efefef;
             }
+            border: 1px solid #fff;
             &:hover {
                 border: 1px solid $mainColor;
                 border-left: none;
                 border-right: none;
             }
             position: relative;
-
         }
         border-bottom: 1px solid $mainColor;
     }
@@ -217,32 +215,42 @@
         display: none;
         flex-direction: column;
         top: 15%;
+        
+        max-height: 60vh;
         .modalTitle {
             font-size: 12pt;
             font-weight: bold;
             color: $mainColor;
             margin-bottom: 10px;
+            small{
+                color: #999;
+                font-size: 0.8em;
+                font-weight: normal;
+            }
         }
         .productAdd {
             display: flex;
             flex-direction: row;
             .productInfo {
                 width: 70%;
-                display: flex;
-                flex-wrap: wrap;
+
+                display: grid;
+                grid-template-rows: 8% 8% 8% 8% 50%;
+                grid-template-columns: 60% 40%;
+
                 gap: 14px 10px;
                 padding: 10px;
                 section {
-                    width: 68%;
+                    width: 100%;
                     box-sizing: border-box;
-                    &:nth-child(even) {
-                        width: 30%;
-                    }
+
 
                     label {
                         position: relative;
                         display: flex;
                         align-items: baseline;
+                        width: 100%;
+                        height: 100%;
                         .rs,
                         .kg {
                             font-size: 10pt;
@@ -267,7 +275,7 @@
                             border: 1px solid $mainColor;
                             color: $mainColor;
                             transition: 0.5s;
-                            
+
                             &:focus + small,
                             &:valid + small {
                                 top: -12px;
@@ -311,8 +319,9 @@
                         }
 
                         textarea {
+                            margin-top: 10px;
                             width: 90%;
-                            height: 150px;
+                            height: 100%;
                             border: none;
                             border: 1px solid #ccc;
                             border-radius: 10px;
@@ -326,7 +335,7 @@
                             }
                         }
                         #NewProductDescription + small {
-                            top: -17px;
+                            top: -10px;
                             left: -5px;
                             font-weight: bold;
                             color: $mainColor;
@@ -344,7 +353,6 @@
                             }
                             i {
                                 font-size: 13pt;
-                              
                             }
                         }
                     }
@@ -353,6 +361,7 @@
                     display: flex;
                     flex-direction: column;
                     gap: 10px;
+                    
                     .optionsHeader {
                         font-size: 13pt;
                         color: $mainColor;
@@ -361,38 +370,44 @@
                         align-items: baseline;
                     }
                     #OptionsList {
+                        border: 1px solid $mainColor;
+                        border-right: none;
+                        border-left: none;
+                        padding: 5px 10px;
                         display: flex;
                         flex-direction: column;
+                        align-items: center;
                         gap: 10px;
+                        overflow-y: scroll;
                     }
                     .item {
-                        width: 100%;
+                        width: 90%;
                         display: flex;
-                        justify-content: space-between;
+                        justify-content: space-around;
                         align-items: center;
                         input {
-                            width: 40%;
+                            width: 30%;
                             border: none;
-                            border: 1px solid $mainColor;
                             background-color: #fff;
                             color: $mainColor;
                             outline: none;
-                            border-radius: 20px;
                             padding: 5px 0;
                             text-align: center;
                             box-shadow: 0;
                             transition: 0.5s;
+                            border-bottom: 1px solid $mainColor;
                             &::placeholder {
                                 color: $mainColor;
                             }
                         }
 
                         i {
-                            width: 10%;
-                            font-size: 14pt;
+                            width: 20%;
+                            font-size: 10pt;
                             color: $mainColor;
                             transition: 0.1s;
                             cursor: pointer;
+                            text-align: center;
                             &:hover {
                                 color: #ccc;
                             }
@@ -400,6 +415,21 @@
                     }
                     .add {
                         order: 1000;
+                        
+                        span{
+                            font-size: 10pt;
+                            color: $mainColor;
+                            font-weight: bold;
+                        }
+                        input {    
+                            border: 1px solid $mainColor;
+                            border-radius: 10px;
+                        }
+
+                        i {
+                            font-size: 13pt;
+                        }
+
                     }
                 }
             }

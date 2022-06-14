@@ -35,7 +35,7 @@ $(document).ready(() => {
                     $("#requestCancel").prop("disabled", 'disabled');
                     $("#requestCancel").prop("id", '')
 
-                    alert("Compra cancelada com sucesso")
+                    alert("As instruções Foram Enviadas Para Seu e-mail")
                     setTimeout(() => {
                         $(".cancel").removeClass("show")
                         setTimeout(() => {
@@ -293,7 +293,7 @@ function getData(cpf, code) {
 
             $("#TrackingDiv h3 span").html(trackingCode);
             //ajax to /php/tracking.php
-            if (trackingCode == "_ENTREGUE____") {
+            if (trackingCode == "ENTREGUE_____") {
                 $("#Arrived").addClass("done")
                 $("#Sended").addClass("done")
             }

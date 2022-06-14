@@ -5,11 +5,13 @@
 header('Content-Type: application/json; charset=utf-8');
 
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM".$_SERVER['REMOTE_ADDR']));
     session_start();
 }
 
+
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 4) {
-    header("Location: ../index.php");
+    //header("Location: ../index.php");
     die(json_encode(array('status' => 403, 'message' => 'Forbidden')));
 }
 
@@ -36,13 +38,11 @@ class getList extends dbConnect
 
     public function getMes()
     {
-
         $mysqli = $this->connect();
         $stmt = $mysqli->prepare("SELECT * FROM vendas WHERE internalStatus = 3");
         $stmt->execute();
         $result = $stmt->get_result();
         $stmt->close();
-
         while ($row = $result->fetch_assoc()) {
             $payload = json_decode($row['rawPayload'], true);
             $row['rawPayload'] = $payload;
@@ -77,7 +77,6 @@ class getList extends dbConnect
         $result = $stmt->get_result();
         $stmt->close();
         while ($row = $result->fetch_assoc()) {
-            //$row['date'] = date("d/m/Y", strtotime($row['date']));
             $this->totals[] = $row;
         }
     }

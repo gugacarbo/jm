@@ -3,10 +3,11 @@ header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Methods: POST');
 
 
+
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM".$_SERVER['REMOTE_ADDR']));
     session_start();
 }
-
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 2) {
     die(json_encode(array('status' => 403,
@@ -27,7 +28,7 @@ class product extends dbConnect
     {
         $mysqli = $this->connect();
 
-        $sql = "DELETE FROM products WHERE id = ?";
+        $sql = "UPDATE products SET deleted = 1 WHERE id = ?";
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();

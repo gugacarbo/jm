@@ -1,16 +1,17 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM" . $_SERVER['REMOTE_ADDR']));
     session_start();
 }
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
-    die(json_encode(array('status' => 404)));
+    die(include("../../error/403.html"));
+
 } else {
-    //$content = '
+
 ?>
     <div class="adminConfigContainer adminContainer">
-        <span class="adminTitle">Configurações</span>
         <p class="adminDescricao">
             Nesta aba voce pode configurar alguma funcionaliidades de seu e-commerce.
         </p>
@@ -304,7 +305,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                         </div>
                     </section>
                 </div>
-         
+
                 <div class="config password">
                     <span>Confirmar Senha: </span>
                     <input type="password" placeholder="*************" id="confirmPassword">
@@ -332,7 +333,6 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
 
     <script src="includes/config/config.js"></script>';
 <?php
-    //die($content);
 }
-
+die();
 ?>

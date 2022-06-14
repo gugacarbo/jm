@@ -1,10 +1,12 @@
-internal_status:{
-    1 : '',
-    2 : '',
-    3 : 'Sold Contabilized',
-    4 : 'Gone to Final Relatory'
-    7 : 'Return Products Of Canceled Purchase'
-    8 : 'Discount from Next Relatory'
-    9 : 'Disconted'
+let internal_status ={
+    '1' : '',
+    '2' : '',
+    '3' : 'Sold Contabilized',
+    '4' : 'End - Gone to Final Relatory', // !End Success
+    '5' : 'Requested Cancel Instruction',
+    '6' : 'Cancelada Mas Não Foi Contabilizada em Relatorio Final',
+    '7' : 'End - Return Products Of Canceled Purchase', // !End Canceled
+    '8' : 'Discount from Next Relatory', 
+    '9' : 'End - Devolvida', // !End Devolvida
 }
-custo total = Produtos + Frete (Nao soma frete gratis nem cupom)
+// custo total = Produtos + Frete (Nao soma frete gratis nem cupom)

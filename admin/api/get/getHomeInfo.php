@@ -2,6 +2,8 @@
 header('Content-Type: application/json; charset=utf-8');
 
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM".$_SERVER['REMOTE_ADDR']));
+
     session_start();
 }
 
@@ -26,7 +28,7 @@ class GET_HomeInfo extends dbConnect
         $stmt->fetch();
 
         $stmt->close();
-        $stmt = $mysqli->prepare("SELECT COUNT(*) FROM vendas WHERE status = 6  || status = 8");
+        $stmt = $mysqli->prepare("SELECT COUNT(*) FROM vendas WHERE status = 6 ");
         $stmt->execute();
         $stmt->bind_result($totalCanceladas);
         $stmt->fetch();
@@ -44,21 +46,15 @@ class GET_HomeInfo extends dbConnect
         $stmt->fetch();
         $stmt->close();
 
-        $stmt = $mysqli->prepare("SELECT COUNT(*) FROM checkout_data WHERE payload = '{}' AND NOW() >= DATE_ADD(buy_date, INTERVAL 1 DAY)");
+
+        $stmt = $mysqli->prepare("SELECT COUNT(*) FROM nofinalizedpurchases WHERE 1");
         $stmt->execute();
         $stmt->bind_result($totalNaoPagos);
         $stmt->fetch();
         $stmt->close();
 
-        $stmt = $mysqli->prepare("SELECT COUNT(*) FROM nofinalizedpurchases WHERE 1");
-        $stmt->execute();
-        $stmt->bind_result($totalNaoPagos2);
-        $stmt->fetch();
-        $stmt->close();
 
-        $totalNaoPagos = $totalNaoPagos + $totalNaoPagos2;
-
-        $stmt = $mysqli->prepare("SELECT COUNT(*) FROM rating WHERE rate BETWEEN 0 AND 4");
+        $stmt = $mysqli->prepare("SELECT COUNT(*) FROM rating WHERE rate BETWEEN 0 AND 3");
         $stmt->execute();
         $stmt->bind_result($rateDetractor);
         $stmt->fetch();
@@ -124,11 +120,12 @@ class GET_HomeInfo extends dbConnect
         return $this->info;
     }
 
+
     private function emptyCartMove()
     {
         $mysqli = $this->connect();
 
-        $sql = "SELECT * FROM checkout_data WHERE payload = '{}' AND NOW() >= DATE_ADD(buy_date, INTERVAL 1 DAY)";
+        $sql = "SELECT * FROM checkout_data WHERE payload = '{}' AND NOW() >= DATE_ADD(buy_date, INTERVAL 3 DAY)";
         $stmt = $mysqli->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();

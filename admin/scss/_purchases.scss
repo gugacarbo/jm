@@ -43,15 +43,15 @@
             cursor: pointer;
             margin-left: auto;
         }
-        .selectStatus{
+        .selectStatus {
             display: flex;
             align-items: center;
             gap: 20px;
-            span{
+            span {
                 font-size: 12pt;
                 color: $mainColor;
             }
-            select{
+            select {
                 border: none;
                 border: 1px solid $mainColor;
                 border-radius: 30px;
@@ -214,7 +214,7 @@
                         color: #ccc;
                     }
                 }
-                .disputPurcList{
+                .disputPurcList {
                     font-size: 1em;
                     font-weight: bold;
                     color: #f00;
@@ -222,6 +222,12 @@
             }
             &:nth-child(even) {
                 background-color: #efefef;
+            }
+            border: 1px solid #fff;
+            &:hover {
+                border: 1px solid $mainColor;
+                border-left: none;
+                border-right: none;
             }
 
             .deleteConfirm {
@@ -277,16 +283,21 @@
         max-width: 80%;
         padding: 30px 20px;
         background-color: #fff;
-        box-sizing: border-box;
         border: 1px solid $mainColor;
         border-radius: 20px;
-        top: 40px;
+        position: fixed;
+        top: 10vh;
+        place-items: center;
+        row-gap: 10px;
+        box-sizing: border-box;
+        max-height: 90vh;
+        * {
+            box-sizing: border-box;
+        }
 
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        row-gap: 20px;
-
+        display: none;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 35% 10% 55%;
         display: none;
         box-shadow: 0px 0px 5px #00000057, 0px 0px 15px $mainColor, 0px 0px 20px #00000011;
 
@@ -319,107 +330,117 @@
         }
 
         section {
-            width: 49%;
+            width: 95%;
+            height: 100%;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
+            padding: 10px;
             border: 1px solid $mainColor;
             border-radius: 10px;
             h4 {
                 color: $mainColor;
                 font-size: 13pt;
             }
-            label {
-                width: 100%;
-                background-color: $mainColor;
-                box-sizing: border-box;
-                display: flex;
-                color: #fff;
-                justify-content: center;
-                gap: 25px;
-                padding: 10px 0;
-                align-items: center;
-                height: 100%;
-                max-height: 50px;
-                border-radius: 5px;
+           
+        }
+        label{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .colorSection {
+            
+            background-color: $mainColor;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            color: #fff;
+            justify-content: center;
+            gap: 25px;
+            max-height: 40px;
+            padding: 20px 0;
+            align-items: center;
+            height: 100%;
+            max-height: 50px;
+            border-radius: 5px;
 
-                .help {
-                    i {
-                        color: #f5f5f5 !important;
-                    }
+            .help {
+                i {
+                    color: #f5f5f5 !important;
                 }
-                span {
-                    font-size: 11pt;
-                    color: #fff;
+            }
+            span {
+                font-size: 11pt;
+                color: #fff;
+            }
+            #StatusSelect {
+                font-weight: bold;
+            }
+            select {
+                width: 180px;
+                padding: 4px 0;
+                border: 1px solid $mainColor;
+                text-align: center;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                background: transparent;
+                background-image: url("data:image/svg+xml;utf8,<svg id='eha7kRn9GDj1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
+                background-repeat: no-repeat;
+                background-position-x: 99%;
+                background-position-y: -4px;
+                background-color: #fff;
+                outline: none;
+                border-radius: 30px;
+                &:focus {
+                    background-image: url("data:image/svg+xml;utf8,<svg id='euV7IenENMk1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' transform='matrix(-1 0 0-1 24 25)' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
                 }
-                #StatusSelect {
-                    font-weight: bold;
+                &:disabled {
+                    border-color: #ccc;
                 }
-                select {
-                    width: 180px;
-                    padding: 4px 0;
-                    border: 1px solid $mainColor;
-                    text-align: center;
-                    -webkit-appearance: none;
-                    -moz-appearance: none;
-                    background: transparent;
-                    background-image: url("data:image/svg+xml;utf8,<svg id='eha7kRn9GDj1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
-                    background-repeat: no-repeat;
-                    background-position-x: 99%;
-                    background-position-y: -4px;
-                    background-color: #fff;
-                    outline: none;
-                    border-radius: 30px;
-                    &:focus {
-                        background-image: url("data:image/svg+xml;utf8,<svg id='euV7IenENMk1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 20 20' shape-rendering='geometricPrecision' text-rendering='geometricPrecision'><path d='M0,0h24v24h-24Z' fill='none'/><path d='M7,10h1.146986L12,13.927168L15.986986,10L17,10l-5,5-5-5Z' transform='matrix(-1 0 0-1 24 25)' fill='rgb(182, 109, 118)' stroke-width='0.5'/></svg>");
-                    }
-                    &:disabled {
-                        border-color: #ccc;
-                    }
+            }
+            input[type="text"] {
+                width: 180px;
+                padding: 3px 0;
+                border: 1px solid $mainColor;
+                border-radius: 30px;
+                text-align: center;
+                font-size: 11pt;
+                color: #333;
+                &::placeholder {
+                    color: #ccc;
                 }
-                input[type="text"] {
-                    width: 180px;
-                    padding: 3px 0;
-                    border: 1px solid $mainColor;
-                    border-radius: 30px;
-                    text-align: center;
-                    font-size: 11pt;
-                    color: #333;
-                    &::placeholder {
-                        color: #ccc;
-                    }
-                }
-                input[type="text"].hasCode {
-                    &::placeholder {
-                        color: $mainColor;
-                        font-weight: bold;
-                        font-size: 10pt;
-                    }
-                }
-                button {
-                    width: 20%;
+            }
+            input[type="text"].hasCode {
+                &::placeholder {
                     color: $mainColor;
-                    background-color: #fff;
-                    font-size: 11pt;
-                    border: none;
-                    border-radius: 20px;
-                    padding: 4px 0;
                     font-weight: bold;
-                    cursor: pointer;
-                    border: 1px solid $mainColor;
-                    transition: 0.3s;
-                    &:hover {
-                        color: #fff;
-                        background-color: $mainColor;
-                        border: 1px solid #fff;
-                    }
-                    &:active {
-                        transition: 0.1s;
-                        background-color: #a5626a;
-                    }
+                    font-size: 10pt;
+                }
+            }
+            button {
+                width: 20%;
+                color: $mainColor;
+                background-color: #fff;
+                font-size: 11pt;
+                border: none;
+                border-radius: 20px;
+                padding: 4px 0;
+                font-weight: bold;
+                cursor: pointer;
+                border: 1px solid $mainColor;
+                transition: 0.3s;
+                &:hover {
+                    color: #fff;
+                    background-color: $mainColor;
+                    border: 1px solid #fff;
+                }
+                &:active {
+                    transition: 0.1s;
+                    background-color: #a5626a;
                 }
             }
         }
@@ -460,6 +481,7 @@
                 flex-direction: column;
                 align-items: center;
                 width: 100%;
+                overflow-y: scroll;
                 .product {
                     display: flex;
                     justify-content: space-between;
@@ -500,6 +522,6 @@
         }
     }
     .modalOpen {
-        display: flex;
+        display: grid;
     }
 }

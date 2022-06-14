@@ -8,19 +8,16 @@ header('Access-Control-Allow-Methods: GET');
 include_once  '../config/db_connect.php';
 class Prods extends dbConnect
 {
-    private $mysqli;
 
     public function __construct()
     {
-        $this->mysqli = $this->Conectar();
         
     }
-    public function getById($id_)
+    public function getById($id)
     {
-        $id = preg_replace('/[a-z\|\,\;\@\:"]+/', '', $id_);
-        $id = mysqli_real_escape_string($this->mysqli, $id);
+        $mysqli = $this->Conectar();
 
-        $stmt = $this->mysqli->prepare("SELECT * FROM products WHERE id = ?");
+        $stmt = $mysqli->prepare("SELECT * FROM products WHERE id = ? AND deleted = 0");
         $stmt->bind_param("s", $id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -39,7 +36,7 @@ class Prods extends dbConnect
         $categoryId = $itens['category'];
 
 
-        $stmt = $this->mysqli->prepare("SELECT * FROM material WHERE id = ?");
+        $stmt = $mysqli->prepare("SELECT * FROM material WHERE id = ?");
         $stmt->bind_param("s", $materialId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -50,7 +47,7 @@ class Prods extends dbConnect
             $stmt->close();
         }
 
-        $stmt = $this->mysqli->prepare("SELECT * FROM categories WHERE id = ?");
+        $stmt = $mysqli->prepare("SELECT * FROM categories WHERE id = ?");
         $stmt->bind_param("s", $categoryId);
         $stmt->execute();
         $result = $stmt->get_result();

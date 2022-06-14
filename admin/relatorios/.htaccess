@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteRule ^www\/login\/?$ login/ [L,NC,R]
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteCond %{REQUEST_FILENAME}\.php -f 
+RewriteRule ^(.*)$ $1.php
+
+ErrorDocument 404 "error"

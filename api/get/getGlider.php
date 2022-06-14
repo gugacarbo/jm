@@ -33,15 +33,18 @@ class getGlider extends dbConnect
 
 
                     foreach (json_decode($row["select"]) as $key => $id) {
-                        $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE id = ?");
+                        $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE id = ? AND deleted = 0");
                         $stmt3->bind_param("i", $id);
                         $stmt3->execute();
                         $result3 = $stmt3->get_result();
+                        if ($result3->num_rows > 0) {
+                            $product = $result3->fetch_assoc();
+                            unset($product['cost']);
+                            $product["imgs"] = json_decode($product["imgs"]);
+                            $ids[] = $product;
+                        }
+
                         $stmt3->close();
-                        $product = $result3->fetch_assoc();
-                        unset($product['cost']);
-                        $product["imgs"] = json_decode($product["imgs"]);
-                        $ids[] = $product;
                     }
 
                     $carousel["prod_ids"] = ($ids);
@@ -58,7 +61,7 @@ class getGlider extends dbConnect
 
                     switch ($selectType) {
                         case "price":
-                            $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? AND totalQuantity > 0 ORDER BY price ASC LIMIT 7");
+                            $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? AND totalQuantity > 0 AND deleted = 0 ORDER BY price ASC LIMIT 7");
                             $stmt3->bind_param("s", $catId);
                             $stmt3->execute();
                             $result3 = $stmt3->get_result();
@@ -81,7 +84,7 @@ class getGlider extends dbConnect
                             }
                             break;
                         case "promo":
-                            $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? AND promo > 0 AND totalQuantity > 0 ORDER BY price ASC LIMIT 7");
+                            $stmt3 = $mysqli->prepare("SELECT * FROM products WHERE category = ? AND promo > 0 AND totalQuantity > 0 AND deleted = 0 ORDER BY price ASC LIMIT 7");
                             $stmt3->bind_param("s", $catId);
                             $stmt3->execute();
                             $result3 = $stmt3->get_result();

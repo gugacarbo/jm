@@ -1,0 +1,84 @@
+/*
+    * <label class="hasCheckboxToggle">
+    ?   <input type="checkbox">
+    |   <h3></h3>
+    * </label>
+*/
+
+label.hasCheckboxToggle {
+    input[type="checkbox"] {
+        appearance: none;
+        &:checked + h3::after {
+            filter: grayscale(0);
+            transform: translateX(80%);
+        }
+    }
+    h3 {
+        width: 25px;
+        height: 15px;
+        border-radius: 20px;
+        background-color: #ddd;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.5s;
+
+        &:hover {
+            &::after {
+                filter: grayscale(0.3);
+            }
+        }
+        &::after {
+            transition: 0.5s;
+            content: "";
+            position: absolute;
+            width: 13px;
+            height: 13px;
+            border-radius: 30px;
+            background-color: $mainColor;
+            filter: grayscale(0.6);
+            left: 0;
+        }
+    }
+}
+
+
+/*
+    * <div class="deleteConfirm">
+        //Are you sure?
+    * </div>
+*/
+
+
+
+.deleteConfirm {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10pt;
+        border: none;
+        color: #fff;
+        border-radius: 20px;
+        padding: 1px 3px;
+        width: 100%;
+        min-width: 60px;
+        cursor: pointer;
+        background-color: $mainColor;
+        &:hover {
+            background-color: #f00;
+        }
+    }
+}
+

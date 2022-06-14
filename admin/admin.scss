@@ -2,12 +2,36 @@ $deskWidth: calc(100% - 60px);
 $mainColor: #b66d76;
 $containerWidth: 100%;
 
+$red: #ff4a4a;
+$green: #4beb4b;
+$Lgreen: #0eeeb6;
+$orange: #ff7e00;
+$blue: #0aa2ee;
+$purple: #8400db;
+$yellow: #fff128;
+$LBlue: #00cbda;
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial,
         sans-serif;
+    &::-webkit-scrollbar {
+        width: 8px;
+        border: none;
+    }
+    &::-webkit-scrollbar-track {
+        background: #ddd;
+        border: none;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: $mainColor;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        border: none;
+        background: lighten($mainColor, 10%);
+    }
 }
 body {
     display: flex;
@@ -25,598 +49,63 @@ body {
     padding-left: 60px;
     padding-top: 50px;
 }
+
 .adminContainer {
     width: $containerWidth;
     display: flex;
     flex-direction: column;
+    max-height: calc(100vh - 50px); 
     align-items: center;
     gap: 20px;
-    button {
-        border-radius: 30px;
-        padding: 6px 0;
-        border: none;
-        font-weight: bold;
-        font-size: 11pt;
-        color: #fff;
-        background-color: $mainColor;
-        border: 1px solid #fff;
-        cursor: pointer;
-        transition: 0.25s;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        &:active {
-            filter: brightness(1.1);
-        }
-        &:hover {
-            background-color: #fff;
-            color: $mainColor;
-            border: 1px solid $mainColor;
-        }
-        &:disabled {
-            color: #686868;
-            background-color: #ddd;
-            cursor: inherit;
-            border: none;
-            &:hover {
-                background-color: #ddd;
-            }
-            &:active {
-                background-color: #ddd;
-            }
-        }
 
-        &::after,
-        &::before {
-            font-family: "FontAwesome";
-            margin: 0 10px;
-            animation-fill-mode: forwards;
-            animation-iteration-count: 1;
-            animation: alertButtonAnimation 1.5s;
-            font-size: 14pt;
-            opacity: 0;
-            position: absolute;
-        }
-        &::after {
-            animation: doneButtonAnimation 1.5s;
-            right: 10%;
-        }
-        &::before {
-            left: 10%;
-            animation: alertButtonAnimation 1.5s;
-        }
-
-        @keyframes alertButtonAnimation {
-            1% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            0% {
-                transform: scale(1);
-                text-shadow: 0 0 2px #ffffff22;
-            }
-            25% {
-                transform: scale(1.2);
-            }
-            50% {
-                transform: scale(1.05);
-                text-shadow: 0 0 15px rgb(255, 191, 15);
-            }
-            75% {
-                transform: scale(1.1);
-            }
-            99% {
-                text-shadow: 0 0 8px #ffae0022;
-                transform: scale(1);
-                display: flex;
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0;
-                display: none;
-            }
-        }
-        @keyframes doneButtonAnimation {
-            1% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            0% {
-                transform: scale(1);
-                text-shadow: 0 0 2px #ffffff22;
-            }
-            25% {
-                transform: scale(1.2);
-            }
-            50% {
-                transform: scale(1.05);
-                text-shadow: 0 0 15px rgb(26, 182, 26);
-            }
-            75% {
-                transform: scale(1.1);
-            }
-            99% {
-                text-shadow: 0 0 8px #6ad40622;
-                transform: scale(1);
-                display: flex;
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0;
-            }
-        }
-    }
-    .doneButton {
-        &::after {
-            content: "\f00c";
-        }
-    }
-    .alertButton {
-        &::before {
-            content: "\f071";
-        }
-    }
-    .inverted {
+    .adminTitle {
+        width: 85%;
         color: $mainColor;
-        background-color: #fff;
-        border: 1px solid $mainColor;
-        &:hover {
-            background-color: $mainColor;
-            color: #fff;
-            border: 1px solid #fff;
-        }
+        font-weight: bold;
+        font-size: 14pt;
+        margin-top: 30px;
     }
-
-    .box {
-        max-width: 800px;
-        min-width: 400px;
-        padding: 20px;
-        border: 1px solid $mainColor;
-        border-radius: 30px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        column-gap: 0;
-        position: relative;
-        margin-bottom: auto;
-        .boxTitle {
-            width: 100%;
-            font-size: 16pt;
-            color: $mainColor;
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-    }
-}
-
-@keyframes rotateLoadingImage {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-.adminHeader {
-    width: 100%;
-    height: 50px;
-    border-bottom: 1px solid $mainColor;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: calc(100% - 60px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 50px;
-    background-color: #fff;
-    z-index: 90;
-    .arrowback{
-        position: absolute;
-        left: 10px;
-        cursor: pointer;
-        transition: 0.4s;
-        i{
-            transition: 0.4s;
-            font-size: 22pt;
-            color: $mainColor;
-            text-shadow: 0 0 2px #fff;
-        }
-        &:hover{
-           i{
-               filter: brightness(1.1);
-           }
-        }
-        &:active{
-           i{
-               filter: brightness(0.9);
-           }
-        }
-
-    }
-    .nobackpage{
-        cursor: inherit;
-        pointer-events: none;
-        transition: 0.4s;
+    .adminDescricao {
+        width: 75%;
+        margin-top: 20px;
+        line-height: 1.4em;
         
-        i{
-            transition: 0.4s;
-            text-shadow: 0 0 1px #fff;
-            color: #dedede;
-            &:hover{
-                color: #dedede;
-            }
-        }
-    }
-    span {
-        color: $mainColor;
-        small{
-            font-size: 1.05em;
-            font-weight: bold;
-        }
-    }
-    .clock{
-        width: 20%;
-        text-align: center;
-    }
-    .PageTitle {
-        margin: 0 auto;
-        font-size: 16pt;
-        font-weight: bold;
-    }
-}
-
-.adminMenu {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    width: 60px;
-    background-color: $mainColor;
-    padding: 10px 0;
-    padding-top: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 20px;
-    transition: 0.8s;
-    overflow: hidden;
-    z-index: 100;
-    a {
-        position: relative;
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        text-decoration: none;
-        cursor: pointer;
-        overflow: hidden;
-        transition: 0.3s;
-        i {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 16pt;
-            border-radius: 50%;
-            //border: 1px solid #fff;
-            transition: 0.5s;
-            cursor: pointer;
-        }
-        label {
-            overflow: hidden;
-            display: flex;
-            width: 220px;
-
-            color: #fff;
-            font-weight: bold;
-            font-size: 15pt;
-
-            text-align: center;
-            align-items: center;
-            justify-content: flex-end;
-            transition: 0.5s;
-            cursor: pointer;
-        }
-        &:hover {
-            i,
-            label {
-                color: #fdd;
-            }
-        }
-    }
-    .menuToggleBox {
-        position: absolute;
-        right: 10px;
-        top: 5px;
-        width: 35px;
-        height: 35px;
-        background-color: $mainColor;
-        z-index: 1000;
-        .menuToggle {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            cursor: pointer;
-            &:hover .bars {
-                width: 100%;
-                background-color: rgb(233, 188, 188);
-            }
-        }
-        .bars {
-            transition: width 0.5s ease-out, background-color 1.5s;
-            width: 95%;
-            height: 3px;
-            background-color: #fff;
-            &:nth-child(2) {
-                width: 50%;
-            }
-            &:nth-child(3) {
-                width: 70%;
-            }
+        b {
+            font-size: 11pt;
+            color: $mainColor;
         }
     }
 }
 
-.active {
-    width: 300px;
-    .menuToggleBox .menuToggle {
-        align-items: flex-end;
-    }
-}
+.preloadIcon {
 
-.adminTitle {
-    width: 85%;
-    color: $mainColor;
-    font-weight: bold;
-    font-size: 14pt;
-    margin-top: 30px;
-}
-.adminDescricao {
-    width: 75%;
-    margin-bottom: 20px;
-    line-height: 1.4em;
-    b{
-        font-size: 11pt;
-        color: $mainColor;
-    }
-}
-
-.modal {
-    position: fixed;
-    background-color: #fff;
-    border: 1px solid $mainColor;
-    border-radius: 20px;
-    overflow: hidden;
-    width: 100%;
-    max-width: 900px;
-    box-sizing: border-box;
-    padding: 20px;
-    box-shadow: 0px 0px 15px -1px #00000044, 0px 0px 25px -1px #00000022, 0px 0px 8px 0px #00000011;
-    display: flex;
-    display: none;
-    flex-direction: column;
-    transition: 1s;
-}
-.right {
-    left: -5px;
-}
-
-.help {
-    color: $mainColor;
-    font-size: 16pt;
-    cursor: pointer;
-    position: relative;
-    right: -5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 10pt;
-    //top: 10%;
-    i {
-        font-size: 1.2em !important;
-        aspect-ratio: 1/1;
-        color: rgba(194, 194, 194, 0.9) !important;
-        border-radius: 50%;
-        border: 1px solid #999;
-        &:hover {
-            border-color: rgba(150, 93, 36, 0.9);
-            color: rgba(255, 128, 0, 0.9) !important;
-            background-color: #fff;
-        }
-    }
-    &:hover .helpMessage {
-        opacity: 1;
-    }
-    &:hover i {
-        filter: brightness(1.2);
-        animation: q 1s ease-in-out;
-    }
-
-    @keyframes q {
-        0% {
-            transform: scale(1);
-        }
-        25% {
-            transform: scale(1.2);
-        }
-        50% {
-            transform: scale(1);
-        }
-        75% {
-            transform: scale(1.1);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
-
-    .helpMessage {
-        padding: 6px;
-        max-width: 300px;
-        width: fit-content;
-        position: absolute;
-        display: flex;
-        min-width: 150px;
-        top: 8px;
-        left: 25px;
-        border: 1px solid $mainColor;
-        border-radius: 10px;
-        background-color: #fff;
-        pointer-events: none;
-        transition: 0.4s;
-        transition-delay: 0.2s;
-        z-index: 120;
-        opacity: 0;
-        box-shadow: 0px 0px 10px -4px #74747424;
-        height: inherit !important;
-        p {
-            width: 100%;
-            font-size: 1em;
-            color: #333;
-            text-align: center;
-            font-weight: normal;
-            position: relative;
-        }
-    }
-    .messageLeft{
-            left: inherit;
-    right: 15px;
-    }
-}
-.helpDelete {
-    .helpMessage {
-        transition-delay: 0.5s;
-        &:hover{
-            transition-delay: 0.3s;
-
-        }
-    }
-    i {
-        font-size: 1.1em !important;
-
-        color: rgba(138, 16, 16, 0.9) !important;
-        border-radius: 0;
-        border: none;
-
-        &:hover {
-            //border-color: rgba(255, 255, 255, 0.9);
-            color: rgba(255, 0, 0, 0.9) !important;
-            background-color: #fff;
-        }
-    }
-}
-
-label.hasCheckboxToggle {
-    input[type="checkbox"] {
-        appearance: none;
-        &:checked + h3::after {
-            filter: grayscale(0);
-            transform: translateX(80%);
-        }
-    }
-    h3 {
-        width: 25px;
-        height: 15px;
-        border-radius: 20px;
-        background-color: #ddd;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: 0.5s;
-
-        &:hover {
-            &::after {
-                filter: grayscale(0.3);
-            }
-        }
-        &::after {
-            transition: 0.5s;
-            content: "";
-            position: absolute;
-            width: 13px;
-            height: 13px;
-            border-radius: 30px;
-            background-color: $mainColor;
-            filter: grayscale(0.6);
-            left: 0;
-        }
-    }
-}
-
-.deleteConfirm {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 10pt;
-        border: none;
-        color: #fff;
-        border-radius: 20px;
-        padding: 1px 3px;
-        width: 100%;
-        min-width: 60px;
-        cursor: pointer;
-        background-color: $mainColor;
-        &:hover {
-            background-color: #f00;
-        }
-    }
-}
-
-.loadingImage {
-    position: relative;
-    overflow: hidden;
+    font-size: 0.01pt;
+    font-family: "FontAwesome";
 
     &::after {
-        position: absolute;
-        font-family: "FontAwesome";
-        content: "\f110";
+        content: "\f00c";
+    }
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 32px;
-
-        background-color: rgba($mainColor, 0.5);
-
-        width: 150%;
-        height: 300%;
-        z-index: 30;
-        font-size: 40pt;
-        color: #fff;
-        animation: rotateLoadingImage 1s infinite;
+    &::before {
+        content: "\f071";
     }
 }
 
+@import "scss/adminHeader";
+@import "scss/adminMenu";
+
+@import "scss/models/adminButton";
+@import "scss/models";
+
+//? Pages
 @import "scss/home";
-@import "scss/about";
+@import "scss/purchases";
+@import "scss/products";
 @import "scss/banner";
-@import "scss/carousel";
 @import "scss/category";
 @import "scss/material";
-@import "scss/products";
-@import "scss/purchases";
+@import "scss/carousel";
+@import "scss/about";
 @import "scss/relatory";
-@import "scss/config";
 @import "scss/configFree";
+@import "scss/config";

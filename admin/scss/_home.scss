@@ -1,179 +1,109 @@
 .adminHomeContainer {
     display: grid;
     grid-template-columns: 20% 20% 20% 20%;
-    grid-template-rows: auto;
+    grid-template-rows: repeat(4, 1fr);
+    overflow: hidden;
 
     justify-content: space-around;
     place-items: center;
-    padding: 40px 0;
-
-    .info {
-        background-color: #fff;
-        margin-top: auto;
-        display: flex;
-        width: 100%;
-        flex-wrap: wrap;
-        padding: 15px 20px;
-        justify-content: center;
-        height: 100%;
-        color: $mainColor;
-        border: 1px solid $mainColor;
-        border-radius: 15px;
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-        gap: 10px;
-        flex-direction: row-reverse;
-
-        .infoHeader {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            color: $mainColor;
-            .infoHeaderIcon {
-                border: 2px solid $mainColor;
-                width: 45px;
-                height: 45px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 50%;
-                margin-right: 20px;
-                i {
-                    font-size: 25pt;
-                }
-            }
-
-            span {
-                margin-right: auto;
-
-                font-size: 14pt;
-            }
-        }
-        .infoContent {
-            display: grid;
-            padding: 10px 0;
-            color: #999;
-            width: 100%;
-            grid-template-areas:
-                "infoContentNumber infoContentP"
-                "infoContentNumber infoContentButton";
-            place-items: center;
-
-            grid-template-columns: 30% 70%;
-            .infoContentNumber {
-                font-size: 40pt;
-                grid-area: infoContentNumber;
-            }
-            .infoContentP {
-                text-align: center;
-                font-size: 10pt;
-                font-weight: bold;
-                grid-area: infoContentP;
-                // place-self: center start;
-            }
-
-            .infoContentButton {
-                grid-area: infoContentButton;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 80%;
-                padding: 3px 0;
-                margin: auto;
-                font-size: 10pt;
-            }
-        }
-    }
+    padding: 20px 0;
 
     .infoAprovados {
         .infoHeader {
-            color: rgb(33, 209, 33);
+            color: $green;
             .infoHeaderIcon {
-                border-color: rgb(33, 209, 33);
-                i {
-                    font-size: 24pt;
-                }
+                border-color: $green;
+                font-size: 1.75em;
             }
         }
     }
     .infoCancelados {
         .infoHeader {
-            color: rgb(230, 29, 29);
+            color: $red;
             .infoHeaderIcon {
-                border-color: rgb(230, 29, 29);
+                border-color: $red;
+                font-size: 2em;
 
-                i {
-                    font-size: 23pt;
-                }
             }
         }
     }
 
     .infoEnvio {
         .infoHeader {
-            color: #ff7e00;
+            color: $orange;
             .infoHeaderIcon {
-                border-color: #ff7e00;
-                i {
-                    font-size: 17pt;
-                }
+                border-color: $orange;
             }
         }
     }
 
     .infoClients {
         .infoHeader {
-            color: #8400db;
+            color: $purple;
             .infoHeaderIcon {
-                border-color: #8400db;
-                i {
-                    font-size: 16pt;
-                }
+                border-color: $purple;
             }
         }
     }
     .infoVisitantes {
         .infoHeader {
-            color: #00cbda;
+            color: $LBlue;
             .infoHeaderIcon {
-                border-color: #00cbda;
-                i {
-                    font-size: 16pt;
-                }
+                border-color: $LBlue;
             }
         }
     }
     .infoNaoFinalizadas {
         grid-area: 4/4;
         .infoHeader {
-            color: #5300da;
+            color: $purple;
             .infoHeaderIcon {
-                border-color: #5300da;
-                i {
-                    font-size: 16pt;
-                }
+                border-color: $purple;
             }
         }
     }
 
     .infoAguardando {
         .infoHeader {
-            color: #01ff9e;
+            color: $Lgreen;
             .infoHeaderIcon {
-                border-color: #01ff9e;
-                i {
-                    font-size: 18pt;
-                }
+                border-color: $Lgreen;
             }
         }
     }
 
     .infoNps {
         .infoHeader {
-            color: #dbcd00;
+            color: $yellow;
             .infoHeaderIcon {
-                border-color: #fbff25;
+                border-color: $yellow;
                 i {
-                    font-size: 18pt;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        width: 120%;
+                        height: 2px;
+                        transform-origin: center;
+                        transform: translateX(20px) rotate(-45deg);
+                        background-color: #ffffffa5;
+                        animation: luz 2s infinite;
+                    }
+                }
+                @keyframes luz {
+                    from {
+                        transform: translateX(20px) rotate(-45deg);
+                        opacity: 0.4;
+                    }
+
+                    to {
+                        transform: translateX(-20px) rotate(-45deg);
+                        opacity: 0.9;
+                    }
                 }
             }
         }
@@ -181,17 +111,7 @@
             font-size: 12pt;
         }
     }
-    .infoCanceling {
-        .infoHeader {
-            color: #db0054;
-            .infoHeaderIcon {
-                border-color: #db0054;
-                i {
-                    font-size: 18pt;
-                }
-            }
-        }
-    }
+
 
     .relatory {
         width: 100%;
@@ -212,6 +132,9 @@
         }
         .graph {
             background-color: #fff;
+            position: relative;
+            height: 90%;
+            overflow: hidden;
             .graphButtons {
                 display: flex;
                 align-items: center;
@@ -246,6 +169,8 @@
             }
             canvas {
                 border: 1px solid $mainColor;
+                width: 100%;
+                height: 90% !important;
             }
         }
         button {

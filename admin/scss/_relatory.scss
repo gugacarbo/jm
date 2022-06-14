@@ -1,0 +1,399 @@
+.adminRelatoryContainer {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    height: calc(100vh - 50px);
+    max-height: calc(100vh - 50px);
+    overflow: hidden;
+    gap: 0;
+
+    .relatoryMenu {
+        background-color: #fff;
+        color: $mainColor;
+        border-right: 2px solid $mainColor;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .menuSelect {
+            background-color: lighten($mainColor, 5%);
+            span {
+                color: #fff;
+            }
+        }
+
+        .relatoryMenuItem {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid $mainColor;
+            transition: 0.2s;
+            &:hover {
+                color: #fff;
+                background-color: lighten($mainColor, 10%);
+            }
+
+            span {
+                font-size: 16pt;
+                letter-spacing: 1px;
+            }
+        }
+    }
+
+    .relatoryDisplay {
+        height: 100%;
+        width: 100%;
+        display: flex;
+
+        .relatoryBox {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        .finances {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            grid-gap: 20px;
+            padding: 20px 0;
+            padding-bottom: 40px;
+            padding-right: 40px;
+            justify-content: space-around;
+            place-content: space-around;
+            align-items: center;
+            overflow: hidden;
+            height: calc(100vh - 50px);
+
+            //display: none;
+
+            .infoFatTT {
+                .infoHeaderIcon {
+                    color: rgb(1, 139, 109);
+                }
+            }
+            .infoFatM {
+                .infoHeaderIcon {
+                    color: rgb(11, 145, 22);
+                }
+            }
+            .infoTicket {
+                .infoHeaderIcon {
+                    color: $purple;
+                }
+            }
+            .infoPrice {
+                .infoHeaderIcon {
+                    color: rgb(19, 32, 148);
+                }
+            }
+            .infoMargin {
+                .infoHeaderIcon {
+                    color: rgb(190, 3, 165);
+                }
+            }
+            .infoCost {
+                .infoHeaderIcon {
+                    color: $red;
+                }
+            }
+            .infoCredited {
+                .infoHeaderIcon {
+                    color: $yellow;
+                }
+            }
+            .infoFuture {
+                .infoHeaderIcon {
+                    color: $LBlue;
+                }
+            }
+            .relatoryPurchaseList {
+                grid-area: 1/ 1 / 5 / 3;
+
+                .listHeader span {
+                    &:nth-child(1) {
+                        flex: 0.4;
+                    }
+                    &:nth-child(2),
+                    &:nth-child(3) {
+                        font-size: 10pt;
+                    }
+                    &:last-child {
+                        flex: 0.4;
+                    }
+                }
+
+                .relatoryPurchaseListContent span {
+                    &:nth-child(1) {
+                        flex: 0.4;
+                    }
+                    &:last-child {
+                        flex: 0.4;
+                       
+                    }
+                }
+            }
+        }
+
+        .final {
+            display: none;
+            .relatoryPurchaseList {
+                height: 90%;
+                margin: auto;
+            }
+        }
+
+        .orders {
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 1fr;
+            .relatoryPurchaseList {
+                width: 100%;
+            }
+            .ordersChart {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                position: relative;
+                flex-direction: column;
+
+                canvas {
+                    //height: 100% !important;
+                    width: 85% !important;
+                    margin: auto;
+                }
+            }
+        }
+
+        .nps {
+            display: grid;
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            grid-gap: 20px;
+            padding: 20px;
+            max-height: 94vh;
+
+            .visitorsChart,
+            .genderChart {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                box-shadow: 3px 3px 8px #00000045;
+            }
+            .visitorsChart {
+                grid-area: 4/ 1 / 6 / 3;
+                canvas {
+                    height: 100% !important;
+                    width: 100% !important;
+                    margin: auto;
+                }
+            }
+            .genderChart {
+                grid-area: 2/ 3 / 6 / 5;
+                #GenderChart {
+                    height: 100% !important;
+                }
+                canvas {
+                    //height: 100% !important;
+                    width: 100% !important;
+                    margin: auto;
+                }
+            }
+            .cancelInfo {
+                .infoHeaderIcon {
+                    color: $red;
+                }
+            }
+            .npsInfo {
+                .infoHeaderIcon {
+                    color: $yellow;
+                }
+                i {
+                    font-size: 18pt;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    overflow: hidden;
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        width: 120%;
+                        height: 2px;
+                        transform-origin: center;
+                        transform: translateX(20px) rotate(-45deg);
+                        background-color: #ffffffa5;
+                        animation: luz 2s infinite;
+                    }
+                }
+                @keyframes luz {
+                    from {
+                        transform: translateX(20px) rotate(-45deg);
+                        opacity: 0.4;
+                    }
+
+                    to {
+                        transform: translateX(-20px) rotate(-45deg);
+                        opacity: 0.9;
+                    }
+                }
+            }
+            .clientInfo {
+                .infoHeaderIcon {
+                    color: $purple;
+                }
+            }
+
+            .relatoryPurchaseList {
+                grid-area: 2/ 1 / 4 / 3;
+                width: 100%;
+                box-shadow: 3px 3px 8px #00000045;
+                .listHeader span {
+                    &:nth-child(1) {
+                        flex: 0.4;
+                    }
+                    &:nth-child(2),
+                    &:nth-child(3) {
+                        font-size: 10pt;
+                    }
+                    &:last-child {
+                        flex: 0.4;
+                    }
+                }
+
+                .relatoryPurchaseListContent span {
+                    &:nth-child(1) {
+                        flex: 0.4;
+                    }
+                    &:last-child {
+                        flex: 0.4;
+                    }
+                }
+            }
+        }
+
+        .relatoryInfo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            height: 100%;
+            width: 100%;
+            background-color: #fff;
+            color: $mainColor;
+            border: 1px solid $mainColor;
+            border-radius: 10px;
+            .infoHeaderIcon {
+                color: rgb(1, 139, 12);
+                font-size: 22pt;
+            }
+            span {
+                font-size: 16pt;
+            }
+            .infoContentNumber {
+                font-size: 20pt;
+                color: #999;
+            }
+            .infoContentP {
+                font-size: 11pt;
+                color: #aaa;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                b {
+                    font-size: 1em;
+                }
+            }
+        }
+
+        .relatoryPurchaseList {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+            margin-bottom: auto;
+            box-shadow: 4px 4px 10px #00000055;
+            .listTitle {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #fff;
+                padding: 10px 0;
+                border-bottom: 1px solid $mainColor;
+                span {
+                    color: $mainColor;
+                    font-size: 16pt;
+                }
+            }
+            .listHeader {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                padding: 5px 0;
+                background-color: $mainColor;
+                padding-right: 8px;
+                span {
+                    color: #fff;
+                    font-weight: bold;
+                    flex: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    font-size: 11pt;
+                }
+            }
+
+            .relatoryPurchaseListContent {
+                height: 100%;
+                overflow-y: scroll;
+
+                .listItem {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 8px 0;
+
+                    border-bottom: 1px solid $mainColor;
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    span {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex: 1;
+                        font-size: 11pt;
+                        text-align: center;
+                        &:last-child {
+                            a{
+
+                                color: $mainColor;
+                                text-decoration: none;
+                            }
+                            &:hover {
+                                color: $mainColor;
+                                i {
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

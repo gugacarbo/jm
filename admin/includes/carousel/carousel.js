@@ -6,6 +6,16 @@ var actImagePrev = 0;
 
 $(document).ready(function () {
 
+    $.get("/api/get/getCategory.php", function (category) {
+        $("#Categories").empty();
+        var item = '<option value="0" >Selecionar Categoria</option>';
+        $("#Categories").append(item);
+
+        $.each(category, function (index, value) {
+            var item = '<option value="' + value['id'] + '" name="' + value['name'] + '" >' + value['name'] + '</option>';
+            $("#Categories").append(item);
+        })
+    })
 
     startGliders()
     $("#radioAuto").attr("disabled", true);
@@ -48,16 +58,16 @@ $(document).ready(function () {
                     $("#radioAuto").attr("selected", "selected");
                     $("#ProdAddCount").css("display", "none")
                     $("#AdminCarouselModal").css("display", "none");
-                       startGliders()
-                       $(".doneButton").removeClass("doneButton")
-                    }, 1500);
-                } else {
-                    //alert(data.message);
-                    $("#addCarousel").addClass("alertButton")
-                    setTimeout(() => {
-                       $(".alertButton").removeClass("alertButton")
-                   }, 1500);
-               }
+                    startGliders()
+                    $(".doneButton").removeClass("doneButton")
+                }, 1500);
+            } else {
+                //alert(data.message);
+                $("#addCarousel").addClass("alertButton")
+                setTimeout(() => {
+                    $(".alertButton").removeClass("alertButton")
+                }, 1500);
+            }
         })
     })
 
@@ -104,28 +114,38 @@ function getModal(cat_) {
 
     SelectedItens = []
     UsedSelectedItens = []
+    $(".categoryAlert").hide();
 
     if (UsedGlider.indexOf(parseInt(cat_)) > -1) { // * Used
+        
         $("#Categories").val(cat_);
         editGlider(cat_);
+
     } else if (cat_ > 0) { //? New
+
         $("#Categories").val(cat_);
         $("#radioAuto").prop("checked", true);
+        $("#radioId").prop("checked", false);
         $("#addCarousel").attr("disabled", false);
-
         $("#autoType").val("price");
+        $("#radioId").attr("disabled", true);
+        $("#ProdAddCount").hide();
+
+
     } else { // ! Non
+        $(".categoryAlert").show();
         $("#radioAuto").attr("disabled", true);
         $("#radioId").attr("disabled", true);
         $("#autoType").attr("disabled", true);
         $("#addCarousel").attr("disabled", true);
+        $("#ProdAddCount").hide();
     }
 }
 
 function editGlider(cat_) {
     $.get("/admin/api/get/getAglider.php", { id: cat_ }, function (data) {
         if (data["SelectType"] == "id") {
-            $("#radioId").attr("checked", true);
+            $("#radioId").prop("checked", true);
             var ids_ = (data["select"]);
             $.each(ids_, function (index, value) {
                 UsedSelectedItens.push(parseInt(value));
@@ -133,7 +153,7 @@ function editGlider(cat_) {
             $("#ProdAddCount").css("display", "flex")
             $("#ProdAddCount b").html(UsedSelectedItens.length)
         } else {
-            $("#radioAuto").attr("checked", true)
+            $("#radioAuto").prop("checked", true)
             data["select"].type == "price" ? $("#autoType").val("price") : $("#autoType").val("promo")
             $("#addCarousel").attr("disabled", false);
 
@@ -192,7 +212,7 @@ function startGliders() {
 
             var sel = glider["SelectType"] == "auto" ? (glider["select"] == "price" ? "Menores Preços" : "Em Promoção") : "";
             var sType = glider["SelectType"] == "id" ? "Seleção Manual" : "Seleção Automática Por " + sel;
-            $("#Glider" + glider['id']).append(`<div class="info">
+            $("#Glider" + glider['id']).append(`<div class="Cinfo">
                                             <span>Itens Selecionados por:</span>
                                             <span><b>${sType}</b></span>
                                             <span>Quantidade de Itens: <b>${prods.length}</b></span>
@@ -204,17 +224,6 @@ function startGliders() {
         })
         //Adiciona Informaçoes
 
-    }).then((value) => {
-        $.get("/api/get/getCategory.php", function (category) {
-            $("#Categories").empty();
-            var item = '<option value="0" >Selecionar Categoria</option>';
-            $("#Categories").append(item);
-
-            $.each(category, function (index, value) {
-                var item = '<option value="' + value['id'] + '" name="' + value['name'] + '" >' + value['name'] + '</option>';
-                $("#Categories").append(item);
-            })
-        })
     })
 }
 
@@ -251,7 +260,7 @@ var timerCat;
 function deleteGlider(id) {
     $(".deleteConfirm").remove();
     console.log("aaa")
-    $("#Glider"+id).find(".info").find("label").find("span").next().append(`
+    $("#Glider" + id).find(".info").find("label").find("span").next().append(`
         <div class="deleteConfirm">
         <div onclick='delCarouselConfirmed("${id}")'>Deletar?</div>
         </div>
@@ -265,8 +274,8 @@ function deleteGlider(id) {
 }
 
 
-function delCarouselConfirmed(id){
-    $.post("/admin/api/post/carousel.php", { deleteGlider : id }, function (data) {
+function delCarouselConfirmed(id) {
+    $.post("/admin/api/post/carousel.php", { deleteGlider: id }, function (data) {
         startGliders();
     })
 }

@@ -3,7 +3,9 @@
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 4) {
     //header("Location: ../index.php");
-    //die(json_encode(array('status' => 403, 'message' => 'Forbidden')));
+    //header('Content-Type: application/json; charset=utf-8');
+
+    //    die(json_encode(array('status' => 403, 'message' => 'Forbidden')));
 }
 
 ?>
@@ -52,9 +54,9 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                         <span class="date">Id</span>
                         <span class="value">PRODUTOS</span>
                         <span class="value">VALOR TOTAL</span>
+                        <span class="value">FRETE</span>
                         <span class="value">CUSTO TOTAL</span>
                         <span class="value">DESCONTOS</span>
-                        <span class="value">FRETE</span>
                         <span class="value">LUCRO TOTAL</span>
                         <span class="value">LUCRO DS</span>
                     </div>
@@ -66,31 +68,34 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                     <div class="overInfo">
                         <span>Faturamento</span>
                         <i class="fa-solid fa-money-bill"></i>
-                        <b>R$<b id="InfoRelatoryInvoicing"></b><small>,</small><b></b></b>
+                        <b>R$ <b id="InfoRelatoryInvoicing"></b><small>,</small><b></b></b>
 
                     </div>
                     <div class="overInfo">
                         <span>Custos</span>
                         <i class="fa-solid fa-coins"></i>
-                        <b>R$<b id="InfoRelatoryCosts"></b><small>,</small><b></b></b>
+                        <b>R$ <b id="InfoRelatoryCosts"></b><small>,</small><b></b></b>
                     </div>
                     <div class="overInfo">
                         <span>Lucro</span>
                         <i class="fa-solid fa-sack-dollar"></i>
 
-                        <b>R$<b id="InfoRelatoryNet"></b><small>,</small><b></b></b>
+                        <b>R$ <b id="InfoRelatoryNet"></b><small>,</small><b></b></b>
 
                     </div>
                     <div class="overInfo">
                         <span>Lucro DS</span>
                         <i class="fa-solid fa-crown"></i>
-                        <b>R$<b id="InfoRelatoryNetDS"></b><small>,</small><b></b></b>
+                        <small class="--colorRed"> Estorno R$ <b id="InfoRelatoryCancelDs"></b><small>,</small><b></b></small>
+
+                        <b class="--colorGreen">R$ <b id="InfoRelatoryNetDs"></b><small>,</small><b></b></b>
 
                     </div>
                     <div class="overInfo">
                         <span>Cancelamentos</span>
                         <i class="fa-solid fa-xmark"></i>
-                        <b>R$<b id="InfoRelatoryCancel"></b><small>,</small><b></b></b>
+                        <b >R$ <b id="InfoRelatoryCancel"></b><small>,</small><b></b></b>
+
 
                     </div>
                     <div class="overInfo generateButton" id="GenerateRelatory">
@@ -121,7 +126,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                     </div>
                 </div>
                 <div class="errorShow" id="ErrorShow">
-                <pre id="json-renderer"></pre>
+                    <pre id="json-renderer"></pre>
                 </div>
             </div>
         </div>
@@ -176,7 +181,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                     Total
                     <i class="fa-solid fa-gem"></i>
                 </span>
-                <span class="boxValue"><small>R$</small><b id="InfoTotalAmount"></b><small>,</small><b></b></span>
+                <span class="boxValue"><small>R$ </small><b id="InfoTotalAmount"></b><small>,</small><b></b></span>
             </div>
         </label>
 
@@ -187,7 +192,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                     Esse Mês
                     <i class="fa-brands fa-bitcoin"></i>
                 </span>
-                <span class="boxValue"><small>R$</small><b id="InfoMonth"></b><small>,</small><b></b></span>
+                <span class="boxValue"><small>R$ </small><b id="InfoMonth"></b><small>,</small><b></b></span>
 
             </div>
         </label>
@@ -199,7 +204,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                     Futuros
                     <i class="fa-solid fa-piggy-bank"></i>
                 </span>
-                <span class="boxValue"><small>R$</small><b id="InfoFuture"></b><small>,</small><b></b></span>
+                <span class="boxValue"><small>R$ </small><b id="InfoFuture"></b><small>,</small><b></b></span>
 
             </div>
         </label>
@@ -211,8 +216,8 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                     Cancelamentos
                     <i class="fa-solid fa-skull"></i>
                 </span>
-                <small>+<b id="InfoCanceledMonth"></b> <small>,</small><b></b> Esse Mes</small>
-                <span class="boxValue"><small>R$</small><b id="InfoCanceled"></b><small>,</small><b></b></span>
+                <small class="--colorRed">+<b id="InfoCanceledMonth"></b> <small>,</small><b></b> Esse Mes</small>
+                <span class="boxValue"><small>R$ </small><b id="InfoCanceled"></b><small>,</small><b></b></span>
 
             </div>
         </label>
@@ -233,6 +238,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin
                         <span class="date">FATURAMENTO</span>
                         <span class="value">CANCELAMENTOS</span>
                         <span class="value">LUCRO TOTAL</span>
+                        <span class="value">DEVOLUÇÃO</span>
                         <span class="value">LUCRO DS</span>
                         <span class="download">
                             <i class="fa-solid fa-download"></i>

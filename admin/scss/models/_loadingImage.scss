@@ -1,0 +1,35 @@
+.loadingImage {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        position: absolute;
+        font-family: "FontAwesome";
+        content: "\f110";
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+
+        background-color: rgba($mainColor, 0.5);
+
+        width: 150%;
+        height: 300%;
+        z-index: 30;
+        font-size: 40pt;
+        color: #fff;
+        animation: rotateLoadingImage 1s infinite;
+    }
+}
+
+@keyframes rotateLoadingImage {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+

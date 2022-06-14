@@ -24,8 +24,8 @@ class categories extends dbConnect
             $data = array();
         }
         $mysqli->close();
-        return(json_encode($data, JSON_UNESCAPED_UNICODE));
+        die(json_encode($data, JSON_UNESCAPED_UNICODE));
     }
 }
 
-die((new categories())->__construct());
+new categories();

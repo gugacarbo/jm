@@ -111,21 +111,14 @@ class checkout extends dbConnect
                 //? Atualiza referencia de compras do cliente;
                 $stmt->close();
                 $clientId = $row['id'];
-                $actPurchases = json_decode($row['purchases']) ?? [];
-                $actPurchases[] = $data['reference'];
-                $jsonPurch = json_encode($actPurchases);
-                $stmt = $mysqli->prepare("UPDATE client SET purchases = ? WHERE id = ?");
-                $stmt->bind_param("si", $jsonPurch, $clientId);
-                $stmt->execute();
-                $stmt->close();
             }
         } else {
             // * Novo CLiente
             $stmt->close();
             $clientPurchases[] = $data['reference'];
             $jsonPurch = json_encode($clientPurchases);
-            $stmt = $mysqli->prepare("INSERT INTO client (gender, name, lastname, cpf, email, phone, bornDate, purchases) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssssss", $sender['gender'], $sender['nome'], $sender['sobrenome'], $cpf, $sender['email'], $sender['telefone'], $date, $jsonPurch);
+            $stmt = $mysqli->prepare("INSERT INTO client (gender, name, lastname, cpf, email, phone, bornDate) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssss", $sender['gender'], $sender['nome'], $sender['sobrenome'], $cpf, $sender['email'], $sender['telefone'], $date);
             $stmt->execute();
             $clientId = $mysqli->insert_id;
             $stmt->close();

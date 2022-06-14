@@ -1,0 +1,29 @@
+
+/*
+    * <div class="box">
+    >    <h4 class="freteGratisHeader">Title</h4>
+    * <div>
+
+*/
+
+.box {
+    max-width: 800px;
+    min-width: 400px;
+    padding: 20px;
+    border: 1px solid $mainColor;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    column-gap: 0;
+    position: relative;
+    margin-bottom: auto;
+    .boxTitle {
+        width: 100%;
+        font-size: 16pt;
+        color: $mainColor;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+}

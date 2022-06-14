@@ -5,13 +5,17 @@ header('Access-Control-Allow-Methods: GET');
 
 
 if (session_status() === PHP_SESSION_NONE) {
+    session_name(md5("JM".$_SERVER['REMOTE_ADDR']));
     session_start();
 }
+
+
 
 
 if (!isset($_SESSION['user']) || !isset($_SESSION['admin']) || ($_SESSION['admin']) < 1) {
     die(json_encode(array('status' => 403)));
 }
+
 
 
 include_once '../config/db_connect.php';
@@ -28,7 +32,7 @@ class filter extends dbConnect
         $params = array();
         $labels = "";
 
-        $sql = "SELECT * FROM products WHERE 1 = 1 ";
+        $sql = "SELECT * FROM products WHERE deleted = 0 ";
 
 
         if (isset($_GET['promo']) && is_numeric($_GET['promo']) &&   $_GET['promo'] == 1) {

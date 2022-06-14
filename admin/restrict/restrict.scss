@@ -26,6 +26,12 @@ body {
     overflow: hidden;
     background: $colorA;
 }
+.--colorRed {
+    color: $red;
+}
+.--colorGreen {
+    color: $green;
+}
 
 .--box {
     backdrop-filter: blur(10px);
@@ -321,12 +327,7 @@ body {
                 }
                 .listContent {
                     flex-direction: column-reverse;
-                    span:nth-child(5) {
-                        color: $green;
-                    }
-                    span:nth-child(3) {
-                        color: $red;
-                    }
+
                     .listItem {
                         .download {
                             width: 50%;
@@ -490,6 +491,13 @@ body {
                 b {
                     font-size: 26pt;
                 }
+                small{
+                    font-size: 12pt;
+                    *{
+                        font-size: 13pt;
+                    }
+                }
+
             }
             .generateButton {
                 background-color: $colorB;

@@ -22,6 +22,14 @@ body {
   background: #2c2e30;
 }
 
+.--colorRed {
+  color: #ff4a4a;
+}
+
+.--colorGreen {
+  color: #57ff57;
+}
+
 .--box, .restrictContent .menu .menuContent, .restrictContent .box, .restrictContent .content .chartBox, .restrictContent .content .listBox {
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
@@ -448,14 +456,6 @@ body {
           flex-direction: column-reverse;
 }
 
-.restrictContent .content .listBox .totalList .listContent span:nth-child(5) {
-  color: #57ff57;
-}
-
-.restrictContent .content .listBox .totalList .listContent span:nth-child(3) {
-  color: #ff4a4a;
-}
-
 .restrictContent .content .listBox .totalList .listContent .listItem .download {
   width: 50%;
 }
@@ -671,6 +671,14 @@ body {
 
 .restrictContent .overRelatory .overPageContent .overPageInfo .overInfo b {
   font-size: 26pt;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .overInfo small {
+  font-size: 12pt;
+}
+
+.restrictContent .overRelatory .overPageContent .overPageInfo .overInfo small * {
+  font-size: 13pt;
 }
 
 .restrictContent .overRelatory .overPageContent .overPageInfo .generateButton {
